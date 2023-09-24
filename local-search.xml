@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>网络攻击概述</title>
+    <link href="/2023/09/24/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/%E7%90%86%E8%AE%BA%E7%AF%87/01%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E6%A6%82%E8%BF%B0/"/>
+    <url>/2023/09/24/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/%E7%90%86%E8%AE%BA%E7%AF%87/01%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E6%A6%82%E8%BF%B0/</url>
+    
+    <content type="html"><![CDATA[<h1 id="1-1网络安全威胁"><a href="#1-1网络安全威胁" class="headerlink" title="1.1网络安全威胁"></a>1.1网络安全威胁</h1><h2 id="1-1-1事件"><a href="#1-1-1事件" class="headerlink" title="1.1.1事件"></a>1.1.1事件</h2><h2 id="1-1-2成因"><a href="#1-1-2成因" class="headerlink" title="1.1.2成因"></a>1.1.2成因</h2><ul><li><p>技术因素</p><ul><li>协议缺陷：网络协议缺乏认证、加密等基本的安全特性</li><li>软件漏洞：软件规模庞大，复杂度提高，开发者安全知识缺乏</li><li>策略弱点：安全需求与应用需求不相一致，安全策略设计不当</li><li>硬件漏洞：硬件设计软件化使得软件漏洞同样出现在硬件之中</li></ul></li><li><p>人为因素</p><ul><li>攻击者：成分复杂，多数掌握着丰富的攻击资源</li><li>防御者：广大的网络应用人群缺少安全知识，专业人员数量、质量尚难满足对安全人才的迫切需求</li></ul></li></ul><h1 id="1-2网络攻击技术"><a href="#1-2网络攻击技术" class="headerlink" title="1.2网络攻击技术"></a>1.2网络攻击技术</h1><h2 id="1-2-1分类"><a href="#1-2-1分类" class="headerlink" title="1.2.1分类"></a>1.2.1分类</h2><ul><li>本地（物理）攻击：指攻击者通过实际接触被攻击的主机实施的各种攻击方法</li><li>主动攻击：指攻击者利用Web、FTP、Telnet等开放网络服务对目标实施的各种攻击</li><li>被动攻击：攻击者利用浏览器、邮件接收程序、文字处理程序等客户端应用程序漏洞或系统用户弱点，对目标实施的各种攻击</li><li>中间人攻击：指攻击者处于被攻击主机的某个网络应用的中间人位置，进行数据窃听、破坏或篡改等攻击</li></ul><p>注：主动与被动，主要是看是否需要对方采取动作</p><h2 id="1-2-2步骤与方法"><a href="#1-2-2步骤与方法" class="headerlink" title="1.2.2步骤与方法"></a>1.2.2步骤与方法</h2><ul><li>信息收集</li><li>权限获取</li><li>安装后门</li><li>扩大影响</li><li>清除痕迹</li></ul><h1 id="1-3网络攻击的发展趋势"><a href="#1-3网络攻击的发展趋势" class="headerlink" title="1.3网络攻击的发展趋势"></a>1.3网络攻击的发展趋势</h1><ul><li>攻击影响日益深远</li><li>攻击领域不断扩展</li><li>攻击技术愈加精细</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>网络攻防技术 理论篇</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>GitHub+PicGo搭建免费图床</title>
     <link href="/2023/09/23/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/GitHub+PicGo%E6%90%AD%E5%BB%BA%E5%85%8D%E8%B4%B9%E5%9B%BE%E5%BA%8A/"/>
     <url>/2023/09/23/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/GitHub+PicGo%E6%90%AD%E5%BB%BA%E5%85%8D%E8%B4%B9%E5%9B%BE%E5%BA%8A/</url>
