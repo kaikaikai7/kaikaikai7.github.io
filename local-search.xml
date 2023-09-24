@@ -4,7 +4,7 @@
   
   
   <entry>
-    <title>网络攻击概述</title>
+    <title>01网络攻击概述</title>
     <link href="/2023/09/24/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/%E7%90%86%E8%AE%BA%E7%AF%87/01%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E6%A6%82%E8%BF%B0/"/>
     <url>/2023/09/24/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/%E7%90%86%E8%AE%BA%E7%AF%87/01%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E6%A6%82%E8%BF%B0/</url>
     
@@ -13,7 +13,9 @@
     
     <categories>
       
-      <category>网络攻防技术 理论篇</category>
+      <category>网络攻防技术</category>
+      
+      <category>理论篇</category>
       
     </categories>
     
