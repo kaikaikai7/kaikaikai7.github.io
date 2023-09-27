@@ -1,0 +1,699 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="kaikaikai">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1. 简介1.1 概述Nmap（“ Network Mapper ”）是一个用于网络探测和安全审计的开源工具。它被设计用于快速扫描大型网络，尽管它对于单个主机也能正常工作。Nmap 以新颖的方式使用原始IP数据包来确定网络上可用的主机、这些主机提供的服务（应用程序名称和版本）、它们运行的操作系统及其版本、正在使用中的数据包过滤器&#x2F;防火墙的类型，以及数十个其他特性。 1.2 功能 主机发现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nmap扫描工具">
+<meta property="og:url" content="http://example.com/2023/09/24/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/%E5%AE%9E%E9%AA%8C%E7%AF%87/Nmap%E6%89%AB%E6%8F%8F%E5%B7%A5%E5%85%B7/index.html">
+<meta property="og:site_name" content="kaikaikai&#39;s blog">
+<meta property="og:description" content="1. 简介1.1 概述Nmap（“ Network Mapper ”）是一个用于网络探测和安全审计的开源工具。它被设计用于快速扫描大型网络，尽管它对于单个主机也能正常工作。Nmap 以新颖的方式使用原始IP数据包来确定网络上可用的主机、这些主机提供的服务（应用程序名称和版本）、它们运行的操作系统及其版本、正在使用中的数据包过滤器&#x2F;防火墙的类型，以及数十个其他特性。 1.2 功能 主机发现">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/Nmap%E6%89%AB%E6%8F%8F%E5%B7%A5%E5%85%B7.assets/image-20230924112236211.png">
+<meta property="og:image" content="http://example.com/Nmap%E6%89%AB%E6%8F%8F%E5%B7%A5%E5%85%B7.assets/image-20230924114006070.png">
+<meta property="og:image" content="http://example.com/Nmap%E6%89%AB%E6%8F%8F%E5%B7%A5%E5%85%B7.assets/image-20230925152253035.png">
+<meta property="og:image" content="http://example.com/Nmap%E6%89%AB%E6%8F%8F%E5%B7%A5%E5%85%B7.assets/image-20230925152824970.png">
+<meta property="og:image" content="http://example.com/Nmap%E6%89%AB%E6%8F%8F%E5%B7%A5%E5%85%B7.assets/image-20230925153349280.png">
+<meta property="og:image" content="http://example.com/Nmap%E6%89%AB%E6%8F%8F%E5%B7%A5%E5%85%B7.assets/image-20230925153850582.png">
+<meta property="article:published_time" content="2023-09-24T02:18:41.000Z">
+<meta property="article:modified_time" content="2023-09-25T08:08:26.590Z">
+<meta property="article:author" content="kaikaikai">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/Nmap%E6%89%AB%E6%8F%8F%E5%B7%A5%E5%85%B7.assets/image-20230924112236211.png">
+  
+  
+  
+  <title>Nmap扫描工具 - kaikaikai&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>kaikaikai&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Nmap扫描工具"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-09-24 10:18" pubdate>
+          2023年9月24日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          35 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Nmap扫描工具</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h1><h2 id="1-1-概述"><a href="#1-1-概述" class="headerlink" title="1.1 概述"></a>1.1 概述</h2><p><code>Nmap</code>（“ Network Mapper ”）是一个用于网络探测和安全审计的开源工具。它被设计用于快速扫描大型网络，尽管它对于单个主机也能正常工作。<code>Nmap </code>以新颖的方式使用原始<code>IP</code>数据包来确定网络上可用的主机、这些主机提供的服务（应用程序名称和版本）、它们运行的操作系统及其版本、正在使用中的数据包过滤器&#x2F;防火墙的类型，以及数十个其他特性。</p>
+<h2 id="1-2-功能"><a href="#1-2-功能" class="headerlink" title="1.2 功能"></a>1.2 功能</h2><ul>
+<li>主机发现</li>
+<li>端口扫描</li>
+<li>推断主机所用的操作系统</li>
+</ul>
+<h2 id="1-3-常见用法"><a href="#1-3-常见用法" class="headerlink" title="1.3 常见用法"></a>1.3 常见用法</h2><ul>
+<li><p><code>-iL</code> <inputfilename> (从列表中输入)：可将文件中的一堆主机名或地址读取出来进行扫描。</p>
+</li>
+<li><p><code>-iR</code> <hostnum> (随机选择目标)：可以指定随机生成多少个<code>IP</code>地址。如果为0，意味着无休止的扫描。</p>
+</li>
+<li><p><code>–exclude</code>：可以排除多个不需要扫描的主机。</p>
+</li>
+<li><p><code>–excludfile</code> <excludefile> (排除文件中的列表)：排除文件中的主机列表</p>
+</li>
+</ul>
+<h1 id="2-主机发现"><a href="#2-主机发现" class="headerlink" title="2. 主机发现"></a>2. 主机发现</h1><p><code>Nmap </code>会根据当前扫描的网络来改变它的扫描方式：</p>
+<ul>
+<li>本地网络发送 <code>ARP </code>数据包；</li>
+<li>非本地网路依次发送：A) <code>ICMP echo </code>请求；B) <code>TCP SYN</code> 到端口 443；C) <code>TCP ACK </code>到端口 80；D) <code>ICMP timestap </code>请求。</li>
+</ul>
+<h2 id="2-1-sL-列表扫描"><a href="#2-1-sL-列表扫描" class="headerlink" title="2.1 -sL(列表扫描)"></a>2.1 -sL(列表扫描)</h2><p>列表扫描是主机发现的一种退化形式，它仅列出指定网络的每个主机，而不向目标主机发送任何数据包，即<strong>不进行主机发现</strong>。默认情况下，<code>Nmap </code>仍然在主机上执行<code>反向 DNS 解析</code>（<code>IP</code>→<code>域名</code>）以了解其名称。<code>Nmap </code>还在末尾报告 <code>IP </code>地址的总数。由于这个想法是简单地打印目标主机列表，因此端口扫描、操作系统检测或主机发现等更高级别功能的选项不能与此结合。</p>
+<p><img src="/Nmap%E6%89%AB%E6%8F%8F%E5%B7%A5%E5%85%B7.assets/image-20230924112236211.png" srcset="/img/loading.gif" lazyload alt="image-20230924112236211"></p>
+<h2 id="2-2-sn-无端口扫描"><a href="#2-2-sn-无端口扫描" class="headerlink" title="2.2 -sn(无端口扫描)"></a>2.2 -sn(无端口扫描)</h2><p>该选项告诉 <code>Nmap </code>在主机发现后不要进行端口扫描，而只打印出响应主机发现探测的可用主机。默认情况下，完成的默认主机发现<code>-sn</code>由 <code>ICMP</code> 回显请求、端口 443 的<code> TCP SYN</code>、端口 80 的<code> TCP ACK</code> 以及<code>ICMP</code>时间戳请求组成。当由非特权用户执行时，仅将 SYN 数据包发送（使用调用<code>connect</code>）到目标上的端口 80 和 443。当特权用户尝试扫描本地以太网上的目标时，除非 <code>--send-ip</code>指定，否则将使用 <code>ARP </code>请求。该<code>-sn</code>选项可以与任何发现探测类型（<code>-P*</code>选项）以获得更大的灵活性。如果使用任何这些探测类型和端口号选项，则默认探测将被覆盖。当运行 <code>Nmap </code>的源主机和目标网络之间存在严格的防火墙时，建议使用这些高级技术。否则，当防火墙丢弃探测或其响应时，主机可能会丢失。只利用ping扫描进行主机发现，不扫描目标主机的端口。在 <code>Nmap </code>的早期版本中，<code>-sn</code>被称为 <code>-sP</code>。·</p>
+<p><img src="/Nmap%E6%89%AB%E6%8F%8F%E5%B7%A5%E5%85%B7.assets/image-20230924114006070.png" srcset="/img/loading.gif" lazyload alt="image-20230924114006070"></p>
+<h2 id="2-3-Pn-无-ping"><a href="#2-3-Pn-无-ping" class="headerlink" title="2.3 -Pn(无 ping)"></a>2.3 -Pn(无 ping)</h2><p>该选项完全跳过主机发现阶段。通常情况下，<code>Nmap</code> 使用此阶段来确定活动机器，以便进行更大规模的扫描，并衡量网络速度。与列表扫描一样，会跳过正确的主机发现，但<code>Nmap</code>不会停止并打印目标列表，而是继续执行请求的功能，就好像每个目标 <code>IP </code>都处于活动状态一样。默认情况下，<code>Nmap </code>只对发现运行的主机执行重型探测，如端口扫描、版本检测或操作系统检测。对于本地以太网上的机器，仍然会执行 <code>ARP</code> 扫描（除非 指定<code>--disable-arp-ping</code>或<code>--send-ip</code>），因为<code>Nmap</code> 需要 MAC 地址来进一步扫描目标主机。在 <code>Nmap </code>的早期版本中，<code>-Pn</code>是 <code>-P0</code> 和 <code>-PN</code>。</p>
+<p><img src="/Nmap%E6%89%AB%E6%8F%8F%E5%B7%A5%E5%85%B7.assets/image-20230925152253035.png" srcset="/img/loading.gif" lazyload alt="image-20230925152253035"></p>
+<h2 id="2-4-PS-TCP-SYN-Ping"><a href="#2-4-PS-TCP-SYN-Ping" class="headerlink" title="2.4 -PS (TCP SYN Ping)"></a>2.4 -PS <port list>(TCP SYN Ping)</h2><p>该选项会发送一个设置了<code>SYN</code>标志的空 TCP 数据包。默认目标端口为 80。SYN 标志向远程系统表明，您正试图建立连接。通常情况下，目标端口会被关闭，并回发一个<code> RST</code>（重置）数据包。如果端口碰巧是开放的，目标系统将采取 TCP 三方握手的第二步，回应一个 <code>SYN/ACK</code> TCP 数据包。然后，运行 <code>Nmap</code> 的机器会以 <code>RST</code> 回应，而不是发送 <code>ACK </code>数据包（<code>ACK</code> 数据包将完成三方握手并建立完整连接）来破坏新生连接。<code>Nmap</code> 不关心端口是打开还是关闭。前面讨论的 <code>RST</code> 或 <code>SYN/ACK </code>响应告诉 <code>Nmap</code> 主机可用且有响应。注意：-PS和端口列表间无空格。</p>
+<p><img src="/Nmap%E6%89%AB%E6%8F%8F%E5%B7%A5%E5%85%B7.assets/image-20230925152824970.png" srcset="/img/loading.gif" lazyload alt="image-20230925152824970"></p>
+<h2 id="2-5-PA-TCP-ACK-Ping"><a href="#2-5-PA-TCP-ACK-Ping" class="headerlink" title="2.5 -PA (TCP ACK Ping)"></a>2.5 -PA <port list>(TCP ACK Ping)</h2><p><code>TCP ACK ping</code> 与刚才讨论的 SYN ping 非常相似。两者的区别在于设置的是 <code>TCP ACK</code> 标志，而不是 <code>SYN </code>标志。同时提供<code> SYN</code> 和 <code>ACK </code>ping 探测的原因是为了最大限度地绕过防火墙。该<code>-PA</code>选项使用与 SYN 探测 (80) 相同的默认端口，并且还可以采用相同格式的目标端口列表。这种 <code>ACK </code>数据包声称通过已建立的 TCP 连接确认数据，但实际上并不存在这样的连接。因此，远程主机应始终响应一个 <code>RST </code>数据包，在此过程中暴露自己的存在。</p>
+<p><img src="/Nmap%E6%89%AB%E6%8F%8F%E5%B7%A5%E5%85%B7.assets/image-20230925153349280.png" srcset="/img/loading.gif" lazyload alt="image-20230925153349280"></p>
+<h2 id="2-6-PU-UDP-Ping"><a href="#2-6-PU-UDP-Ping" class="headerlink" title="2.6 -PU  (UDP Ping)"></a>2.6 -PU <port list> (UDP Ping)</h2><p>该方法会向指定端口发送<code> UDP</code> 数据包。对于大多数端口，数据包都是空的，但有些端口会使用特定协议的有效载荷，这样更有可能得到响应。端口列表的格式与前面讨论过的 -PS 和 -PA 选项相同。如果没有指定端口，默认值为 40125。默认情况下使用的是一个非常不常用的端口，因为对于这种特殊的扫描类型来说，向开放端口发送数据通常是不可取的。一旦命中中目标计算机上的一个关闭端口，<code>UDP</code> 探测器应返回一个 <code>ICMP </code>端口不可达数据包。这就向 <code>Nmap </code>表明机器是正常运行的。许多其他类型的<code> ICMP</code> 错误，如主机&#x2F;网络不可到达或超过 TTL，都表明主机已停机或不可到达。无响应也可以这样解释。如果到达的是开放端口，大多数服务会直接忽略空数据包，不返回任何响应。这就是默认探测端口为 40125 的原因，该端口被使用的可能性很小。字符生成器 <code>chargen</code>协议等少数服务会响应空 <code>UDP</code> 数据包，从而向 <code>Nmap</code> 透露机器可用。</p>
+<p><img src="/Nmap%E6%89%AB%E6%8F%8F%E5%B7%A5%E5%85%B7.assets/image-20230925153850582.png" srcset="/img/loading.gif" lazyload alt="image-20230925153850582"></p>
+<h2 id="2-7-PY-SCTP-INIT-Ping"><a href="#2-7-PY-SCTP-INIT-Ping" class="headerlink" title="2.7 -PY  (SCTP INIT Ping)"></a>2.7 -PY <port list> (SCTP INIT Ping)</h2><p>该选项发送包含最小<code> INIT</code> 块的 <code>SCTP</code> 数据包。<code>INIT</code> 块向远程系统表明，您正试图建立关联。通常情况下，目标端口关闭，并将发送一个 <code>ABORT</code> 块。如果端口碰巧是开放的，目标系统将采取 <code>SCTP </code>四次握手的第二步，用一个 <code>INIT-ACK</code> chunk 作为回应。如果运行 <code>Nmap</code> 的机器有一个功能正常的<code>SCTP</code>协议栈，那么它就会通过响应一个<code>ABORT</code>数据块而不是发送一个 <code>COOKIE-ECHO </code>数据块（这将是四路握手的下一步）来破坏连接。<code>ABORT</code> 包由运行<code>Nmap</code>的机器内核发送，以响应意外的<code> INIT-ACK</code>，而不是由 <code>Nmap</code> 本身发送。前面讨论过的<code> ABORT</code> 或<code> INIT-ACK</code> 响应都会告诉 <code>Nmap</code>，主机是可用的并有响应。</p>
+<h2 id="2-8-PE-PP-PM-ICMP-Ping-Types"><a href="#2-8-PE-PP-PM-ICMP-Ping-Types" class="headerlink" title="2.8 -PE; -PP; -PM (ICMP Ping Types)"></a>2.8 -PE; -PP; -PM (ICMP Ping Types)</h2><p><code>Nmap</code> 向目标<code>IP</code>地址发送<code>ICMP</code>类型 8（回显请求）数据包，期望从可用主机返回类型 0（回显应答）。 不幸的是，对于网络浏览器来说，许多主机和防火墙现在会阻止这些数据包，而不是按照RFC 1122 的要求进行响应。 因此，针对 Internet 上的未知目标，仅 <code>ICMP </code>扫描很少足够可靠。但对于监控内部网络的系统管理员来说，它们可能是一种实用且有效的方法。使用该-PE选项启用此回显请求行为。<code>ICMP </code>标准（RFC 792 和 RFC 950 ）还将时间戳请求、信息请求和地址掩码请求数据包分别指定为代码 13、15 和 17。时间戳和地址掩码查询可以分别使用 -PP和-PM选项发送。</p>
+<h2 id="2-9-PO-IP-协议-Ping"><a href="#2-9-PO-IP-协议-Ping" class="headerlink" title="2.9 -PO (IP 协议 Ping)"></a>2.9 -PO <protocol list>(IP 协议 Ping)</h2><p><code>IP </code>协议 ping 是较新的主机发现选项之一，它发送的 <code>IP </code>数据包在其 <code>IP</code> 头中设置了指定的协议号。协议列表的格式与前面讨论的 <code>TCP</code>、<code>UDP </code>和 <code>SCTP</code> 主机发现选项中的端口列表相同。此主机发现方法查找使用与探针相同的协议的响应，或者查找表示目标主机不支持给定协议的 <code>ICMP</code> 协议不可达消息。无论哪种类型的响应都表明目标主机存活。</p>
+<h2 id="2-10-PR-ARP-Ping"><a href="#2-10-PR-ARP-Ping" class="headerlink" title="2.10 -PR(ARP Ping)"></a>2.10 -PR(ARP Ping)</h2><p>当启动<code>Namp</code>主机发现时候，<code>Nmap</code>会对目标地址参数进行检查，如果与自身<code>IP</code>地址匹配到同一个子网内，<code>Nmap</code>会对该类目标采用<code>ARP</code>协议进行探测。即使命令参数规定的是其他探测手段，也会先使用<code>ARP</code>进行探测。这种方式效率高，速度快，但仅限于同一子网广播域中。<code>ARP</code>（Address Resolution Protocol，地址解析协议）是用来将<code>IP</code>地址解析为<code>MAC</code>地址的协议。主机或三层网络设备上会维护一张<code>ARP</code>表，用于存储<code>IP</code>地址和<code>MAC</code>地址的映射关系，一般<code>ARP</code>表项包括动态<code>ARP</code>表项和静态<code>ARP</code>表项。</p>
+<h2 id="2-11-–disable-arp-ping-No-ARP-or-ND-Ping"><a href="#2-11-–disable-arp-ping-No-ARP-or-ND-Ping" class="headerlink" title="2.11 –disable-arp-ping (No ARP or ND Ping)"></a>2.11 –disable-arp-ping (No ARP or ND Ping)</h2><p><code>Nmap</code> 通常会发现本地连接的以太网主机的 <code>ARP</code> 或 <code>IPv6 </code>邻居发现 (ND)，即使使用了 <code>-Pn </code>或 <code>-PE</code> 等其他主机发现选项。要禁用这种隐式行为，请使用<code>--disable-arp-ping</code>选项。</p>
+<h2 id="2-12-–discovery-ignore-rst"><a href="#2-12-–discovery-ignore-rst" class="headerlink" title="2.12 –discovery-ignore-rst"></a>2.12 –discovery-ignore-rst</h2><p>在某些情况下，防火墙可能会欺骗 <code>TCP</code> 重置 (<code>RST</code>) 回复，以响应对未占用或不允许的地址的探测。由于 <code>Nmap </code>通常会将 <code>RST</code> 回复视为目标已启动的证明，这可能导致浪费扫描不存在的目标的时间。使用<code> --discovery-ignore-rst</code> 会阻止 <code>Nmap </code>在发现主机时考虑这些回复。您可能需要选择额外的主机发现选项，以确保在这种情况下不会错过目标。</p>
+<h2 id="2-13-–traceroute-跟踪主机路径"><a href="#2-13-–traceroute-跟踪主机路径" class="headerlink" title="2.13 –traceroute(跟踪主机路径)"></a>2.13 –traceroute(跟踪主机路径)</h2><p><code>Traceroute </code>的工作原理是发送 TTL（生存时间）较低的数据包，试图从扫描器和目标主机之间的中间跳诱发<code>ICMP</code>时间超限信息。标准的 <code>traceroute</code> 实现以 1 的 TTL 开始，并递增 TTL 直到到达目标主机。<code>Nmap</code>的<code>traceroute</code>从高TTL开始，然后递减TTL，直到TTL为零。这样做可以让 <code>Nmap </code>采用巧妙的缓存算法，加快对多台主机的跟踪。根据网络条件，<code>Nmap </code>平均每台主机少发送 5-10 个数据包。如果扫描的是单个子网（如 192.168.0.0&#x2F;24），<code>Nmap</code> 可能只需向大多数主机发送两个数据包。</p>
+<h1 id="3-端口扫描"><a href="#3-端口扫描" class="headerlink" title="3. 端口扫描"></a>3. 端口扫描</h1><h2 id="3-1-端口状态"><a href="#3-1-端口状态" class="headerlink" title="3.1 端口状态"></a>3.1 端口状态</h2><ul>
+<li><p><code>open</code></p>
+</li>
+<li><p><code>closed</code></p>
+</li>
+<li><p><code>filterd</code></p>
+</li>
+<li><p><code>unfilterd</code></p>
+</li>
+<li><p><code>open|unfilterd</code></p>
+</li>
+<li><p><code>closed|unfilterd</code></p>
+</li>
+</ul>
+<p>参考资料：</p>
+<ol>
+<li><code>Nmap</code>官方文档：<a target="_blank" rel="noopener" href="https://nmap.org/book/man.html">https://nmap.org/book/man.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://cshihong.github.io/2019/09/24/nmap%E6%89%AB%E6%8F%8F%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">https://cshihong.github.io/2019/09/24/nmap%E6%89%AB%E6%8F%8F%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</a></li>
+<li><a target="_blank" rel="noopener" href="https://bbs.sangfor.com.cn/forum.php?mod=viewthread&tid=141607">https://bbs.sangfor.com.cn/forum.php?mod=viewthread&amp;tid=141607</a></li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/" class="category-chain-item">网络攻防技术</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/%E5%AE%9E%E9%AA%8C%E7%AF%87/" class="category-chain-item">实验篇</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Nmap扫描工具</div>
+      <div>http://example.com/2023/09/24/网络攻防技术/实验篇/Nmap扫描工具/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>kaikaikai</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年9月24日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/09/27/SEED-LABS/Cryptography/MD5-Collision-Attack/" title="MD5 Collision Attack">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">MD5 Collision Attack</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/09/24/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/%E7%90%86%E8%AE%BA%E7%AF%87/02%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E6%8A%80%E6%9C%AF/" title="CH2-信息收集技术">
+                        <span class="hidden-mobile">CH2-信息收集技术</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
