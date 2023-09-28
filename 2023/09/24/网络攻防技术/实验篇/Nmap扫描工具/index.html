@@ -19,24 +19,24 @@
     <meta name="description" content="1 简介1.1 概述Nmap（“ Network Mapper ”）是一个用于网络探测和安全审计的开源工具。它被设计用于快速扫描大型网络，尽管它对于单个主机也能正常工作。Nmap 以新颖的方式使用原始IP数据包来确定网络上可用的主机、这些主机提供的服务（应用程序名称和版本）、它们运行的操作系统及其版本、正在使用中的数据包过滤器&#x2F;防火墙的类型，以及数十个其他特性。 1.2 功能 主机发现">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Nmap扫描工具基础">
-<meta property="og:url" content="http://example.com/2023/09/28/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/%E5%AE%9E%E9%AA%8C%E7%AF%87/Nmap%E6%89%AB%E6%8F%8F%E5%B7%A5%E5%85%B7%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:url" content="http://example.com/2023/09/24/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/%E5%AE%9E%E9%AA%8C%E7%AF%87/Nmap%E6%89%AB%E6%8F%8F%E5%B7%A5%E5%85%B7/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
 <meta property="og:description" content="1 简介1.1 概述Nmap（“ Network Mapper ”）是一个用于网络探测和安全审计的开源工具。它被设计用于快速扫描大型网络，尽管它对于单个主机也能正常工作。Nmap 以新颖的方式使用原始IP数据包来确定网络上可用的主机、这些主机提供的服务（应用程序名称和版本）、它们运行的操作系统及其版本、正在使用中的数据包过滤器&#x2F;防火墙的类型，以及数十个其他特性。 1.2 功能 主机发现">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281048776.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281048778.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281048779.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281048780.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281048781.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281048782.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281048783.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281048784.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281048785.png">
-<meta property="article:published_time" content="2023-09-28T02:18:41.000Z">
-<meta property="article:modified_time" content="2023-09-28T02:48:45.221Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281045083.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281045084.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281045085.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281045086.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281045087.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281045088.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281045089.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281045090.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281045091.png">
+<meta property="article:published_time" content="2023-09-24T02:18:41.000Z">
+<meta property="article:modified_time" content="2023-09-28T02:50:19.063Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281048776.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281045083.png">
   
   
   
@@ -205,8 +205,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-09-28 10:18" pubdate>
-          2023年9月28日 上午
+        <time datetime="2023-09-24 10:18" pubdate>
+          2023年9月24日 上午
         </time>
       </span>
     
@@ -301,17 +301,17 @@
 <li>非本地网路依次发送：A) <code>ICMP echo </code>请求；B) <code>TCP SYN</code> 到端口 443；C) <code>TCP ACK </code>到端口 80；D) <code>ICMP timestap </code>请求。</li>
 </ul>
 <h2 id="2-1-sL-列表扫描"><a href="#2-1-sL-列表扫描" class="headerlink" title="2.1 -sL(列表扫描)"></a>2.1 -sL(列表扫描)</h2><p>列表扫描是主机发现的一种退化形式，它仅列出指定网络的每个主机，而不向目标主机发送任何数据包，即<strong>不进行主机发现</strong>。默认情况下，<code>Nmap </code>仍然在主机上执行<code>反向 DNS 解析</code>（<code>IP</code>→<code>域名</code>）以了解其名称。<code>Nmap </code>还在末尾报告 <code>IP </code>地址的总数。由于这个想法是简单地打印目标主机列表，因此端口扫描、操作系统检测或主机发现等更高级别功能的选项不能与此结合。</p>
-<p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281048776.png" srcset="/img/loading.gif" lazyload alt="image-20230924112236211"></p>
+<p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281045083.png" srcset="/img/loading.gif" lazyload alt="image-20230924112236211"></p>
 <h2 id="2-2-sn-无端口扫描"><a href="#2-2-sn-无端口扫描" class="headerlink" title="2.2 -sn(无端口扫描)"></a>2.2 -sn(无端口扫描)</h2><p>该选项告诉 <code>Nmap </code>在主机发现后不要进行端口扫描，而只打印出响应主机发现探测的可用主机。默认情况下，完成的默认主机发现<code>-sn</code>由 <code>ICMP</code> 回显请求、端口 443 的<code> TCP SYN</code>、端口 80 的<code> TCP ACK</code> 以及<code>ICMP</code>时间戳请求组成。当由非特权用户执行时，仅将 SYN 数据包发送（使用调用<code>connect</code>）到目标上的端口 80 和 443。当特权用户尝试扫描本地以太网上的目标时，除非 <code>--send-ip</code>指定，否则将使用 <code>ARP </code>请求。该<code>-sn</code>选项可以与任何发现探测类型（<code>-P*</code>选项）以获得更大的灵活性。如果使用任何这些探测类型和端口号选项，则默认探测将被覆盖。当运行 <code>Nmap </code>的源主机和目标网络之间存在严格的防火墙时，建议使用这些高级技术。否则，当防火墙丢弃探测或其响应时，主机可能会丢失。只利用ping扫描进行主机发现，不扫描目标主机的端口。在 <code>Nmap </code>的早期版本中，<code>-sn</code>被称为 <code>-sP</code>。·</p>
-<p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281048778.png" srcset="/img/loading.gif" lazyload alt="image-20230924114006070"></p>
+<p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281045084.png" srcset="/img/loading.gif" lazyload alt="image-20230924114006070"></p>
 <h2 id="2-3-Pn-无-ping"><a href="#2-3-Pn-无-ping" class="headerlink" title="2.3 -Pn(无 ping)"></a>2.3 -Pn(无 ping)</h2><p>该选项完全跳过主机发现阶段。通常情况下，<code>Nmap</code> 使用此阶段来确定活动机器，以便进行更大规模的扫描，并衡量网络速度。与列表扫描一样，会跳过正确的主机发现，但<code>Nmap</code>不会停止并打印目标列表，而是继续执行请求的功能，就好像每个目标 <code>IP </code>都处于活动状态一样。默认情况下，<code>Nmap </code>只对发现运行的主机执行重型探测，如端口扫描、版本检测或操作系统检测。对于本地以太网上的机器，仍然会执行 <code>ARP</code> 扫描（除非 指定<code>--disable-arp-ping</code>或<code>--send-ip</code>），因为<code>Nmap</code> 需要 MAC 地址来进一步扫描目标主机。在 <code>Nmap </code>的早期版本中，<code>-Pn</code>是 <code>-P0</code> 和 <code>-PN</code>。</p>
-<p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281048779.png" srcset="/img/loading.gif" lazyload alt="image-20230925152253035"></p>
+<p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281045085.png" srcset="/img/loading.gif" lazyload alt="image-20230925152253035"></p>
 <h2 id="2-4-PS-TCP-SYN-Ping"><a href="#2-4-PS-TCP-SYN-Ping" class="headerlink" title="2.4 -PS (TCP SYN Ping)"></a>2.4 -PS <port list>(TCP SYN Ping)</h2><p>该选项会发送一个设置了<code>SYN</code>标志的空 TCP 数据包。默认目标端口为 80。SYN 标志向远程系统表明，您正试图建立连接。通常情况下，目标端口会被关闭，并回发一个<code> RST</code>（重置）数据包。如果端口碰巧是开放的，目标系统将采取 TCP 三方握手的第二步，回应一个 <code>SYN/ACK</code> TCP 数据包。然后，运行 <code>Nmap</code> 的机器会以 <code>RST</code> 回应，而不是发送 <code>ACK </code>数据包（<code>ACK</code> 数据包将完成三方握手并建立完整连接）来破坏新生连接。<code>Nmap</code> 不关心端口是打开还是关闭。前面讨论的 <code>RST</code> 或 <code>SYN/ACK </code>响应告诉 <code>Nmap</code> 主机可用且有响应。注意：-PS和端口列表间无空格。</p>
-<p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281048780.png" srcset="/img/loading.gif" lazyload alt="image-20230925152824970"></p>
+<p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281045086.png" srcset="/img/loading.gif" lazyload alt="image-20230925152824970"></p>
 <h2 id="2-5-PA-TCP-ACK-Ping"><a href="#2-5-PA-TCP-ACK-Ping" class="headerlink" title="2.5 -PA (TCP ACK Ping)"></a>2.5 -PA <port list>(TCP ACK Ping)</h2><p><code>TCP ACK ping</code> 与刚才讨论的 SYN ping 非常相似。两者的区别在于设置的是 <code>TCP ACK</code> 标志，而不是 <code>SYN </code>标志。同时提供<code> SYN</code> 和 <code>ACK </code>ping 探测的原因是为了最大限度地绕过防火墙。该<code>-PA</code>选项使用与 SYN 探测 (80) 相同的默认端口，并且还可以采用相同格式的目标端口列表。这种 <code>ACK </code>数据包声称通过已建立的 TCP 连接确认数据，但实际上并不存在这样的连接。因此，远程主机应始终响应一个 <code>RST </code>数据包，在此过程中暴露自己的存在。</p>
-<p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281048781.png" srcset="/img/loading.gif" lazyload alt="image-20230925153349280"></p>
+<p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281045087.png" srcset="/img/loading.gif" lazyload alt="image-20230925153349280"></p>
 <h2 id="2-6-PU-UDP-Ping"><a href="#2-6-PU-UDP-Ping" class="headerlink" title="2.6 -PU  (UDP Ping)"></a>2.6 -PU <port list> (UDP Ping)</h2><p>该方法会向指定端口发送<code> UDP</code> 数据包。对于大多数端口，数据包都是空的，但有些端口会使用特定协议的有效载荷，这样更有可能得到响应。端口列表的格式与前面讨论过的 -PS 和 -PA 选项相同。如果没有指定端口，默认值为 40125。默认情况下使用的是一个非常不常用的端口，因为对于这种特殊的扫描类型来说，向开放端口发送数据通常是不可取的。一旦命中中目标计算机上的一个关闭端口，<code>UDP</code> 探测器应返回一个 <code>ICMP </code>端口不可达数据包。这就向 <code>Nmap </code>表明机器是正常运行的。许多其他类型的<code> ICMP</code> 错误，如主机&#x2F;网络不可到达或超过 TTL，都表明主机已停机或不可到达。无响应也可以这样解释。如果到达的是开放端口，大多数服务会直接忽略空数据包，不返回任何响应。这就是默认探测端口为 40125 的原因，该端口被使用的可能性很小。字符生成器 <code>chargen</code>协议等少数服务会响应空 <code>UDP</code> 数据包，从而向 <code>Nmap</code> 透露机器可用。</p>
-<p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281048782.png" srcset="/img/loading.gif" lazyload alt="image-20230925153850582"></p>
+<p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281045088.png" srcset="/img/loading.gif" lazyload alt="image-20230925153850582"></p>
 <h2 id="2-7-PY-SCTP-INIT-Ping"><a href="#2-7-PY-SCTP-INIT-Ping" class="headerlink" title="2.7 -PY  (SCTP INIT Ping)"></a>2.7 -PY <port list> (SCTP INIT Ping)</h2><p>该选项发送包含最小<code> INIT</code> 块的 <code>SCTP</code> 数据包。<code>INIT</code> 块向远程系统表明，您正试图建立关联。通常情况下，目标端口关闭，并将发送一个 <code>ABORT</code> 块。如果端口碰巧是开放的，目标系统将采取 <code>SCTP </code>四次握手的第二步，用一个 <code>INIT-ACK</code> chunk 作为回应。如果运行 <code>Nmap</code> 的机器有一个功能正常的<code>SCTP</code>协议栈，那么它就会通过响应一个<code>ABORT</code>数据块而不是发送一个 <code>COOKIE-ECHO </code>数据块（这将是四路握手的下一步）来破坏连接。<code>ABORT</code> 包由运行<code>Nmap</code>的机器内核发送，以响应意外的<code> INIT-ACK</code>，而不是由 <code>Nmap</code> 本身发送。前面讨论过的<code> ABORT</code> 或<code> INIT-ACK</code> 响应都会告诉 <code>Nmap</code>，主机是可用的并有响应。</p>
 <h2 id="2-8-PE-PP-PM-ICMP-Ping-Types"><a href="#2-8-PE-PP-PM-ICMP-Ping-Types" class="headerlink" title="2.8 -PE; -PP; -PM (ICMP Ping Types)"></a>2.8 -PE; -PP; -PM (ICMP Ping Types)</h2><p><code>Nmap</code> 向目标<code>IP</code>地址发送<code>ICMP</code>类型 8（回显请求）数据包，期望从可用主机返回类型 0（回显应答）。 不幸的是，对于网络浏览器来说，许多主机和防火墙现在会阻止这些数据包，而不是按照RFC 1122 的要求进行响应。 因此，针对 Internet 上的未知目标，仅 <code>ICMP </code>扫描很少足够可靠。但对于监控内部网络的系统管理员来说，它们可能是一种实用且有效的方法。使用该-PE选项启用此回显请求行为。<code>ICMP </code>标准（RFC 792 和 RFC 950 ）还将时间戳请求、信息请求和地址掩码请求数据包分别指定为代码 13、15 和 17。时间戳和地址掩码查询可以分别使用 -PP和-PM选项发送。</p>
 <h2 id="2-9-PO-IP-协议-Ping"><a href="#2-9-PO-IP-协议-Ping" class="headerlink" title="2.9 -PO (IP 协议 Ping)"></a>2.9 -PO <protocol list>(IP 协议 Ping)</h2><p><code>IP </code>协议 ping 是较新的主机发现选项之一，它发送的 <code>IP </code>数据包在其 <code>IP</code> 头中设置了指定的协议号。协议列表的格式与前面讨论的 <code>TCP</code>、<code>UDP </code>和 <code>SCTP</code> 主机发现选项中的端口列表相同。此主机发现方法查找使用与探针相同的协议的响应，或者查找表示目标主机不支持给定协议的 <code>ICMP</code> 协议不可达消息。无论哪种类型的响应都表明目标主机存活。</p>
@@ -335,7 +335,7 @@
 <li><p>本节记录了 Nmap 支持的十几种端口扫描技术。一次只能使用一种方法，除了 UDP 扫描 (-sU) 和任何一种 SCTP 扫描类型 (-sY, -sZ) 可以与任何一种 TCP 扫描类型结合使用。为便于记忆，端口扫描类型选项的形式为 -s<C>，其中 <C> 是扫描名称中的一个突出字符，通常是第一个字符。唯一的例外是已废弃的 FTP 反弹扫描 (-b)。默认情况下，Nmap 执行 SYN 扫描，但如果用户没有发送原始数据包的适当权限（在 Unix 上需要 root 访问权限），Nmap 会用连接扫描代替。在本节列出的扫描中，非特权用户只能执行连接和 FTP 反弹扫描。</p>
 </li>
 </ul>
-<h2 id="3-3-sS-TCP-SYN-scan"><a href="#3-3-sS-TCP-SYN-scan" class="headerlink" title="3.3 -sS (TCP SYN scan)"></a>3.3 <code>-sS</code> (TCP SYN scan)</h2><p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281048783.png" srcset="/img/loading.gif" lazyload alt="image-20230928092641400"></p>
+<h2 id="3-3-sS-TCP-SYN-scan"><a href="#3-3-sS-TCP-SYN-scan" class="headerlink" title="3.3 -sS (TCP SYN scan)"></a>3.3 <code>-sS</code> (TCP SYN scan)</h2><p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281045089.png" srcset="/img/loading.gif" lazyload alt="image-20230928092641400"></p>
 <ul>
 <li>半连接扫描基于TCP三次握手规则，探测服务端口是否开放。</li>
 <li>服务端口开放，会返回 SYN&#x2F;ACK 消息；如果收到 SYN 数据包（不含 ACK 标志）的响应，端口也会被认为是开放的。这可能是由于一种极为罕见的 TCP 功能造成的，这种功能被称为同时打开或分裂握手连接。</li>
@@ -344,7 +344,7 @@
 <li>优点：一般不会被目标主机的应用所记录。</li>
 <li>缺点：运行Raw Socket时必须拥有管理员权限。</li>
 </ul>
-<h2 id="3-4-sT-TCP-connect-scan"><a href="#3-4-sT-TCP-connect-scan" class="headerlink" title="3.4 -sT (TCP connect scan)"></a>3.4 <code>-sT</code> (TCP connect scan)</h2><p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281048784.png" srcset="/img/loading.gif" lazyload alt="image-20230928092955007"></p>
+<h2 id="3-4-sT-TCP-connect-scan"><a href="#3-4-sT-TCP-connect-scan" class="headerlink" title="3.4 -sT (TCP connect scan)"></a>3.4 <code>-sT</code> (TCP connect scan)</h2><p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281045090.png" srcset="/img/loading.gif" lazyload alt="image-20230928092955007"></p>
 <ul>
 <li>左边为服务端，右边为客户端。</li>
 <li>当 无法使用SYN 扫描时，TCP 连接扫描是默认的 TCP 扫描类型。当用户没有原始数据包权限时就是这种情况。</li>
@@ -416,7 +416,7 @@
 <li>其他 ICMP 不可到达错误（类型 3，代码 0、1、9、10 或 13）会导致协议被标记为已过滤（尽管它们同时证明 ICMP 是开放的）。</li>
 <li>如果重传后仍未收到响应，则标记为协议已打开|已过滤</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281048785.png" srcset="/img/loading.gif" lazyload alt="image-20230928100330382"></p>
+<p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281045091.png" srcset="/img/loading.gif" lazyload alt="image-20230928100330382"></p>
 <h2 id="3-15-b-FTP-bounce-scan"><a href="#3-15-b-FTP-bounce-scan" class="headerlink" title="3.15 -b (FTP bounce scan)"></a>3.15 <code>-b </code><FTP relay host>(FTP bounce scan)</h2><ul>
 <li>利用FTP 服务器对其他主机进行端口扫描。只需让 FTP 服务器依次向目标主机的每个感兴趣的端口发送文件即可。</li>
 <li>错误信息将说明端口是否开放。</li>
@@ -490,7 +490,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>Nmap扫描工具基础</div>
-      <div>http://example.com/2023/09/28/网络攻防技术/实验篇/Nmap扫描工具基础/</div>
+      <div>http://example.com/2023/09/24/网络攻防技术/实验篇/Nmap扫描工具/</div>
     </div>
     <div class="license-meta">
       
@@ -502,7 +502,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年9月28日</div>
+          <div>2023年9月24日</div>
         </div>
       
       
@@ -534,9 +534,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/09/28/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/%E7%90%86%E8%AE%BA%E7%AF%87/03%E5%8F%A3%E4%BB%A4%E6%94%BB%E5%87%BB/" title="CH3-口令攻击">
+                      <a href="/2023/09/27/SEED-LABS/Cryptography/MD5-Collision-Attack/" title="MD5 Collision Attack">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">CH3-口令攻击</span>
+                        <span class="hidden-mobile">MD5 Collision Attack</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -544,8 +544,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/09/27/SEED-LABS/Cryptography/MD5-Collision-Attack/" title="MD5 Collision Attack">
-                        <span class="hidden-mobile">MD5 Collision Attack</span>
+                      <a href="/2023/09/24/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/%E7%90%86%E8%AE%BA%E7%AF%87/02%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E6%8A%80%E6%9C%AF/" title="CH2-信息收集技术">
+                        <span class="hidden-mobile">CH2-信息收集技术</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
