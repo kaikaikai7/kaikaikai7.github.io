@@ -16,25 +16,29 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="3.1 概述3.1.1 口令和身份认证 身份认证：用户向计算机系统以一种安全的方式提交自己的身份证明，然后由系统确认用户的身份是否属实，最终拒绝用户或者赋予用户一定的权限。  口令认证是身份认证的一种手段。  其他认证方式：磁卡或者智能卡认证 、基于人的生理特征认证、基于地理位置的认证 。  认证过程：    3.1.2 口令攻击的分类 口令分类：  静态口令 动态口令：加入不确定因子进行散列">
+    <meta name="description" content="1 爬虫工程化对爬虫的功能进行模块化开发，并达到可以批量生产的效果 2 Scrapy简介Scrapy是一个快速、高效率的网络爬虫框架，用于抓取web站点并从页面中提取结构化的数据。 Scrapy被广泛用于数据挖掘、监测和自动化测试。 官方文档：Scrapy 2.11 documentation — Scrapy 2.11.0 documentation 3 Scrapy工作流程基本爬虫工作流程：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CH3-口令攻击">
-<meta property="og:url" content="http://example.com/2023/09/28/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/%E7%90%86%E8%AE%BA%E7%AF%87/03%E5%8F%A3%E4%BB%A4%E6%94%BB%E5%87%BB/index.html">
+<meta property="og:title" content="Scrapy基本使用与介绍">
+<meta property="og:url" content="http://example.com/2023/09/29/Python/Spider/Scrapy/Scrapy%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E4%B8%8E%E4%BB%8B%E7%BB%8D/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="3.1 概述3.1.1 口令和身份认证 身份认证：用户向计算机系统以一种安全的方式提交自己的身份证明，然后由系统确认用户的身份是否属实，最终拒绝用户或者赋予用户一定的权限。  口令认证是身份认证的一种手段。  其他认证方式：磁卡或者智能卡认证 、基于人的生理特征认证、基于地理位置的认证 。  认证过程：    3.1.2 口令攻击的分类 口令分类：  静态口令 动态口令：加入不确定因子进行散列">
+<meta property="og:description" content="1 爬虫工程化对爬虫的功能进行模块化开发，并达到可以批量生产的效果 2 Scrapy简介Scrapy是一个快速、高效率的网络爬虫框架，用于抓取web站点并从页面中提取结构化的数据。 Scrapy被广泛用于数据挖掘、监测和自动化测试。 官方文档：Scrapy 2.11 documentation — Scrapy 2.11.0 documentation 3 Scrapy工作流程基本爬虫工作流程：">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281533483.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281533484.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281535352.png">
-<meta property="article:published_time" content="2023-09-28T06:32:07.000Z">
-<meta property="article:modified_time" content="2023-09-28T07:35:13.155Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309291201611.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309291201612.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309291201614.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309291201615.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309291201616.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309291201617.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309291201618.png">
+<meta property="article:published_time" content="2023-09-29T01:16:13.000Z">
+<meta property="article:modified_time" content="2023-09-29T04:01:41.981Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281533483.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309291201611.png">
   
   
   
-  <title>CH3-口令攻击 - kaikaikai&#39;s blog</title>
+  <title>Scrapy基本使用与介绍 - kaikaikai&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -188,7 +192,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="CH3-口令攻击"></span>
+            <span id="subtitle" data-typed-text="Scrapy基本使用与介绍"></span>
           
         </div>
 
@@ -199,8 +203,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-09-28 14:32" pubdate>
-          2023年9月28日 下午
+        <time datetime="2023-09-29 09:16" pubdate>
+          2023年9月29日 上午
         </time>
       </span>
     
@@ -211,7 +215,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k 字
+          1k 字
         
       </span>
     
@@ -222,7 +226,7 @@
         
         
         
-          11 分钟
+          9 分钟
         
       </span>
     
@@ -259,86 +263,61 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">CH3-口令攻击</h1>
+            <h1 id="seo-header">Scrapy基本使用与介绍</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="3-1-概述"><a href="#3-1-概述" class="headerlink" title="3.1 概述"></a>3.1 概述</h1><h2 id="3-1-1-口令和身份认证"><a href="#3-1-1-口令和身份认证" class="headerlink" title="3.1.1 口令和身份认证"></a>3.1.1 口令和身份认证</h2><ul>
-<li><p>身份认证：用户向计算机系统以一种安全的方式提交自己的身份证明，然后由系统确认用户的身份是否属实，最终拒绝用户或者赋予用户一定的权限。</p>
-</li>
-<li><p>口令认证是身份认证的一种手段。</p>
-</li>
-<li><p>其他认证方式：磁卡或者智能卡认证 、基于人的生理特征认证、基于地理位置的认证 。</p>
-</li>
-<li><p>认证过程：</p>
-<p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281533483.png" srcset="/img/loading.gif" lazyload alt="image-20230928144139441"></p>
-</li>
-</ul>
-<h2 id="3-1-2-口令攻击的分类"><a href="#3-1-2-口令攻击的分类" class="headerlink" title="3.1.2 口令攻击的分类"></a>3.1.2 口令攻击的分类</h2><ul>
-<li><p>口令分类：</p>
-<ul>
-<li>静态口令</li>
-<li>动态口令：加入不确定因子进行散列</li>
-</ul>
-</li>
-<li><p>口令攻击分类：</p>
-<ul>
-<li>针对口令强度的攻击</li>
-<li>针对口令存储的攻击：文件、缓存、数据库</li>
-<li>针对口令传输的攻击：在口令认证交互过程中，利用网络监听非法得到用户传送的口令</li>
-</ul>
-</li>
-</ul>
-<h1 id="3-2-针对口令强度的攻击"><a href="#3-2-针对口令强度的攻击" class="headerlink" title="3.2 针对口令强度的攻击"></a>3.2 针对口令强度的攻击</h1><h2 id="3-2-1-强口令与弱口令"><a href="#3-2-1-强口令与弱口令" class="headerlink" title="3.2.1 强口令与弱口令"></a>3.2.1 强口令与弱口令</h2><ul>
-<li>较为安全的口令应该不容易被发现规律，并且有足够的长度。</li>
-<li>对长度的要求随应用环境的不同而不同，应该使得攻击者在某个时间段内很难破解</li>
-</ul>
-<h2 id="3-2-2-针对口令强度的攻击"><a href="#3-2-2-针对口令强度的攻击" class="headerlink" title="3.2.2 针对口令强度的攻击"></a>3.2.2 针对口令强度的攻击</h2><ul>
-<li><p>强力攻击：穷举法</p>
-</li>
-<li><p>字典攻击：将使用概率较高的口令集中存放在字典文件中，通过不同的变异规则生成猜测字典。强力攻击的进阶版。</p>
-</li>
-<li><p>组合攻击：强力攻击+字典攻击。如：字典单词尾部串接任意个字母和数字。</p>
-</li>
-<li><p>撞库攻击：攻击者通过收集在网络上已泄露的用户名、口令等信息，之后用这些账号和口令尝试批量登录其他网站，最终得到可以登录这些网站的用户账号和口令。一般流程：拖库→洗库→撞库。</p>
-</li>
-<li><p>彩虹表破解：指拿着获取到的hash值通过查询彩虹表找出其原始值的攻击方式。狭义上，彩虹表一般是指以“hash值:原始值”为行组成的文件，如下图所示。</p>
-<p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281533484.png" srcset="/img/loading.gif" lazyload alt="img"></p>
-</li>
-</ul>
-<h1 id="3-3-针对口令存储的攻击"><a href="#3-3-针对口令存储的攻击" class="headerlink" title="3.3 针对口令存储的攻击"></a>3.3 针对口令存储的攻击</h1><ul>
-<li><p>不同系统的口令存储位置不同，有些存放在文件中，比如Linux系统的Shadow文件，Windows系统的SAM文件；有些存放在数据库中，比如Oracle数据库账户文件；有些则存放在注册表中，比如Windows平台下的许多应用软件。另外，在身份验证程序运行时，还会将口令或口令的密文加载到内存中，方便进行比较。</p>
-</li>
-<li><p>Linux shadow文件：</p>
-<p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281535352.png" srcset="/img/loading.gif" lazyload alt="image-20230928153443475"></p>
-</li>
-<li><p>salt用途：使用salt时，相同的输入可能导致不同的散列。密码散列&#x3D;单向散列循环（密码| |随机字符串）。可以防止字典攻击、彩虹表攻击。</p>
-</li>
-</ul>
-<h1 id="3-4-针对口令传输的攻击"><a href="#3-4-针对口令传输的攻击" class="headerlink" title="3.4 针对口令传输的攻击"></a>3.4 针对口令传输的攻击</h1><h2 id="3-4-1-口令嗅探"><a href="#3-4-1-口令嗅探" class="headerlink" title="3.4.1 口令嗅探"></a>3.4.1 口令嗅探</h2><ul>
-<li>如果主机B处于主机A和FTP通信的信道上，就可以“窃听到”合法的用户名及口令。</li>
-<li>802.3以太网是一种使用广播信道的网络，在以太网中所有通信都是广播的。</li>
-<li>网卡侦听模式：<ul>
-<li>广播模式</li>
-<li>组播模式</li>
-<li>普通模式</li>
-<li><strong>混杂模式</strong></li>
-</ul>
-</li>
-</ul>
-<h2 id="3-4-2-键盘记录"><a href="#3-4-2-键盘记录" class="headerlink" title="3.4.2 键盘记录"></a>3.4.2 键盘记录</h2><ul>
-<li>硬件截获：修改主机的键盘接口。</li>
-<li>软件截获：监视操作系统处理键盘输入的接口，将来自键盘的数据记录下来。</li>
-</ul>
-<h2 id="3-4-3-网络钓鱼"><a href="#3-4-3-网络钓鱼" class="headerlink" title="3.4.3 网络钓鱼"></a>3.4.3 网络钓鱼</h2><p>“网络钓鱼（Phishing）”就是攻击者利用欺骗性的电子邮件和伪造的Web站点，骗取用户输入口令以及其他身份敏感信息。</p>
-<h2 id="3-4-4-重放攻击"><a href="#3-4-4-重放攻击" class="headerlink" title="3.4.4 重放攻击"></a>3.4.4 重放攻击</h2><ul>
-<li>指攻击者记录下当前的通讯流量，以后在适当的时候重发给通讯的某一方，达到欺骗的目的。</li>
-<li>分类：简单重放、反向重放。</li>
-</ul>
-<p>参考教程：</p>
+                <h1 id="1-爬虫工程化"><a href="#1-爬虫工程化" class="headerlink" title="1 爬虫工程化"></a>1 爬虫工程化</h1><p>对爬虫的功能进行模块化开发，并达到可以批量生产的效果</p>
+<h1 id="2-Scrapy简介"><a href="#2-Scrapy简介" class="headerlink" title="2 Scrapy简介"></a>2 Scrapy简介</h1><p>Scrapy是一个快速、高效率的网络爬虫框架，用于抓取web站点并从页面中提取结构化的数据。 Scrapy被广泛用于数据挖掘、监测和自动化测试。</p>
+<p>官方文档：<a target="_blank" rel="noopener" href="https://docs.scrapy.org/en/latest/index.html">Scrapy 2.11 documentation — Scrapy 2.11.0 documentation</a></p>
+<h1 id="3-Scrapy工作流程"><a href="#3-Scrapy工作流程" class="headerlink" title="3 Scrapy工作流程"></a>3 Scrapy工作流程</h1><p>基本爬虫工作流程：</p>
+<p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309291201611.png" srcset="/img/loading.gif" lazyload alt="image-20230929093956527"></p>
+<p>Scrapy框架工作流程：</p>
+<p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309291201612.png" srcset="/img/loading.gif" lazyload alt="image-20230929093846194"></p>
 <ol>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/lsdb/p/10038835.html">https://www.cnblogs.com/lsdb/p/10038835.html</a></li>
+<li>spider（将url封装成request对象，发送给scheduler）</li>
+<li>scheduler（得到request对象，发送给downloader）</li>
+<li>downloader（发送请求，将响应封装成response对象，传递给spider）</li>
+<li>spider（进行数据解析）注：若还需要继续爬取，则重复前面几个步骤</li>
+<li>pipeline（数据持久化存储）</li>
+</ol>
+<h1 id="4-Scrapy安装"><a href="#4-Scrapy安装" class="headerlink" title="4 Scrapy安装"></a>4 Scrapy安装</h1><p>使用Anaconda Navigator创建虚拟环境，导入Scrapy包。</p>
+<p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309291201614.png" srcset="/img/loading.gif" lazyload alt="image-20230929100319426"></p>
+<p>若终端能打印版本号，则说明已安装成功。</p>
+<p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309291201615.png" srcset="/img/loading.gif" lazyload alt="image-20230929100251091"></p>
+<h1 id="5-Scrapy实例"><a href="#5-Scrapy实例" class="headerlink" title="5 Scrapy实例"></a>5 Scrapy实例</h1><h2 id="5-1-创建项目"><a href="#5-1-创建项目" class="headerlink" title="5.1 创建项目"></a>5.1 创建项目</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># projectName自取，后续操作均在生成的项目根目录下进行</span><br>scrapy startproject projectName<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309291201616.png" srcset="/img/loading.gif" lazyload alt="image-20230929101145588"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看项目根目录下目录结构</span><br>tree /f<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309291201617.png" srcset="/img/loading.gif" lazyload alt="image-20230929102306107"></p>
+<h2 id="5-2-生成爬虫"><a href="#5-2-生成爬虫" class="headerlink" title="5.2 生成爬虫"></a>5.2 生成爬虫</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># spiderName,allowed_domains按需设置</span><br>scrapy genspider spiderName allowed_domains<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309291201618.png" srcset="/img/loading.gif" lazyload alt="image-20230929103444499"></p>
+<h2 id="5-3-运行项目"><a href="#5-3-运行项目" class="headerlink" title="5.3 运行项目"></a>5.3 运行项目</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># spiderName为自己设置的爬虫名字</span><br>scrapy crawl spiderName<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="5-4-配置项目（settings-py）"><a href="#5-4-配置项目（settings-py）" class="headerlink" title="5.4 配置项目（settings.py）"></a>5.4 配置项目（settings.py）</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 设置日志级别：DEBUG、INFO、WARNING、ERROR、CRITCAL</span><br><span class="hljs-comment"># 需要自己在配置文件中添加</span><br>LOG_LEVEL = <span class="hljs-string">&quot;WARNING&quot;</span><br><br><span class="hljs-comment"># 开启管道，默认被注释</span><br><span class="hljs-comment"># key 管道路径</span><br><span class="hljs-comment"># value 管道优先级（数字越小，优先级越高）</span><br>ITEM_PIPELINES = &#123;<br>   <span class="hljs-string">&quot;game.pipelines.GamePipeline&quot;</span>: <span class="hljs-number">300</span>,<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="6-流程"><a href="#6-流程" class="headerlink" title="6 流程"></a>6 流程</h1><ol>
+<li>创建项目</li>
+<li>进入项目根目录</li>
+<li>创建爬虫</li>
+<li>修改start_urls</li>
+<li>编写parse(self, response)<ul>
+<li>默认xpath()返回Selector对象，需要进行数据提取</li>
+<li>extract()：返回列表</li>
+<li>extract_first()：返回第一个数据</li>
+<li>yield 返回数据</li>
+</ul>
+</li>
+<li>在pipeline中完成数据存储</li>
+<li>配置文件中启用管道</li>
+<li>运行爬虫</li>
 </ol>
 
                 
@@ -358,13 +337,20 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/" class="category-chain-item">网络攻防技术</a>
+  <a href="/categories/Python/" class="category-chain-item">Python</a>
   
   
     <span>></span>
     
-  <a href="/categories/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/%E7%90%86%E8%AE%BA%E7%AF%87/" class="category-chain-item">理论篇</a>
+  <a href="/categories/Python/Spider/" class="category-chain-item">Spider</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/Python/Spider/Scrapy/" class="category-chain-item">Scrapy</a>
+  
+  
+
   
 
   
@@ -385,8 +371,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>CH3-口令攻击</div>
-      <div>http://example.com/2023/09/28/网络攻防技术/理论篇/03口令攻击/</div>
+      <div>Scrapy基本使用与介绍</div>
+      <div>http://example.com/2023/09/29/Python/Spider/Scrapy/Scrapy基本使用与介绍/</div>
     </div>
     <div class="license-meta">
       
@@ -398,7 +384,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年9月28日</div>
+          <div>2023年9月29日</div>
         </div>
       
       
@@ -430,18 +416,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/09/29/Python/Spider/Scrapy/Scrapy%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E4%B8%8E%E4%BB%8B%E7%BB%8D/" title="Scrapy基本使用与介绍">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Scrapy基本使用与介绍</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/09/28/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/%E5%AE%9E%E9%AA%8C%E7%AF%87/Nmap%E6%89%AB%E6%8F%8F%E5%B7%A5%E5%85%B7%E5%9F%BA%E7%A1%80/" title="Nmap扫描工具基础">
-                        <span class="hidden-mobile">Nmap扫描工具基础</span>
+                      <a href="/2023/09/28/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/%E7%90%86%E8%AE%BA%E7%AF%87/03%E5%8F%A3%E4%BB%A4%E6%94%BB%E5%87%BB/" title="CH3-口令攻击">
+                        <span class="hidden-mobile">CH3-口令攻击</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
