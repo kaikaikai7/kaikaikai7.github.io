@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309291201617.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309291201618.png">
 <meta property="article:published_time" content="2023-09-29T01:16:13.000Z">
-<meta property="article:modified_time" content="2023-09-29T04:01:41.981Z">
+<meta property="article:modified_time" content="2023-09-30T06:57:33.490Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309291201611.png">
@@ -215,7 +215,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1k 字
+          1.2k 字
         
       </span>
     
@@ -226,7 +226,7 @@
         
         
         
-          9 分钟
+          11 分钟
         
       </span>
     
@@ -299,7 +299,7 @@
 
 
 
-<h2 id="5-4-配置项目（settings-py）"><a href="#5-4-配置项目（settings-py）" class="headerlink" title="5.4 配置项目（settings.py）"></a>5.4 配置项目（settings.py）</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 设置日志级别：DEBUG、INFO、WARNING、ERROR、CRITCAL</span><br><span class="hljs-comment"># 需要自己在配置文件中添加</span><br>LOG_LEVEL = <span class="hljs-string">&quot;WARNING&quot;</span><br><br><span class="hljs-comment"># 开启管道，默认被注释</span><br><span class="hljs-comment"># key 管道路径</span><br><span class="hljs-comment"># value 管道优先级（数字越小，优先级越高）</span><br>ITEM_PIPELINES = &#123;<br>   <span class="hljs-string">&quot;game.pipelines.GamePipeline&quot;</span>: <span class="hljs-number">300</span>,<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="5-4-配置项目（settings-py）"><a href="#5-4-配置项目（settings-py）" class="headerlink" title="5.4 配置项目（settings.py）"></a>5.4 配置项目（settings.py）</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># UA伪装，默认没有开启</span><br>USER_AGENT = <span class="hljs-string">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.43&quot;</span><br><br><span class="hljs-comment"># 不遵从robots协议，默认值为Ture</span><br>ROBOTSTXT_OBEY = <span class="hljs-literal">False</span><br><br><span class="hljs-comment"># 设置日志级别：DEBUG、INFO、WARNING、ERROR、CRITCAL</span><br><span class="hljs-comment"># 需要自己在配置文件中添加</span><br>LOG_LEVEL = <span class="hljs-string">&quot;WARNING&quot;</span><br><br><span class="hljs-comment"># 开启管道，默认被注释</span><br><span class="hljs-comment"># key 管道路径</span><br><span class="hljs-comment"># value 管道优先级（数字越小，优先级越高）</span><br>ITEM_PIPELINES = &#123;<br>   <span class="hljs-string">&quot;game.pipelines.GamePipeline&quot;</span>: <span class="hljs-number">300</span>,<br>&#125;<br></code></pre></td></tr></table></figure>
 
 
 
@@ -416,9 +416,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/09/30/Python/Spider/Scrapy/Scrapy%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8/" title="Scrapy持久化存储">
+                      <a href="/2023/09/29/Python/Spider/Scrapy/%E5%9F%BA%E4%BA%8ESpider%E7%9A%84%E5%85%A8%E7%AB%99%E6%95%B0%E6%8D%AE%E7%88%AC%E5%8F%96/" title="基于Spider的全站数据爬取">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Scrapy持久化存储</span>
+                        <span class="hidden-mobile">基于Spider的全站数据爬取</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     

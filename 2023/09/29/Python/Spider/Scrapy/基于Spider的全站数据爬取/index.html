@@ -16,21 +16,21 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1 基于终端指令 要求：只可以将parse方法的返回值存储到本地的文本文件  指令：scrapy crawl spiderName -o filePath  注意：  需在项目根目录下执行该命令 支持的文件格式：’json’, ‘jsonlines’, ‘jsonl’, ‘jl’, ‘csv’, ‘xml’, ‘marshal’, ‘pickle’   优点：简介高效便捷  局限性较强（文件类型有">
+    <meta name="description" content="1 概念将某网站中某模块下全部页码对应的页面数据进行爬取 2 实现方式 将所有页面url添加到start_urls列表中  手动实现请求发送（推荐） 12# callback为回调函数yield scrapy.Request(url,callback)">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Scrapy持久化存储">
-<meta property="og:url" content="http://example.com/2023/09/30/Python/Spider/Scrapy/Scrapy%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8/index.html">
+<meta property="og:title" content="基于Spider的全站数据爬取">
+<meta property="og:url" content="http://example.com/2023/09/29/Python/Spider/Scrapy/%E5%9F%BA%E4%BA%8ESpider%E7%9A%84%E5%85%A8%E7%AB%99%E6%95%B0%E6%8D%AE%E7%88%AC%E5%8F%96/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="1 基于终端指令 要求：只可以将parse方法的返回值存储到本地的文本文件  指令：scrapy crawl spiderName -o filePath  注意：  需在项目根目录下执行该命令 支持的文件格式：’json’, ‘jsonlines’, ‘jsonl’, ‘jl’, ‘csv’, ‘xml’, ‘marshal’, ‘pickle’   优点：简介高效便捷  局限性较强（文件类型有">
+<meta property="og:description" content="1 概念将某网站中某模块下全部页码对应的页面数据进行爬取 2 实现方式 将所有页面url添加到start_urls列表中  手动实现请求发送（推荐） 12# callback为回调函数yield scrapy.Request(url,callback)">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-09-30T01:20:13.000Z">
-<meta property="article:modified_time" content="2023-09-30T06:41:53.975Z">
+<meta property="article:published_time" content="2023-09-29T06:49:33.000Z">
+<meta property="article:modified_time" content="2023-09-30T07:47:11.848Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>Scrapy持久化存储 - kaikaikai&#39;s blog</title>
+  <title>基于Spider的全站数据爬取 - kaikaikai&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -184,7 +184,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Scrapy持久化存储"></span>
+            <span id="subtitle" data-typed-text="基于Spider的全站数据爬取"></span>
           
         </div>
 
@@ -195,8 +195,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-09-30 09:20" pubdate>
-          2023年9月30日 上午
+        <time datetime="2023-09-29 14:49" pubdate>
+          2023年9月29日 下午
         </time>
       </span>
     
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          302 字
+          117 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          3 分钟
+          1 分钟
         
       </span>
     
@@ -255,41 +255,18 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Scrapy持久化存储</h1>
+            <h1 id="seo-header">基于Spider的全站数据爬取</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="1-基于终端指令"><a href="#1-基于终端指令" class="headerlink" title="1 基于终端指令"></a>1 基于终端指令</h1><ul>
-<li><p>要求：只可以将parse方法的返回值存储到本地的文本文件</p>
+                <h1 id="1-概念"><a href="#1-概念" class="headerlink" title="1 概念"></a>1 概念</h1><p>将某网站中某模块下全部页码对应的页面数据进行爬取</p>
+<h1 id="2-实现方式"><a href="#2-实现方式" class="headerlink" title="2 实现方式"></a>2 实现方式</h1><ol>
+<li><p>将所有页面url添加到start_urls列表中</p>
 </li>
-<li><p>指令：<code>scrapy crawl spiderName -o filePath</code></p>
-</li>
-<li><p>注意：</p>
-<ul>
-<li>需在项目根目录下执行该命令</li>
-<li>支持的文件格式：’json’, ‘jsonlines’, ‘jsonl’, ‘jl’, ‘csv’, ‘xml’, ‘marshal’, ‘pickle’</li>
-</ul>
-</li>
-<li><p>优点：简介高效便捷</p>
-</li>
-<li><p>局限性较强（文件类型有限制）</p>
-</li>
-</ul>
-<h1 id="2-基于管道"><a href="#2-基于管道" class="headerlink" title="2 基于管道"></a>2 基于管道</h1><ul>
-<li><p>编码流程：</p>
-<ol>
-<li>数据解析</li>
-<li>item类中定义相关属性</li>
-<li>将解析的数据封装为item类型的对象</li>
-<li>提交item类型的对象给管道（先给优先级最高的管道，依次传递），进行持久化存储</li>
-<li>process_item对item类型对象进行处理</li>
-<li>配置文件中开启管道</li>
+<li><p>手动实现请求发送（推荐）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># callback为回调函数</span><br><span class="hljs-keyword">yield</span> scrapy.Request(url,callback)<br></code></pre></td></tr></table></figure></li>
 </ol>
-</li>
-<li><p>优点：通用性强</p>
-</li>
-</ul>
 
                 
               </div>
@@ -342,8 +319,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Scrapy持久化存储</div>
-      <div>http://example.com/2023/09/30/Python/Spider/Scrapy/Scrapy持久化存储/</div>
+      <div>基于Spider的全站数据爬取</div>
+      <div>http://example.com/2023/09/29/Python/Spider/Scrapy/基于Spider的全站数据爬取/</div>
     </div>
     <div class="license-meta">
       
@@ -355,7 +332,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年9月30日</div>
+          <div>2023年9月29日</div>
         </div>
       
       
@@ -387,12 +364,18 @@
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/2023/09/30/Python/Spider/Scrapy/Scrapy%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8/" title="Scrapy持久化存储">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Scrapy持久化存储</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/09/29/Python/Spider/Scrapy/%E5%9F%BA%E4%BA%8ESpider%E7%9A%84%E5%85%A8%E7%AB%99%E6%95%B0%E6%8D%AE%E7%88%AC%E5%8F%96/" title="基于Spider的全站数据爬取">
-                        <span class="hidden-mobile">基于Spider的全站数据爬取</span>
+                      <a href="/2023/09/29/Python/Spider/Scrapy/Scrapy%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E4%B8%8E%E4%BB%8B%E7%BB%8D/" title="Scrapy基本使用与介绍">
+                        <span class="hidden-mobile">Scrapy基本使用与介绍</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
