@@ -16,15 +16,15 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1 概念将某网站中某模块下全部页码对应的页面数据进行爬取 2 实现方式 将所有页面url添加到start_urls列表中  手动实现请求发送（推荐） 12# callback为回调函数yield scrapy.Request(url,callback)">
+    <meta name="description" content="1 概念将某网站中某模块下全部页码对应的页面数据进行爬取 2 实现方式 将所有页面url添加到start_urls列表中  手动实现请求发送（推荐） 12# callback为回调函数，进行数据解析yield scrapy.Request(url,callback)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于Spider的全站数据爬取">
 <meta property="og:url" content="http://example.com/2023/09/29/Python/Spider/Scrapy/%E5%9F%BA%E4%BA%8ESpider%E7%9A%84%E5%85%A8%E7%AB%99%E6%95%B0%E6%8D%AE%E7%88%AC%E5%8F%96/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="1 概念将某网站中某模块下全部页码对应的页面数据进行爬取 2 实现方式 将所有页面url添加到start_urls列表中  手动实现请求发送（推荐） 12# callback为回调函数yield scrapy.Request(url,callback)">
+<meta property="og:description" content="1 概念将某网站中某模块下全部页码对应的页面数据进行爬取 2 实现方式 将所有页面url添加到start_urls列表中  手动实现请求发送（推荐） 12# callback为回调函数，进行数据解析yield scrapy.Request(url,callback)">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-09-29T06:49:33.000Z">
-<meta property="article:modified_time" content="2023-09-30T07:47:11.848Z">
+<meta property="article:modified_time" content="2023-09-30T11:54:17.773Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          117 字
+          124 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          1 分钟
+          2 分钟
         
       </span>
     
@@ -265,7 +265,7 @@
 <li><p>将所有页面url添加到start_urls列表中</p>
 </li>
 <li><p>手动实现请求发送（推荐）</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># callback为回调函数</span><br><span class="hljs-keyword">yield</span> scrapy.Request(url,callback)<br></code></pre></td></tr></table></figure></li>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># callback为回调函数，进行数据解析</span><br><span class="hljs-keyword">yield</span> scrapy.Request(url,callback)<br></code></pre></td></tr></table></figure></li>
 </ol>
 
                 
