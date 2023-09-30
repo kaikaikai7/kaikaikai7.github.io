@@ -4,11 +4,30 @@
   
   
   <entry>
-    <title>Scrapy持久化存储</title>
-    <link href="/2023/09/30/Python/Spider/Scrapy/Scrapy%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8/"/>
-    <url>/2023/09/30/Python/Spider/Scrapy/Scrapy%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8/</url>
+    <title>报错：unable to access &#39;xxxxx.git&#39; Recv failure Connection was reset</title>
+    <link href="/2023/09/30/Git/%E6%8A%A5%E9%94%99%EF%BC%9Aunable%20to%20access%20&#39;xxxxx.git&#39;%20Recv%20failure%20Connection%20was%20reset/"/>
+    <url>/2023/09/30/Git/%E6%8A%A5%E9%94%99%EF%BC%9Aunable%20to%20access%20&#39;xxxxx.git&#39;%20Recv%20failure%20Connection%20was%20reset/</url>
     
-    <content type="html"><![CDATA[<h1 id="1-基于终端指令"><a href="#1-基于终端指令" class="headerlink" title="1 基于终端指令"></a>1 基于终端指令</h1><ul><li><p>要求：只可以将parse方法的返回值存储到本地的文本文件</p></li><li><p>指令：<code>scrapy crawl spiderName -o filePath</code></p></li><li><p>注意：</p><ul><li>需在项目根目录下执行该命令</li><li>支持的文件格式：’json’, ‘jsonlines’, ‘jsonl’, ‘jl’, ‘csv’, ‘xml’, ‘marshal’, ‘pickle’</li></ul></li><li><p>优点：简介高效便捷</p></li><li><p>局限性较强（文件类型有限制）</p></li></ul><h1 id="2-基于管道"><a href="#2-基于管道" class="headerlink" title="2 基于管道"></a>2 基于管道</h1><ul><li><p>编码流程：</p><ol><li>数据解析</li><li>item类中定义相关属性</li><li>将解析的数据封装为item类型的对象</li><li>提交item类型的对象给管道（先给优先级最高的管道，依次传递），进行持久化存储</li><li>process_item对item类型对象进行处理</li><li>配置文件中开启管道</li></ol></li><li><p>优点：通用性强</p></li></ul>]]></content>
+    <content type="html"><![CDATA[<h1 id="1-报错信息"><a href="#1-报错信息" class="headerlink" title="1 报错信息"></a>1 报错信息</h1><p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309302011809.png" alt="image-20230930200808727"></p><h1 id="2-解决方案"><a href="#2-解决方案" class="headerlink" title="2 解决方案"></a>2 解决方案</h1><ul><li><p>报错原因：开启了代理，所以端口不对无法连接</p></li><li><p>解决：</p><ol><li><p>查看代理使用端口，如7890</p></li><li><p>配置git</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># xxxx为端口号</span><br>git config --global http.proxy http://127.0.0.1:xxxx<br></code></pre></td></tr></table></figure></li></ol></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>Git</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>基于Spider的全站数据爬取</title>
+    <link href="/2023/09/30/Python/Spider/Scrapy/%E5%9F%BA%E4%BA%8ESpider%E7%9A%84%E5%85%A8%E7%AB%99%E6%95%B0%E6%8D%AE%E7%88%AC%E5%8F%96/"/>
+    <url>/2023/09/30/Python/Spider/Scrapy/%E5%9F%BA%E4%BA%8ESpider%E7%9A%84%E5%85%A8%E7%AB%99%E6%95%B0%E6%8D%AE%E7%88%AC%E5%8F%96/</url>
+    
+    <content type="html"><![CDATA[<h1 id="1-概念"><a href="#1-概念" class="headerlink" title="1 概念"></a>1 概念</h1><p>将某网站中某模块下全部页码对应的页面数据进行爬取</p><h1 id="2-实现方式"><a href="#2-实现方式" class="headerlink" title="2 实现方式"></a>2 实现方式</h1><ol><li><p>将所有页面url添加到start_urls列表中</p></li><li><p>手动实现请求发送（推荐）</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># callback为回调函数，进行数据解析</span><br><span class="hljs-keyword">yield</span> scrapy.Request(url,callback)<br></code></pre></td></tr></table></figure></li></ol>]]></content>
     
     
     <categories>
@@ -27,11 +46,11 @@
   
   
   <entry>
-    <title>基于Spider的全站数据爬取</title>
-    <link href="/2023/09/29/Python/Spider/Scrapy/%E5%9F%BA%E4%BA%8ESpider%E7%9A%84%E5%85%A8%E7%AB%99%E6%95%B0%E6%8D%AE%E7%88%AC%E5%8F%96/"/>
-    <url>/2023/09/29/Python/Spider/Scrapy/%E5%9F%BA%E4%BA%8ESpider%E7%9A%84%E5%85%A8%E7%AB%99%E6%95%B0%E6%8D%AE%E7%88%AC%E5%8F%96/</url>
+    <title>Scrapy持久化存储</title>
+    <link href="/2023/09/30/Python/Spider/Scrapy/Scrapy%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8/"/>
+    <url>/2023/09/30/Python/Spider/Scrapy/Scrapy%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8/</url>
     
-    <content type="html"><![CDATA[<h1 id="1-概念"><a href="#1-概念" class="headerlink" title="1 概念"></a>1 概念</h1><p>将某网站中某模块下全部页码对应的页面数据进行爬取</p><h1 id="2-实现方式"><a href="#2-实现方式" class="headerlink" title="2 实现方式"></a>2 实现方式</h1><ol><li><p>将所有页面url添加到start_urls列表中</p></li><li><p>手动实现请求发送（推荐）</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># callback为回调函数，进行数据解析</span><br><span class="hljs-keyword">yield</span> scrapy.Request(url,callback)<br></code></pre></td></tr></table></figure></li></ol>]]></content>
+    <content type="html"><![CDATA[<h1 id="1-基于终端指令"><a href="#1-基于终端指令" class="headerlink" title="1 基于终端指令"></a>1 基于终端指令</h1><ul><li><p>要求：只可以将parse方法的返回值存储到本地的文本文件</p></li><li><p>指令：<code>scrapy crawl spiderName -o filePath</code></p></li><li><p>注意：</p><ul><li>需在项目根目录下执行该命令</li><li>支持的文件格式：’json’, ‘jsonlines’, ‘jsonl’, ‘jl’, ‘csv’, ‘xml’, ‘marshal’, ‘pickle’</li></ul></li><li><p>优点：简介高效便捷</p></li><li><p>局限性较强（文件类型有限制）</p></li></ul><h1 id="2-基于管道"><a href="#2-基于管道" class="headerlink" title="2 基于管道"></a>2 基于管道</h1><ul><li><p>编码流程：</p><ol><li>数据解析</li><li>item类中定义相关属性</li><li>将解析的数据封装为item类型的对象</li><li>提交item类型的对象给管道（先给优先级最高的管道，依次传递），进行持久化存储</li><li>process_item对item类型对象进行处理</li><li>配置文件中开启管道</li></ol></li><li><p>优点：通用性强</p></li></ul>]]></content>
     
     
     <categories>
