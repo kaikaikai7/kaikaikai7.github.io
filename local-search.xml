@@ -4,6 +4,29 @@
   
   
   <entry>
+    <title>Scrapy持久化存储</title>
+    <link href="/2023/09/30/Python/Spider/Scrapy/Scrapy%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8/"/>
+    <url>/2023/09/30/Python/Spider/Scrapy/Scrapy%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8/</url>
+    
+    <content type="html"><![CDATA[<h1 id="1-基于终端指令"><a href="#1-基于终端指令" class="headerlink" title="1 基于终端指令"></a>1 基于终端指令</h1><ul><li><p>要求：只可以将parse方法的返回值存储到本地的文本文件</p></li><li><p>指令：<code>scrapy crawl spiderName -o filePath</code></p></li><li><p>注意：</p><ul><li>需在项目根目录下执行该命令</li><li>支持的文件格式：’json’, ‘jsonlines’, ‘jsonl’, ‘jl’, ‘csv’, ‘xml’, ‘marshal’, ‘pickle’</li></ul></li><li><p>优点：简介高效便捷</p></li><li><p>局限性较强（文件类型有限制）</p></li></ul><h1 id="2-基于管道"><a href="#2-基于管道" class="headerlink" title="2 基于管道"></a>2 基于管道</h1><ul><li><p>编码流程：</p><ol><li>数据解析</li><li>item类中定义相关属性</li><li>将解析的数据封装为item类型的对象</li><li>提交item类型的对象给管道（先给优先级最高的管道，依次传递），进行持久化存储</li><li>process_item对item类型对象进行处理</li><li>配置文件中开启管道</li></ol></li><li><p>优点：通用性强</p></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>Python</category>
+      
+      <category>Spider</category>
+      
+      <category>Scrapy</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Scrapy基本使用与介绍</title>
     <link href="/2023/09/29/Python/Spider/Scrapy/Scrapy%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E4%B8%8E%E4%BB%8B%E7%BB%8D/"/>
     <url>/2023/09/29/Python/Spider/Scrapy/Scrapy%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E4%B8%8E%E4%BB%8B%E7%BB%8D/</url>
