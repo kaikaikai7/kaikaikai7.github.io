@@ -16,21 +16,21 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1 使用场景爬取解析的数据不在同一张页面中 2 使用流程 请求传参传的是item的对象 meta&#x3D;&amp;#123;&#39;item&#39;:item&amp;#125;，可以将meta字典传递给请求对应的回调函数 回调函数接收item：item&#x3D;response.meta[&#39;item&#39;]  12345678910111213141516171819202122232425262728293">
+    <meta name="description" content="1 基于scrapy 字符串：只需要基于xpath进行解析，提交管道进行持久化存储 图片：xpath解析出图片src属性值，再单独对该地址发送请求获取图片二进制类型的数据  2 ImagesPipeline 只需解析出图片src属性值，提交给管道，管道就会对该地址进行请求并获得二进制响应数据  使用流程：  数据解析（图片地址）  将item提交到管道  重写一个基于ImagesPipeline的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="请求传参">
-<meta property="og:url" content="http://example.com/2023/10/01/Python/Spider/Scrapy/%E8%AF%B7%E6%B1%82%E4%BC%A0%E5%8F%82/index.html">
+<meta property="og:title" content="ImagesPipeline">
+<meta property="og:url" content="http://example.com/2023/10/02/Python/Spider/Scrapy/ImagesPipeline/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="1 使用场景爬取解析的数据不在同一张页面中 2 使用流程 请求传参传的是item的对象 meta&#x3D;&amp;#123;&#39;item&#39;:item&amp;#125;，可以将meta字典传递给请求对应的回调函数 回调函数接收item：item&#x3D;response.meta[&#39;item&#39;]  12345678910111213141516171819202122232425262728293">
+<meta property="og:description" content="1 基于scrapy 字符串：只需要基于xpath进行解析，提交管道进行持久化存储 图片：xpath解析出图片src属性值，再单独对该地址发送请求获取图片二进制类型的数据  2 ImagesPipeline 只需解析出图片src属性值，提交给管道，管道就会对该地址进行请求并获得二进制响应数据  使用流程：  数据解析（图片地址）  将item提交到管道  重写一个基于ImagesPipeline的">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-10-01T08:07:33.000Z">
-<meta property="article:modified_time" content="2023-10-01T14:02:06.068Z">
+<meta property="article:published_time" content="2023-10-02T00:50:21.000Z">
+<meta property="article:modified_time" content="2023-10-02T02:11:59.319Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>请求传参 - kaikaikai&#39;s blog</title>
+  <title>ImagesPipeline - kaikaikai&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -184,7 +184,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="请求传参"></span>
+            <span id="subtitle" data-typed-text="ImagesPipeline"></span>
           
         </div>
 
@@ -195,8 +195,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-10-01 16:07" pubdate>
-          2023年10月1日 下午
+        <time datetime="2023-10-02 08:50" pubdate>
+          2023年10月2日 早上
         </time>
       </span>
     
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k 字
+          692 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          11 分钟
+          6 分钟
         
       </span>
     
@@ -255,19 +255,36 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">请求传参</h1>
+            <h1 id="seo-header">ImagesPipeline</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="1-使用场景"><a href="#1-使用场景" class="headerlink" title="1 使用场景"></a>1 使用场景</h1><p>爬取解析的数据不在同一张页面中</p>
-<h1 id="2-使用流程"><a href="#2-使用流程" class="headerlink" title="2 使用流程"></a>2 使用流程</h1><ul>
-<li>请求传参传的是item的对象</li>
-<li><code>meta=&#123;&#39;item&#39;:item&#125;</code>，可以将meta字典传递给请求对应的回调函数</li>
-<li>回调函数接收item：<code>item=response.meta[&#39;item&#39;]</code></li>
+                <h1 id="1-基于scrapy"><a href="#1-基于scrapy" class="headerlink" title="1 基于scrapy"></a>1 基于scrapy</h1><ul>
+<li>字符串：只需要基于xpath进行解析，提交管道进行持久化存储</li>
+<li>图片：xpath解析出图片src属性值，再单独对该地址发送请求获取图片二进制类型的数据</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">BossSpider</span>(scrapy.Spider):<br>  name = <span class="hljs-string">&quot;boss&quot;</span><br>  <span class="hljs-comment"># allowed_domains = [&quot;zhipin.com&quot;]</span><br>  start_urls = [<span class="hljs-string">&quot;https://699pic.com/tupian/264659-1.html&quot;</span>]<br>  url=<span class="hljs-string">&quot;https://699pic.com/tupian/264659-%d.html&quot;</span><br>  page_num=<span class="hljs-number">2</span><br><br>  <span class="hljs-keyword">def</span> <span class="hljs-title function_">parse</span>(<span class="hljs-params">self, response</span>):<br>      li_list=response.xpath(<span class="hljs-string">&#x27;//*[@id=&quot;wrapper&quot;]/div[4]/div/div&#x27;</span>)<br>      <span class="hljs-comment"># print(li_list)</span><br>      <span class="hljs-keyword">for</span> li <span class="hljs-keyword">in</span> li_list:<br>          pic_name=li.xpath(<span class="hljs-string">&#x27;./a/@title&#x27;</span>).get()<br>          pic_id_url=<span class="hljs-string">&quot;https://&quot;</span>+li.xpath(<span class="hljs-string">&#x27;./a/@href&#x27;</span>).get()<br>          item=BossproItem()<br>          item[<span class="hljs-string">&#x27;pic_name&#x27;</span>]=pic_name<br>          <span class="hljs-comment"># ！！！手动发送请求，meta请求传参</span><br>          <span class="hljs-keyword">yield</span> scrapy.Request(url=pic_id_url,callback=self.parse_detail,meta=&#123;<span class="hljs-string">&#x27;item&#x27;</span>:item&#125;)<br><br>      <span class="hljs-keyword">if</span> self.page_num &lt;= <span class="hljs-number">3</span>:<br>          new_url=<span class="hljs-built_in">format</span>(self.url%self.page_num)<br>          self.page_num+=<span class="hljs-number">1</span><br>          <span class="hljs-keyword">yield</span> scrapy.Request(url=new_url,callback=self.parse)<br><br><br>  <span class="hljs-keyword">def</span> <span class="hljs-title function_">parse_detail</span>(<span class="hljs-params">self,response</span>):<br>      <span class="hljs-comment"># 回调函数接收item</span><br>      item=response.meta[<span class="hljs-string">&#x27;item&#x27;</span>]<br>      <span class="hljs-comment"># print(item[&#x27;pic_name&#x27;])</span><br>      pic_id=response.xpath(<span class="hljs-string">&#x27;/html/body/div[12]/div[2]/div[1]/div/div[1]/div[1]/h1/span[2]/text()&#x27;</span>).get()<br>      item[<span class="hljs-string">&#x27;pic_id&#x27;</span>]=pic_id<br>      <span class="hljs-keyword">yield</span> item<br></code></pre></td></tr></table></figure>
-
+<h1 id="2-ImagesPipeline"><a href="#2-ImagesPipeline" class="headerlink" title="2 ImagesPipeline"></a>2 ImagesPipeline</h1><ul>
+<li><p>只需解析出图片src属性值，提交给管道，管道就会对该地址进行请求并获得二进制响应数据</p>
+</li>
+<li><p>使用流程：</p>
+<ul>
+<li><p>数据解析（图片地址）</p>
+</li>
+<li><p>将item提交到管道</p>
+</li>
+<li><p>重写一个基于ImagesPipeline的一个管道类</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">imgsPipeline</span>(<span class="hljs-title class_ inherited__">ImagesPipeline</span>):<br>    <span class="hljs-comment"># 根据图片地址进行图片数据的请求</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">get_media_requests</span>(<span class="hljs-params">self, item, info</span>):<br>        <span class="hljs-keyword">yield</span> scrapy.Request(item[<span class="hljs-string">&#x27;src&#x27;</span>])<br><br>    <span class="hljs-comment"># 指定图片存储的路径</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">file_path</span>(<span class="hljs-params">self, request, response=<span class="hljs-literal">None</span>, info=<span class="hljs-literal">None</span>, *, item=<span class="hljs-literal">None</span></span>):<br>        imgName=request.url.split(<span class="hljs-string">&#x27;/&#x27;</span>)[-<span class="hljs-number">1</span>]<br>        <span class="hljs-keyword">return</span> imgName<br><br>    <span class="hljs-comment"># 返回给下一个将要执行的管道</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">item_completed</span>(<span class="hljs-params">self, results, item, info</span>):<br>        <span class="hljs-keyword">return</span> item<br><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>配置文件：指定图片存储位置；开启管道</p>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="3-图片懒加载"><a href="#3-图片懒加载" class="headerlink" title="3 图片懒加载"></a>3 图片懒加载</h1><ul>
+<li>懒加载，即延迟加载(Lazyload)。简单来说就是一个长页面中需要展示很多图像的时候，如果在进入页面的时候一次性把所有图片加载完，需要很长的时间。为了提升用户体验，我们使用懒加载，当图片出现在浏览器可视区域时，才加载图片。</li>
+<li>遇到此类情况，进行数据解析时需要使用伪属性</li>
+</ul>
 
                 
               </div>
@@ -320,8 +337,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>请求传参</div>
-      <div>http://example.com/2023/10/01/Python/Spider/Scrapy/请求传参/</div>
+      <div>ImagesPipeline</div>
+      <div>http://example.com/2023/10/02/Python/Spider/Scrapy/ImagesPipeline/</div>
     </div>
     <div class="license-meta">
       
@@ -333,7 +350,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年10月1日</div>
+          <div>2023年10月2日</div>
         </div>
       
       
@@ -365,18 +382,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/10/02/Python/Spider/Scrapy/ImagesPipeline/" title="ImagesPipeline">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">ImagesPipeline</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/09/30/Git/%E6%8A%A5%E9%94%99%EF%BC%9Aunable%20to%20access%20&#39;xxxxx.git&#39;%20Recv%20failure%20Connection%20was%20reset/" title="报错：unable to access &#39;xxxxx.git&#39; Recv failure Connection was reset">
-                        <span class="hidden-mobile">报错：unable to access &#39;xxxxx.git&#39; Recv failure Connection was reset</span>
+                      <a href="/2023/10/01/Python/Spider/Scrapy/%E8%AF%B7%E6%B1%82%E4%BC%A0%E5%8F%82/" title="请求传参">
+                        <span class="hidden-mobile">请求传参</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
