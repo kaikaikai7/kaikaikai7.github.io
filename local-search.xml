@@ -4,6 +4,52 @@
   
   
   <entry>
+    <title>基本配置（Edge版）</title>
+    <link href="/2023/10/02/Python/Spider/selenium/%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%EF%BC%88Edge%E7%89%88%EF%BC%89/"/>
+    <url>/2023/10/02/Python/Spider/selenium/%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%EF%BC%88Edge%E7%89%88%EF%BC%89/</url>
+    
+    <content type="html"><![CDATA[<ol><li><p>安装 selenium</p></li><li><p>下载浏览器引擎（需对应浏览器版本<code>浏览器 --&gt; 设置 --&gt; 关于 Microsoft Edge --&gt; 版本信息</code>）</p></li><li><p>文件重命名为： <code>MicrosoftWebDriver.exe</code></p></li><li><p>拷贝到python.exe目录下（例：<code>F:\Anaconda\install\envs\spider</code>）和浏览器目录下（例：<code>C:\Program Files (x86)\Microsoft\Edge\Application</code>）</p></li><li><p>示例代码</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> selenium <span class="hljs-keyword">import</span> webdriver<br><br><span class="hljs-comment"># msedgedriver.exe下载后放到浏览器的目录下</span><br>driver = webdriver.Edge(<span class="hljs-string">&quot;C:\Program Files (x86)\Microsoft\Edge\Application\MicrosoftWebDriver.exe&quot;</span>)<br>driver.get(<span class="hljs-string">&quot;https://www.baidu.com&quot;</span>)   <span class="hljs-comment"># 你要进入的浏览器</span><br></code></pre></td></tr></table></figure></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>Python</category>
+      
+      <category>Spider</category>
+      
+      <category>selenium</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>中间件</title>
+    <link href="/2023/10/02/Python/Spider/Scrapy/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
+    <url>/2023/10/02/Python/Spider/Scrapy/%E4%B8%AD%E9%97%B4%E4%BB%B6/</url>
+    
+    <content type="html"><![CDATA[<h1 id="1-下载中间件"><a href="#1-下载中间件" class="headerlink" title="1 下载中间件"></a>1 下载中间件</h1><ul><li><p>位置：引擎和下载器之间</p></li><li><p>作用：批量拦截到整个工程中所有的请求和响应</p></li><li><p>拦截请求：</p><ul><li>UA伪装（UA池）:process_request</li><li>代理IP（代理池）:process_exception  需要<code>return request</code></li></ul><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 拦截请求</span><br>  <span class="hljs-keyword">def</span> <span class="hljs-title function_">process_request</span>(<span class="hljs-params">self, request, spider</span>):<br>      <span class="hljs-comment"># UA伪装</span><br>      request.headers[<span class="hljs-string">&#x27;User-Agent&#x27;</span>]= random.choice(self.user_agents)<br>      <span class="hljs-comment"># 仅测试使用</span><br>      <span class="hljs-comment"># request.meta[&#x27;proxy&#x27;] = &quot;http://182.34.33.244:9999&quot;</span><br>      <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span><br>  <br>  <span class="hljs-comment"># 拦截发生异常的请求</span><br>  <span class="hljs-keyword">def</span> <span class="hljs-title function_">process_exception</span>(<span class="hljs-params">self, request, exception, spider</span>):<br>      <span class="hljs-comment"># 代理池一般在该方法中进行设置</span><br>      <span class="hljs-comment"># request.meta[&#x27;proxy&#x27;]=</span><br>      <span class="hljs-comment"># 重新发送该请求</span><br>      <span class="hljs-keyword">return</span> request<br></code></pre></td></tr></table></figure></li><li><p>拦截响应：</p><ul><li>篡改响应数据\对象（应对动态加载）</li><li>判断网页数据是否为动态加载，可以通过禁用js观察数据是否能够加载出来得到</li></ul><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">process_response</span>(<span class="hljs-params">self, request, response, spider</span>):<br>    <span class="hljs-comment"># 获取爬虫类定义的浏览器对象</span><br>    driver=spider.driver<br>    <span class="hljs-comment"># 挑选出指定响应对象进行篡改</span><br>    <span class="hljs-comment"># 挑选过程：url---request---response</span><br>    <span class="hljs-keyword">if</span> request.url <span class="hljs-keyword">in</span> spider.module_urls:<br>        <span class="hljs-comment"># 基于selenium便捷地获取动态加载数据</span><br>        driver.get(request.url)<br>        sleep(<span class="hljs-number">1</span>)<br>        page_text=driver.page_source<br>        <span class="hljs-comment"># 实例化新的响应对象</span><br>        new_response=HtmlResponse(url=request.url,body=page_text,encoding=<span class="hljs-string">&quot;utf-8&quot;</span>,request=request)<br>        <span class="hljs-keyword">return</span> new_response<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> response<br></code></pre></td></tr></table></figure></li><li><p>需要在配置文件中开启中间件</p></li></ul><h1 id="2-爬虫中间件"><a href="#2-爬虫中间件" class="headerlink" title="2 爬虫中间件"></a>2 爬虫中间件</h1>]]></content>
+    
+    
+    <categories>
+      
+      <category>Python</category>
+      
+      <category>Spider</category>
+      
+      <category>Scrapy</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>ImagesPipeline</title>
     <link href="/2023/10/02/Python/Spider/Scrapy/ImagesPipeline/"/>
     <url>/2023/10/02/Python/Spider/Scrapy/ImagesPipeline/</url>

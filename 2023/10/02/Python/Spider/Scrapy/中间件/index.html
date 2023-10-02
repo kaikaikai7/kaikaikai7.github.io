@@ -16,21 +16,21 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1 基于scrapy 字符串：只需要基于xpath进行解析，提交管道进行持久化存储 图片：xpath解析出图片src属性值，再单独对该地址发送请求获取图片二进制类型的数据  2 ImagesPipeline 只需解析出图片src属性值，提交给管道，管道就会对该地址进行请求并获得二进制响应数据  使用流程：  数据解析（图片地址）  将item提交到管道  重写一个基于ImagesPipeline的">
+    <meta name="description" content="1 下载中间件 位置：引擎和下载器之间  作用：批量拦截到整个工程中所有的请求和响应  拦截请求：  UA伪装（UA池）:process_request 代理IP（代理池）:process_exception  需要return request  1234567891011121314# 拦截请求  def process_request(self, request, spider):">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ImagesPipeline">
-<meta property="og:url" content="http://example.com/2023/10/02/Python/Spider/Scrapy/ImagesPipeline/index.html">
+<meta property="og:title" content="中间件">
+<meta property="og:url" content="http://example.com/2023/10/02/Python/Spider/Scrapy/%E4%B8%AD%E9%97%B4%E4%BB%B6/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="1 基于scrapy 字符串：只需要基于xpath进行解析，提交管道进行持久化存储 图片：xpath解析出图片src属性值，再单独对该地址发送请求获取图片二进制类型的数据  2 ImagesPipeline 只需解析出图片src属性值，提交给管道，管道就会对该地址进行请求并获得二进制响应数据  使用流程：  数据解析（图片地址）  将item提交到管道  重写一个基于ImagesPipeline的">
+<meta property="og:description" content="1 下载中间件 位置：引擎和下载器之间  作用：批量拦截到整个工程中所有的请求和响应  拦截请求：  UA伪装（UA池）:process_request 代理IP（代理池）:process_exception  需要return request  1234567891011121314# 拦截请求  def process_request(self, request, spider):">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-10-02T00:50:21.000Z">
-<meta property="article:modified_time" content="2023-10-02T02:11:59.319Z">
+<meta property="article:published_time" content="2023-10-02T02:14:17.000Z">
+<meta property="article:modified_time" content="2023-10-02T06:46:55.210Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>ImagesPipeline - kaikaikai&#39;s blog</title>
+  <title>中间件 - kaikaikai&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -184,7 +184,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="ImagesPipeline"></span>
+            <span id="subtitle" data-typed-text="中间件"></span>
           
         </div>
 
@@ -195,8 +195,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-10-02 08:50" pubdate>
-          2023年10月2日 早上
+        <time datetime="2023-10-02 10:14" pubdate>
+          2023年10月2日 上午
         </time>
       </span>
     
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          692 字
+          955 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          6 分钟
+          8 分钟
         
       </span>
     
@@ -255,37 +255,34 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">ImagesPipeline</h1>
+            <h1 id="seo-header">中间件</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="1-基于scrapy"><a href="#1-基于scrapy" class="headerlink" title="1 基于scrapy"></a>1 基于scrapy</h1><ul>
-<li>字符串：只需要基于xpath进行解析，提交管道进行持久化存储</li>
-<li>图片：xpath解析出图片src属性值，再单独对该地址发送请求获取图片二进制类型的数据</li>
-</ul>
-<h1 id="2-ImagesPipeline"><a href="#2-ImagesPipeline" class="headerlink" title="2 ImagesPipeline"></a>2 ImagesPipeline</h1><ul>
-<li><p>只需解析出图片src属性值，提交给管道，管道就会对该地址进行请求并获得二进制响应数据</p>
+                <h1 id="1-下载中间件"><a href="#1-下载中间件" class="headerlink" title="1 下载中间件"></a>1 下载中间件</h1><ul>
+<li><p>位置：引擎和下载器之间</p>
 </li>
-<li><p>使用流程：</p>
+<li><p>作用：批量拦截到整个工程中所有的请求和响应</p>
+</li>
+<li><p>拦截请求：</p>
 <ul>
-<li><p>数据解析（图片地址）</p>
+<li>UA伪装（UA池）:process_request</li>
+<li>代理IP（代理池）:process_exception  需要<code>return request</code></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 拦截请求</span><br>  <span class="hljs-keyword">def</span> <span class="hljs-title function_">process_request</span>(<span class="hljs-params">self, request, spider</span>):<br>      <span class="hljs-comment"># UA伪装</span><br>      request.headers[<span class="hljs-string">&#x27;User-Agent&#x27;</span>]= random.choice(self.user_agents)<br>      <span class="hljs-comment"># 仅测试使用</span><br>      <span class="hljs-comment"># request.meta[&#x27;proxy&#x27;] = &quot;http://182.34.33.244:9999&quot;</span><br>      <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span><br>  <br>  <span class="hljs-comment"># 拦截发生异常的请求</span><br>  <span class="hljs-keyword">def</span> <span class="hljs-title function_">process_exception</span>(<span class="hljs-params">self, request, exception, spider</span>):<br>      <span class="hljs-comment"># 代理池一般在该方法中进行设置</span><br>      <span class="hljs-comment"># request.meta[&#x27;proxy&#x27;]=</span><br>      <span class="hljs-comment"># 重新发送该请求</span><br>      <span class="hljs-keyword">return</span> request<br></code></pre></td></tr></table></figure>
 </li>
-<li><p>将item提交到管道</p>
+<li><p>拦截响应：</p>
+<ul>
+<li>篡改响应数据\对象（应对动态加载）</li>
+<li>判断网页数据是否为动态加载，可以通过禁用js观察数据是否能够加载出来得到</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">process_response</span>(<span class="hljs-params">self, request, response, spider</span>):<br>    <span class="hljs-comment"># 获取爬虫类定义的浏览器对象</span><br>    driver=spider.driver<br>    <span class="hljs-comment"># 挑选出指定响应对象进行篡改</span><br>    <span class="hljs-comment"># 挑选过程：url---request---response</span><br>    <span class="hljs-keyword">if</span> request.url <span class="hljs-keyword">in</span> spider.module_urls:<br>        <span class="hljs-comment"># 基于selenium便捷地获取动态加载数据</span><br>        driver.get(request.url)<br>        sleep(<span class="hljs-number">1</span>)<br>        page_text=driver.page_source<br>        <span class="hljs-comment"># 实例化新的响应对象</span><br>        new_response=HtmlResponse(url=request.url,body=page_text,encoding=<span class="hljs-string">&quot;utf-8&quot;</span>,request=request)<br>        <span class="hljs-keyword">return</span> new_response<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> response<br></code></pre></td></tr></table></figure>
 </li>
-<li><p>重写一个基于ImagesPipeline的一个管道类</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">imgsPipeline</span>(<span class="hljs-title class_ inherited__">ImagesPipeline</span>):<br>    <span class="hljs-comment"># 根据图片地址进行图片数据的请求</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">get_media_requests</span>(<span class="hljs-params">self, item, info</span>):<br>        <span class="hljs-keyword">yield</span> scrapy.Request(item[<span class="hljs-string">&#x27;src&#x27;</span>])<br><br>    <span class="hljs-comment"># 指定图片存储的路径</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">file_path</span>(<span class="hljs-params">self, request, response=<span class="hljs-literal">None</span>, info=<span class="hljs-literal">None</span>, *, item=<span class="hljs-literal">None</span></span>):<br>        imgName=request.url.split(<span class="hljs-string">&#x27;/&#x27;</span>)[-<span class="hljs-number">1</span>]<br>        <span class="hljs-keyword">return</span> imgName<br><br>    <span class="hljs-comment"># 返回给下一个将要执行的管道</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">item_completed</span>(<span class="hljs-params">self, results, item, info</span>):<br>        <span class="hljs-keyword">return</span> item<br><br></code></pre></td></tr></table></figure>
-</li>
-<li><p>配置文件：指定图片存储位置；开启管道</p>
+<li><p>需要在配置文件中开启中间件</p>
 </li>
 </ul>
-</li>
-</ul>
-<h1 id="3-图片懒加载"><a href="#3-图片懒加载" class="headerlink" title="3 图片懒加载"></a>3 图片懒加载</h1><ul>
-<li>懒加载，即延迟加载(Lazyload)。简单来说就是一个长页面中需要展示很多图像的时候，如果在进入页面的时候一次性把所有图片加载完，需要很长的时间。为了提升用户体验，我们使用懒加载，当图片出现在浏览器可视区域时，才加载图片。</li>
-<li>遇到此类情况，进行数据解析时需要使用伪属性</li>
-</ul>
-
+<h1 id="2-爬虫中间件"><a href="#2-爬虫中间件" class="headerlink" title="2 爬虫中间件"></a>2 爬虫中间件</h1>
                 
               </div>
             
@@ -337,8 +334,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>ImagesPipeline</div>
-      <div>http://example.com/2023/10/02/Python/Spider/Scrapy/ImagesPipeline/</div>
+      <div>中间件</div>
+      <div>http://example.com/2023/10/02/Python/Spider/Scrapy/中间件/</div>
     </div>
     <div class="license-meta">
       
@@ -382,9 +379,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/10/02/Python/Spider/Scrapy/%E4%B8%AD%E9%97%B4%E4%BB%B6/" title="中间件">
+                      <a href="/2023/10/02/Python/Spider/selenium/%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%EF%BC%88Edge%E7%89%88%EF%BC%89/" title="基本配置（Edge版）">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">中间件</span>
+                        <span class="hidden-mobile">基本配置（Edge版）</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -392,8 +389,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/10/01/Python/Spider/Scrapy/%E8%AF%B7%E6%B1%82%E4%BC%A0%E5%8F%82/" title="请求传参">
-                        <span class="hidden-mobile">请求传参</span>
+                      <a href="/2023/10/02/Python/Spider/Scrapy/ImagesPipeline/" title="ImagesPipeline">
+                        <span class="hidden-mobile">ImagesPipeline</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
