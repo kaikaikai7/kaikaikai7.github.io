@@ -16,29 +16,21 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1 爬虫工程化对爬虫的功能进行模块化开发，并达到可以批量生产的效果 2 Scrapy简介Scrapy是一个快速、高效率的网络爬虫框架，用于抓取web站点并从页面中提取结构化的数据。 Scrapy被广泛用于数据挖掘、监测和自动化测试。 官方文档：Scrapy 2.11 documentation — Scrapy 2.11.0 documentation 3 Scrapy工作流程基本爬虫工作流程：">
+    <meta name="description" content="1 概念CrawlSpider：Spider的一个子类 2 使用 创建工程  cd  project  创建爬虫文件（CrawlSpider）:scrapy genspider -t crawl spiderName allowed_domains  链接提取器：根据指定规则（allow&#x3D;”正则”）进行指定链接的提取 规则解析器：将链接提取器提取到的链接进行指定规则（callback）的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Scrapy基本使用与介绍">
-<meta property="og:url" content="http://example.com/2023/09/29/Python/Spider/Scrapy/Scrapy%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E4%B8%8E%E4%BB%8B%E7%BB%8D/index.html">
+<meta property="og:title" content="基于CrawlSpider的全站数据爬取">
+<meta property="og:url" content="http://example.com/2023/10/02/Python/Spider/Scrapy/%E5%9F%BA%E4%BA%8ECrawlSpider%E7%9A%84%E5%85%A8%E7%AB%99%E6%95%B0%E6%8D%AE%E7%88%AC%E5%8F%96/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="1 爬虫工程化对爬虫的功能进行模块化开发，并达到可以批量生产的效果 2 Scrapy简介Scrapy是一个快速、高效率的网络爬虫框架，用于抓取web站点并从页面中提取结构化的数据。 Scrapy被广泛用于数据挖掘、监测和自动化测试。 官方文档：Scrapy 2.11 documentation — Scrapy 2.11.0 documentation 3 Scrapy工作流程基本爬虫工作流程：">
+<meta property="og:description" content="1 概念CrawlSpider：Spider的一个子类 2 使用 创建工程  cd  project  创建爬虫文件（CrawlSpider）:scrapy genspider -t crawl spiderName allowed_domains  链接提取器：根据指定规则（allow&#x3D;”正则”）进行指定链接的提取 规则解析器：将链接提取器提取到的链接进行指定规则（callback）的">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309291201611.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309291201612.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309291201614.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309291201615.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309291201616.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309291201617.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309291201618.png">
-<meta property="article:published_time" content="2023-09-29T01:16:13.000Z">
-<meta property="article:modified_time" content="2023-10-02T08:37:08.015Z">
+<meta property="article:published_time" content="2023-10-02T07:42:33.000Z">
+<meta property="article:modified_time" content="2023-10-02T08:57:35.114Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309291201611.png">
   
   
   
-  <title>Scrapy基本使用与介绍 - kaikaikai&#39;s blog</title>
+  <title>基于CrawlSpider的全站数据爬取 - kaikaikai&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -192,7 +184,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Scrapy基本使用与介绍"></span>
+            <span id="subtitle" data-typed-text="基于CrawlSpider的全站数据爬取"></span>
           
         </div>
 
@@ -203,8 +195,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-09-29 09:16" pubdate>
-          2023年9月29日 上午
+        <time datetime="2023-10-02 15:42" pubdate>
+          2023年10月2日 下午
         </time>
       </span>
     
@@ -215,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k 字
+          718 字
         
       </span>
     
@@ -226,7 +218,7 @@
         
         
         
-          11 分钟
+          6 分钟
         
       </span>
     
@@ -263,62 +255,31 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Scrapy基本使用与介绍</h1>
+            <h1 id="seo-header">基于CrawlSpider的全站数据爬取</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="1-爬虫工程化"><a href="#1-爬虫工程化" class="headerlink" title="1 爬虫工程化"></a>1 爬虫工程化</h1><p>对爬虫的功能进行模块化开发，并达到可以批量生产的效果</p>
-<h1 id="2-Scrapy简介"><a href="#2-Scrapy简介" class="headerlink" title="2 Scrapy简介"></a>2 Scrapy简介</h1><p>Scrapy是一个快速、高效率的网络爬虫框架，用于抓取web站点并从页面中提取结构化的数据。 Scrapy被广泛用于数据挖掘、监测和自动化测试。</p>
-<p>官方文档：<a target="_blank" rel="noopener" href="https://docs.scrapy.org/en/latest/index.html">Scrapy 2.11 documentation — Scrapy 2.11.0 documentation</a></p>
-<h1 id="3-Scrapy工作流程"><a href="#3-Scrapy工作流程" class="headerlink" title="3 Scrapy工作流程"></a>3 Scrapy工作流程</h1><p><strong>基本爬虫工作流程：</strong></p>
-<p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309291201611.png" srcset="/img/loading.gif" lazyload alt="image-20230929093956527"></p>
-<p><strong>Scrapy框架工作流程：</strong></p>
-<p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309291201612.png" srcset="/img/loading.gif" lazyload alt="image-20230929093846194"></p>
-<ol>
-<li>引擎：用来处理整个系统的数据流，触发事务。（核心）</li>
-<li>spider（将url封装成request对象，发送给scheduler）</li>
-<li>scheduler（得到request对象，进行过滤，压入队列，发送给downloader）</li>
-<li>downloader（发送请求，将响应封装成response对象，传递给spider）</li>
-<li>spider（进行数据解析）注：若还需要继续爬取，则重复前面几个步骤</li>
-<li>pipeline（数据持久化存储）</li>
-</ol>
-<h1 id="4-Scrapy安装"><a href="#4-Scrapy安装" class="headerlink" title="4 Scrapy安装"></a>4 Scrapy安装</h1><p>使用Anaconda Navigator创建虚拟环境，导入Scrapy包。</p>
-<p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309291201614.png" srcset="/img/loading.gif" lazyload alt="image-20230929100319426"></p>
-<p>若终端能打印版本号，则说明已安装成功。</p>
-<p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309291201615.png" srcset="/img/loading.gif" lazyload alt="image-20230929100251091"></p>
-<h1 id="5-Scrapy实例"><a href="#5-Scrapy实例" class="headerlink" title="5 Scrapy实例"></a>5 Scrapy实例</h1><h2 id="5-1-创建项目"><a href="#5-1-创建项目" class="headerlink" title="5.1 创建项目"></a>5.1 创建项目</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># projectName自取，后续操作均在生成的项目根目录下进行</span><br>scrapy startproject projectName<br></code></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309291201616.png" srcset="/img/loading.gif" lazyload alt="image-20230929101145588"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看项目根目录下目录结构</span><br>tree /f<br></code></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309291201617.png" srcset="/img/loading.gif" lazyload alt="image-20230929102306107"></p>
-<h2 id="5-2-生成爬虫"><a href="#5-2-生成爬虫" class="headerlink" title="5.2 生成爬虫"></a>5.2 生成爬虫</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># spiderName,allowed_domains按需设置</span><br>scrapy genspider spiderName allowed_domains<br></code></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309291201618.png" srcset="/img/loading.gif" lazyload alt="image-20230929103444499"></p>
-<h2 id="5-3-运行项目"><a href="#5-3-运行项目" class="headerlink" title="5.3 运行项目"></a>5.3 运行项目</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># spiderName为自己设置的爬虫名字</span><br>scrapy crawl spiderName<br></code></pre></td></tr></table></figure>
-
-
-
-<h2 id="5-4-配置项目（settings-py）"><a href="#5-4-配置项目（settings-py）" class="headerlink" title="5.4 配置项目（settings.py）"></a>5.4 配置项目（settings.py）</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># UA伪装，默认没有开启</span><br>USER_AGENT = <span class="hljs-string">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.43&quot;</span><br><br><span class="hljs-comment"># 不遵从robots协议，默认值为Ture</span><br>ROBOTSTXT_OBEY = <span class="hljs-literal">False</span><br><br><span class="hljs-comment"># 设置日志级别：DEBUG、INFO、WARNING、ERROR、CRITCAL</span><br><span class="hljs-comment"># 需要自己在配置文件中添加</span><br>LOG_LEVEL = <span class="hljs-string">&quot;WARNING&quot;</span><br><br><span class="hljs-comment"># 开启管道，默认被注释</span><br><span class="hljs-comment"># key 管道路径</span><br><span class="hljs-comment"># value 管道优先级（数字越小，优先级越高）</span><br>ITEM_PIPELINES = &#123;<br>   <span class="hljs-string">&quot;game.pipelines.GamePipeline&quot;</span>: <span class="hljs-number">300</span>,<br>&#125;<br></code></pre></td></tr></table></figure>
-
-
-
-<h1 id="6-流程"><a href="#6-流程" class="headerlink" title="6 流程"></a>6 流程</h1><ol>
-<li>创建项目</li>
-<li>进入项目根目录</li>
-<li>创建爬虫</li>
-<li>修改start_urls</li>
-<li>编写parse(self, response)<ul>
-<li>默认xpath()返回Selector对象，需要进行数据提取。注意：xpath中不能有tbody标签</li>
-<li>extract()：返回列表</li>
-<li>extract_first()：返回第一个数据</li>
-<li>yield 返回数据</li>
-</ul>
+                <h1 id="1-概念"><a href="#1-概念" class="headerlink" title="1 概念"></a>1 概念</h1><p>CrawlSpider：Spider的一个子类</p>
+<h1 id="2-使用"><a href="#2-使用" class="headerlink" title="2 使用"></a>2 使用</h1><ol>
+<li><p>创建工程</p>
 </li>
-<li>在pipeline中完成数据存储</li>
-<li>配置文件中启用管道</li>
-<li>运行爬虫</li>
+<li><p>cd  project</p>
+</li>
+<li><p>创建爬虫文件（CrawlSpider）:<code>scrapy genspider -t crawl spiderName allowed_domains</code></p>
+<ul>
+<li>链接提取器：根据指定规则（allow&#x3D;”正则”）进行指定链接的提取</li>
+<li>规则解析器：将链接提取器提取到的链接进行指定规则（callback）的解析操作</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> scrapy<br><span class="hljs-keyword">from</span> scrapy.linkextractors <span class="hljs-keyword">import</span> LinkExtractor<br><span class="hljs-keyword">from</span> scrapy.spiders <span class="hljs-keyword">import</span> CrawlSpider, Rule<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">CrawlspiderSpider</span>(<span class="hljs-title class_ inherited__">CrawlSpider</span>):<br>    name = <span class="hljs-string">&quot;crawlspider&quot;</span><br>    allowed_domains = [<span class="hljs-string">&quot;xxx.com&quot;</span>]<br>    start_urls = [<span class="hljs-string">&quot;http://xxx.com/&quot;</span>]<br><br>    link=LinkExtractor(allow=<span class="hljs-string">r&quot;Items/&quot;</span>)<br>    rules = (<br>        <span class="hljs-comment"># 规则解析器</span><br>        <span class="hljs-comment"># 链接提取器作为一个参数被作用到规则解析器里</span><br>        <span class="hljs-comment"># follow为ture时可以将链接提取器继续作用到链接提取器提取到的链接对应页面中</span><br>        Rule(link, callback=<span class="hljs-string">&quot;parse_item&quot;</span>, follow=<span class="hljs-literal">True</span>),<br>    )<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">parse_item</span>(<span class="hljs-params">self, response</span>):<br>        <span class="hljs-keyword">pass</span><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+<h1 id="3-item"><a href="#3-item" class="headerlink" title="3 item"></a>3 item</h1><p>当有多个item时，若需要判断item类型，使用：<code>item.__class__.__name__</code></p>
+</li>
 </ol>
 
                 
@@ -372,8 +333,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Scrapy基本使用与介绍</div>
-      <div>http://example.com/2023/09/29/Python/Spider/Scrapy/Scrapy基本使用与介绍/</div>
+      <div>基于CrawlSpider的全站数据爬取</div>
+      <div>http://example.com/2023/10/02/Python/Spider/Scrapy/基于CrawlSpider的全站数据爬取/</div>
     </div>
     <div class="license-meta">
       
@@ -385,7 +346,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年9月29日</div>
+          <div>2023年10月2日</div>
         </div>
       
       
@@ -417,18 +378,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/09/30/Python/Spider/Scrapy/Scrapy%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8/" title="Scrapy持久化存储">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Scrapy持久化存储</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/09/28/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/%E7%90%86%E8%AE%BA%E7%AF%87/03%E5%8F%A3%E4%BB%A4%E6%94%BB%E5%87%BB/" title="CH3-口令攻击">
-                        <span class="hidden-mobile">CH3-口令攻击</span>
+                      <a href="/2023/10/02/Python/Spider/selenium/%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%EF%BC%88Edge%E7%89%88%EF%BC%89/" title="基本配置（Edge版）">
+                        <span class="hidden-mobile">基本配置（Edge版）</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
