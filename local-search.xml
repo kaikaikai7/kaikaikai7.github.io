@@ -4,6 +4,29 @@
   
   
   <entry>
+    <title>分布式爬虫基础</title>
+    <link href="/2023/10/04/Python/Spider/Scrapy/%E5%88%86%E5%B8%83%E5%BC%8F%E7%88%AC%E8%99%AB%E5%9F%BA%E7%A1%80/"/>
+    <url>/2023/10/04/Python/Spider/Scrapy/%E5%88%86%E5%B8%83%E5%BC%8F%E7%88%AC%E8%99%AB%E5%9F%BA%E7%A1%80/</url>
+    
+    <content type="html"><![CDATA[<h1 id="1-概念"><a href="#1-概念" class="headerlink" title="1 概念"></a>1 概念</h1><p>搭建一个分布式的机群，让其对一组资源进行分布联合爬取</p><h1 id="2-作用"><a href="#2-作用" class="headerlink" title="2 作用"></a>2 作用</h1><p>提高爬取数据的效率</p><h1 id="3-实现"><a href="#3-实现" class="headerlink" title="3 实现"></a>3 实现</h1><ul><li><p>环境准备</p><ul><li>安装<code>scrapy-redis</code>组件（原生的scrapy不能实现分布式爬虫,因为调度器和管道不能被分布式机群共享，所以需要配合该组件进行实现）</li><li><code>scrapy-redis</code>组件作用：给原生的scrapy框架提供可以被共享的调度器和管道</li></ul></li><li><p>实现流程：</p><ul><li><p>创建一个工程</p></li><li><p>创建一个基于CrawlSpider的爬虫文件</p></li><li><p>修改当前爬虫文件</p><ul><li>导入模块：<code>from scrapy_redis.spiders import RedisCrawlSpider</code></li><li>注释allowed_domains和start_urls</li><li>添加属性（共享的调度器队列名称）：<code>redis_key=&#39;xxx&#39;</code></li><li>修改父类为：<code>RedisCrawlSpider</code></li></ul></li><li><p>修改配置文件</p><ul><li><p>指定管道</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">ITEM_PIPELINES = &#123;<br>    <span class="hljs-string">&#x27;scrapy_redis.pipelines.RedisPipeline&#x27;</span>:<span class="hljs-number">400</span><br>&#125;<br></code></pre></td></tr></table></figure></li><li><p>指定调度器</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 去重容器类：使用Redis的set集合来存储请求的指纹数据，从而实现请求去重的持久化</span><br>DUPEFILTER_CLASS= <span class="hljs-string">&quot;scrapy_redis.dupefilter.RFPDupeFilter&quot;</span><br><span class="hljs-comment"># 使用scrapy_redis组件自己的调度器</span><br>SCHEDULER=<span class="hljs-string">&quot;scrapy_redis.scheduler.Scheduler&quot;</span><br><span class="hljs-comment"># 配置调度器是否持久化，即当爬虫结束，是否清空Redis请求队列和set指纹数据</span><br>SCHEDULER_PERSIST=<span class="hljs-literal">True</span><br></code></pre></td></tr></table></figure></li><li><p>指定redis服务器</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">REDIS_HOST=<span class="hljs-string">&#x27;&#x27;</span><br>REDIS_PORT=<br></code></pre></td></tr></table></figure></li></ul></li><li><p>redis相关操作配置</p><ul><li>修改redis配置文件（redis.windows.conf）：注释<code>bind 127.0.0.1</code>；关闭保护模式(是否允许其他客户端写数据)：<code>protected-mode no</code></li><li>结合配置文件开启redis服务：<code>redis-server 配置文件</code></li><li>启动客户端：<code>redis-cli</code></li></ul></li><li><p>执行工程：<code>scrapy runspider xxx.py</code>（spider目录下）</p></li><li><p>向调度器队列中放入一个起始url（客户端中执行）：<code>lpush xxx xxx.com</code></p></li><li><p>数据存储位置proName:items</p></li></ul></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>Python</category>
+      
+      <category>Spider</category>
+      
+      <category>Scrapy</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>基于CrawlSpider的全站数据爬取</title>
     <link href="/2023/10/02/Python/Spider/Scrapy/%E5%9F%BA%E4%BA%8ECrawlSpider%E7%9A%84%E5%85%A8%E7%AB%99%E6%95%B0%E6%8D%AE%E7%88%AC%E5%8F%96/"/>
     <url>/2023/10/02/Python/Spider/Scrapy/%E5%9F%BA%E4%BA%8ECrawlSpider%E7%9A%84%E5%85%A8%E7%AB%99%E6%95%B0%E6%8D%AE%E7%88%AC%E5%8F%96/</url>
@@ -41,6 +64,29 @@
       <category>Spider</category>
       
       <category>selenium</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>基于Spider的全站数据爬取</title>
+    <link href="/2023/10/02/Python/Spider/Scrapy/%E5%9F%BA%E4%BA%8ESpider%E7%9A%84%E5%85%A8%E7%AB%99%E6%95%B0%E6%8D%AE%E7%88%AC%E5%8F%96/"/>
+    <url>/2023/10/02/Python/Spider/Scrapy/%E5%9F%BA%E4%BA%8ESpider%E7%9A%84%E5%85%A8%E7%AB%99%E6%95%B0%E6%8D%AE%E7%88%AC%E5%8F%96/</url>
+    
+    <content type="html"><![CDATA[<h1 id="1-概念"><a href="#1-概念" class="headerlink" title="1 概念"></a>1 概念</h1><p>将某网站中某模块下全部页码对应的页面数据进行爬取</p><h1 id="2-实现方式"><a href="#2-实现方式" class="headerlink" title="2 实现方式"></a>2 实现方式</h1><ol><li><p>将所有页面url添加到start_urls列表中</p></li><li><p>手动实现请求发送（推荐）</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">XiaohuaSpider</span>(scrapy.Spider):<br>    name = <span class="hljs-string">&quot;xiaohua&quot;</span><br>    allowed_domains = [<span class="hljs-string">&quot;699pic.com&quot;</span>]<br>    start_urls = [<span class="hljs-string">&quot;https://699pic.com/tupian/photo-264659.html&quot;</span>]<br><br>    <span class="hljs-comment"># 通用url模板</span><br>    url=<span class="hljs-string">&quot;https://699pic.com/photo/264659-%d.html&quot;</span><br>    page_num=<span class="hljs-number">2</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">parse</span>(<span class="hljs-params">self, response</span>):<br>        li_list=response.xpath(<span class="hljs-string">&#x27;/html/body/div[11]/div[4]/div/div&#x27;</span>)<br>        <span class="hljs-keyword">for</span> li <span class="hljs-keyword">in</span> li_list:<br>            img_name=li.xpath(<span class="hljs-string">&#x27;./a/@title&#x27;</span>).extract_first()<br>            <span class="hljs-built_in">print</span>(img_name)<br><br>        <span class="hljs-keyword">if</span> self.page_num &lt;= <span class="hljs-number">3</span>:<br>            new_url=<span class="hljs-built_in">format</span>(self.url%self.page_num)<br>            self.page_num+=<span class="hljs-number">1</span><br>            <span class="hljs-comment"># callback为回调函数，进行数据解析</span><br>            <span class="hljs-keyword">yield</span> scrapy.Request(url=new_url,callback=self.parse)<br></code></pre></td></tr></table></figure></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>Python</category>
+      
+      <category>Spider</category>
+      
+      <category>Scrapy</category>
       
     </categories>
     
@@ -129,29 +175,6 @@
     <categories>
       
       <category>Git</category>
-      
-    </categories>
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>基于Spider的全站数据爬取</title>
-    <link href="/2023/09/30/Python/Spider/Scrapy/%E5%9F%BA%E4%BA%8ESpider%E7%9A%84%E5%85%A8%E7%AB%99%E6%95%B0%E6%8D%AE%E7%88%AC%E5%8F%96/"/>
-    <url>/2023/09/30/Python/Spider/Scrapy/%E5%9F%BA%E4%BA%8ESpider%E7%9A%84%E5%85%A8%E7%AB%99%E6%95%B0%E6%8D%AE%E7%88%AC%E5%8F%96/</url>
-    
-    <content type="html"><![CDATA[<h1 id="1-概念"><a href="#1-概念" class="headerlink" title="1 概念"></a>1 概念</h1><p>将某网站中某模块下全部页码对应的页面数据进行爬取</p><h1 id="2-实现方式"><a href="#2-实现方式" class="headerlink" title="2 实现方式"></a>2 实现方式</h1><ol><li><p>将所有页面url添加到start_urls列表中</p></li><li><p>手动实现请求发送（推荐）</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">XiaohuaSpider</span>(scrapy.Spider):<br>    name = <span class="hljs-string">&quot;xiaohua&quot;</span><br>    allowed_domains = [<span class="hljs-string">&quot;699pic.com&quot;</span>]<br>    start_urls = [<span class="hljs-string">&quot;https://699pic.com/tupian/photo-264659.html&quot;</span>]<br><br>    <span class="hljs-comment"># 通用url模板</span><br>    url=<span class="hljs-string">&quot;https://699pic.com/photo/264659-%d.html&quot;</span><br>    page_num=<span class="hljs-number">2</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">parse</span>(<span class="hljs-params">self, response</span>):<br>        li_list=response.xpath(<span class="hljs-string">&#x27;/html/body/div[11]/div[4]/div/div&#x27;</span>)<br>        <span class="hljs-keyword">for</span> li <span class="hljs-keyword">in</span> li_list:<br>            img_name=li.xpath(<span class="hljs-string">&#x27;./a/@title&#x27;</span>).extract_first()<br>            <span class="hljs-built_in">print</span>(img_name)<br><br>        <span class="hljs-keyword">if</span> self.page_num &lt;= <span class="hljs-number">3</span>:<br>            new_url=<span class="hljs-built_in">format</span>(self.url%self.page_num)<br>            self.page_num+=<span class="hljs-number">1</span><br>            <span class="hljs-comment"># callback为回调函数，进行数据解析</span><br>            <span class="hljs-keyword">yield</span> scrapy.Request(url=new_url,callback=self.parse)<br></code></pre></td></tr></table></figure></li></ol>]]></content>
-    
-    
-    <categories>
-      
-      <category>Python</category>
-      
-      <category>Spider</category>
-      
-      <category>Scrapy</category>
       
     </categories>
     
