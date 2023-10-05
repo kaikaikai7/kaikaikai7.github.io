@@ -16,23 +16,21 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1 视频处理流程 用户上传 转码（高清、标清） 切片处理（单个文件进行拆分)  2 m3u8文件 视频播放顺序 视频存储位置   3 抓取流程 找到m3u8文件 通过m3u8文件下载到ts文件 将ts文件合并为一个mp4文件">
+    <meta name="description" content="1 背景 数据爆炸但知识贫乏  商业数据到商业智能的进化 科学发展范式（经验科学、理论科学、计算科学、数据科学）  2 基本概念定义：从数据中得到信息和知识的过程 3 主要内容 关联规则挖掘（啤酒和尿布） 分类Predictive：根据特征和观测数据建立数学模型，对新的数例进行判断的过程（监督式机器学习） 标签分类 数值预测   聚类Descriptive：仅根据刚刚的特征对数据进行聚类划分（非监">
 <meta property="og:type" content="article">
-<meta property="og:title" content="视频网站基本原理">
-<meta property="og:url" content="http://example.com/2023/10/04/Python/Spider/video/%E8%A7%86%E9%A2%91%E7%BD%91%E7%AB%99%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:title" content="绪论">
+<meta property="og:url" content="http://example.com/2023/10/05/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/%E7%BB%AA%E8%AE%BA/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="1 视频处理流程 用户上传 转码（高清、标清） 切片处理（单个文件进行拆分)  2 m3u8文件 视频播放顺序 视频存储位置   3 抓取流程 找到m3u8文件 通过m3u8文件下载到ts文件 将ts文件合并为一个mp4文件">
+<meta property="og:description" content="1 背景 数据爆炸但知识贫乏  商业数据到商业智能的进化 科学发展范式（经验科学、理论科学、计算科学、数据科学）  2 基本概念定义：从数据中得到信息和知识的过程 3 主要内容 关联规则挖掘（啤酒和尿布） 分类Predictive：根据特征和观测数据建立数学模型，对新的数例进行判断的过程（监督式机器学习） 标签分类 数值预测   聚类Descriptive：仅根据刚刚的特征对数据进行聚类划分（非监">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310050925393.png">
-<meta property="article:published_time" content="2023-10-04T07:34:21.000Z">
-<meta property="article:modified_time" content="2023-10-05T01:25:09.708Z">
+<meta property="article:published_time" content="2023-10-05T01:47:02.000Z">
+<meta property="article:modified_time" content="2023-10-05T02:17:32.125Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310050925393.png">
   
   
   
-  <title>视频网站基本原理 - kaikaikai&#39;s blog</title>
+  <title>绪论 - kaikaikai&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -186,7 +184,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="视频网站基本原理"></span>
+            <span id="subtitle" data-typed-text="绪论"></span>
           
         </div>
 
@@ -197,8 +195,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-10-04 15:34" pubdate>
-          2023年10月4日 下午
+        <time datetime="2023-10-05 09:47" pubdate>
+          2023年10月5日 上午
         </time>
       </span>
     
@@ -209,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          96 字
+          406 字
         
       </span>
     
@@ -220,7 +218,7 @@
         
         
         
-          1 分钟
+          4 分钟
         
       </span>
     
@@ -257,26 +255,35 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">视频网站基本原理</h1>
+            <h1 id="seo-header">绪论</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="1-视频处理流程"><a href="#1-视频处理流程" class="headerlink" title="1 视频处理流程"></a>1 视频处理流程</h1><ul>
-<li>用户上传</li>
-<li>转码（高清、标清）</li>
-<li>切片处理（单个文件进行拆分)</li>
+                <h1 id="1-背景"><a href="#1-背景" class="headerlink" title="1 背景"></a>1 背景</h1><ul>
+<li>数据爆炸但知识贫乏 </li>
+<li>商业数据到商业智能的进化</li>
+<li>科学发展范式（经验科学、理论科学、计算科学、数据科学）</li>
 </ul>
-<h1 id="2-m3u8文件"><a href="#2-m3u8文件" class="headerlink" title="2 m3u8文件"></a>2 m3u8文件</h1><ul>
-<li>视频播放顺序</li>
-<li>视频存储位置</li>
+<h1 id="2-基本概念"><a href="#2-基本概念" class="headerlink" title="2 基本概念"></a>2 基本概念</h1><p>定义：从数据中得到信息和知识的过程</p>
+<h1 id="3-主要内容"><a href="#3-主要内容" class="headerlink" title="3 主要内容"></a>3 主要内容</h1><ul>
+<li>关联规则挖掘（啤酒和尿布）</li>
+<li>分类<code>Predictive</code>：根据特征和观测数据建立数学模型，对新的数例进行判断的过程（监督式机器学习）<ul>
+<li>标签分类</li>
+<li>数值预测</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310050925393.png" srcset="/img/loading.gif" lazyload alt="image-20231004161812532"></p>
-<h1 id="3-抓取流程"><a href="#3-抓取流程" class="headerlink" title="3 抓取流程"></a>3 抓取流程</h1><ol>
-<li>找到m3u8文件</li>
-<li>通过m3u8文件下载到ts文件</li>
-<li>将ts文件合并为一个mp4文件</li>
-</ol>
+</li>
+<li>聚类<code>Descriptive</code>：仅根据刚刚的特征对数据进行聚类划分（非监督式机器学习）</li>
+<li>回归：建立多个变量之间的定量关系</li>
+</ul>
+<p>Q：数据分类和数据聚类的概念如何区别？</p>
+<p>数据分类，分类的类别是已知的，训练某种学习机器（即得到某种目标函数），使它能够对未知类别的样本进行分类；数据聚类，分类的类别是未知的，通过聚类分析将数据聚合成几个群体。</p>
+<p>Q：数据、信息、知识的概念如何区分？</p>
+<ul>
+<li>数据：数据是未经加工处理的原始信息。</li>
+<li>信息：信息是对原始的数据信息进行观察得出的一些结论。</li>
+<li>知识：知识是对信息进行总结归纳，逻辑分析，得到的理解和某些事物的规律。</li>
+</ul>
 
                 
               </div>
@@ -295,22 +302,8 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Python/" class="category-chain-item">Python</a>
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/" class="category-chain-item">数据挖掘</a>
   
-  
-    <span>></span>
-    
-  <a href="/categories/Python/Spider/" class="category-chain-item">Spider</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/Python/Spider/video/" class="category-chain-item">video</a>
-  
-  
-
-  
-
   
 
       </span>
@@ -329,8 +322,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>视频网站基本原理</div>
-      <div>http://example.com/2023/10/04/Python/Spider/video/视频网站基本原理/</div>
+      <div>绪论</div>
+      <div>http://example.com/2023/10/05/数据挖掘/绪论/</div>
     </div>
     <div class="license-meta">
       
@@ -342,7 +335,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年10月4日</div>
+          <div>2023年10月5日</div>
         </div>
       
       
@@ -374,9 +367,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/10/05/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/%E7%BB%AA%E8%AE%BA/" title="绪论">
+                      <a href="/2023/10/05/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%AE%97%E6%B3%95%E7%AF%87/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/" title="支持向量机">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">绪论</span>
+                        <span class="hidden-mobile">支持向量机</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -384,8 +377,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/10/04/Python/Spider/Scrapy/%E5%88%86%E5%B8%83%E5%BC%8F%E7%88%AC%E8%99%AB%E5%9F%BA%E7%A1%80/" title="分布式爬虫基础">
-                        <span class="hidden-mobile">分布式爬虫基础</span>
+                      <a href="/2023/10/04/Python/Spider/video/%E8%A7%86%E9%A2%91%E7%BD%91%E7%AB%99%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" title="视频网站基本原理">
+                        <span class="hidden-mobile">视频网站基本原理</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

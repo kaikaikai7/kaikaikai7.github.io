@@ -4,6 +4,46 @@
   
   
   <entry>
+    <title>支持向量机</title>
+    <link href="/2023/10/05/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%AE%97%E6%B3%95%E7%AF%87/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/"/>
+    <url>/2023/10/05/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%AE%97%E6%B3%95%E7%AF%87/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/</url>
+    
+    <content type="html"><![CDATA[<h1 id="1-SVM直觉理解"><a href="#1-SVM直觉理解" class="headerlink" title="1 SVM直觉理解"></a>1 SVM直觉理解</h1><p>概念：支持向量机<code>Supported Vector Machine</code>，基于线性划分，输出一个最优化的分隔超平面，该超平面不但能将两类正确分开，且使分类间隔最大</p><p>本质：量化两类数据差异</p><p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310051404845.png" alt="img"></p><h1 id="2-软硬间隔"><a href="#2-软硬间隔" class="headerlink" title="2 软硬间隔"></a>2 软硬间隔</h1><ul><li>间隔距离体现两类数据差异大小</li><li>硬间隔：使⽤超平⾯进⾏分割数据的过程中，如果我们严格地让所有实例都不在最⼤间隔之间，只位于正确的⼀边。硬间隔分类有两个问题：⾸先，它只在数据是线性可分离的时候才有效；其次，它对异常值⾮常敏感。</li><li>软间隔：软间隔的⽬标是尽可能在保持最⼤间隔宽阔和限制间隔违例之间找到良好的平衡。</li></ul><p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310051404846.png" alt="image-20231005102746477"></p><h1 id="3-升维转换和核函数"><a href="#3-升维转换和核函数" class="headerlink" title="3 升维转换和核函数"></a>3 升维转换和核函数</h1><p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310051404847.png" alt="image-20231005134734247"></p><p>升维转换目的：处理低维度下无法方便分类的数据（直接采用可能导致维数灾难）</p><p>核函数：不用知晓具体的维度转换函数，直接获得数据的高维度差异度</p><p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310051404848.png" alt="img"></p><p>参考教程：</p><ol><li><a href="https://www.bilibili.com/video/BV16T4y1y7qj/?spm_id_from=333.337.search-card.all.click&vd_source=d1182948f36423c63e7e3b31ad8c5163">【数之道】支持向量机SVM是什么，八分钟直觉理解其本质_哔哩哔哩_bilibili</a></li><li><a href="https://blog.csdn.net/qq_39763246/article/details/119926367">机器学习算法 08 —— 支持向量机SVM算法(核函数、手写数字识别案例)_svm算法案例_老板来碗小面加蛋~的博客-CSDN博客</a></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>机器学习</category>
+      
+      <category>算法篇</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>绪论</title>
+    <link href="/2023/10/05/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/%E7%BB%AA%E8%AE%BA/"/>
+    <url>/2023/10/05/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/%E7%BB%AA%E8%AE%BA/</url>
+    
+    <content type="html"><![CDATA[<h1 id="1-背景"><a href="#1-背景" class="headerlink" title="1 背景"></a>1 背景</h1><ul><li>数据爆炸但知识贫乏 </li><li>商业数据到商业智能的进化</li><li>科学发展范式（经验科学、理论科学、计算科学、数据科学）</li></ul><h1 id="2-基本概念"><a href="#2-基本概念" class="headerlink" title="2 基本概念"></a>2 基本概念</h1><p>定义：从数据中得到信息和知识的过程</p><h1 id="3-主要内容"><a href="#3-主要内容" class="headerlink" title="3 主要内容"></a>3 主要内容</h1><ul><li>关联规则挖掘（啤酒和尿布）</li><li>分类<code>Predictive</code>：根据特征和观测数据建立数学模型，对新的数例进行判断的过程（监督式机器学习）<ul><li>标签分类</li><li>数值预测</li></ul></li><li>聚类<code>Descriptive</code>：仅根据刚刚的特征对数据进行聚类划分（非监督式机器学习）</li><li>回归：建立多个变量之间的定量关系</li></ul><p>Q：数据分类和数据聚类的概念如何区别？</p><p>数据分类，分类的类别是已知的，训练某种学习机器（即得到某种目标函数），使它能够对未知类别的样本进行分类；数据聚类，分类的类别是未知的，通过聚类分析将数据聚合成几个群体。</p><p>Q：数据、信息、知识的概念如何区分？</p><ul><li>数据：数据是未经加工处理的原始信息。</li><li>信息：信息是对原始的数据信息进行观察得出的一些结论。</li><li>知识：知识是对信息进行总结归纳，逻辑分析，得到的理解和某些事物的规律。</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>数据挖掘</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>视频网站基本原理</title>
     <link href="/2023/10/04/Python/Spider/video/%E8%A7%86%E9%A2%91%E7%BD%91%E7%AB%99%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/"/>
     <url>/2023/10/04/Python/Spider/video/%E8%A7%86%E9%A2%91%E7%BD%91%E7%AB%99%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/</url>
