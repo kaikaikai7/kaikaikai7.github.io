@@ -16,21 +16,17 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="3.1 概述3.1.1 口令和身份认证 身份认证：用户向计算机系统以一种安全的方式提交自己的身份证明，然后由系统确认用户的身份是否属实，最终拒绝用户或者赋予用户一定的权限。  口令认证是身份认证的一种手段。  其他认证方式：磁卡或者智能卡认证 、基于人的生理特征认证、基于地理位置的认证 。  认证过程：    3.1.2 口令攻击的分类 口令分类：  静态口令 动态口令：加入不确定因子进行散列">
+    <meta name="description" content="3.1 概述 3.1.1 口令和身份认证  身份认证：用户向计算机系统以一种安全的方式提交自己的身份证明，然后由系统确认用户的身份是否属实，最终拒绝用户或者赋予用户一定的权限。 口令认证是身份认证的一种手段。 其他认证方式：磁卡或者智能卡认证 、基于人的生理特征认证、基于地理位置的认证 。 认证过程：   image-20230928144139441   3.1.2 口">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CH3-口令攻击">
 <meta property="og:url" content="http://example.com/2023/09/28/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/%E7%90%86%E8%AE%BA%E7%AF%87/03%E5%8F%A3%E4%BB%A4%E6%94%BB%E5%87%BB/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="3.1 概述3.1.1 口令和身份认证 身份认证：用户向计算机系统以一种安全的方式提交自己的身份证明，然后由系统确认用户的身份是否属实，最终拒绝用户或者赋予用户一定的权限。  口令认证是身份认证的一种手段。  其他认证方式：磁卡或者智能卡认证 、基于人的生理特征认证、基于地理位置的认证 。  认证过程：    3.1.2 口令攻击的分类 口令分类：  静态口令 动态口令：加入不确定因子进行散列">
+<meta property="og:description" content="3.1 概述 3.1.1 口令和身份认证  身份认证：用户向计算机系统以一种安全的方式提交自己的身份证明，然后由系统确认用户的身份是否属实，最终拒绝用户或者赋予用户一定的权限。 口令认证是身份认证的一种手段。 其他认证方式：磁卡或者智能卡认证 、基于人的生理特征认证、基于地理位置的认证 。 认证过程：   image-20230928144139441   3.1.2 口">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281533483.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281533484.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281535352.png">
 <meta property="article:published_time" content="2023-09-28T06:32:07.000Z">
 <meta property="article:modified_time" content="2023-09-28T07:35:13.155Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281533483.png">
   
   
   
@@ -211,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k 字
+          1.3k 字
         
       </span>
     
@@ -264,81 +260,96 @@
             
               <div class="markdown-body">
                 
-                <h1 id="3-1-概述"><a href="#3-1-概述" class="headerlink" title="3.1 概述"></a>3.1 概述</h1><h2 id="3-1-1-口令和身份认证"><a href="#3-1-1-口令和身份认证" class="headerlink" title="3.1.1 口令和身份认证"></a>3.1.1 口令和身份认证</h2><ul>
-<li><p>身份认证：用户向计算机系统以一种安全的方式提交自己的身份证明，然后由系统确认用户的身份是否属实，最终拒绝用户或者赋予用户一定的权限。</p>
-</li>
-<li><p>口令认证是身份认证的一种手段。</p>
-</li>
-<li><p>其他认证方式：磁卡或者智能卡认证 、基于人的生理特征认证、基于地理位置的认证 。</p>
-</li>
+                <h1 id="概述">3.1 概述</h1>
+<h2 id="口令和身份认证">3.1.1 口令和身份认证</h2>
+<ul>
+<li><p>身份认证：用户向计算机系统以一种安全的方式提交自己的身份证明，然后由系统确认用户的身份是否属实，最终拒绝用户或者赋予用户一定的权限。</p></li>
+<li><p>口令认证是身份认证的一种手段。</p></li>
+<li><p>其他认证方式：磁卡或者智能卡认证
+、基于人的生理特征认证、基于地理位置的认证 。</p></li>
 <li><p>认证过程：</p>
-<p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281533483.png" srcset="/img/loading.gif" lazyload alt="image-20230928144139441"></p>
-</li>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281533483.png" srcset="/img/loading.gif" lazyload
+alt="image-20230928144139441" />
+<figcaption aria-hidden="true">image-20230928144139441</figcaption>
+</figure></li>
 </ul>
-<h2 id="3-1-2-口令攻击的分类"><a href="#3-1-2-口令攻击的分类" class="headerlink" title="3.1.2 口令攻击的分类"></a>3.1.2 口令攻击的分类</h2><ul>
-<li><p>口令分类：</p>
+<h2 id="口令攻击的分类">3.1.2 口令攻击的分类</h2>
+<ul>
+<li>口令分类：
 <ul>
 <li>静态口令</li>
 <li>动态口令：加入不确定因子进行散列</li>
-</ul>
-</li>
-<li><p>口令攻击分类：</p>
+</ul></li>
+<li>口令攻击分类：
 <ul>
 <li>针对口令强度的攻击</li>
 <li>针对口令存储的攻击：文件、缓存、数据库</li>
 <li>针对口令传输的攻击：在口令认证交互过程中，利用网络监听非法得到用户传送的口令</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h1 id="3-2-针对口令强度的攻击"><a href="#3-2-针对口令强度的攻击" class="headerlink" title="3.2 针对口令强度的攻击"></a>3.2 针对口令强度的攻击</h1><h2 id="3-2-1-强口令与弱口令"><a href="#3-2-1-强口令与弱口令" class="headerlink" title="3.2.1 强口令与弱口令"></a>3.2.1 强口令与弱口令</h2><ul>
+<h1 id="针对口令强度的攻击">3.2 针对口令强度的攻击</h1>
+<h2 id="强口令与弱口令">3.2.1 强口令与弱口令</h2>
+<ul>
 <li>较为安全的口令应该不容易被发现规律，并且有足够的长度。</li>
 <li>对长度的要求随应用环境的不同而不同，应该使得攻击者在某个时间段内很难破解</li>
 </ul>
-<h2 id="3-2-2-针对口令强度的攻击"><a href="#3-2-2-针对口令强度的攻击" class="headerlink" title="3.2.2 针对口令强度的攻击"></a>3.2.2 针对口令强度的攻击</h2><ul>
-<li><p>强力攻击：穷举法</p>
-</li>
-<li><p>字典攻击：将使用概率较高的口令集中存放在字典文件中，通过不同的变异规则生成猜测字典。强力攻击的进阶版。</p>
-</li>
-<li><p>组合攻击：强力攻击+字典攻击。如：字典单词尾部串接任意个字母和数字。</p>
-</li>
-<li><p>撞库攻击：攻击者通过收集在网络上已泄露的用户名、口令等信息，之后用这些账号和口令尝试批量登录其他网站，最终得到可以登录这些网站的用户账号和口令。一般流程：拖库→洗库→撞库。</p>
-</li>
+<h2 id="针对口令强度的攻击-1">3.2.2 针对口令强度的攻击</h2>
+<ul>
+<li><p>强力攻击：穷举法</p></li>
+<li><p>字典攻击：将使用概率较高的口令集中存放在字典文件中，通过不同的变异规则生成猜测字典。强力攻击的进阶版。</p></li>
+<li><p>组合攻击：强力攻击+字典攻击。如：字典单词尾部串接任意个字母和数字。</p></li>
+<li><p>撞库攻击：攻击者通过收集在网络上已泄露的用户名、口令等信息，之后用这些账号和口令尝试批量登录其他网站，最终得到可以登录这些网站的用户账号和口令。一般流程：拖库→洗库→撞库。</p></li>
 <li><p>彩虹表破解：指拿着获取到的hash值通过查询彩虹表找出其原始值的攻击方式。狭义上，彩虹表一般是指以“hash值:原始值”为行组成的文件，如下图所示。</p>
-<p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281533484.png" srcset="/img/loading.gif" lazyload alt="img"></p>
-</li>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281533484.png" srcset="/img/loading.gif" lazyload
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure></li>
 </ul>
-<h1 id="3-3-针对口令存储的攻击"><a href="#3-3-针对口令存储的攻击" class="headerlink" title="3.3 针对口令存储的攻击"></a>3.3 针对口令存储的攻击</h1><ul>
-<li><p>不同系统的口令存储位置不同，有些存放在文件中，比如Linux系统的Shadow文件，Windows系统的SAM文件；有些存放在数据库中，比如Oracle数据库账户文件；有些则存放在注册表中，比如Windows平台下的许多应用软件。另外，在身份验证程序运行时，还会将口令或口令的密文加载到内存中，方便进行比较。</p>
-</li>
+<h1 id="针对口令存储的攻击">3.3 针对口令存储的攻击</h1>
+<ul>
+<li><p>不同系统的口令存储位置不同，有些存放在文件中，比如Linux系统的Shadow文件，Windows系统的SAM文件；有些存放在数据库中，比如Oracle数据库账户文件；有些则存放在注册表中，比如Windows平台下的许多应用软件。另外，在身份验证程序运行时，还会将口令或口令的密文加载到内存中，方便进行比较。</p></li>
 <li><p>Linux shadow文件：</p>
-<p><img src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281535352.png" srcset="/img/loading.gif" lazyload alt="image-20230928153443475"></p>
-</li>
-<li><p>salt用途：使用salt时，相同的输入可能导致不同的散列。密码散列&#x3D;单向散列循环（密码| |随机字符串）。可以防止字典攻击、彩虹表攻击。</p>
-</li>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281535352.png" srcset="/img/loading.gif" lazyload
+alt="image-20230928153443475" />
+<figcaption aria-hidden="true">image-20230928153443475</figcaption>
+</figure></li>
+<li><p>salt用途：使用salt时，相同的输入可能导致不同的散列。密码散列=单向散列循环（密码|
+|随机字符串）。可以防止字典攻击、彩虹表攻击。</p></li>
 </ul>
-<h1 id="3-4-针对口令传输的攻击"><a href="#3-4-针对口令传输的攻击" class="headerlink" title="3.4 针对口令传输的攻击"></a>3.4 针对口令传输的攻击</h1><h2 id="3-4-1-口令嗅探"><a href="#3-4-1-口令嗅探" class="headerlink" title="3.4.1 口令嗅探"></a>3.4.1 口令嗅探</h2><ul>
+<h1 id="针对口令传输的攻击">3.4 针对口令传输的攻击</h1>
+<h2 id="口令嗅探">3.4.1 口令嗅探</h2>
+<ul>
 <li>如果主机B处于主机A和FTP通信的信道上，就可以“窃听到”合法的用户名及口令。</li>
 <li>802.3以太网是一种使用广播信道的网络，在以太网中所有通信都是广播的。</li>
-<li>网卡侦听模式：<ul>
+<li>网卡侦听模式：
+<ul>
 <li>广播模式</li>
 <li>组播模式</li>
 <li>普通模式</li>
 <li><strong>混杂模式</strong></li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h2 id="3-4-2-键盘记录"><a href="#3-4-2-键盘记录" class="headerlink" title="3.4.2 键盘记录"></a>3.4.2 键盘记录</h2><ul>
+<h2 id="键盘记录">3.4.2 键盘记录</h2>
+<ul>
 <li>硬件截获：修改主机的键盘接口。</li>
 <li>软件截获：监视操作系统处理键盘输入的接口，将来自键盘的数据记录下来。</li>
 </ul>
-<h2 id="3-4-3-网络钓鱼"><a href="#3-4-3-网络钓鱼" class="headerlink" title="3.4.3 网络钓鱼"></a>3.4.3 网络钓鱼</h2><p>“网络钓鱼（Phishing）”就是攻击者利用欺骗性的电子邮件和伪造的Web站点，骗取用户输入口令以及其他身份敏感信息。</p>
-<h2 id="3-4-4-重放攻击"><a href="#3-4-4-重放攻击" class="headerlink" title="3.4.4 重放攻击"></a>3.4.4 重放攻击</h2><ul>
+<h2 id="网络钓鱼">3.4.3 网络钓鱼</h2>
+<p>“网络钓鱼（Phishing）”就是攻击者利用欺骗性的电子邮件和伪造的Web站点，骗取用户输入口令以及其他身份敏感信息。</p>
+<h2 id="重放攻击">3.4.4 重放攻击</h2>
+<ul>
 <li>指攻击者记录下当前的通讯流量，以后在适当的时候重发给通讯的某一方，达到欺骗的目的。</li>
 <li>分类：简单重放、反向重放。</li>
 </ul>
 <p>参考教程：</p>
-<ol>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/lsdb/p/10038835.html">https://www.cnblogs.com/lsdb/p/10038835.html</a></li>
+<ol type="1">
+<li>https://www.cnblogs.com/lsdb/p/10038835.html</li>
 </ol>
 
                 

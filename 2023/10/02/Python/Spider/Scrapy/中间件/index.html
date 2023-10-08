@@ -16,12 +16,12 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1 下载中间件 位置：引擎和下载器之间  作用：批量拦截到整个工程中所有的请求和响应  拦截请求：  UA伪装（UA池）:process_request 代理IP（代理池）:process_exception  需要return request  1234567891011121314# 拦截请求  def process_request(self, request, spider):">
+    <meta name="description" content="1 下载中间件  位置：引擎和下载器之间 作用：批量拦截到整个工程中所有的请求和响应 拦截请求：  UA伪装（UA池）:process_request 代理IP（代理池）:process_exception 需要return request  1234567891011121314# 拦截请求  def process_request(self, request, spider">
 <meta property="og:type" content="article">
 <meta property="og:title" content="中间件">
 <meta property="og:url" content="http://example.com/2023/10/02/Python/Spider/Scrapy/%E4%B8%AD%E9%97%B4%E4%BB%B6/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="1 下载中间件 位置：引擎和下载器之间  作用：批量拦截到整个工程中所有的请求和响应  拦截请求：  UA伪装（UA池）:process_request 代理IP（代理池）:process_exception  需要return request  1234567891011121314# 拦截请求  def process_request(self, request, spider):">
+<meta property="og:description" content="1 下载中间件  位置：引擎和下载器之间 作用：批量拦截到整个工程中所有的请求和响应 拦截请求：  UA伪装（UA池）:process_request 代理IP（代理池）:process_exception 需要return request  1234567891011121314# 拦截请求  def process_request(self, request, spider">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-10-02T02:14:17.000Z">
 <meta property="article:modified_time" content="2023-10-02T06:46:55.210Z">
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          955 字
+          952 字
         
       </span>
     
@@ -260,29 +260,27 @@
             
               <div class="markdown-body">
                 
-                <h1 id="1-下载中间件"><a href="#1-下载中间件" class="headerlink" title="1 下载中间件"></a>1 下载中间件</h1><ul>
-<li><p>位置：引擎和下载器之间</p>
-</li>
-<li><p>作用：批量拦截到整个工程中所有的请求和响应</p>
-</li>
+                <h1 id="下载中间件">1 下载中间件</h1>
+<ul>
+<li><p>位置：引擎和下载器之间</p></li>
+<li><p>作用：批量拦截到整个工程中所有的请求和响应</p></li>
 <li><p>拦截请求：</p>
 <ul>
 <li>UA伪装（UA池）:process_request</li>
-<li>代理IP（代理池）:process_exception  需要<code>return request</code></li>
+<li>代理IP（代理池）:process_exception
+需要<code>return request</code></li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 拦截请求</span><br>  <span class="hljs-keyword">def</span> <span class="hljs-title function_">process_request</span>(<span class="hljs-params">self, request, spider</span>):<br>      <span class="hljs-comment"># UA伪装</span><br>      request.headers[<span class="hljs-string">&#x27;User-Agent&#x27;</span>]= random.choice(self.user_agents)<br>      <span class="hljs-comment"># 仅测试使用</span><br>      <span class="hljs-comment"># request.meta[&#x27;proxy&#x27;] = &quot;http://182.34.33.244:9999&quot;</span><br>      <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span><br>  <br>  <span class="hljs-comment"># 拦截发生异常的请求</span><br>  <span class="hljs-keyword">def</span> <span class="hljs-title function_">process_exception</span>(<span class="hljs-params">self, request, exception, spider</span>):<br>      <span class="hljs-comment"># 代理池一般在该方法中进行设置</span><br>      <span class="hljs-comment"># request.meta[&#x27;proxy&#x27;]=</span><br>      <span class="hljs-comment"># 重新发送该请求</span><br>      <span class="hljs-keyword">return</span> request<br></code></pre></td></tr></table></figure>
-</li>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 拦截请求</span><br>  <span class="hljs-keyword">def</span> <span class="hljs-title function_">process_request</span>(<span class="hljs-params">self, request, spider</span>):<br>      <span class="hljs-comment"># UA伪装</span><br>      request.headers[<span class="hljs-string">&#x27;User-Agent&#x27;</span>]= random.choice(self.user_agents)<br>      <span class="hljs-comment"># 仅测试使用</span><br>      <span class="hljs-comment"># request.meta[&#x27;proxy&#x27;] = &quot;http://182.34.33.244:9999&quot;</span><br>      <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span><br>  <br>  <span class="hljs-comment"># 拦截发生异常的请求</span><br>  <span class="hljs-keyword">def</span> <span class="hljs-title function_">process_exception</span>(<span class="hljs-params">self, request, exception, spider</span>):<br>      <span class="hljs-comment"># 代理池一般在该方法中进行设置</span><br>      <span class="hljs-comment"># request.meta[&#x27;proxy&#x27;]=</span><br>      <span class="hljs-comment"># 重新发送该请求</span><br>      <span class="hljs-keyword">return</span> request<br></code></pre></td></tr></table></figure></li>
 <li><p>拦截响应：</p>
 <ul>
-<li>篡改响应数据\对象（应对动态加载）</li>
+<li>篡改响应数据（应对动态加载）</li>
 <li>判断网页数据是否为动态加载，可以通过禁用js观察数据是否能够加载出来得到</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">process_response</span>(<span class="hljs-params">self, request, response, spider</span>):<br>    <span class="hljs-comment"># 获取爬虫类定义的浏览器对象</span><br>    driver=spider.driver<br>    <span class="hljs-comment"># 挑选出指定响应对象进行篡改</span><br>    <span class="hljs-comment"># 挑选过程：url---request---response</span><br>    <span class="hljs-keyword">if</span> request.url <span class="hljs-keyword">in</span> spider.module_urls:<br>        <span class="hljs-comment"># 基于selenium便捷地获取动态加载数据</span><br>        driver.get(request.url)<br>        sleep(<span class="hljs-number">1</span>)<br>        page_text=driver.page_source<br>        <span class="hljs-comment"># 实例化新的响应对象</span><br>        new_response=HtmlResponse(url=request.url,body=page_text,encoding=<span class="hljs-string">&quot;utf-8&quot;</span>,request=request)<br>        <span class="hljs-keyword">return</span> new_response<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> response<br></code></pre></td></tr></table></figure>
-</li>
-<li><p>需要在配置文件中开启中间件</p>
-</li>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">process_response</span>(<span class="hljs-params">self, request, response, spider</span>):<br>    <span class="hljs-comment"># 获取爬虫类定义的浏览器对象</span><br>    driver=spider.driver<br>    <span class="hljs-comment"># 挑选出指定响应对象进行篡改</span><br>    <span class="hljs-comment"># 挑选过程：url---request---response</span><br>    <span class="hljs-keyword">if</span> request.url <span class="hljs-keyword">in</span> spider.module_urls:<br>        <span class="hljs-comment"># 基于selenium便捷地获取动态加载数据</span><br>        driver.get(request.url)<br>        sleep(<span class="hljs-number">1</span>)<br>        page_text=driver.page_source<br>        <span class="hljs-comment"># 实例化新的响应对象</span><br>        new_response=HtmlResponse(url=request.url,body=page_text,encoding=<span class="hljs-string">&quot;utf-8&quot;</span>,request=request)<br>        <span class="hljs-keyword">return</span> new_response<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> response<br></code></pre></td></tr></table></figure></li>
+<li><p>需要在配置文件中开启中间件</p></li>
 </ul>
-<h1 id="2-爬虫中间件"><a href="#2-爬虫中间件" class="headerlink" title="2 爬虫中间件"></a>2 爬虫中间件</h1>
+<h1 id="爬虫中间件">2 爬虫中间件</h1>
+
                 
               </div>
             
