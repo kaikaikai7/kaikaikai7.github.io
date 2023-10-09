@@ -24,7 +24,7 @@
 <meta property="og:description" content="1. 关于指南  本指南中提到的：&quot;站点配置&quot; 指的 Hexo 博客目录下的 _config.yml，&quot;主题配置&quot; 指的是 theme&#x2F;fluid&#x2F;_config.yml 或者 _config.fluid.yml ，注意区分； 本指南中提到的 source 目录都指的是博客目录下的 source 文件夹，不推荐修改主题内 source 目录；  2. 全局 2.1 覆盖配置">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-09-23T03:47:02.000Z">
-<meta property="article:modified_time" content="2023-09-24T01:43:20.443Z">
+<meta property="article:modified_time" content="2023-10-09T05:58:53.496Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.5k 字
+          5.8k 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          47 分钟
+          49 分钟
         
       </span>
     
@@ -374,6 +374,16 @@ target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/front-matter">fr
 <p><code>highlight</code>: 是否开启代码高亮</p>
 <p><code>lib</code>: 选择生成高亮的库，可选项:
 <code>highlightjs</code>、<code>prismjs</code>，对应下面两组配置，高亮的配置说明具体见<strong>主题配置</strong>中的注释</p>
+<h2 id="latex-数学公式">4.4 LaTeX 数学公式</h2>
+<ol type="1">
+<li><p>修改配置文件</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">post:</span><br>  <span class="hljs-attr">math:</span><br>    <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span><br>    <span class="hljs-attr">specific:</span> <span class="hljs-literal">false</span><br>    <span class="hljs-attr">engine:</span> <span class="hljs-string">mathjax</span><br></code></pre></td></tr></table></figure></li>
+<li><p>更换 Markdown 渲染器(mathjax)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">cnpm uninstall hexo-renderer-marked --save<br>cnpm install hexo-renderer-pandoc --save<br></code></pre></td></tr></table></figure></li>
+<li><p>安装pandoc（需重启电脑）：<a
+target="_blank" rel="noopener" href="https://github.com/jgm/pandoc/blob/main/INSTALL.md">pandoc/INSTALL.md
+at main · jgm/pandoc (github.com)</a></p></li>
+</ol>
 <h1 id="front-matter">5. Front-matter</h1>
 <p>Front-matter 是文件最上方以 <code>---</code>
 分隔的区域，用于指定个别文件的变量，举例来说：</p>
