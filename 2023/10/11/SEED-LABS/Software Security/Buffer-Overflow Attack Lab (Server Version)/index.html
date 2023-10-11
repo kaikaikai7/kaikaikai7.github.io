@@ -1,0 +1,1180 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="kaikaikai">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1 Overview  缓冲区溢出是指程序试图将数据写入预先分配的固定长度缓冲区边界之外的情况。恶意用户可利用此漏洞改变程序的流控制，甚至执行任意代码。此漏洞是由于数据存储（如缓冲区）和控件存储（如返回地址）的混合造成的：数据部分的溢出 会影响程序的控制流，因为溢出会改变返回地址。 本实验将提供四台不同的服务器，每台服务器运行一个带有缓冲区溢出漏洞的程序。实验任务是开发一个利用漏洞的程序，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Buffer-Overflow Attack Lab (Server Version)">
+<meta property="og:url" content="http://example.com/2023/10/11/SEED-LABS/Software%20Security/Buffer-Overflow%20Attack%20Lab%20(Server%20Version)/index.html">
+<meta property="og:site_name" content="kaikaikai&#39;s blog">
+<meta property="og:description" content="1 Overview  缓冲区溢出是指程序试图将数据写入预先分配的固定长度缓冲区边界之外的情况。恶意用户可利用此漏洞改变程序的流控制，甚至执行任意代码。此漏洞是由于数据存储（如缓冲区）和控件存储（如返回地址）的混合造成的：数据部分的溢出 会影响程序的控制流，因为溢出会改变返回地址。 本实验将提供四台不同的服务器，每台服务器运行一个带有缓冲区溢出漏洞的程序。实验任务是开发一个利用漏洞的程序，">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-10-11T01:37:23.000Z">
+<meta property="article:modified_time" content="2023-10-11T02:51:03.472Z">
+<meta property="article:author" content="kaikaikai">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Buffer-Overflow Attack Lab (Server Version) - kaikaikai&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>kaikaikai&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Buffer-Overflow Attack Lab (Server Version)"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-10-11 09:37" pubdate>
+          2023年10月11日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          53 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Buffer-Overflow Attack Lab (Server Version)</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="overview">1 Overview</h1>
+<ul>
+<li>缓冲区溢出是指程序试图将数据写入预先分配的固定长度缓冲区边界之外的情况。恶意用户可利用此漏洞改变程序的流控制，甚至执行任意代码。此漏洞是由于数据存储（如缓冲区）和控件存储（如返回地址）的混合造成的：数据部分的溢出
+会影响程序的控制流，因为溢出会改变返回地址。</li>
+<li>本实验将提供四台不同的服务器，每台服务器运行一个带有缓冲区溢出漏洞的程序。实验任务是开发一个利用漏洞的程序，并最终获得这些服务器上的
+root
+权限。除了进行这些攻击实验之外，还将试验几种针对缓冲区溢出攻击的对策。学生需要评估这些计划是否有效，并解释原因。</li>
+</ul>
+<h1 id="实验环境搭建">2 实验环境搭建</h1>
+<ol type="1">
+<li><p>关闭随机化地址策略，此步骤是为了保证程序每次执行时的初始地址不变，以便于进行多次实验和调试</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo /sbin/sysctl -w kernel.randomize_va_space=0<br></code></pre></td></tr></table></figure>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049695.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011094531325" />
+<figcaption aria-hidden="true">image-20231011094531325</figcaption>
+</figure></li>
+<li><p>编译并拷贝。由于 Makefile
+中已经提供了编译命令，我们仅需执行下列指令即可，此处编译关闭了栈保护和不可执行堆栈</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">make<br>make install<br></code></pre></td></tr></table></figure>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049696.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011094543773" />
+<figcaption aria-hidden="true">image-20231011094543773</figcaption>
+</figure></li>
+<li><p>拉取镜像</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">dcbuild<br></code></pre></td></tr></table></figure>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049697.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011094803752" />
+<figcaption aria-hidden="true">image-20231011094803752</figcaption>
+</figure></li>
+<li><p>运行容器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">dcup<br></code></pre></td></tr></table></figure>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049698.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011094900036" />
+<figcaption aria-hidden="true">image-20231011094900036</figcaption>
+</figure></li>
+<li><p>查看是否开启成功，可以看到已有 4 个容器正在运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">dockps<br></code></pre></td></tr></table></figure>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049699.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011094928526" />
+<figcaption aria-hidden="true">image-20231011094928526</figcaption>
+</figure></li>
+</ol>
+<h1 id="task-1-get-familiar-with-the-shellcode">3 Task 1: Get Familiar
+with the Shellcode</h1>
+<ol type="1">
+<li><p>目标：修改 shellcode，使其能够删除文件</p></li>
+<li><p>根据提示，如果我们想让 shellcode 运行其他命令，只需修改第3
+行中的命令字符串即可。注意：修改过程中要保持
+shellcode长度不变，即末尾*位置不变，可以通过添加或删除空格实现。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049700.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011095123331" />
+<figcaption aria-hidden="true">image-20231011095123331</figcaption>
+</figure></li>
+<li><p>以修改 64 位代码为例，首先将
+<code>shellcode_64.py</code>复制到<code>my_shellcode_64.py</code>，方便后续查看原文件</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049701.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011095221851" />
+<figcaption aria-hidden="true">image-20231011095221851</figcaption>
+</figure></li>
+<li><p>修改命令为删除文件，上图为原代码，下图为修改后代码</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049702.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011095247870" />
+<figcaption aria-hidden="true">image-20231011095247870</figcaption>
+</figure>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049704.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011095252811" />
+<figcaption aria-hidden="true">image-20231011095252811</figcaption>
+</figure></li>
+<li><p>步骤 1：创建删除测试文件；步骤 2：执行修改后的脚本文件，从而生成
+<code>codefile_64</code>；步骤 3：编译
+<code>call_shellcode.c</code>；步骤 4：先执行
+<code>a64.out</code>，然后查看当前目录文件，经过比对，发现成功删除
+<code>testfile</code></p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049705.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011095437510" />
+<figcaption aria-hidden="true">image-20231011095437510</figcaption>
+</figure></li>
+<li><p><strong>小结</strong>：在攻击中，shellcode
+是一段用于利用软件漏洞的有效负载，shellcode 是 16
+进制的机器码，以其经常让攻击者获得shell 而得名。shellcode
+常常使用机器语言编写。 可在寄存器eip 溢出后，放入一段可让 CPU 执行的
+shellcode 机器码，让电脑可以执行攻击者的任意指令。</p></li>
+</ol>
+<h1 id="task-2-level-1-attack">4 Task 2: Level-1 Attack</h1>
+<ol type="1">
+<li><p>目标：运行于 10.9.0.5（端口号为 9090），易受攻击的程序是一个 32
+位程序。</p></li>
+<li><p>原理：栈底为高地址，栈顶为低地址，栈由高地址向低地址增长。栈帧储存的是一个函数在栈中的信息，一般来说相邻的栈帧的关系是父函数与子函数之间的关系，子函数的栈底指针会保存父函数栈底指针的地址。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049706.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011100137705" />
+<figcaption aria-hidden="true">image-20231011100137705</figcaption>
+</figure>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049707.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011100144437" />
+<figcaption aria-hidden="true">image-20231011100144437</figcaption>
+</figure></li>
+<li><p>向目标服务器 10.9.0.5
+发送消息，然后观察服务器端打印出的信息，得到帧指针（ebp）：<code>0xffffd608</code>
+和 buffer
+地址：<code>0xffffd598</code>。重复两次，发现得到地址未发生变化，说明地址随机化已关闭。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049708.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011100354334" />
+<figcaption aria-hidden="true">image-20231011100354334</figcaption>
+</figure>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049709.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011100401123" />
+<figcaption aria-hidden="true">image-20231011100401123</figcaption>
+</figure></li>
+<li><p>修改 exploit.py，具体如下：</p>
+<ul>
+<li><p>根据提供的 shellcode.txt 修改 shellcode</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049710.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011100544158" />
+<figcaption aria-hidden="true">image-20231011100544158</figcaption>
+</figure></li>
+<li><p>说明：填充若干长度的，这个机器码对应的指令是 NOP，也就是告诉 CPU
+什么也不做，然后跳到下一条指令。有了这一段 NOP
+的填充，只要返回地址能够命中临近shellcode任意位置，最后都可以跳转到
+shellcode 的起始处。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049711.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011100622963" />
+<figcaption aria-hidden="true">image-20231011100622963</figcaption>
+</figure></li>
+<li><p>构建有效载荷，设置 start= 517-len(shellcode)，517 为content
+大小，该操作目的是将 content 结尾部分内容替换为攻击代码 shellcode</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049712.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011100730129" />
+<figcaption aria-hidden="true">image-20231011100730129</figcaption>
+</figure></li>
+<li><p>设置 ret=ebp(0xffffd608)+n(n&gt;=8),ebp 即为步骤
+3）得到的地址，因为关闭了地址随机化，所以每次值都一样。n&gt;=8 原因：32
+位下，前一个栈帧和返回内容各占 4 字节，使用当前栈帧加上大于 8
+的数，即可跳到 shellcode 前的覆盖区（填充了 NOP
+指令），之后代码可以逐步运行到 shellcode 的起始处。注意：n
+值不能过大，过大可能无法命中覆盖区，此处以n=8 为例。Offset 为偏移值=ebp
+地址(0xffffd608)- 缓冲区地址(0xffffd598)+4=116，用来指示 ret
+地址，从而用新 ret进行覆盖。注意：offset 为 10 进制数。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049713.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011100919148" />
+<figcaption aria-hidden="true">image-20231011100919148</figcaption>
+</figure></li>
+</ul></li>
+<li><p>生成 badfile，发送给服务器</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049714.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011100945179" />
+<figcaption aria-hidden="true">image-20231011100945179</figcaption>
+</figure></li>
+<li><p>观察到 shellcode 中代码成功执行</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049715.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011101010254" />
+<figcaption aria-hidden="true">image-20231011101010254</figcaption>
+</figure></li>
+<li><p>reverse shell</p>
+<ul>
+<li><p>修改 exploit.py 中
+shellcode，需要先注释掉之前的命令。新命令含义：在服务器机器上启动一个
+bash shell，其输入来自 TCP 连接，输出也重定向到 TCP
+连接，此处为10.9.0.1:7070。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049716.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011101057494" />
+<figcaption aria-hidden="true">image-20231011101057494</figcaption>
+</figure></li>
+<li><p>重新生成 badfile</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049717.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011101112647" />
+<figcaption aria-hidden="true">image-20231011101112647</figcaption>
+</figure></li>
+<li><p>在本机开启监听端口，对应 shellcode 中的 7070 端口</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">nc -lnv 7070<br></code></pre></td></tr></table></figure>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049718.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011101141673" />
+<figcaption aria-hidden="true">image-20231011101141673</figcaption>
+</figure></li>
+<li><p>将 badfile 发送给服务器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> badfile | nc 10.9.0.5 9090<br></code></pre></td></tr></table></figure>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049719.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011101158575" />
+<figcaption aria-hidden="true">image-20231011101158575</figcaption>
+</figure></li>
+<li><p>查看 ip 发现显示服务器的 ip，成功实现反弹 shell</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049720.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011101222506" />
+<figcaption aria-hidden="true">image-20231011101222506</figcaption>
+</figure></li>
+</ul></li>
+</ol>
+<h1 id="task-3-level-2-attack">5 Task 3: Level-2 Attack</h1>
+<ol type="1">
+<li><p>目标：目标服务器是 10.9.0.6，端口号仍为 9090，易受攻击程序仍为 32
+位程序</p></li>
+<li><p>向目标服务器 10.9.0.6
+送消息，然后观察服务器端打印出的信息。信息中仅包含 buffer
+地址(0xffffd2b8)，没有显示帧指针的值,即无法直接计算出 ret 地址。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049721.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011101500690" />
+<figcaption aria-hidden="true">image-20231011101500690</figcaption>
+</figure>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049722.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011101505995" />
+<figcaption aria-hidden="true">image-20231011101505995</figcaption>
+</figure></li>
+<li><p>修改 exploit.py。ret=0xffffd2b8(buffer地址)+300(缓冲区最大容
+量)+8(前ebp+ret)=0xffffd3ec，加上的值只用大于等于
+308，能命中shellcode前填充区，让 shellcode 执行即可，此处以加 308
+为例。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049723.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011101548428" />
+<figcaption aria-hidden="true">image-20231011101548428</figcaption>
+</figure></li>
+<li><p><strong>难点</strong>：offset
+值如何设定。因为只能构建一个有效载荷，该有效载荷需要可用于此范围内的任何缓冲区大小。根据实验指导得知buffer_size
+的限制在：[100, 300]。并且，在 32
+位程序中，由于内存对齐的原因，在帧指针中存储的值总是四的倍数。因此我们直接将所有可能的位置都用新
+ret 地址进行覆盖。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049724.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011101948481" />
+<figcaption aria-hidden="true">image-20231011101948481</figcaption>
+</figure></li>
+<li><p>重新生成 badfile，在本机开启监听端口，将 badfile
+发送给目标服务端。查看 ip 发现显示服务器的 ip，成功实现反弹
+shell。（基本同上）</p></li>
+</ol>
+<h1 id="task-4-level-3-attack">6 Task 4: Level-3 Attack</h1>
+<ol type="1">
+<li><p>目标：目标服务器是 10.9.0.7，开放端口为 9090，运行 64
+位程序</p></li>
+<li><p>向目标服务器 10.9.0.7
+送消息，然后观察服务器端打印出的信息。观察到栈帧值和 buffer 地址变为了 8
+字节。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049725.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011102140559" />
+<figcaption aria-hidden="true">image-20231011102140559</figcaption>
+</figure>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049726.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011102145762" />
+<figcaption aria-hidden="true">image-20231011102145762</figcaption>
+</figure></li>
+<li><p><strong>难点</strong>：64 位计算机中的地址范围为
+0x00-0x00007FFFFFFFFFFF，因此所有地址最高位的两个字节都是 0x00。而
+strcpy 函数遇到 0会停止，如果和前面的方法一样，则无法成功拷贝
+shellcode。解决方案：不再将 shellcode 放在 badfile
+结尾部分，而是将其放至 badfile 开头，令ret
+的值指向前面部分。由于是小端存储，在截止前ret前面内容及其非零部分已经被成功拷贝。</p></li>
+<li><p>修改 exploit.py 中 shellcode，采用 task1 中使用的 64
+位shellcode</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049727.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011102413481" />
+<figcaption aria-hidden="true">image-20231011102413481</figcaption>
+</figure></li>
+<li><p>start 设置为 0（也可以是其他较小值，目的是让 shellcode 在ret
+前），使 shellcode 位于 badfile 开头</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049728.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011102436372" />
+<figcaption aria-hidden="true">image-20231011102436372</figcaption>
+</figure></li>
+<li><p>ret=buffer
+地址(0x00007fffffffe1e0)+start，此处为0x00007fffffffe1e0；offset=rbp(0x00007fffffffe2b0)-buffer(0x00007fffffffe1e0)+8(rbp
+占 8 字节)=216，offset 为 10 进制。ret 转为字节码的部分需要改为以 8
+为步长。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049729.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011102528980" />
+<figcaption aria-hidden="true">image-20231011102528980</figcaption>
+</figure></li>
+<li><p>重新生成 badfile，在本机开启监听端口，将 badfile
+发送给目标服务端。查看 ip 发现显示服务器的 ip，成功实现反弹
+shell。（基本同上）</p></li>
+</ol>
+<h1 id="task-5-level-4-attack">7 Task 5: Level-4 Attack</h1>
+<ol type="1">
+<li><p>目标：目标服务器是 10.9.0.8，开放端口为 9090，运行 64
+位程序</p></li>
+<li><p>向目标服务器 10.9.0.7 送消息，然后观察服务器端打印出的信息。发现
+buffer 大小仅为 96 字节。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049730.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011102717893" />
+<figcaption aria-hidden="true">image-20231011102717893</figcaption>
+</figure>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049731.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011102722540" />
+<figcaption aria-hidden="true">image-20231011102722540</figcaption>
+</figure></li>
+<li><p>难点：buffer 大小过小，可能无法容纳
+shellcode，因此需要将shellcode 放在 badfile 结尾处。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049732.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011102745704" />
+<figcaption aria-hidden="true">image-20231011102745704</figcaption>
+</figure></li>
+<li><p>offset=rbp-buffer+8=104,基本原理同上一个
+task。<strong>难点</strong>在于返回地址的设置，因为 ret 中 00
+的存在，结尾的shellcode 不能被成功拷贝，因此需要让 ret 指向主函数中 str
+数组中 shellcode的位置（注：此处对于 ret 设置不是很清楚）</p></li>
+</ol>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049733.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011103039147" />
+<figcaption aria-hidden="true">image-20231011103039147</figcaption>
+</figure>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049734.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011102851075" />
+<figcaption aria-hidden="true">image-20231011102851075</figcaption>
+</figure>
+<ol start="5" type="1">
+<li>重新生成 badfile，在本机开启监听端口，将 badfile
+发送给目标服务端。查看 ip 发现显示服务器的 ip，成功实现反弹
+shell。（基本同上）</li>
+</ol>
+<h1 id="task-6-experimenting-with-the-address-randomization">8 Task 6:
+Experimenting with the Address Randomization</h1>
+<ol type="1">
+<li><p>重新启用地址空间布局随机化</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo /sbin/sysctl -w kernel.randomize_va_space=2<br></code></pre></td></tr></table></figure>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049735.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011103159396" />
+<figcaption aria-hidden="true">image-20231011103159396</figcaption>
+</figure></li>
+<li><p>向 level 1 和 level 3 中服务器发送 Hello
+消息，并发送多次，发现每次地址都在随机变化。<strong>ASLR
+会使缓冲区溢出攻击变得更加困难原因</strong>：意味着攻击者无法事先知道要攻击的特定内存地址，因为它们在每次启动时都会发生变化；不再能够确定可执行代码或关键数据的确切位置；迫使攻击者需要更复杂的技术来发现内存布局，增加了攻击的难度和成本。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049736.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011103317313" />
+<figcaption aria-hidden="true">image-20231011103317313</figcaption>
+</figure>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049737.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011103323882" />
+<figcaption aria-hidden="true">image-20231011103323882</figcaption>
+</figure></li>
+<li><p>目标：10.9.0.5:9090，运行32位程序。<strong>解决方案</strong>：无限循环运行易受攻击的程序，暴力破解。Tip：在
+32 位 Linux 机器上，只能使用 19
+个位用于地址随机化。这还远远不够，如果我们运行足够多的攻击足够的次数，我们就能轻松击中目标。对于
+64
+位机器，用于随机化的位数会大大增加，意味着该方法可能不再有效。</p></li>
+<li><p>使用 Level 1 中 exploit.py 重新生成
+badfile，在本机开启监听，执行暴力破解脚本，16923 次时成功破解。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049738.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011103637351" />
+<figcaption aria-hidden="true">image-20231011103637351</figcaption>
+</figure>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049739.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011103642836" />
+<figcaption aria-hidden="true">image-20231011103642836</figcaption>
+</figure>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049740.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011103650245" />
+<figcaption aria-hidden="true">image-20231011103650245</figcaption>
+</figure></li>
+<li><p>查看 ip 发现显示服务器的 ip，成功实现反弹 shell</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049741.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011103708030" />
+<figcaption aria-hidden="true">image-20231011103708030</figcaption>
+</figure></li>
+</ol>
+<h1 id="task-7-experimenting-with-other-countermeasures">9 Task 7:
+Experimenting with Other Countermeasures</h1>
+<h2 id="task-7.a-turn-on-the-stackguard-protection">9.1 Task 7.a: Turn
+on the StackGuard Protection</h2>
+<ol type="1">
+<li><p>进入 server-code 文件夹，去除 -fno-stack-protector 选项编译
+stack.c，然后将 badfile
+作为可执行文件输入。出现报错：<code>stack smashing</code></p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049742.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011103821396" />
+<figcaption aria-hidden="true">image-20231011103821396</figcaption>
+</figure></li>
+<li><p>正常的函数调用时，函数调用栈的示意图</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049743.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011104543776" />
+<figcaption aria-hidden="true">image-20231011104543776</figcaption>
+</figure></li>
+<li><p>StackGuard
+如何发挥作用。由上图可以看到，缓冲区溢出攻击的核心点在于，由于程序没有检测边界，而攻击者利用这一点，覆盖函数的返回地址。如果我们有办法能检测到程序是否被修改，就可以作出一定的防御，比如检测到被修改，就退出。StackGuard的方法很简单，就是往返回地址后面插入一段特殊值(称之为canary)，在函数返回之前，首先检查这个特殊值是否被修改，
+如果被修改了，说明发生了缓冲区溢出攻击。更安全的方式是，插入这段特殊值，是随机值。但是，即便如此，攻击者仍然有办法绕过，那就是不修改这段值，而是直接修改返回地址，但是这很难做到，因为攻击者无法知道这段随机值到底是多长。另外由于随机化，攻击者也无法轻易复制这一段随机值。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049744.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011104754440" />
+<figcaption aria-hidden="true">image-20231011104754440</figcaption>
+</figure></li>
+<li><p>总结：StackGuard
+是一种编译器扩展，可增强编译器生成的可执行代码，从而检测并阻止针对堆栈的缓冲区溢出攻击。其效果对程序的正常功能是透明的。要注意到程序是否经过
+StackGuard 增强，唯一的方法就是使程序执行具有未定义行为的 C 语句：
+StackGuard
+增强程序定义了在函数仍处于活动状态时写入函数返回地址的行为。</p></li>
+</ol>
+<h2 id="task-7.b-turn-on-the-non-executable-stack-protection">9.2 Task
+7.b: Turn on the Non-executable Stack Protection</h2>
+<ol type="1">
+<li><p>进入 shellcode 文件夹，去除 -z execstack 编译call_shellcode.c
+并运行，出现报错：<code>Segmentation fault</code></p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049745.png" srcset="/img/loading.gif" lazyload
+alt="image-20231011103924910" />
+<figcaption aria-hidden="true">image-20231011103924910</figcaption>
+</figure></li>
+<li><p>需要注意的是，不可执行堆栈只能只能使 shellcode
+无法在堆栈上运行，但并不能完全防止缓冲区溢出攻击，因为利用缓冲区溢出漏洞后，还有其他方法运行恶意代码。return-tolibc
+攻击就是一个例子。</p></li>
+</ol>
+<p>参考教程：</p>
+<ol type="1">
+<li><a
+target="_blank" rel="noopener" href="https://seanxz401.github.io/2022/12/27/网络攻防-缓冲区溢出/#Task7">网络攻防-缓冲区溢出
+- Sean's Blog (seanxz401.github.io)</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://blog.csdn.net/qq_39678161/article/details/119907828">【SEED
+Labs 2.0】Buffer-Overflow Attack_buffer overflow attack lab (server
+version)_嗯嗯哈哈哈哈哈哈嗯嗯哈哈哈的博客-CSDN博客</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/344448144">StackGuard的作用 -
+知乎 (zhihu.com)</a></li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/SEED-LABS/" class="category-chain-item">SEED-LABS</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/SEED-LABS/Software-Security/" class="category-chain-item">Software Security</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Buffer-Overflow Attack Lab (Server Version)</div>
+      <div>http://example.com/2023/10/11/SEED-LABS/Software Security/Buffer-Overflow Attack Lab (Server Version)/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>kaikaikai</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年10月11日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/10/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%AE%97%E6%B3%95%E7%AF%87/%E5%86%B3%E7%AD%96%E6%A0%91/" title="决策树">
+                        <span class="hidden-mobile">决策树</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
