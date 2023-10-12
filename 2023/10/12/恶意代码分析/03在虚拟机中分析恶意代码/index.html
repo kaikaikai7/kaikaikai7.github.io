@@ -16,21 +16,21 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1 反病毒引擎扫描  原理：依靠一个已知恶意代码可识别片段的特征数据库（病毒文件特征库），以及基于行为与模式匹配的分析（启发式检测），来识别可疑文件 具体使用：  使用反病毒软件进行检测 开源恶意代码扫描引擎ClamAV 从反病毒厂商获得已知恶意代码的分析报告和结果   2 哈希值  哈希是一种用来唯一标识恶意代码的常用方法 恶意代码样本通过一个哈希程序，会产生出一段用于">
+    <meta name="description" content="1 虚拟机概述  概念：Virtual Machine，指通过软件模拟的具有完整硬件系统功能的、运行在一个完全隔离环境中的完整计算机系统。 软件：VMware(VMware ACE）、Xen、Virtual Box和KVM等，它们都能在Windows系统上虚拟出多个计算机。 虚拟机监视器（Virtual Machine Monitor，VMM）是虚拟机技术的核心，它是一层位于操作系统">
 <meta property="og:type" content="article">
-<meta property="og:title" content="静态分析基础技术">
-<meta property="og:url" content="http://example.com/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/02%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E6%8A%80%E6%9C%AF/index.html">
+<meta property="og:title" content="在虚拟机中分析恶意代码">
+<meta property="og:url" content="http://example.com/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/03%E5%9C%A8%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%AD%E5%88%86%E6%9E%90%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="1 反病毒引擎扫描  原理：依靠一个已知恶意代码可识别片段的特征数据库（病毒文件特征库），以及基于行为与模式匹配的分析（启发式检测），来识别可疑文件 具体使用：  使用反病毒软件进行检测 开源恶意代码扫描引擎ClamAV 从反病毒厂商获得已知恶意代码的分析报告和结果   2 哈希值  哈希是一种用来唯一标识恶意代码的常用方法 恶意代码样本通过一个哈希程序，会产生出一段用于">
+<meta property="og:description" content="1 虚拟机概述  概念：Virtual Machine，指通过软件模拟的具有完整硬件系统功能的、运行在一个完全隔离环境中的完整计算机系统。 软件：VMware(VMware ACE）、Xen、Virtual Box和KVM等，它们都能在Windows系统上虚拟出多个计算机。 虚拟机监视器（Virtual Machine Monitor，VMM）是虚拟机技术的核心，它是一层位于操作系统">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-10-12T02:48:12.000Z">
-<meta property="article:modified_time" content="2023-10-12T02:49:18.892Z">
+<meta property="article:published_time" content="2023-10-12T03:46:22.000Z">
+<meta property="article:modified_time" content="2023-10-12T03:53:30.401Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>静态分析基础技术 - kaikaikai&#39;s blog</title>
+  <title>在虚拟机中分析恶意代码 - kaikaikai&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -184,7 +184,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="静态分析基础技术"></span>
+            <span id="subtitle" data-typed-text="在虚拟机中分析恶意代码"></span>
           
         </div>
 
@@ -195,8 +195,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-10-12 10:48" pubdate>
-          2023年10月12日 上午
+        <time datetime="2023-10-12 11:46" pubdate>
+          2023年10月12日 中午
         </time>
       </span>
     
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.9k 字
+          1.1k 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          17 分钟
+          10 分钟
         
       </span>
     
@@ -255,119 +255,84 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">静态分析基础技术</h1>
+            <h1 id="seo-header">在虚拟机中分析恶意代码</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="反病毒引擎扫描">1 反病毒引擎扫描</h1>
+                <h1 id="虚拟机概述">1 虚拟机概述</h1>
 <ul>
-<li>原理：依靠一个已知恶意代码可识别片段的特征数据库（病毒文件特征库），以及基于行为与模式匹配的分析（启发式检测），来识别可疑文件</li>
-<li>具体使用：
-<ul>
-<li>使用反病毒软件进行检测</li>
-<li>开源恶意代码扫描引擎ClamAV</li>
-<li>从反病毒厂商获得已知恶意代码的分析报告和结果</li>
-</ul></li>
+<li>概念：Virtual
+Machine，指通过软件模拟的具有完整硬件系统功能的、运行在一个完全隔离环境中的完整计算机系统。</li>
+<li>软件：VMware(VMware ACE）、Xen、Virtual
+Box和KVM等，它们都能在Windows系统上虚拟出多个计算机。</li>
+<li>虚拟机监视器（Virtual Machine
+Monitor，VMM）是虚拟机技术的核心，它是一层位于操作系统和计算机硬件之间的代码，用来将硬件平台分割成多个虚拟机。主要作用是隔离并且管理上层运行的多个虚拟机，仲裁它们对底层运行在特权模式硬件的访问，并为每个客户操作系统虚拟一套独立于实际硬件的虚拟硬件环境（包括：处理器、内存、I/O
+设备等）。</li>
 </ul>
-<h1 id="哈希值">2 哈希值</h1>
-<ul>
-<li>哈希是一种用来唯一标识恶意代码的常用方法</li>
-<li>恶意代码样本通过一个哈希程序，会产生出一段用于唯一标识这个样本的独特哈希值（类似指纹）</li>
-<li>常用哈希函数：MD5、SHA-1</li>
-</ul>
-<h1 id="查找字符串">3 查找字符串</h1>
-<ul>
-<li>程序中的字符串就是一段可打印的字符序列，从其中会包含很多信息，比如弹出的消息，读取的位置，链接的URL等。</li>
-<li>存储方式：ASCLL、Unicode</li>
-<li>两种类型格式都以NULL结束符，表示字符串是完整的。ASCII字符串每个字符使用一个字节，Unicode使用两个字节。</li>
-<li>然而有些时候检测到的也并非是真正的字符串，可能是内存地址，CPU指令序列。</li>
-<li>使用：strings -
-查找目标文件或二进制文件中的可显示字符串（https://docs.oracle.com/cd/E56344_01/html/E54075/strings-1.html）</li>
-</ul>
-<h1 id="加壳与混淆恶意代码">4 加壳与混淆恶意代码</h1>
-<ul>
-<li>合法程序通常会包含很多字符串，而由被加壳或者混淆的恶意代码直接分析获得的可打印字符串则很少</li>
-<li>加壳和混淆代码通常至少会包含LoadLibrary和GetProcAddress函数，它们是用来加载和使用其他函数功能的</li>
-</ul>
-<h2 id="文件加壳">4.1 文件加壳</h2>
-<p>当加壳程序运行时，会首先运行一小段脱壳代码，来解压缩加壳的文件，然后再运行脱壳后的文件。左边文件是可执行程序源文件，右边是加壳后的可执行程序。</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310121049831.png" srcset="/img/loading.gif" lazyload
-alt="image-20231012102949934" />
-<figcaption aria-hidden="true">image-20231012102949934</figcaption>
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310121153628.png" srcset="/img/loading.gif" lazyload
+alt="image-20231012110721542" />
+<figcaption aria-hidden="true">image-20231012110721542</figcaption>
 </figure>
-<h2 id="使用peid检测加壳">4.2 使用PEiD检测加壳</h2>
-<p>检测加壳器的类型，或用来链接应用程序的编译器类型</p>
+<h1 id="虚拟机网络模式">2 虚拟机网络模式</h1>
 <figure>
 <img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310121049832.png" srcset="/img/loading.gif" lazyload
-alt="image-20231012103355802" />
-<figcaption aria-hidden="true">image-20231012103355802</figcaption>
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310121153629.png" srcset="/img/loading.gif" lazyload
+alt="image-20231012112120331" />
+<figcaption aria-hidden="true">image-20231012112120331</figcaption>
 </figure>
-<h1 id="pe文件格式">5 PE文件格式</h1>
+<h2 id="bridged桥接模式">2.1 Bridged（桥接模式）</h2>
 <ul>
-<li>PE（Portable
-Execute）文件格式是windows可执行文件的总称，常见的有DLL，EXE，OCX，SYS等。</li>
-<li>PE是指32位可执行文件，64位的可执行文件称为PE+或者PE32+，并非PE64。</li>
-<li>PE文件以一个文件头开始，其中包含代码信息、应用程序类型、所需的库函数与空间要求。</li>
+<li>在bridged模式下，VMWare虚拟出来的虚拟机就像是局域网中的一台独立的主机，它可以访问网内任何一台机器。主机网卡和虚拟网卡的IP地址处于同一个网段，子网掩码、网关、DNS等参数都相同。</li>
+<li>在此种模式下，虚拟机内部的网卡（例如linux下的eth0)直接连到了物理网卡所在的网络上，可以想象为虚拟机和host机处于对等的地位，在网络关系上是平等的，没有谁在谁后面的问题。</li>
 </ul>
 <figure>
 <img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310121049833.png" srcset="/img/loading.gif" lazyload
-alt="image-20231012103534449" />
-<figcaption aria-hidden="true">image-20231012103534449</figcaption>
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310121153630.png" srcset="/img/loading.gif" lazyload
+alt="image-20231012112631034" />
+<figcaption aria-hidden="true">image-20231012112631034</figcaption>
 </figure>
-<h1 id="链接库与函数">6 链接库与函数</h1>
+<h2 id="nat地址转换模式">2.2 NAT（地址转换模式）</h2>
 <ul>
-<li>导入函数也叫引入函数，引入函数被该模块调用，但它又不在该模块中，调用模块中只包含该函数的一些信息，比如函数名以及它所在的模块（链接库）名等信息</li>
-<li>导入表，导入函数相关信息都保存在PE文件中的导入表中。要找到PE文件的导入表，必须先找到data
-directory即数据目录</li>
+<li>桥接模式配置简单，但如果网络环境是ip资源很缺少或对ip管理比较严格的话，那桥接模式就不太适用了，这时候NAT模式是最好的选择。</li>
+<li>NAT模式借助虚拟NAT设备和虚拟DHCP服务器，使得虚拟机可以联网。就是让虚拟系统借助NAT(网络地址转换)功能，通过宿主机器所在的网络来访问公网。</li>
 </ul>
-<h2 id="静态链接运行时链接与动态链接">6.1
-静态链接、运行时链接与动态链接</h2>
-<ul>
-<li>静态链接：在生成可执行程序时，就把库中的内容加入到程序中。在程序运行前，先将其目标模块及它们所需的库函数，链接成一个完整的装配模块，以后不再拆开的链接方式。</li>
-<li>动态链接：用户源程序编译后得到的一组目标模块，在装入内存时釆用边装入边链接的链接方式。装入一个目标模块时，若发生一个外部模块调用，将引起装入程序去找出相应的外部目标模块，并将它装入内存，还要修改目标模中的相对地址。</li>
-<li>运行时链接：有些目标模块的链接，推迟到执行时才进行。即在执行过程中，若发现一个被调用模块尚未装入内存时，由OS去找到该模块，将它装入内存，并把它连接到调用者模块上。对某些目标模块的链接，是在程序执行中需要该目标模块时，才对它进行的链接。</li>
-</ul>
-<h2 id="dependency-walker">6.2 Dependency Walker</h2>
-<ul>
-<li><p>该工具用于探索动态链接函数</p></li>
-<li><p>常见DLL程序</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310121049834.png" srcset="/img/loading.gif" lazyload
-alt="image-20231012104028617" />
-<figcaption aria-hidden="true">image-20231012104028617</figcaption>
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310121153631.png" srcset="/img/loading.gif" lazyload
+alt="image-20231012113616352" />
+<figcaption aria-hidden="true">image-20231012113616352</figcaption>
+</figure>
+<h2 id="host-only仅主机模式">2.3 Host-Only（仅主机模式）</h2>
+<ul>
+<li><p>Host-Only模式其实就是NAT模式去除了虚拟NAT设备，然后使用VMware
+Network Adapter
+VMnet1虚拟网卡连接VMnet1虚拟交换机来与虚拟机通信的，Host-Only模式将虚拟机与外网隔开，使得虚拟机成为一个独立的系统，只与主机相互通讯。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310121153632.png" srcset="/img/loading.gif" lazyload
+alt="image-20231012114151982" />
+<figcaption aria-hidden="true">image-20231012114151982</figcaption>
 </figure></li>
 </ul>
-<h2 id="导入函数">6.3 导入函数</h2>
-<p>PE文件头包含可执行文件使用的特定函数相关信息。导入函数描述可执行文件会使用哪些Windows
-API函数，也就是可能会有什么样的操作。</p>
-<h2 id="导出函数">6.4 导出函数</h2>
-<p>用来与其他程序和代码进行交互时所使用的。一个DLL会出现一个或多个功能函数，然后将其导出，供别的程序导入并使用。</p>
-<h1 id="pe文件头与节">7 PE文件头与节</h1>
+<h1 id="使用vmware-进行恶意代码分析的风险">3 使用VMware
+进行恶意代码分析的风险</h1>
 <ul>
-<li>.text：包含CPU执行指令。所有其他节存储数据和支持性的信息。一般来说，这是唯一可以执行的节，也应该是唯一包含代码的节。</li>
-<li>.rdata：包含导入与导出函数信息，与Dependency
-Walker和PeView工具所获得的信息是相同的。还可以存储程序所使用的其他只读数据。有些文件包括.idata和.edata节来存储导入导出信息。</li>
-<li>.data：包含程序的全局数据，可以从程序的任何地方访问到。本地数据并不存储在这个节中，而是在PE文件的某个其他位置上。</li>
-<li>.rsrc：包含由可执行文件所使用的资源，不能执行，比如：图标、图片、菜单项、字符串等。字符串也可以存储在主程序中。存放在这是为提供多语种支持。</li>
+<li>虚拟机探测：恶意代码使用反虚拟机技术，使分析变得更加困难</li>
+<li>虚拟机逃逸：虚拟机软件本身具有漏洞，有可能被恶意代码利用</li>
+<li>信息破坏：未知风险，无论如何使用非敏感机器</li>
 </ul>
-<figure>
-<img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310121049835.png" srcset="/img/loading.gif" lazyload
-alt="image-20231012104458546" />
-<figcaption aria-hidden="true">image-20231012104458546</figcaption>
-</figure>
-<figure>
-<img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310121049836.png" srcset="/img/loading.gif" lazyload
-alt="image-20231012104534105" />
-<figcaption aria-hidden="true">image-20231012104534105</figcaption>
-</figure>
+<p>参考教程：</p>
+<ol type="1">
+<li><a
+target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/65103100">“桥接”和“NAT”方式区别 -
+知乎 (zhihu.com)</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://www.cnblogs.com/zhangweimee/p/9467436.html">Vmware虚拟机三种网络模式详解
+- 醉城、 - 博客园 (cnblogs.com)</a></li>
+</ol>
 
                 
               </div>
@@ -406,8 +371,8 @@ alt="image-20231012104534105" />
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>静态分析基础技术</div>
-      <div>http://example.com/2023/10/12/恶意代码分析/02静态分析基础技术/</div>
+      <div>在虚拟机中分析恶意代码</div>
+      <div>http://example.com/2023/10/12/恶意代码分析/03在虚拟机中分析恶意代码/</div>
     </div>
     <div class="license-meta">
       
@@ -451,18 +416,12 @@ alt="image-20231012104534105" />
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/03%E5%9C%A8%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%AD%E5%88%86%E6%9E%90%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81/" title="在虚拟机中分析恶意代码">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">在虚拟机中分析恶意代码</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/01%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E6%8A%80%E6%9C%AF%E5%85%A5%E9%97%A8/" title="恶意代码分析技术入门">
-                        <span class="hidden-mobile">恶意代码分析技术入门</span>
+                      <a href="/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/02%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E6%8A%80%E6%9C%AF/" title="静态分析基础技术">
+                        <span class="hidden-mobile">静态分析基础技术</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

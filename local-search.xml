@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>在虚拟机中分析恶意代码</title>
+    <link href="/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/03%E5%9C%A8%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%AD%E5%88%86%E6%9E%90%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81/"/>
+    <url>/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/03%E5%9C%A8%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%AD%E5%88%86%E6%9E%90%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81/</url>
+    
+    <content type="html"><![CDATA[<h1 id="虚拟机概述">1 虚拟机概述</h1><ul><li>概念：VirtualMachine，指通过软件模拟的具有完整硬件系统功能的、运行在一个完全隔离环境中的完整计算机系统。</li><li>软件：VMware(VMware ACE）、Xen、VirtualBox和KVM等，它们都能在Windows系统上虚拟出多个计算机。</li><li>虚拟机监视器（Virtual MachineMonitor，VMM）是虚拟机技术的核心，它是一层位于操作系统和计算机硬件之间的代码，用来将硬件平台分割成多个虚拟机。主要作用是隔离并且管理上层运行的多个虚拟机，仲裁它们对底层运行在特权模式硬件的访问，并为每个客户操作系统虚拟一套独立于实际硬件的虚拟硬件环境（包括：处理器、内存、I/O设备等）。</li></ul><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310121153628.png"alt="image-20231012110721542" /><figcaption aria-hidden="true">image-20231012110721542</figcaption></figure><h1 id="虚拟机网络模式">2 虚拟机网络模式</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310121153629.png"alt="image-20231012112120331" /><figcaption aria-hidden="true">image-20231012112120331</figcaption></figure><h2 id="bridged桥接模式">2.1 Bridged（桥接模式）</h2><ul><li>在bridged模式下，VMWare虚拟出来的虚拟机就像是局域网中的一台独立的主机，它可以访问网内任何一台机器。主机网卡和虚拟网卡的IP地址处于同一个网段，子网掩码、网关、DNS等参数都相同。</li><li>在此种模式下，虚拟机内部的网卡（例如linux下的eth0)直接连到了物理网卡所在的网络上，可以想象为虚拟机和host机处于对等的地位，在网络关系上是平等的，没有谁在谁后面的问题。</li></ul><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310121153630.png"alt="image-20231012112631034" /><figcaption aria-hidden="true">image-20231012112631034</figcaption></figure><h2 id="nat地址转换模式">2.2 NAT（地址转换模式）</h2><ul><li>桥接模式配置简单，但如果网络环境是ip资源很缺少或对ip管理比较严格的话，那桥接模式就不太适用了，这时候NAT模式是最好的选择。</li><li>NAT模式借助虚拟NAT设备和虚拟DHCP服务器，使得虚拟机可以联网。就是让虚拟系统借助NAT(网络地址转换)功能，通过宿主机器所在的网络来访问公网。</li></ul><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310121153631.png"alt="image-20231012113616352" /><figcaption aria-hidden="true">image-20231012113616352</figcaption></figure><h2 id="host-only仅主机模式">2.3 Host-Only（仅主机模式）</h2><ul><li><p>Host-Only模式其实就是NAT模式去除了虚拟NAT设备，然后使用VMwareNetwork AdapterVMnet1虚拟网卡连接VMnet1虚拟交换机来与虚拟机通信的，Host-Only模式将虚拟机与外网隔开，使得虚拟机成为一个独立的系统，只与主机相互通讯。</p><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310121153632.png"alt="image-20231012114151982" /><figcaption aria-hidden="true">image-20231012114151982</figcaption></figure></li></ul><h1 id="使用vmware-进行恶意代码分析的风险">3 使用VMware进行恶意代码分析的风险</h1><ul><li>虚拟机探测：恶意代码使用反虚拟机技术，使分析变得更加困难</li><li>虚拟机逃逸：虚拟机软件本身具有漏洞，有可能被恶意代码利用</li><li>信息破坏：未知风险，无论如何使用非敏感机器</li></ul><p>参考教程：</p><ol type="1"><li><ahref="https://zhuanlan.zhihu.com/p/65103100">“桥接”和“NAT”方式区别 -知乎 (zhihu.com)</a></li><li><ahref="https://www.cnblogs.com/zhangweimee/p/9467436.html">Vmware虚拟机三种网络模式详解- 醉城、 - 博客园 (cnblogs.com)</a></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>恶意代码分析</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>静态分析基础技术</title>
     <link href="/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/02%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E6%8A%80%E6%9C%AF/"/>
     <url>/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/02%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E6%8A%80%E6%9C%AF/</url>
