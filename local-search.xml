@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>恶意代码分析技术入门</title>
+    <link href="/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E6%8A%80%E6%9C%AF%E5%85%A5%E9%97%A8/"/>
+    <url>/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E6%8A%80%E6%9C%AF%E5%85%A5%E9%97%A8/</url>
+    
+    <content type="html"><![CDATA[<h1 id="恶意代码基础知识">1 恶意代码基础知识</h1><h2 id="定义">1.1 定义</h2><p>使计算机按照攻击者的意图运行以达到恶意目的的<strong>指令集合</strong>（二进制执行文件，脚本语言代码，宏代码，寄生在文件、启动扇区的指令流）</p><h2 id="分类">1.2 分类</h2><ul><li>计算机病毒(Virus)：<ul><li>定义特征：通过感染文件(可执行文件、数据文件、电子邮件等)或磁盘引导扇区进行传播，一般<strong>需要</strong>宿主程序被执行或人为交互才能运行。</li><li>典型实例：Brain，Concept，CIH，勒索软件</li></ul></li><li>蠕虫(Worm)：<ul><li>定义特征：一般为<strong>不需要</strong>宿主的单独文件，通过网络传播，自动复制，通常无需人为交互便可感染传播。</li><li>典型实例：Morris，CodeRed，Slammer</li></ul></li><li>启动器(Downloader)：<ul><li>定义特征：从远程主机下载到本地执行的轻量级恶意代码，不需要或仅需要极少的人为干预。代表性的开发工具有：JavaScript，VBScript，Java，以及ActiveX。启动其他恶意程序的恶意代码。</li><li>典型实例：SantyWorm等。</li></ul></li><li>后门(Backdoor)：<ul><li>定义特征：绕过正常的安全控制机制，从而为攻击者提供访问途径。</li><li>典型实例：Netcat，BO，冰河，Glupteba。</li></ul></li><li>特洛伊木马(Trojan)：<ul><li>定义特征：伪装成有用软件，隐藏其恶意目标，欺骗用户安装执行。</li><li>典型实例：Setiri，Emotet，Dridex，Ramnit</li></ul></li><li>僵尸程序(Bot)：<ul><li>定义特征：一般为<strong>不需要</strong>宿主的单独文件，通过网络传播，自动复制，通常无需人为交互便可感染传播；使用一对多的命令与控制机制组成僵尸网络。</li><li>典型实例：Sdbot，Agobot，Mirai，Glupteba</li></ul></li><li>内核套件(Rootkit)：<ul><li>定义特征：通过替换或修改系统关键可执行文件（用户态），或者通过控制操作系统内核(内核态)，用以获取并保持最高控制权(rootaccess)。</li><li>典型实例：LRK，FU，hdef</li></ul></li><li>融合型恶意代码及Bootkit：<ul><li>定义特征：融合上述多种恶意代码技术，构成更具破坏性的恶意代码形态，如Bootkit。</li><li>典型实例：Nimda、Stuxnet、Flame、Duqu</li></ul></li></ul><h1 id="恶意代码分析技术">2 恶意代码分析技术</h1><table><thead><tr class="header"><th><strong>区别项</strong></th><th><strong>恶意代码分析</strong></th><th><strong>良性代码分析</strong></th></tr></thead><tbody><tr class="odd"><td>目的公开性</td><td>目的未知，需分析和推测其目的</td><td>一般情况下，目的是公开且明确的，可辅助分析过程</td></tr><tr class="even"><td>目的恶意性</td><td>恶意目的，需要受控环境</td><td>良性，无需受控环境</td></tr><tr class="odd"><td>是否存在源码</td><td>绝大多数情况无源码，二进制分析</td><td>开源软件存在源码，源码分析；闭源软件则需二进制分析</td></tr><tr class="even"><td>使用对抗分析技术</td><td>各种多样化对抗分析，博弈问题</td><td>一般无对抗分析，商业软件也引入对抗分析保护产权</td></tr></tbody></table><ul><li><strong>静态</strong>分析<ul><li>通过反病毒引擎扫描识别已知的恶意代码家族和变种名</li><li>逆向分析恶意代码模块构成，内部数据结构，关键控制流程等，理解恶意代码的机理，并提取特征码用于检测。</li><li>分析方法：恶意代码扫描、文件格式识别、字符串提取、二进制结构分析、反汇编、反编译、代码结构与逻辑分析、加壳识别和代码脱壳</li></ul></li><li><strong>动态</strong>分析<ul><li>通过在受控环境中执行目标代码，以获取目标代码的行为及运行结果。</li><li>分析方法：快照比对、动态行为监控(APIHooking)、网络监控、沙盒(sandbox)、动态跟踪调试</li></ul></li></ul><h1 id="section"></h1>]]></content>
+    
+    
+    <categories>
+      
+      <category>恶意代码分析</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Buffer-Overflow Attack Lab (Server Version)</title>
     <link href="/2023/10/11/SEED-LABS/Software%20Security/Buffer-Overflow%20Attack%20Lab%20(Server%20Version)/"/>
     <url>/2023/10/11/SEED-LABS/Software%20Security/Buffer-Overflow%20Attack%20Lab%20(Server%20Version)/</url>
