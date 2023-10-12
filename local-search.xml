@@ -5,8 +5,8 @@
   
   <entry>
     <title>动态分析基础技术</title>
-    <link href="/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/04%E5%8A%A8%E6%80%81%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E6%8A%80%E6%9C%AF/"/>
-    <url>/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/04%E5%8A%A8%E6%80%81%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E6%8A%80%E6%9C%AF/</url>
+    <link href="/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E7%90%86%E8%AE%BA%E7%AF%87/04%E5%8A%A8%E6%80%81%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E6%8A%80%E6%9C%AF/"/>
+    <url>/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E7%90%86%E8%AE%BA%E7%AF%87/04%E5%8A%A8%E6%80%81%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E6%8A%80%E6%9C%AF/</url>
     
     <content type="html"><![CDATA[<h1 id="沙箱">1 沙箱</h1><ul><li>沙盒技术：用于安全运行程序的安全环境，经常被用于执行和分析非可信的代码</li><li>作用：<ul><li>样本是否对硬盘读写，创建了什么文件</li><li>样本是否进行网络连接，连接什么端口</li><li>创建了哪些进程（系统/用户），进程有哪些API函数调用</li><li>相关的可疑文件大小和MD5</li><li>文件是否加壳压缩</li><li>是否是已知病毒</li></ul></li><li>缺点：<ul><li>只能简单地运行可执行程序，如果需要命令行运行，无法触发</li><li>不能记录所有事件，尤其是需要长时间等待的情况</li><li>恶意代码会进行虚拟机检测</li><li>运行环境需要特定的注册表项或文件</li><li>如果是一个DLL，无法正确调用执行</li><li>操作系统的限制</li><li>结论需要安全人员自己总结</li></ul></li></ul><h1 id="运行恶意代码">2 运行恶意代码</h1><ul><li><p>exe：命令行或双击</p></li><li><p>dll：命令行</p></li><li><p>rundll (window系统自带程序)执行以下步骤：</p><ul><li>分析命令行</li><li>通过 LoadLibrary( ) 加载指定的 DLL</li><li>通过 GetProcAddress( ) 获取<code>entrypoint</code> 函数的地址</li><li>调用<code>entrypoint</code>函数，并传递作为<code>optional arguments</code>的命令行尾</li><li>当<code>entrypoint</code>函数返回时，rundll.exe 将卸载 DLL并退出</li></ul></li><li><p>执行DLL文件中的导出函数</p><ul><li><code>C:\Windows\System32\rundll32.exe ipr32x.dll,Install ServiceName</code></li><li><code>C:\Windows\System32\rundll32.exe rip.dll,Install</code></li><li><code>C:\Windows\System32\rundll32.exe xyzzy.dll,#5</code></li></ul></li></ul><h1 id="进程监视器">3 进程监视器</h1><ul><li>ProcessMonitor是一款Windows平台下优秀的监视工具，该工具提供了一种可监视特定注册表、文件系统、网络、进程以及线程活动的方法</li><li>Process Monitor能够监视所有系统调用并迅速收集信息。因为WindowsOS总是有许多的系统调用，有时候我们获取到的东西毫无价值，</li><li>Process Monitor通过一个过滤选项卡来解决了这个问题。</li></ul><p><strong>下载地址：</strong>https://learn.microsoft.com/zh-cn/sysinternals/downloads/procmon</p><h1 id="进程浏览器">4 进程浏览器</h1><ul><li>ProcessExplorer是一款用来执行动态分析的工具，它能够洞察到系统当前进程</li><li>在运行二进制文件之后创建的一个进程，单击进程可以帮助用户查看进程的变化</li></ul><p><strong>下载地址：</strong>https://learn.microsoft.com/zh-cn/sysinternals/downloads/process-explorer</p><h1 id="regshot比较注册表快照">5 Regshot比较注册表快照</h1><p>快照比对方法：</p><ol type="1"><li>对“干净”资源列表做快照</li><li>运行恶意代码（提供较充分的运行时间5分钟）</li><li>对恶意代码运行后的“脏”资源列表做快照</li><li>对比“干净”和“脏”快照，获取恶意代码行为结果</li></ol><ul><li>资源名称列表中的差异：发现新建、删除的行为结果</li><li>资源内容的差异：完整性校验，发现修改的行为结果</li></ul><p><strong>缺点</strong>：无法分析中间行为，粗粒度</p><p><strong>下载地址</strong>：https://sourceforge.net/projects/regshot/</p><h1 id="模拟网络">6 模拟网络</h1><ul><li>目的：避免连接恶意代码的真实服务器（控制服务器）</li><li>工具：<ul><li>ApateDns(FireEye)：用来查看恶意代码发出DNS请求最快捷的方式</li><li>nc(Netcat)：作为客户端，最简单的使用方法，”nc hostport”，能建立一个TCP连接，连向指定的主机和端口。作为服务端，“nc -l -p80”，监听任意指定端口的连接请求(inbound connection)，并可做同样的读写操作。</li><li>INetSim：INetSim能够伪造恶意软件可能使用的常见的互联网服务，并回答相应的请求。当恶意软件请求文件时，INetSim将返回该文件。当恶意软件扫描Web服务器时，INetSim将返回IISWeb服务器的名称以保持恶意软件运行。</li></ul></li></ul><p>参考教程：</p><ol type="1"><li><ahref="https://zhuanlan.zhihu.com/p/24923630">动态恶意软件分析工具介绍</a></li></ol>]]></content>
     
@@ -14,6 +14,8 @@
     <categories>
       
       <category>恶意代码分析</category>
+      
+      <category>理论篇</category>
       
     </categories>
     
@@ -24,8 +26,8 @@
   
   <entry>
     <title>在虚拟机中分析恶意代码</title>
-    <link href="/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/03%E5%9C%A8%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%AD%E5%88%86%E6%9E%90%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81/"/>
-    <url>/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/03%E5%9C%A8%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%AD%E5%88%86%E6%9E%90%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81/</url>
+    <link href="/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E7%90%86%E8%AE%BA%E7%AF%87/03%E5%9C%A8%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%AD%E5%88%86%E6%9E%90%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81/"/>
+    <url>/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E7%90%86%E8%AE%BA%E7%AF%87/03%E5%9C%A8%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%AD%E5%88%86%E6%9E%90%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81/</url>
     
     <content type="html"><![CDATA[<h1 id="虚拟机概述">1 虚拟机概述</h1><ul><li>概念：VirtualMachine，指通过软件模拟的具有完整硬件系统功能的、运行在一个完全隔离环境中的完整计算机系统。</li><li>软件：VMware(VMware ACE）、Xen、VirtualBox和KVM等，它们都能在Windows系统上虚拟出多个计算机。</li><li>虚拟机监视器（Virtual MachineMonitor，VMM）是虚拟机技术的核心，它是一层位于操作系统和计算机硬件之间的代码，用来将硬件平台分割成多个虚拟机。主要作用是隔离并且管理上层运行的多个虚拟机，仲裁它们对底层运行在特权模式硬件的访问，并为每个客户操作系统虚拟一套独立于实际硬件的虚拟硬件环境（包括：处理器、内存、I/O设备等）。</li></ul><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310121153628.png"alt="image-20231012110721542" /><figcaption aria-hidden="true">image-20231012110721542</figcaption></figure><h1 id="虚拟机网络模式">2 虚拟机网络模式</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310121153629.png"alt="image-20231012112120331" /><figcaption aria-hidden="true">image-20231012112120331</figcaption></figure><h2 id="bridged桥接模式">2.1 Bridged（桥接模式）</h2><ul><li>在bridged模式下，VMWare虚拟出来的虚拟机就像是局域网中的一台独立的主机，它可以访问网内任何一台机器。主机网卡和虚拟网卡的IP地址处于同一个网段，子网掩码、网关、DNS等参数都相同。</li><li>在此种模式下，虚拟机内部的网卡（例如linux下的eth0)直接连到了物理网卡所在的网络上，可以想象为虚拟机和host机处于对等的地位，在网络关系上是平等的，没有谁在谁后面的问题。</li></ul><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310121153630.png"alt="image-20231012112631034" /><figcaption aria-hidden="true">image-20231012112631034</figcaption></figure><h2 id="nat地址转换模式">2.2 NAT（地址转换模式）</h2><ul><li>桥接模式配置简单，但如果网络环境是ip资源很缺少或对ip管理比较严格的话，那桥接模式就不太适用了，这时候NAT模式是最好的选择。</li><li>NAT模式借助虚拟NAT设备和虚拟DHCP服务器，使得虚拟机可以联网。就是让虚拟系统借助NAT(网络地址转换)功能，通过宿主机器所在的网络来访问公网。</li></ul><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310121153631.png"alt="image-20231012113616352" /><figcaption aria-hidden="true">image-20231012113616352</figcaption></figure><h2 id="host-only仅主机模式">2.3 Host-Only（仅主机模式）</h2><ul><li><p>Host-Only模式其实就是NAT模式去除了虚拟NAT设备，然后使用VMwareNetwork AdapterVMnet1虚拟网卡连接VMnet1虚拟交换机来与虚拟机通信的，Host-Only模式将虚拟机与外网隔开，使得虚拟机成为一个独立的系统，只与主机相互通讯。</p><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310121153632.png"alt="image-20231012114151982" /><figcaption aria-hidden="true">image-20231012114151982</figcaption></figure></li></ul><h1 id="使用vmware-进行恶意代码分析的风险">3 使用VMware进行恶意代码分析的风险</h1><ul><li>虚拟机探测：恶意代码使用反虚拟机技术，使分析变得更加困难</li><li>虚拟机逃逸：虚拟机软件本身具有漏洞，有可能被恶意代码利用</li><li>信息破坏：未知风险，无论如何使用非敏感机器</li></ul><p>参考教程：</p><ol type="1"><li><ahref="https://zhuanlan.zhihu.com/p/65103100">“桥接”和“NAT”方式区别 -知乎 (zhihu.com)</a></li><li><ahref="https://www.cnblogs.com/zhangweimee/p/9467436.html">Vmware虚拟机三种网络模式详解- 醉城、 - 博客园 (cnblogs.com)</a></li></ol>]]></content>
     
@@ -33,6 +35,8 @@
     <categories>
       
       <category>恶意代码分析</category>
+      
+      <category>理论篇</category>
       
     </categories>
     
@@ -43,8 +47,8 @@
   
   <entry>
     <title>静态分析基础技术</title>
-    <link href="/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/02%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E6%8A%80%E6%9C%AF/"/>
-    <url>/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/02%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E6%8A%80%E6%9C%AF/</url>
+    <link href="/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E7%90%86%E8%AE%BA%E7%AF%87/02%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E6%8A%80%E6%9C%AF/"/>
+    <url>/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E7%90%86%E8%AE%BA%E7%AF%87/02%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E6%8A%80%E6%9C%AF/</url>
     
     <content type="html"><![CDATA[<h1 id="反病毒引擎扫描">1 反病毒引擎扫描</h1><ul><li>原理：依靠一个已知恶意代码可识别片段的特征数据库（病毒文件特征库），以及基于行为与模式匹配的分析（启发式检测），来识别可疑文件</li><li>具体使用：<ul><li>使用反病毒软件进行检测</li><li>开源恶意代码扫描引擎ClamAV</li><li>从反病毒厂商获得已知恶意代码的分析报告和结果</li></ul></li></ul><h1 id="哈希值">2 哈希值</h1><ul><li>哈希是一种用来唯一标识恶意代码的常用方法</li><li>恶意代码样本通过一个哈希程序，会产生出一段用于唯一标识这个样本的独特哈希值（类似指纹）</li><li>常用哈希函数：MD5、SHA-1</li></ul><h1 id="查找字符串">3 查找字符串</h1><ul><li>程序中的字符串就是一段可打印的字符序列，从其中会包含很多信息，比如弹出的消息，读取的位置，链接的URL等。</li><li>存储方式：ASCLL、Unicode</li><li>两种类型格式都以NULL结束符，表示字符串是完整的。ASCII字符串每个字符使用一个字节，Unicode使用两个字节。</li><li>然而有些时候检测到的也并非是真正的字符串，可能是内存地址，CPU指令序列。</li><li>使用：strings -查找目标文件或二进制文件中的可显示字符串（https://docs.oracle.com/cd/E56344_01/html/E54075/strings-1.html）</li></ul><h1 id="加壳与混淆恶意代码">4 加壳与混淆恶意代码</h1><ul><li>合法程序通常会包含很多字符串，而由被加壳或者混淆的恶意代码直接分析获得的可打印字符串则很少</li><li>加壳和混淆代码通常至少会包含LoadLibrary和GetProcAddress函数，它们是用来加载和使用其他函数功能的</li></ul><h2 id="文件加壳">4.1 文件加壳</h2><p>当加壳程序运行时，会首先运行一小段脱壳代码，来解压缩加壳的文件，然后再运行脱壳后的文件。左边文件是可执行程序源文件，右边是加壳后的可执行程序。</p><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310121049831.png"alt="image-20231012102949934" /><figcaption aria-hidden="true">image-20231012102949934</figcaption></figure><h2 id="使用peid检测加壳">4.2 使用PEiD检测加壳</h2><p>检测加壳器的类型，或用来链接应用程序的编译器类型</p><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310121049832.png"alt="image-20231012103355802" /><figcaption aria-hidden="true">image-20231012103355802</figcaption></figure><h1 id="pe文件格式">5 PE文件格式</h1><ul><li>PE（PortableExecute）文件格式是windows可执行文件的总称，常见的有DLL，EXE，OCX，SYS等。</li><li>PE是指32位可执行文件，64位的可执行文件称为PE+或者PE32+，并非PE64。</li><li>PE文件以一个文件头开始，其中包含代码信息、应用程序类型、所需的库函数与空间要求。</li></ul><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310121049833.png"alt="image-20231012103534449" /><figcaption aria-hidden="true">image-20231012103534449</figcaption></figure><h1 id="链接库与函数">6 链接库与函数</h1><ul><li>导入函数也叫引入函数，引入函数被该模块调用，但它又不在该模块中，调用模块中只包含该函数的一些信息，比如函数名以及它所在的模块（链接库）名等信息</li><li>导入表，导入函数相关信息都保存在PE文件中的导入表中。要找到PE文件的导入表，必须先找到datadirectory即数据目录</li></ul><h2 id="静态链接运行时链接与动态链接">6.1静态链接、运行时链接与动态链接</h2><ul><li>静态链接：在生成可执行程序时，就把库中的内容加入到程序中。在程序运行前，先将其目标模块及它们所需的库函数，链接成一个完整的装配模块，以后不再拆开的链接方式。</li><li>动态链接：用户源程序编译后得到的一组目标模块，在装入内存时釆用边装入边链接的链接方式。装入一个目标模块时，若发生一个外部模块调用，将引起装入程序去找出相应的外部目标模块，并将它装入内存，还要修改目标模中的相对地址。</li><li>运行时链接：有些目标模块的链接，推迟到执行时才进行。即在执行过程中，若发现一个被调用模块尚未装入内存时，由OS去找到该模块，将它装入内存，并把它连接到调用者模块上。对某些目标模块的链接，是在程序执行中需要该目标模块时，才对它进行的链接。</li></ul><h2 id="dependency-walker">6.2 Dependency Walker</h2><ul><li><p>该工具用于探索动态链接函数</p></li><li><p>常见DLL程序</p><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310121049834.png"alt="image-20231012104028617" /><figcaption aria-hidden="true">image-20231012104028617</figcaption></figure></li></ul><h2 id="导入函数">6.3 导入函数</h2><p>PE文件头包含可执行文件使用的特定函数相关信息。导入函数描述可执行文件会使用哪些WindowsAPI函数，也就是可能会有什么样的操作。</p><h2 id="导出函数">6.4 导出函数</h2><p>用来与其他程序和代码进行交互时所使用的。一个DLL会出现一个或多个功能函数，然后将其导出，供别的程序导入并使用。</p><h1 id="pe文件头与节">7 PE文件头与节</h1><ul><li>.text：包含CPU执行指令。所有其他节存储数据和支持性的信息。一般来说，这是唯一可以执行的节，也应该是唯一包含代码的节。</li><li>.rdata：包含导入与导出函数信息，与DependencyWalker和PeView工具所获得的信息是相同的。还可以存储程序所使用的其他只读数据。有些文件包括.idata和.edata节来存储导入导出信息。</li><li>.data：包含程序的全局数据，可以从程序的任何地方访问到。本地数据并不存储在这个节中，而是在PE文件的某个其他位置上。</li><li>.rsrc：包含由可执行文件所使用的资源，不能执行，比如：图标、图片、菜单项、字符串等。字符串也可以存储在主程序中。存放在这是为提供多语种支持。</li></ul><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310121049835.png"alt="image-20231012104458546" /><figcaption aria-hidden="true">image-20231012104458546</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310121049836.png"alt="image-20231012104534105" /><figcaption aria-hidden="true">image-20231012104534105</figcaption></figure>]]></content>
     
@@ -52,6 +56,8 @@
     <categories>
       
       <category>恶意代码分析</category>
+      
+      <category>理论篇</category>
       
     </categories>
     
@@ -62,8 +68,8 @@
   
   <entry>
     <title>恶意代码分析技术入门</title>
-    <link href="/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/01%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E6%8A%80%E6%9C%AF%E5%85%A5%E9%97%A8/"/>
-    <url>/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/01%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E6%8A%80%E6%9C%AF%E5%85%A5%E9%97%A8/</url>
+    <link href="/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E7%90%86%E8%AE%BA%E7%AF%87/01%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E6%8A%80%E6%9C%AF%E5%85%A5%E9%97%A8/"/>
+    <url>/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E7%90%86%E8%AE%BA%E7%AF%87/01%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E6%8A%80%E6%9C%AF%E5%85%A5%E9%97%A8/</url>
     
     <content type="html"><![CDATA[<h1 id="恶意代码基础知识">1 恶意代码基础知识</h1><h2 id="定义">1.1 定义</h2><p>使计算机按照攻击者的意图运行以达到恶意目的的<strong>指令集合</strong>（二进制执行文件，脚本语言代码，宏代码，寄生在文件、启动扇区的指令流）</p><h2 id="分类">1.2 分类</h2><ul><li>计算机病毒(Virus)：<ul><li>定义特征：通过感染文件(可执行文件、数据文件、电子邮件等)或磁盘引导扇区进行传播，一般<strong>需要</strong>宿主程序被执行或人为交互才能运行。</li><li>典型实例：Brain，Concept，CIH，勒索软件</li></ul></li><li>蠕虫(Worm)：<ul><li>定义特征：一般为<strong>不需要</strong>宿主的单独文件，通过网络传播，自动复制，通常无需人为交互便可感染传播。</li><li>典型实例：Morris，CodeRed，Slammer</li></ul></li><li>启动器(Downloader)：<ul><li>定义特征：从远程主机下载到本地执行的轻量级恶意代码，不需要或仅需要极少的人为干预。代表性的开发工具有：JavaScript，VBScript，Java，以及ActiveX。启动其他恶意程序的恶意代码。</li><li>典型实例：SantyWorm等。</li></ul></li><li>后门(Backdoor)：<ul><li>定义特征：绕过正常的安全控制机制，从而为攻击者提供访问途径。</li><li>典型实例：Netcat，BO，冰河，Glupteba。</li></ul></li><li>特洛伊木马(Trojan)：<ul><li>定义特征：伪装成有用软件，隐藏其恶意目标，欺骗用户安装执行。</li><li>典型实例：Setiri，Emotet，Dridex，Ramnit</li></ul></li><li>僵尸程序(Bot)：<ul><li>定义特征：一般为<strong>不需要</strong>宿主的单独文件，通过网络传播，自动复制，通常无需人为交互便可感染传播；使用一对多的命令与控制机制组成僵尸网络。</li><li>典型实例：Sdbot，Agobot，Mirai，Glupteba</li></ul></li><li>内核套件(Rootkit)：<ul><li>定义特征：通过替换或修改系统关键可执行文件（用户态），或者通过控制操作系统内核(内核态)，用以获取并保持最高控制权(rootaccess)。</li><li>典型实例：LRK，FU，hdef</li></ul></li><li>融合型恶意代码及Bootkit：<ul><li>定义特征：融合上述多种恶意代码技术，构成更具破坏性的恶意代码形态，如Bootkit。</li><li>典型实例：Nimda、Stuxnet、Flame、Duqu</li></ul></li></ul><h1 id="恶意代码分析技术">2 恶意代码分析技术</h1><table><thead><tr class="header"><th><strong>区别项</strong></th><th><strong>恶意代码分析</strong></th><th><strong>良性代码分析</strong></th></tr></thead><tbody><tr class="odd"><td>目的公开性</td><td>目的未知，需分析和推测其目的</td><td>一般情况下，目的是公开且明确的，可辅助分析过程</td></tr><tr class="even"><td>目的恶意性</td><td>恶意目的，需要受控环境</td><td>良性，无需受控环境</td></tr><tr class="odd"><td>是否存在源码</td><td>绝大多数情况无源码，二进制分析</td><td>开源软件存在源码，源码分析；闭源软件则需二进制分析</td></tr><tr class="even"><td>使用对抗分析技术</td><td>各种多样化对抗分析，博弈问题</td><td>一般无对抗分析，商业软件也引入对抗分析保护产权</td></tr></tbody></table><ul><li><strong>静态</strong>分析<ul><li>通过反病毒引擎扫描识别已知的恶意代码家族和变种名</li><li>逆向分析恶意代码模块构成，内部数据结构，关键控制流程等，理解恶意代码的机理，并提取特征码用于检测。</li><li>分析方法：恶意代码扫描、文件格式识别、字符串提取、二进制结构分析、反汇编、反编译、代码结构与逻辑分析、加壳识别和代码脱壳</li></ul></li><li><strong>动态</strong>分析<ul><li>通过在受控环境中执行目标代码，以获取目标代码的行为及运行结果。</li><li>分析方法：快照比对、动态行为监控(APIHooking)、网络监控、沙盒(sandbox)、动态跟踪调试</li></ul></li></ul>]]></content>
     
@@ -71,6 +77,8 @@
     <categories>
       
       <category>恶意代码分析</category>
+      
+      <category>理论篇</category>
       
     </categories>
     
