@@ -16,21 +16,19 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1 沙箱  沙盒技术：用于安全运行程序的安全环境，经常被用于执行和分析非可信的代码 作用：  样本是否对硬盘读写，创建了什么文件 样本是否进行网络连接，连接什么端口 创建了哪些进程（系统&#x2F;用户），进程有哪些API函数调用 相关的可疑文件大小和MD5 文件是否加壳压缩 是否是已知病毒  缺点：  只能简单地运行可执行程序，如果需要命令行运行，无法触发 不能记录所有事件，">
-<meta property="og:type" content="article">
-<meta property="og:title" content="动态分析基础技术">
-<meta property="og:url" content="http://example.com/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E7%90%86%E8%AE%BA%E7%AF%87/04%E5%8A%A8%E6%80%81%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E6%8A%80%E6%9C%AF/index.html">
+    <meta property="og:type" content="article">
+<meta property="og:title" content="Chapter_1L">
+<meta property="og:url" content="http://example.com/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E5%AE%9E%E9%AA%8C%E7%AF%87/Chapter_1L/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="1 沙箱  沙盒技术：用于安全运行程序的安全环境，经常被用于执行和分析非可信的代码 作用：  样本是否对硬盘读写，创建了什么文件 样本是否进行网络连接，连接什么端口 创建了哪些进程（系统&#x2F;用户），进程有哪些API函数调用 相关的可疑文件大小和MD5 文件是否加壳压缩 是否是已知病毒  缺点：  只能简单地运行可执行程序，如果需要命令行运行，无法触发 不能记录所有事件，">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-10-12T07:46:22.000Z">
-<meta property="article:modified_time" content="2023-10-12T08:07:01.080Z">
+<meta property="article:published_time" content="2023-10-12T07:18:12.000Z">
+<meta property="article:modified_time" content="2023-10-12T08:19:28.981Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>动态分析基础技术 - kaikaikai&#39;s blog</title>
+  <title>Chapter_1L - kaikaikai&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -184,7 +182,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="动态分析基础技术"></span>
+            <span id="subtitle" data-typed-text="Chapter_1L"></span>
           
         </div>
 
@@ -195,7 +193,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-10-12 15:46" pubdate>
+        <time datetime="2023-10-12 15:18" pubdate>
           2023年10月12日 下午
         </time>
       </span>
@@ -207,7 +205,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k 字
+          0 字
         
       </span>
     
@@ -218,7 +216,7 @@
         
         
         
-          13 分钟
+          1 分钟
         
       </span>
     
@@ -255,104 +253,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">动态分析基础技术</h1>
+            <h1 id="seo-header">Chapter_1L</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="沙箱">1 沙箱</h1>
-<ul>
-<li>沙盒技术：用于安全运行程序的安全环境，经常被用于执行和分析非可信的代码</li>
-<li>作用：
-<ul>
-<li>样本是否对硬盘读写，创建了什么文件</li>
-<li>样本是否进行网络连接，连接什么端口</li>
-<li>创建了哪些进程（系统/用户），进程有哪些API函数调用</li>
-<li>相关的可疑文件大小和MD5</li>
-<li>文件是否加壳压缩</li>
-<li>是否是已知病毒</li>
-</ul></li>
-<li>缺点：
-<ul>
-<li>只能简单地运行可执行程序，如果需要命令行运行，无法触发</li>
-<li>不能记录所有事件，尤其是需要长时间等待的情况</li>
-<li>恶意代码会进行虚拟机检测</li>
-<li>运行环境需要特定的注册表项或文件</li>
-<li>如果是一个DLL，无法正确调用执行</li>
-<li>操作系统的限制</li>
-<li>结论需要安全人员自己总结</li>
-</ul></li>
-</ul>
-<h1 id="运行恶意代码">2 运行恶意代码</h1>
-<ul>
-<li><p>exe：命令行或双击</p></li>
-<li><p>dll：命令行</p></li>
-<li><p>rundll (window系统自带程序)执行以下步骤：</p>
-<ul>
-<li>分析命令行</li>
-<li>通过 LoadLibrary( ) 加载指定的 DLL</li>
-<li>通过 GetProcAddress( ) 获取<code>entrypoint</code> 函数的地址</li>
-<li>调用<code>entrypoint</code>函数，并传递作为<code>optional arguments</code>
-的命令行尾</li>
-<li>当<code>entrypoint</code>函数返回时，rundll.exe 将卸载 DLL
-并退出</li>
-</ul></li>
-<li><p>执行DLL文件中的导出函数</p>
-<ul>
-<li><code>C:\Windows\System32\rundll32.exe ipr32x.dll,Install ServiceName</code></li>
-<li><code>C:\Windows\System32\rundll32.exe rip.dll,Install</code></li>
-<li><code>C:\Windows\System32\rundll32.exe xyzzy.dll,#5</code></li>
-</ul></li>
-</ul>
-<h1 id="进程监视器">3 进程监视器</h1>
-<ul>
-<li>Process
-Monitor是一款Windows平台下优秀的监视工具，该工具提供了一种可监视特定注册表、文件系统、网络、进程以及线程活动的方法</li>
-<li>Process Monitor能够监视所有系统调用并迅速收集信息。因为Windows
-OS总是有许多的系统调用，有时候我们获取到的东西毫无价值，</li>
-<li>Process Monitor通过一个过滤选项卡来解决了这个问题。</li>
-</ul>
-<p><strong>下载地址：</strong>https://learn.microsoft.com/zh-cn/sysinternals/downloads/procmon</p>
-<h1 id="进程浏览器">4 进程浏览器</h1>
-<ul>
-<li>Process
-Explorer是一款用来执行动态分析的工具，它能够洞察到系统当前进程</li>
-<li>在运行二进制文件之后创建的一个进程，单击进程可以帮助用户查看进程的变化</li>
-</ul>
-<p><strong>下载地址：</strong>https://learn.microsoft.com/zh-cn/sysinternals/downloads/process-explorer</p>
-<h1 id="regshot比较注册表快照">5 Regshot比较注册表快照</h1>
-<p>快照比对方法：</p>
-<ol type="1">
-<li>对“干净”资源列表做快照</li>
-<li>运行恶意代码（提供较充分的运行时间5分钟）</li>
-<li>对恶意代码运行后的“脏”资源列表做快照</li>
-<li>对比“干净”和“脏”快照，获取恶意代码行为结果</li>
-</ol>
-<ul>
-<li>资源名称列表中的差异：发现新建、删除的行为结果</li>
-<li>资源内容的差异：完整性校验，发现修改的行为结果</li>
-</ul>
-<p><strong>缺点</strong>：无法分析中间行为，粗粒度</p>
-<p><strong>下载地址</strong>：https://sourceforge.net/projects/regshot/</p>
-<h1 id="模拟网络">6 模拟网络</h1>
-<ul>
-<li>目的：避免连接恶意代码的真实服务器（控制服务器）</li>
-<li>工具：
-<ul>
-<li>ApateDns(FireEye)：用来查看恶意代码发出DNS请求最快捷的方式</li>
-<li>nc(Netcat)：作为客户端，最简单的使用方法，”nc host
-port”，能建立一个TCP连接，连向指定的主机和端口。作为服务端，“nc -l -p
-80”，监听任意指定端口的连接请求(inbound connection
-)，并可做同样的读写操作。</li>
-<li>INetSim：INetSim能够伪造恶意软件可能使用的常见的互联网服务，并回答相应的请求。当恶意软件请求文件时，INetSim将返回该文件。当恶意软件扫描Web服务器时，INetSim将返回IIS
-Web服务器的名称以保持恶意软件运行。</li>
-</ul></li>
-</ul>
-<p>参考教程：</p>
-<ol type="1">
-<li><a
-target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/24923630">动态恶意软件分析工具介绍</a></li>
-</ol>
+                
 
                 
               </div>
@@ -376,7 +282,7 @@ target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/24923630">动�
   
     <span>></span>
     
-  <a href="/categories/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E7%90%86%E8%AE%BA%E7%AF%87/" class="category-chain-item">理论篇</a>
+  <a href="/categories/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E5%AE%9E%E9%AA%8C%E7%AF%87/" class="category-chain-item">实验篇</a>
   
   
 
@@ -398,8 +304,8 @@ target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/24923630">动�
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>动态分析基础技术</div>
-      <div>http://example.com/2023/10/12/恶意代码分析/理论篇/04动态分析基础技术/</div>
+      <div>Chapter_1L</div>
+      <div>http://example.com/2023/10/12/恶意代码分析/实验篇/Chapter_1L/</div>
     </div>
     <div class="license-meta">
       
@@ -443,9 +349,9 @@ target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/24923630">动�
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/10/14/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E5%AE%9E%E9%AA%8C%E7%AF%87/Chapter_3L/" title="Chapter_3L">
+                      <a href="/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E7%90%86%E8%AE%BA%E7%AF%87/04%E5%8A%A8%E6%80%81%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E6%8A%80%E6%9C%AF/" title="动态分析基础技术">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Chapter_3L</span>
+                        <span class="hidden-mobile">动态分析基础技术</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -453,8 +359,8 @@ target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/24923630">动�
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E5%AE%9E%E9%AA%8C%E7%AF%87/Chapter_1L/" title="Chapter_1L">
-                        <span class="hidden-mobile">Chapter_1L</span>
+                      <a href="/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E7%90%86%E8%AE%BA%E7%AF%87/03%E5%9C%A8%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%AD%E5%88%86%E6%9E%90%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81/" title="在虚拟机中分析恶意代码">
+                        <span class="hidden-mobile">在虚拟机中分析恶意代码</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
