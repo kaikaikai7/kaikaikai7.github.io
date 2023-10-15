@@ -24,7 +24,7 @@
 <meta property="og:description" content="Lab 03-01 简要答案 Q1：找出这个恶意代码的导入函数与字符串列表? Q2：这个恶意代码在主机上的感染迹象特征是什么? Q3：这个恶意代码是否存在一些有用的网络特征码？如果存在，它们是什么？   image-20231014085930356  详细分析 首先用PEiD打开Lab03-01.exe，可以看到Lab03-01.exe是加壳的   image-2023">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-10-14T08:18:12.000Z">
-<meta property="article:modified_time" content="2023-10-14T13:23:24.698Z">
+<meta property="article:modified_time" content="2023-10-15T07:48:23.562Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -320,9 +320,7 @@ src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/20231014212
 alt="image-20231013185649467" />
 <figcaption aria-hidden="true">image-20231013185649467</figcaption>
 </figure>
-<p>Seed表明该程序可能会有一些随机数相关的操作；程序创建了一个可执行文件<code>vmx32to64</code>；加入了一个自启动项<code>VideoDriver</code>。我们经常需要筛选出一定数量的噪声，<code>HKLM\SOFTARE\Microsoft\Cryptography\RNG\Seed</code>键
-值上
-的 <code>RegSetValue</code>操作是典型的噪声。因为随机数发生器的种子会有软件在注册表中不停地更新。</p>
+<p>Seed表明该程序可能会有一些随机数相关的操作；程序创建了一个可执行文件<code>vmx32to64</code>；加入了一个自启动项<code>VideoDriver</code>。我们经常需要筛选出一定数量的噪声，<code>HKLM\SOFTARE\Microsoft\Cryptography\RNG\Seed</code>键值上的 <code>RegSetValue</code>操作是典型的噪声。因为随机数发生器的种子会有软件在注册表中不停地更新。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310142122865.png" srcset="/img/loading.gif" lazyload
