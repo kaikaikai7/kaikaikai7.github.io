@@ -16,21 +16,21 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="4.1 概述 漏洞定义：可以被攻击利用的系统弱点 漏洞攻击过程：漏洞发现、漏洞分析、漏洞利用 漏洞造成后果：以匿名身份直接获取系统最高权限；从普通用户提升为管理员用户；实施远程拒绝服务攻击等 4.2 典型的漏洞类型 4.2.1 栈溢出 1.栈溢出原理 当程序运行时，计算机会在内存区域中开辟一段连续的内存块，包括代码段、数据段和堆栈段三部分。   image-2023101516">
+    <meta name="description" content="1 导入模块 1234567import pandas as pdimport refrom sklearn.model_selection import train_test_splitfrom sklearn.svm import SVCfrom sklearn.metrics import accuracy_score, recall_scoreimport joblibfrom tqdm">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CH4-软件漏洞-缓冲区溢出">
-<meta property="og:url" content="http://example.com/2023/10/15/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/%E7%90%86%E8%AE%BA%E7%AF%87/04%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E-%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA/index.html">
+<meta property="og:title" content="XSS攻击代码检测">
+<meta property="og:url" content="http://example.com/2023/10/15/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%AE%9E%E8%B7%B5%E7%AF%87/XSS%E6%94%BB%E5%87%BB%E4%BB%A3%E7%A0%81%E6%A3%80%E6%B5%8B/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="4.1 概述 漏洞定义：可以被攻击利用的系统弱点 漏洞攻击过程：漏洞发现、漏洞分析、漏洞利用 漏洞造成后果：以匿名身份直接获取系统最高权限；从普通用户提升为管理员用户；实施远程拒绝服务攻击等 4.2 典型的漏洞类型 4.2.1 栈溢出 1.栈溢出原理 当程序运行时，计算机会在内存区域中开辟一段连续的内存块，包括代码段、数据段和堆栈段三部分。   image-2023101516">
+<meta property="og:description" content="1 导入模块 1234567import pandas as pdimport refrom sklearn.model_selection import train_test_splitfrom sklearn.svm import SVCfrom sklearn.metrics import accuracy_score, recall_scoreimport joblibfrom tqdm">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-10-15T09:37:07.000Z">
-<meta property="article:modified_time" content="2023-10-15T09:42:37.458Z">
+<meta property="article:published_time" content="2023-10-15T10:41:02.000Z">
+<meta property="article:modified_time" content="2023-10-15T11:07:31.660Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>CH4-软件漏洞-缓冲区溢出 - kaikaikai&#39;s blog</title>
+  <title>XSS攻击代码检测 - kaikaikai&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -184,7 +184,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="CH4-软件漏洞-缓冲区溢出"></span>
+            <span id="subtitle" data-typed-text="XSS攻击代码检测"></span>
           
         </div>
 
@@ -195,8 +195,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-10-15 17:37" pubdate>
-          2023年10月15日 下午
+        <time datetime="2023-10-15 18:41" pubdate>
+          2023年10月15日 晚上
         </time>
       </span>
     
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.7k 字
+          2.6k 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          23 分钟
+          22 分钟
         
       </span>
     
@@ -255,187 +255,21 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">CH4-软件漏洞-缓冲区溢出</h1>
+            <h1 id="seo-header">XSS攻击代码检测</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="概述">4.1 概述</h1>
-<p><strong>漏洞定义：</strong>可以被攻击利用的系统弱点</p>
-<p><strong>漏洞攻击过程：</strong>漏洞发现、漏洞分析、漏洞利用</p>
-<p><strong>漏洞造成后果：</strong>以匿名身份直接获取系统最高权限；从普通用户提升为管理员用户；实施远程拒绝服务攻击等</p>
-<h1 id="典型的漏洞类型">4.2 典型的漏洞类型</h1>
-<h2 id="栈溢出">4.2.1 栈溢出</h2>
-<h3 id="栈溢出原理">1.栈溢出原理</h3>
-<p>当程序运行时，计算机会在内存区域中开辟一段连续的内存块，包括代码段、数据段和堆栈段三部分。</p>
-<figure>
-<img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310151742321.png" srcset="/img/loading.gif" lazyload
-alt="image-20231015162805933" />
-<figcaption aria-hidden="true">image-20231015162805933</figcaption>
-</figure>
-<p>程序在内存中的存放形式</p>
-<figure>
-<img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310151742323.png" srcset="/img/loading.gif" lazyload
-alt="image-20231015163018123" />
-<figcaption aria-hidden="true">image-20231015163018123</figcaption>
-</figure>
-<ul>
-<li>代码段(.text)：也称文本段(Text
-Segment)，存放着程序的机器码和只读数据，可执行指令就是从这里取得的，这个段在内存中一般被标记为只读，任何对该区的写操作都会导致段错误(Segmentation
-Fault)</li>
-<li>数据段：包括已初始化的数据段(.data)和未初始化的数据段(.bss)，前者用来存放保存全局的和静态的已初始化变量，后者用来保存全局的和静态的未初始化变量。数据段在编译时分配。</li>
-<li>堆（Heap）：向<strong>高</strong>地址扩展的数据结构，是不连续的内存区域。动态分配，其空间的分配和释放都由程序员控制。也就是说，堆的大小并不固定，可动态扩张或缩减，其分配由<code>malloc()</code>等这类实时内存分配函数来实现。当进程调用<code>malloc()</code>等函数分配内存时，新分配的内存就被动态添加到堆上（堆被扩张）；当利用<code>free()</code>等函数释放内存时，被释放的内存从堆中被剔除（堆被缩减）。</li>
-<li>栈（Stack）：向<strong>低</strong>地址扩展的数据结构，是一块连续的内存区域。一种用来存储函数调用时的临时信息的结构，如函数调用所传递的参数、函数的返回地址、函数的局部变量等。由编译器自动管理，其分配方式有两种：静态分配和动态分配。静态分配由编译器完成，比如局部变量的分配。动态分配由<code>alloca()</code>函数进行分配，但是栈的动态分配和堆是不同的，它的动态分配是由编译器进行释放，无需手工控制。</li>
-</ul>
-<p>实例：假设一个程序的函数调用顺序为：主函数main调用函数func1，函数func1调用函数func2。当这个程序被操作系统调入内存运行时，其对应的进程在内存中的映射结果如下图所示。进程的<strong>栈</strong>是由多个<strong>栈帧</strong>构成的，其中每个<strong>栈帧</strong>都对应一个<strong>函数调用</strong>。当调用函数时，新的栈帧被压入栈；当函数返回时，相应的栈帧从栈中弹出。各函数的栈帧大小随着函数的性质的不同而不等，由函数的局部变量的数目决定。
-由于需要将函数返回地址这样的重要数据保存在程序员可见的堆栈中，因此也给系统安全带来了极大的隐患。</p>
-<p>如果在堆栈中压入的数据超过预先给堆栈分配的容量时，就会出现堆栈溢出，从而使得程序运行失败；如果发生溢出的是大型程序还有可能会导致系统崩溃。</p>
-<figure>
-<img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310151742324.png" srcset="/img/loading.gif" lazyload
-alt="image-20231015163904871" />
-<figcaption aria-hidden="true">image-20231015163904871</figcaption>
-</figure>
-<p><strong>栈帧：</strong>某个函数运行时，机器需要分配一定的内存去进行函数内的各种操作，这个过程中分配的那部分栈称为栈帧。下图描述了栈帧的通用结构。栈帧是一段有界限的内存区间，由最顶端的两个指针界定，寄存器%ebp为帧指针，而寄存器%esp为栈指针。</p>
-<figure>
-<img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310151742325.png" srcset="/img/loading.gif" lazyload
-alt="image-20231015165704058" />
-<figcaption aria-hidden="true">image-20231015165704058</figcaption>
-</figure>
-<h3 id="函数调用机制">2.函数调用机制</h3>
-<ol type="1">
-<li><p><strong>从右至左</strong>依次把被调函数需要的参数压入栈</p></li>
-<li><p>使用call指令调用被调函数，并把call指令的下一条指令的地址作为返回地址压入栈中（该压栈操作隐含在call指令中）。call指令完成两项操作：一是将返回地址（call指令下一条指令地址）压入栈，二是跳转到调用函数入口处</p>
-<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-keyword">call</span> 被调用函数地址<br><span class="hljs-meta"># 等价操作</span><br><span class="hljs-keyword">push</span> 返回地址<br><span class="hljs-keyword">jmp</span>  被调用函数地址<br></code></pre></td></tr></table></figure></li>
-<li><p>进入被调函数执行。被调函数会先保存调用者函数的栈底地址（<code>push ebp</code>），然后进行栈帧切换，把调用者函数的栈顶切换成被调函数的栈底，即调用函数的栈顶就是当前被调函数的栈底（<code>mov ebp，esp</code>）</p>
-<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs x86asm"><span class="hljs-keyword">push</span> <span class="hljs-built_in">ebp</span><br><span class="hljs-keyword">mov</span> <span class="hljs-built_in">ebp</span>,<span class="hljs-built_in">esp</span><br></code></pre></td></tr></table></figure></li>
-<li><p>为局部变量和临时变量开辟存储空间。先定义的变量先入栈，后定义的变量后入栈。</p>
-<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs x86asm"><span class="hljs-keyword">sub</span> <span class="hljs-built_in">esp</span>，xxx<br></code></pre></td></tr></table></figure></li>
-<li><p>函数调用返回</p>
-<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs x86asm"># 恢复栈帧<br><span class="hljs-keyword">mov</span> <span class="hljs-built_in">esp</span>,<span class="hljs-built_in">ebp</span><br><span class="hljs-keyword">pop</span> <span class="hljs-built_in">ebp</span><br># 返回调用者函数执行<br><span class="hljs-keyword">ret</span>  # 等价于<span class="hljs-keyword">pop</span> <span class="hljs-built_in">eip</span><br></code></pre></td></tr></table></figure></li>
-</ol>
-<p>实例：C程序每条语句对寄存器的影响情况</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdio.h&gt;</span></span><br><br><span class="hljs-type">int</span> <span class="hljs-title function_">add</span><span class="hljs-params">(<span class="hljs-type">int</span> a, <span class="hljs-type">int</span> b)</span> &#123;<br>	<span class="hljs-keyword">return</span> a + b;<br>&#125;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span> &#123;<br>	<span class="hljs-type">int</span> i = <span class="hljs-number">10</span>;<br>	<span class="hljs-type">int</span> j = <span class="hljs-number">16</span>;<br>	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>, add(i, j));<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-<table>
-
-<thead>
-<tr class="header">
-<th style="text-align: center;">汇编</th>
-<th style="text-align: center;">影响</th>
-<th style="text-align: center;">受影响的寄存器取值</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">mov dword ptr [i],0Ah</td>
-<td style="text-align: center;">EIP</td>
-<td style="text-align: center;">EIP = 00A818CC</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">mov dword ptr [j],10h</td>
-<td style="text-align: center;">EIP</td>
-<td style="text-align: center;">EIP = 00A818D3</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">mov eax,dword ptr [j]</td>
-<td style="text-align: center;">EAX;EIP</td>
-<td style="text-align: center;">EAX = 00000010;EIP = 00A818D6</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">push eax</td>
-<td style="text-align: center;">ESP-4;EIP</td>
-<td style="text-align: center;">ESP = 00EFF958;EIP = 00A818D7</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">mov ecx,dword ptr [i]</td>
-<td style="text-align: center;">ECX;EIP</td>
-<td style="text-align: center;">ECX = 0000000A;EIP = 00A818DA</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">push ecx</td>
-<td style="text-align: center;">ESP-4;EIP</td>
-<td style="text-align: center;">ESP = 00EFF954;EIP = 00A818DB</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">push ebp</td>
-<td style="text-align: center;">ESP-4;EIP</td>
-<td style="text-align: center;">ESP = 00EFF94C;EIP = 00A81771</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">mov ebp,esp</td>
-<td style="text-align: center;">EBP=ESP;EIP</td>
-<td style="text-align: center;">EBP = 00EFF94C;EIP = 00A81773</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">mov eax,dword ptr [a]</td>
-<td style="text-align: center;">EAX;EIP</td>
-<td style="text-align: center;">EAX = 0000000A;EIP = 00A81794</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">add eax,dword ptr [b]</td>
-<td style="text-align: center;">EAX;EIP</td>
-<td style="text-align: center;">EAX = 0000001A;EIP = 00A81797</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">mov esp,ebp</td>
-<td style="text-align: center;">ESP=EBP；EIP</td>
-<td style="text-align: center;">EIP = 00A817A9</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">pop ebp</td>
-<td style="text-align: center;">EBP;ESP+4;EIP</td>
-<td style="text-align: center;">EBP = 00B8F9CC;ESP = 00B8F8DC;EIP =
-00A817AA</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">ret</td>
-<td style="text-align: center;">ESP+4;EIP</td>
-<td style="text-align: center;">ESP = 00B8F8E0;EIP = 00A818E0</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">add esp,8</td>
-<td style="text-align: center;">ESP+8;EFL;EIP</td>
-<td style="text-align: center;">ESP = 00B8F8E8;EFL = 00000206;EIP =
-00A818E3</td>
-</tr>
-</tbody>
-</table>
-<h2 id="堆溢出">4.2.2 堆溢出</h2>
-<h2 id="格式化串漏洞">4.2.3 格式化串漏洞</h2>
-<h2 id="整型溢出">4.2.4 整型溢出</h2>
-<h2 id="释放再使用">4.2.5 释放再使用</h2>
-<h1 id="溢出漏洞利用原理">4.3 溢出漏洞利用原理</h1>
-<h2 id="溢出攻击的基本流程">4.3.1 溢出攻击的基本流程</h2>
-<ol type="1">
-<li>注入恶意数据</li>
-<li>溢出缓冲区</li>
-<li>重定向控制流</li>
-<li>执行有效载荷</li>
-</ol>
-<h2 id="溢出利用的关键技术">4.3.2 溢出利用的关键技术</h2>
-<ul>
-<li>溢出点定位</li>
-<li>覆盖执行控制地址</li>
-<li>覆盖异常处理结构</li>
-<li>跳转地址的确定</li>
-<li>Shellcode定位和跳转</li>
-</ul>
-<h1 id="漏洞利用保护机制">4.4 漏洞利用保护机制</h1>
-<ul>
-<li>GS编译保护机制</li>
-<li>SafeSEH保护机制</li>
-<li>DEP机制</li>
-<li>ASLR机制</li>
-</ul>
-<p>参考教程：</p>
-<ol type="1">
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/186812518">一文理解缓冲区溢出
-- 知乎 (zhihu.com)</a></li>
-<li>https://blog.csdn.net/xbb224007/article/details/80106961</li>
-</ol>
+                <h1 id="导入模块">1 导入模块</h1>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br><span class="hljs-keyword">import</span> re<br><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split<br><span class="hljs-keyword">from</span> sklearn.svm <span class="hljs-keyword">import</span> SVC<br><span class="hljs-keyword">from</span> sklearn.metrics <span class="hljs-keyword">import</span> accuracy_score, recall_score<br><span class="hljs-keyword">import</span> joblib<br><span class="hljs-keyword">from</span> tqdm <span class="hljs-keyword">import</span> tqdm<br></code></pre></td></tr></table></figure>
+<h1 id="数据预处理">2 数据预处理</h1>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 读取数据</span><br>normal_data = pd.read_csv(<span class="hljs-string">&#x27;./data/data52101/dmzo_nomal.csv&#x27;</span>, header=<span class="hljs-literal">None</span>)<br>xss_data = pd.read_csv(<span class="hljs-string">&#x27;./data/data52101/xssed.csv&#x27;</span>, header=<span class="hljs-literal">None</span>)<br><br><span class="hljs-comment"># 创建标签</span><br>normal_data[<span class="hljs-string">&#x27;label&#x27;</span>] = <span class="hljs-number">0</span>  <span class="hljs-comment"># 0 表示正常语句</span><br>xss_data[<span class="hljs-string">&#x27;label&#x27;</span>] = <span class="hljs-number">1</span>     <span class="hljs-comment"># 1 表示攻击性语句</span><br><br><span class="hljs-comment"># 合并数据</span><br>data = pd.concat([normal_data, xss_data], ignore_index=<span class="hljs-literal">True</span>)<br><br><span class="hljs-comment"># 转换为小写</span><br>data[<span class="hljs-number">0</span>] = data[<span class="hljs-number">0</span>].<span class="hljs-built_in">str</span>.lower()<br><br><span class="hljs-comment"># 打印前五行数据</span><br><span class="hljs-built_in">print</span>(data.head())<br><span class="hljs-comment"># 打印后五行数据</span><br><span class="hljs-built_in">print</span>(data.tail())<br><br><span class="hljs-comment"># 特征提取</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">extract_features</span>(<span class="hljs-params">text</span>):<br>    script_count = <span class="hljs-built_in">len</span>(re.findall(<span class="hljs-string">r&#x27;script&#x27;</span>, text, re.I))<br>    java_count = <span class="hljs-built_in">len</span>(re.findall(<span class="hljs-string">r&#x27;java&#x27;</span>, text, re.I))<br>    iframe_count = <span class="hljs-built_in">len</span>(re.findall(<span class="hljs-string">r&#x27;iframe&#x27;</span>, text, re.I))<br>    alert_count = <span class="hljs-built_in">len</span>(re.findall(<span class="hljs-string">r&#x27;alert&#x27;</span>, text, re.I))<br>    lt_count = text.count(<span class="hljs-string">&#x27;&lt;&#x27;</span>)<br>    gt_count = text.count(<span class="hljs-string">&#x27;&gt;&#x27;</span>)<br>    double_quote_count = text.count(<span class="hljs-string">&#x27;\&quot;&#x27;</span>)<br>    single_quote_count = text.count(<span class="hljs-string">&quot;\&#x27;&quot;</span>)<br>    percent_count = text.count(<span class="hljs-string">&#x27;%&#x27;</span>)<br>    left_parenthesis_count = text.count(<span class="hljs-string">&#x27;(&#x27;</span>)<br>    right_parenthesis_count = text.count(<span class="hljs-string">&#x27;)&#x27;</span>)<br><br>    <span class="hljs-keyword">return</span> [script_count, java_count, iframe_count, lt_count,alert_count, gt_count, double_quote_count,<br>            single_quote_count, percent_count, left_parenthesis_count, right_parenthesis_count]<br><br>data[<span class="hljs-string">&#x27;features&#x27;</span>] = data[<span class="hljs-number">0</span>].apply(extract_features)<br></code></pre></td></tr></table></figure>
+<h1 id="模型训练">3 模型训练</h1>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 将数据拆分为特征和标签</span><br>X = <span class="hljs-built_in">list</span>(data[<span class="hljs-string">&#x27;features&#x27;</span>])<br>y = data[<span class="hljs-string">&#x27;label&#x27;</span>]<br><br><span class="hljs-comment"># 拆分数据集为训练集和测试集</span><br>X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=<span class="hljs-number">0.2</span>, random_state=<span class="hljs-number">42</span>)<br><br><span class="hljs-comment"># 创建SVM分类器</span><br>svm_classifier = SVC(kernel=<span class="hljs-string">&#x27;linear&#x27;</span>)<br><br><span class="hljs-comment"># 训练模型，并加入进度条</span><br>num_epochs = <span class="hljs-number">100</span>  <span class="hljs-comment"># 设置训练迭代次数</span><br><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> tqdm(<span class="hljs-built_in">range</span>(num_epochs), desc=<span class="hljs-string">&quot;Training SVM&quot;</span>):<br>    svm_classifier.fit(X_train, y_train)<br><br><span class="hljs-comment"># 保存训练好的模型到文件</span><br>joblib.dump(svm_classifier, <span class="hljs-string">&#x27;work/svm_model.pkl&#x27;</span>)<br><br><span class="hljs-comment"># 预测测试集</span><br>y_pred = svm_classifier.predict(X_test)<br></code></pre></td></tr></table></figure>
+<h1 id="模型评估">4 模型评估</h1>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 计算准确率和召回率</span><br>accuracy = accuracy_score(y_test, y_pred)<br>recall = recall_score(y_test, y_pred)<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;准确率: <span class="hljs-subst">&#123;accuracy:<span class="hljs-number">.10</span>f&#125;</span>&#x27;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;召回率: <span class="hljs-subst">&#123;recall:<span class="hljs-number">.10</span>f&#125;</span>&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<h1 id="测试">5 测试</h1>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 加载已保存的模型</span><br>loaded_model = joblib.load(<span class="hljs-string">&#x27;work/svm_model.pkl&#x27;</span>)<br><br><span class="hljs-comment"># 输入数据测试</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">is_safe</span>(<span class="hljs-params">user_input, model</span>):<br>    features = extract_features(user_input)<br>    prediction = model.predict([features])<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;安全&quot;</span> <span class="hljs-keyword">if</span> prediction[<span class="hljs-number">0</span>] == <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;不安全&quot;</span><br><br>user_input = <span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;请输入要检测的语句: &quot;</span>)<br><span class="hljs-built_in">print</span>(user_input)<br>user_input = user_input.lower()<br>result = is_safe(user_input, loaded_model)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;<span class="hljs-subst">&#123;result&#125;</span>&#x27;</span>)<br></code></pre></td></tr></table></figure>
 
                 
               </div>
@@ -454,12 +288,12 @@ alt="image-20231015165704058" />
     
       <span class="category-chain">
         
-  <a href="/categories/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/" class="category-chain-item">网络攻防技术</a>
+  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-chain-item">机器学习</a>
   
   
     <span>></span>
     
-  <a href="/categories/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/%E7%90%86%E8%AE%BA%E7%AF%87/" class="category-chain-item">理论篇</a>
+  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%AE%9E%E8%B7%B5%E7%AF%87/" class="category-chain-item">实践篇</a>
   
   
 
@@ -481,8 +315,8 @@ alt="image-20231015165704058" />
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>CH4-软件漏洞-缓冲区溢出</div>
-      <div>http://example.com/2023/10/15/网络攻防技术/理论篇/04软件漏洞-缓冲区溢出/</div>
+      <div>XSS攻击代码检测</div>
+      <div>http://example.com/2023/10/15/机器学习/实践篇/XSS攻击代码检测/</div>
     </div>
     <div class="license-meta">
       
@@ -526,18 +360,12 @@ alt="image-20231015165704058" />
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/10/15/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%AE%9E%E8%B7%B5%E7%AF%87/XSS%E6%94%BB%E5%87%BB%E4%BB%A3%E7%A0%81%E6%A3%80%E6%B5%8B/" title="XSS攻击代码检测">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">XSS攻击代码检测</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/10/14/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E5%AE%9E%E9%AA%8C%E7%AF%87/Chapter_3L/" title="Chapter_3L">
-                        <span class="hidden-mobile">Chapter_3L</span>
+                      <a href="/2023/10/15/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/%E7%90%86%E8%AE%BA%E7%AF%87/04%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E-%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA/" title="CH4-软件漏洞-缓冲区溢出">
+                        <span class="hidden-mobile">CH4-软件漏洞-缓冲区溢出</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
