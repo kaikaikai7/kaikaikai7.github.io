@@ -1,0 +1,851 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="kaikaikai">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="4.1 概述 漏洞定义：可以被攻击利用的系统弱点 漏洞攻击过程：漏洞发现、漏洞分析、漏洞利用 漏洞造成后果：以匿名身份直接获取系统最高权限；从普通用户提升为管理员用户；实施远程拒绝服务攻击等 4.2 典型的漏洞类型 4.2.1 栈溢出 1.栈溢出原理 当程序运行时，计算机会在内存区域中开辟一段连续的内存块，包括代码段、数据段和堆栈段三部分。   image-2023101516">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CH4-软件漏洞-缓冲区溢出">
+<meta property="og:url" content="http://example.com/2023/10/15/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/%E7%90%86%E8%AE%BA%E7%AF%87/04%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E-%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA/index.html">
+<meta property="og:site_name" content="kaikaikai&#39;s blog">
+<meta property="og:description" content="4.1 概述 漏洞定义：可以被攻击利用的系统弱点 漏洞攻击过程：漏洞发现、漏洞分析、漏洞利用 漏洞造成后果：以匿名身份直接获取系统最高权限；从普通用户提升为管理员用户；实施远程拒绝服务攻击等 4.2 典型的漏洞类型 4.2.1 栈溢出 1.栈溢出原理 当程序运行时，计算机会在内存区域中开辟一段连续的内存块，包括代码段、数据段和堆栈段三部分。   image-2023101516">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-10-15T09:37:07.000Z">
+<meta property="article:modified_time" content="2023-10-15T09:42:37.458Z">
+<meta property="article:author" content="kaikaikai">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>CH4-软件漏洞-缓冲区溢出 - kaikaikai&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>kaikaikai&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="CH4-软件漏洞-缓冲区溢出"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-10-15 17:37" pubdate>
+          2023年10月15日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          23 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">CH4-软件漏洞-缓冲区溢出</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="概述">4.1 概述</h1>
+<p><strong>漏洞定义：</strong>可以被攻击利用的系统弱点</p>
+<p><strong>漏洞攻击过程：</strong>漏洞发现、漏洞分析、漏洞利用</p>
+<p><strong>漏洞造成后果：</strong>以匿名身份直接获取系统最高权限；从普通用户提升为管理员用户；实施远程拒绝服务攻击等</p>
+<h1 id="典型的漏洞类型">4.2 典型的漏洞类型</h1>
+<h2 id="栈溢出">4.2.1 栈溢出</h2>
+<h3 id="栈溢出原理">1.栈溢出原理</h3>
+<p>当程序运行时，计算机会在内存区域中开辟一段连续的内存块，包括代码段、数据段和堆栈段三部分。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310151742321.png" srcset="/img/loading.gif" lazyload
+alt="image-20231015162805933" />
+<figcaption aria-hidden="true">image-20231015162805933</figcaption>
+</figure>
+<p>程序在内存中的存放形式</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310151742323.png" srcset="/img/loading.gif" lazyload
+alt="image-20231015163018123" />
+<figcaption aria-hidden="true">image-20231015163018123</figcaption>
+</figure>
+<ul>
+<li>代码段(.text)：也称文本段(Text
+Segment)，存放着程序的机器码和只读数据，可执行指令就是从这里取得的，这个段在内存中一般被标记为只读，任何对该区的写操作都会导致段错误(Segmentation
+Fault)</li>
+<li>数据段：包括已初始化的数据段(.data)和未初始化的数据段(.bss)，前者用来存放保存全局的和静态的已初始化变量，后者用来保存全局的和静态的未初始化变量。数据段在编译时分配。</li>
+<li>堆（Heap）：向<strong>高</strong>地址扩展的数据结构，是不连续的内存区域。动态分配，其空间的分配和释放都由程序员控制。也就是说，堆的大小并不固定，可动态扩张或缩减，其分配由<code>malloc()</code>等这类实时内存分配函数来实现。当进程调用<code>malloc()</code>等函数分配内存时，新分配的内存就被动态添加到堆上（堆被扩张）；当利用<code>free()</code>等函数释放内存时，被释放的内存从堆中被剔除（堆被缩减）。</li>
+<li>栈（Stack）：向<strong>低</strong>地址扩展的数据结构，是一块连续的内存区域。一种用来存储函数调用时的临时信息的结构，如函数调用所传递的参数、函数的返回地址、函数的局部变量等。由编译器自动管理，其分配方式有两种：静态分配和动态分配。静态分配由编译器完成，比如局部变量的分配。动态分配由<code>alloca()</code>函数进行分配，但是栈的动态分配和堆是不同的，它的动态分配是由编译器进行释放，无需手工控制。</li>
+</ul>
+<p>实例：假设一个程序的函数调用顺序为：主函数main调用函数func1，函数func1调用函数func2。当这个程序被操作系统调入内存运行时，其对应的进程在内存中的映射结果如下图所示。进程的<strong>栈</strong>是由多个<strong>栈帧</strong>构成的，其中每个<strong>栈帧</strong>都对应一个<strong>函数调用</strong>。当调用函数时，新的栈帧被压入栈；当函数返回时，相应的栈帧从栈中弹出。各函数的栈帧大小随着函数的性质的不同而不等，由函数的局部变量的数目决定。
+由于需要将函数返回地址这样的重要数据保存在程序员可见的堆栈中，因此也给系统安全带来了极大的隐患。</p>
+<p>如果在堆栈中压入的数据超过预先给堆栈分配的容量时，就会出现堆栈溢出，从而使得程序运行失败；如果发生溢出的是大型程序还有可能会导致系统崩溃。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310151742324.png" srcset="/img/loading.gif" lazyload
+alt="image-20231015163904871" />
+<figcaption aria-hidden="true">image-20231015163904871</figcaption>
+</figure>
+<p><strong>栈帧：</strong>某个函数运行时，机器需要分配一定的内存去进行函数内的各种操作，这个过程中分配的那部分栈称为栈帧。下图描述了栈帧的通用结构。栈帧是一段有界限的内存区间，由最顶端的两个指针界定，寄存器%ebp为帧指针，而寄存器%esp为栈指针。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310151742325.png" srcset="/img/loading.gif" lazyload
+alt="image-20231015165704058" />
+<figcaption aria-hidden="true">image-20231015165704058</figcaption>
+</figure>
+<h3 id="函数调用机制">2.函数调用机制</h3>
+<ol type="1">
+<li><p><strong>从右至左</strong>依次把被调函数需要的参数压入栈</p></li>
+<li><p>使用call指令调用被调函数，并把call指令的下一条指令的地址作为返回地址压入栈中（该压栈操作隐含在call指令中）。call指令完成两项操作：一是将返回地址（call指令下一条指令地址）压入栈，二是跳转到调用函数入口处</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-keyword">call</span> 被调用函数地址<br><span class="hljs-meta"># 等价操作</span><br><span class="hljs-keyword">push</span> 返回地址<br><span class="hljs-keyword">jmp</span>  被调用函数地址<br></code></pre></td></tr></table></figure></li>
+<li><p>进入被调函数执行。被调函数会先保存调用者函数的栈底地址（<code>push ebp</code>），然后进行栈帧切换，把调用者函数的栈顶切换成被调函数的栈底，即调用函数的栈顶就是当前被调函数的栈底（<code>mov ebp，esp</code>）</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs x86asm"><span class="hljs-keyword">push</span> <span class="hljs-built_in">ebp</span><br><span class="hljs-keyword">mov</span> <span class="hljs-built_in">ebp</span>,<span class="hljs-built_in">esp</span><br></code></pre></td></tr></table></figure></li>
+<li><p>为局部变量和临时变量开辟存储空间。先定义的变量先入栈，后定义的变量后入栈。</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs x86asm"><span class="hljs-keyword">sub</span> <span class="hljs-built_in">esp</span>，xxx<br></code></pre></td></tr></table></figure></li>
+<li><p>函数调用返回</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs x86asm"># 恢复栈帧<br><span class="hljs-keyword">mov</span> <span class="hljs-built_in">esp</span>,<span class="hljs-built_in">ebp</span><br><span class="hljs-keyword">pop</span> <span class="hljs-built_in">ebp</span><br># 返回调用者函数执行<br><span class="hljs-keyword">ret</span>  # 等价于<span class="hljs-keyword">pop</span> <span class="hljs-built_in">eip</span><br></code></pre></td></tr></table></figure></li>
+</ol>
+<p>实例：C程序每条语句对寄存器的影响情况</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdio.h&gt;</span></span><br><br><span class="hljs-type">int</span> <span class="hljs-title function_">add</span><span class="hljs-params">(<span class="hljs-type">int</span> a, <span class="hljs-type">int</span> b)</span> &#123;<br>	<span class="hljs-keyword">return</span> a + b;<br>&#125;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span> &#123;<br>	<span class="hljs-type">int</span> i = <span class="hljs-number">10</span>;<br>	<span class="hljs-type">int</span> j = <span class="hljs-number">16</span>;<br>	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>, add(i, j));<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<table>
+
+<thead>
+<tr class="header">
+<th style="text-align: center;">汇编</th>
+<th style="text-align: center;">影响</th>
+<th style="text-align: center;">受影响的寄存器取值</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">mov dword ptr [i],0Ah</td>
+<td style="text-align: center;">EIP</td>
+<td style="text-align: center;">EIP = 00A818CC</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">mov dword ptr [j],10h</td>
+<td style="text-align: center;">EIP</td>
+<td style="text-align: center;">EIP = 00A818D3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">mov eax,dword ptr [j]</td>
+<td style="text-align: center;">EAX;EIP</td>
+<td style="text-align: center;">EAX = 00000010;EIP = 00A818D6</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">push eax</td>
+<td style="text-align: center;">ESP-4;EIP</td>
+<td style="text-align: center;">ESP = 00EFF958;EIP = 00A818D7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">mov ecx,dword ptr [i]</td>
+<td style="text-align: center;">ECX;EIP</td>
+<td style="text-align: center;">ECX = 0000000A;EIP = 00A818DA</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">push ecx</td>
+<td style="text-align: center;">ESP-4;EIP</td>
+<td style="text-align: center;">ESP = 00EFF954;EIP = 00A818DB</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">push ebp</td>
+<td style="text-align: center;">ESP-4;EIP</td>
+<td style="text-align: center;">ESP = 00EFF94C;EIP = 00A81771</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">mov ebp,esp</td>
+<td style="text-align: center;">EBP=ESP;EIP</td>
+<td style="text-align: center;">EBP = 00EFF94C;EIP = 00A81773</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">mov eax,dword ptr [a]</td>
+<td style="text-align: center;">EAX;EIP</td>
+<td style="text-align: center;">EAX = 0000000A;EIP = 00A81794</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">add eax,dword ptr [b]</td>
+<td style="text-align: center;">EAX;EIP</td>
+<td style="text-align: center;">EAX = 0000001A;EIP = 00A81797</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">mov esp,ebp</td>
+<td style="text-align: center;">ESP=EBP；EIP</td>
+<td style="text-align: center;">EIP = 00A817A9</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">pop ebp</td>
+<td style="text-align: center;">EBP;ESP+4;EIP</td>
+<td style="text-align: center;">EBP = 00B8F9CC;ESP = 00B8F8DC;EIP =
+00A817AA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">ret</td>
+<td style="text-align: center;">ESP+4;EIP</td>
+<td style="text-align: center;">ESP = 00B8F8E0;EIP = 00A818E0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">add esp,8</td>
+<td style="text-align: center;">ESP+8;EFL;EIP</td>
+<td style="text-align: center;">ESP = 00B8F8E8;EFL = 00000206;EIP =
+00A818E3</td>
+</tr>
+</tbody>
+</table>
+<h2 id="堆溢出">4.2.2 堆溢出</h2>
+<h2 id="格式化串漏洞">4.2.3 格式化串漏洞</h2>
+<h2 id="整型溢出">4.2.4 整型溢出</h2>
+<h2 id="释放再使用">4.2.5 释放再使用</h2>
+<h1 id="溢出漏洞利用原理">4.3 溢出漏洞利用原理</h1>
+<h2 id="溢出攻击的基本流程">4.3.1 溢出攻击的基本流程</h2>
+<ol type="1">
+<li>注入恶意数据</li>
+<li>溢出缓冲区</li>
+<li>重定向控制流</li>
+<li>执行有效载荷</li>
+</ol>
+<h2 id="溢出利用的关键技术">4.3.2 溢出利用的关键技术</h2>
+<ul>
+<li>溢出点定位</li>
+<li>覆盖执行控制地址</li>
+<li>覆盖异常处理结构</li>
+<li>跳转地址的确定</li>
+<li>Shellcode定位和跳转</li>
+</ul>
+<h1 id="漏洞利用保护机制">4.4 漏洞利用保护机制</h1>
+<ul>
+<li>GS编译保护机制</li>
+<li>SafeSEH保护机制</li>
+<li>DEP机制</li>
+<li>ASLR机制</li>
+</ul>
+<p>参考教程：</p>
+<ol type="1">
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/186812518">一文理解缓冲区溢出
+- 知乎 (zhihu.com)</a></li>
+<li>https://blog.csdn.net/xbb224007/article/details/80106961</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/" class="category-chain-item">网络攻防技术</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/%E7%90%86%E8%AE%BA%E7%AF%87/" class="category-chain-item">理论篇</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>CH4-软件漏洞-缓冲区溢出</div>
+      <div>http://example.com/2023/10/15/网络攻防技术/理论篇/04软件漏洞-缓冲区溢出/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>kaikaikai</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年10月15日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/10/14/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E5%AE%9E%E9%AA%8C%E7%AF%87/Chapter_3L/" title="Chapter_3L">
+                        <span class="hidden-mobile">Chapter_3L</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
