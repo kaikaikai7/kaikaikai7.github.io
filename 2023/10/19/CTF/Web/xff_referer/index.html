@@ -16,21 +16,21 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1 文件包含漏洞概念 和SQL注入等攻击方式一样，文件包含漏洞也是一种注入型漏洞，其本质就是输入一段用户能够控制的脚本或者代码，并让服务端执行。什么叫包含呢？以PHP为例，我们常常把可重复使用的函数写入到单个文件中，在使用该函数时，直接调用此文件，而无需再次编写函数，这一过程叫做包含。有时候由于网站功能需求，会让前端用户选择要包含的文件，而开发人员又没有对要包含的文件进行安全考虑，就导致攻击者可">
+    <meta name="description" content="X-Forward-For（xff）：客户端连接到网页的ip referer：客户从哪个网页来访问的当前页面">
 <meta property="og:type" content="article">
-<meta property="og:title" content="文件包含">
-<meta property="og:url" content="http://example.com/2023/10/19/CTF/Web/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/index.html">
+<meta property="og:title" content="xff_referer">
+<meta property="og:url" content="http://example.com/2023/10/19/CTF/Web/xff_referer/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="1 文件包含漏洞概念 和SQL注入等攻击方式一样，文件包含漏洞也是一种注入型漏洞，其本质就是输入一段用户能够控制的脚本或者代码，并让服务端执行。什么叫包含呢？以PHP为例，我们常常把可重复使用的函数写入到单个文件中，在使用该函数时，直接调用此文件，而无需再次编写函数，这一过程叫做包含。有时候由于网站功能需求，会让前端用户选择要包含的文件，而开发人员又没有对要包含的文件进行安全考虑，就导致攻击者可">
+<meta property="og:description" content="X-Forward-For（xff）：客户端连接到网页的ip referer：客户从哪个网页来访问的当前页面">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-10-19T03:28:18.000Z">
-<meta property="article:modified_time" content="2023-10-19T09:06:45.506Z">
+<meta property="article:published_time" content="2023-10-19T07:16:18.000Z">
+<meta property="article:modified_time" content="2023-10-19T07:17:09.250Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>文件包含 - kaikaikai&#39;s blog</title>
+  <title>xff_referer - kaikaikai&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -184,7 +184,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="文件包含"></span>
+            <span id="subtitle" data-typed-text="xff_referer"></span>
           
         </div>
 
@@ -195,8 +195,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-10-19 11:28" pubdate>
-          2023年10月19日 上午
+        <time datetime="2023-10-19 15:16" pubdate>
+          2023年10月19日 下午
         </time>
       </span>
     
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3k 字
+          53 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          25 分钟
+          1 分钟
         
       </span>
     
@@ -255,88 +255,15 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">文件包含</h1>
+            <h1 id="seo-header">xff_referer</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="文件包含漏洞概念">1 文件包含漏洞概念</h1>
-<p>和SQL注入等攻击方式一样，文件包含漏洞也是一种注入型漏洞，其<strong>本质</strong>就是输入一段用户能够控制的脚本或者代码，并让服务端执行。什么叫包含呢？以PHP为例，我们常常把可重复使用的函数写入到单个文件中，在使用该函数时，直接调用此文件，而无需再次编写函数，这一过程叫做包含。有时候由于网站功能需求，会让前端用户选择要包含的文件，而开发人员又没有对要包含的文件进行安全考虑，就导致攻击者可以通过修改文件的位置来让后台执行任意文件，从而导致文件包含漏洞。</p>
-<p><strong>常用的文件包含函数：</strong></p>
-<ul>
-<li>require():找不到被包含的文件会产生致命错误，并停止脚本运行</li>
-<li>include():找不到被包含的文件只会产生警告，脚本继续执行</li>
-<li>require_once()与require()类似:唯一的区别是如果该文件的代码已经被包含，则不会再次包含</li>
-<li>include_once()与include()类似:唯一的区别是如果该文件的代码已经被包含，则不会再次包含</li>
+                <ul>
+<li>X-Forward-For（xff）：客户端连接到网页的ip</li>
+<li>referer：客户从哪个网页来访问的当前页面</li>
 </ul>
-<p>注：include()函数并不在意被包含的文件是什么类型，只要有php代码，都会被解析出来。其余三种未测试。</p>
-<h1 id="本地文件包含漏洞lfi">2 本地文件包含漏洞(LFI)</h1>
-<p>定义：能够打开并包含本地文件的漏洞，我们称为本地文件包含漏洞(LFI)</p>
-<p><strong>读取方式：</strong></p>
-<ul>
-<li>绝对路径</li>
-<li>相对路径：./表示当前位置路径，…/表示上一级路径位置</li>
-</ul>
-<p><strong>常见的敏感目录信息路径：</strong></p>
-<p>Windows系统:</p>
-<ul>
-<li>C:.ini //查看系统版本</li>
-<li>C:.xml //IIS配置文件</li>
-<li>C://存储Windows系统初次安装的密码</li>
-<li>C:.ini //MySQL配置</li>
-<li>C:.MYD //MySQL root密码</li>
-<li>C:.ini //php配置信息</li>
-</ul>
-<p>Linux/Unix系统:</p>
-<ul>
-<li>/etc/password //账户信息</li>
-<li>/etc/shadow //账户密码信息</li>
-<li>/usr/local/app/apache2/conf/httpd.conf //Apache2默认配置文件</li>
-<li>/usr/local/app/apache2/conf/extra/httpd-vhost.conf
-//虚拟网站配置</li>
-<li>/usr/local/app/php5/lib/php.ini //PHP相关配置</li>
-<li>/etc/httpd/conf/httpd.conf //Apache配置文件</li>
-<li>/etc/my.conf //mysql配置文件</li>
-</ul>
-<h1 id="远程文件包含漏洞rfi">3 远程文件包含漏洞(RFI)</h1>
-<p>如果PHP的配置选项<code>allow_url_include</code>、<code>allow_url_fopen</code>状态为ON的话，则<strong>include/require</strong>函数是可以加载远程文件的，这种漏洞被称为远程文件包含(RFI)</p>
-<h1 id="php伪协议">4 php伪协议</h1>
-<h2 id="phpfilter">4.1 php://filter</h2>
-<p><strong>用途</strong>：用于读取源码。读取源代码并进行编码输出，不然会直接当作php代码执行就看不到源代码内容</p>
-<p><strong>字符串过滤器：</strong></p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs php">php:<span class="hljs-comment">//filter/string.rot13/resource=flag.php //读出以后利用ROT13解码即可</span><br> <br>php:<span class="hljs-comment">//filter/string.toupper/resource=flag.php //转大写</span><br> <br>php:<span class="hljs-comment">//filter/string.tolower/resource=flag.php //转小写</span><br> <br>php:<span class="hljs-comment">//filter/string.strip_tags/resource=flag.php //php标签里所有东西都会被去除，html只有标签会被去除，里面的文字不会删除</span><br></code></pre></td></tr></table></figure>
-<p><strong>转换过滤器：</strong></p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-comment"># convert.base64-encode &amp; convert.base64-decode</span><br><span class="hljs-comment">## /read=convert.base64-encode/ 表示读取内容经过base64 编码</span><br><span class="hljs-comment">## resource=index.php 表示目标文件为index.php</span><br>php:<span class="hljs-comment">//filter/read=convert.base64-encode/resource=index.php</span><br>php:<span class="hljs-comment">//filter/convert.base64-encode/resource=index.php</span><br><br><span class="hljs-comment"># convert.quoted-printable-encode &amp; convert.quoted-printable-decode</span><br>php:<span class="hljs-comment">//filter/convert.quoted-printable-encode/resource=index.php</span><br><br><span class="hljs-comment"># convert.iconv.*</span><br><span class="hljs-comment">## 这个过滤器需要 php 支持 iconv，而 iconv 是默认编译的。使用convert.iconv.*过滤器等同于用iconv()函数处理所有的流数据。</span><br><span class="hljs-comment">## 可以结合burp进行爆破</span><br>convert.iconv.&lt;input-encoding&gt;.&lt;output-encoding&gt; <br>convert.iconv.&lt;input-encoding&gt;/&lt;output-encoding&gt;<br>php:<span class="hljs-comment">//filter/convert.iconv.UCS-2LE.UCS-2BE/resource=flag.php</span><br></code></pre></td></tr></table></figure>
-<p><code>convert.iconv.*</code>可用编码：</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">UCS</span>-<span class="hljs-number">4</span>*<br><span class="hljs-attribute">UCS</span>-<span class="hljs-number">4</span>BE<br><span class="hljs-attribute">UCS</span>-<span class="hljs-number">4</span>LE*<br><span class="hljs-attribute">UCS</span>-<span class="hljs-number">2</span><br><span class="hljs-attribute">UCS</span>-<span class="hljs-number">2</span>BE<br><span class="hljs-attribute">UCS</span>-<span class="hljs-number">2</span>LE<br><span class="hljs-attribute">UTF</span>-<span class="hljs-number">32</span>*<br><span class="hljs-attribute">UTF</span>-<span class="hljs-number">32</span>BE*<br><span class="hljs-attribute">UTF</span>-<span class="hljs-number">32</span>LE*<br><span class="hljs-attribute">UTF</span>-<span class="hljs-number">16</span>*<br><span class="hljs-attribute">UTF</span>-<span class="hljs-number">16</span>BE*<br><span class="hljs-attribute">UTF</span>-<span class="hljs-number">16</span>LE*<br><span class="hljs-attribute">UTF</span>-<span class="hljs-number">7</span><br><span class="hljs-attribute">UTF7</span>-IMAP<br><span class="hljs-attribute">UTF</span>-<span class="hljs-number">8</span>*<br><span class="hljs-attribute">ASCII</span>*<br></code></pre></td></tr></table></figure>
-<p><strong>压缩过滤器：</strong></p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php">php:<span class="hljs-comment">//filter/zlib.deflate|zlib.inflate/resource=flag.php        //zlib.deflate（压缩）｜zlib.inflate（解压）</span><br><span class="hljs-keyword">or</span><br>php:<span class="hljs-comment">//filter/bzip2.compress|bzip2.decompress/resource=flag.php   //bzip2.compress（压缩）|bzip2.decompress（解压）</span><br></code></pre></td></tr></table></figure>
-<h2 id="phpinput">4.2 php://input</h2>
-<p><strong>用途：</strong>可以访问请求的原始数据的只读流,
-在POST请求中访问POST的data部分，在<code>enctype=multipart/form-data</code>时put://input无效</p>
-<p><strong>利用：</strong>当传入的参数作为文件名打开时，可以将参数设为php://input,同时post写入想要执行的php代码，php执行时会将post内容当作文件内容，从而导致任意代码执行。</p>
-<h2 id="data">4.3 data://</h2>
-<p><strong>用途：</strong>类似与php://input，可以让用户来控制输入流，当它与包含函数结合时，用户输入的data://流会被当作php文件执行。从而导致任意代码执行</p>
-<p><strong>利用：</strong></p>
-<figure class="highlight php-template"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php-template"><span class="language-xml">data://text/plain,</span><span class="language-php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-title function_ invoke__">phpinfo</span>();<span class="hljs-meta">?&gt;</span></span><span class="language-xml"></span><br><span class="language-xml">//如果此处对特殊字符进行了过滤，我们还可以通过base64编码后再输入：</span><br><span class="language-xml">data://text/plain;base64,PD9waHAgcGhwaW5mbygpPz4=</span><br></code></pre></td></tr></table></figure>
-<h1 id="绕过方式">5 绕过方式</h1>
-<ul>
-<li>伪协议大小写
-<ul>
-<li><code>strstr()</code>函数区分大小写，<code>stristr()</code>函数不区分大小写</li>
-</ul></li>
-<li>php短标签</li>
-</ul>
-<p>参考教程：</p>
-<ol type="1">
-<li><a
-target="_blank" rel="noopener" href="https://blog.csdn.net/m0_46467017/article/details/126380415">文件包含漏洞全面详解_caker丶的博客-CSDN博客</a></li>
-<li><a
-target="_blank" rel="noopener" href="https://jiashi19.gitee.io/2023/10/16/ctf-web-php伪协议/">ctf-web-php伪协议
-- Blog from js19 (gitee.io)</a></li>
-<li><a
-target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44657899/article/details/109300335">php://filter的各种过滤器-CSDN博客</a></li>
-</ol>
 
                 
               </div>
@@ -382,8 +309,8 @@ target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44657899/article/d
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>文件包含</div>
-      <div>http://example.com/2023/10/19/CTF/Web/文件包含/</div>
+      <div>xff_referer</div>
+      <div>http://example.com/2023/10/19/CTF/Web/xff_referer/</div>
     </div>
     <div class="license-meta">
       
@@ -427,9 +354,9 @@ target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44657899/article/d
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/10/19/CTF/Web/xff_referer/" title="xff_referer">
+                      <a href="/2023/10/19/CTF/Web/%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/" title="模板注入">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">xff_referer</span>
+                        <span class="hidden-mobile">模板注入</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -437,8 +364,8 @@ target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44657899/article/d
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/10/19/CTF/Web/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" title="文件上传">
-                        <span class="hidden-mobile">文件上传</span>
+                      <a href="/2023/10/19/CTF/Web/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" title="文件包含">
+                        <span class="hidden-mobile">文件包含</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
