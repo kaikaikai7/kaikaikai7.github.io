@@ -4,6 +4,111 @@
   
   
   <entry>
+    <title>dirsearch</title>
+    <link href="/2023/10/18/CTF/%E5%B7%A5%E5%85%B7/dirsearch/"/>
+    <url>/2023/10/18/CTF/%E5%B7%A5%E5%85%B7/dirsearch/</url>
+    
+    <content type="html"><![CDATA[<h1 id="常见用法">常见用法</h1><ul><li>dirsearch -u https://xxxx 扫描某个站点</li><li>dirsearch -u https://xxxx -r 递归扫描</li><li>dirsearch -u https://xxxx -r -t 30 线程控制请求速率扫描</li><li>dirsearch -u https://xxxx -r -t 30 --proxy 127.0.0.1:8080使用代理进行扫描</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>CTF</category>
+      
+      <category>Web</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>备份文件</title>
+    <link href="/2023/10/18/CTF/Web/%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6/"/>
+    <url>/2023/10/18/CTF/Web/%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6/</url>
+    
+    <content type="html"><![CDATA[<p>常见的备份文件后缀名有:<code>.git .svn .swp .svn .~ .bak .bash_history</code></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>CTF</category>
+      
+      <category>Web</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>PHP序列化和反序列化</title>
+    <link href="/2023/10/18/CTF/Web/PHP%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/"/>
+    <url>/2023/10/18/CTF/Web/PHP%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</url>
+    
+    <content type="html"><![CDATA[<h1 id="序列化">1 序列化</h1><p>概念：在PHP中，序列化用于存储或传递 PHP的值的过程中，同时不丢失其类型和结构。</p><p>当调用<code>serialize()</code>函数序列化对象时，该函数会检查类中是否存在一个魔术方法<code>__sleep()</code>。如果存在，该方法会先被调用，然后才执行序列化操作。可以通过重载这个方法，从而自定义序列化行为。</p><p>public：属性被序列化的时候属性名会变成 <code>属性名</code></p><p>protected：属性被序列化的时候属性名会变成<code>\x00*\x00属性名</code></p><p>private：属性被序列化的时候属性名会变成<code>\x00类名\x00属性名</code></p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">People</span></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$id</span>;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-variable">$gender</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-variable">$age</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-variable language_">$this</span>-&gt;id = <span class="hljs-string">&#x27;WuFei666&#x27;</span>;<br>        <span class="hljs-variable language_">$this</span>-&gt;gender = <span class="hljs-string">&#x27;male&#x27;</span>;<br>        <span class="hljs-variable language_">$this</span>-&gt;age = <span class="hljs-string">&#x27;18&#x27;</span>;<br>    &#125;<br>&#125;<br><span class="hljs-variable">$a</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">People</span>();<br><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-variable">$a</span>);<br><span class="hljs-meta">?&gt;</span><br>    <br><span class="hljs-comment">//输出结果</span><br>O:<span class="hljs-number">6</span>:<span class="hljs-string">&quot;People&quot;</span>:<span class="hljs-number">3</span>:&#123;s:<span class="hljs-number">2</span>:<span class="hljs-string">&quot;id&quot;</span>;s:<span class="hljs-number">8</span>:<span class="hljs-string">&quot;WuFei666&quot;</span>;s:<span class="hljs-number">9</span>:<span class="hljs-string">&quot; * gender&quot;</span>;s:<span class="hljs-number">4</span>:<span class="hljs-string">&quot;male&quot;</span>;s:<span class="hljs-number">11</span>:<span class="hljs-string">&quot; People age&quot;</span>;s:<span class="hljs-number">2</span>:<span class="hljs-string">&quot;18&quot;</span>;&#125;<br></code></pre></td></tr></table></figure><p>序列化对于不同类型得到的字符串格式：</p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$number</span> = <span class="hljs-number">34</span>;<br><span class="hljs-variable">$str</span> = <span class="hljs-string">&#x27;uusama&#x27;</span>;<br><span class="hljs-variable">$bool</span> = <span class="hljs-literal">true</span>;<br><span class="hljs-variable">$null</span> = <span class="hljs-literal">NULL</span>;<br><span class="hljs-variable">$arr</span> = <span class="hljs-keyword">array</span>(<span class="hljs-string">&#x27;a&#x27;</span> =&gt; <span class="hljs-number">1</span>, <span class="hljs-string">&#x27;b&#x27;</span> =&gt; <span class="hljs-number">2</span>);<br><br><span class="hljs-title function_ invoke__">var_dump</span>(<span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-variable">$number</span>));<br><span class="hljs-title function_ invoke__">var_dump</span>(<span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-variable">$str</span>));<br><span class="hljs-title function_ invoke__">var_dump</span>(<span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-variable">$bool</span>));<br><span class="hljs-title function_ invoke__">var_dump</span>(<span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-variable">$null</span>));<br><span class="hljs-title function_ invoke__">var_dump</span>(<span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-variable">$arr</span>));<br><span class="hljs-meta">?&gt;</span><br><span class="hljs-comment">//输出结果</span><br><span class="hljs-keyword">string</span>(<span class="hljs-number">5</span>) <span class="hljs-string">&quot;i:34;&quot;</span><br><span class="hljs-keyword">string</span>(<span class="hljs-number">13</span>) <span class="hljs-string">&quot;s:6:&quot;</span>uusama<span class="hljs-string">&quot;;&quot;</span><br><span class="hljs-keyword">string</span>(<span class="hljs-number">4</span>) <span class="hljs-string">&quot;b:1;&quot;</span><br><span class="hljs-keyword">string</span>(<span class="hljs-number">2</span>) <span class="hljs-string">&quot;N;&quot;</span><br><span class="hljs-keyword">string</span>(<span class="hljs-number">30</span>) <span class="hljs-string">&quot;a:2:&#123;s:1:&quot;</span>a<span class="hljs-string">&quot;;i:1;s:1:&quot;</span>b<span class="hljs-string">&quot;;i:2;&#125;&quot;</span><br></code></pre></td></tr></table></figure><h1 id="反序列化">2 反序列化</h1><p>概念：把序列化后的字符串恢复原样</p><p>若被反序列化的变量是一个对象，在成功重新构造对象之后，PHP会自动地试图去调用<code>__wakeup()</code>成员函数（如果存在的话）</p><p><code>__wakeup()</code>函数<strong>漏洞原理</strong>：当序列化字符串表示对象属性个数的值大于真实个数的属性时就会跳过<code>__wakeup()</code>的执行</p><p>参考教程：</p><ol type="1"><li><ahref="https://www.cnblogs.com/youyoui/p/8610068.html">深度剖析PHP序列化和反序列化- 悠悠i - 博客园 (cnblogs.com)</a></li><li><ahref="https://jiashi19.gitee.io/2023/09/18/ctf-web-php/">ctf-web练习(php)- Blog from js19 (gitee.io)</a></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>CTF</category>
+      
+      <category>Web</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>phps文件</title>
+    <link href="/2023/10/18/CTF/Web/phps%E6%96%87%E4%BB%B6/"/>
+    <url>/2023/10/18/CTF/Web/phps%E6%96%87%E4%BB%B6/</url>
+    
+    <content type="html"><![CDATA[<p>phps文件就是php的<strong>源代码文件</strong>，通常用于提供给用户（访问者）直接通过Web浏览器查看php代码的内容。因为用户无法直接通过Web浏览器“看到”php文件的内容，所以需要用phps文件代替。其实，只要不用php等已经在服务器中注册过的MIME类型的文件扩展名即可，但为了国际通用，所以才用了phps文件类型。</p><p>Detailed information for file extension PHPS:</p><p><strong>Primary association:</strong> <ahref="http://www.php.net/">PHP Source</a></p><p><strong>Company:</strong> <a href="http://www.php.net/">The PHPGroup</a></p><p><strong>File classification:</strong> Source Code</p><p><strong>Mime type:</strong> text/html,application/x-httpd-php-source, application/x-httpd-php3-source</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>CTF</category>
+      
+      <category>Web</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Robots协议</title>
+    <link href="/2023/10/18/CTF/Web/Robots%E5%8D%8F%E8%AE%AE/"/>
+    <url>/2023/10/18/CTF/Web/Robots%E5%8D%8F%E8%AE%AE/</url>
+    
+    <content type="html"><![CDATA[<p><code>robots.txt</code>文件被网络爬虫用来检查是否允许它们抓取和索引该网站，或者只允许抓取和索引网站的部分内容。有时，这些文件会暴露<strong>目录结构</strong>，而不是保护内容不被抓取。</p><p>存放目录：<code>robots.txt</code>文件必须要存放在网站的根目录下，即通过<code>域名/robots.txt</code>可以访问此文件</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>CTF</category>
+      
+      <category>Web</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Shellcode Development</title>
     <link href="/2023/10/17/SEED-LABS/Software%20Security/Shellcode%20Development/"/>
     <url>/2023/10/17/SEED-LABS/Software%20Security/Shellcode%20Development/</url>
