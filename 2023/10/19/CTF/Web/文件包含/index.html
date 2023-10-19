@@ -24,7 +24,7 @@
 <meta property="og:description" content="1 文件包含漏洞概念 和SQL注入等攻击方式一样，文件包含漏洞也是一种注入型漏洞，其本质就是输入一段用户能够控制的脚本或者代码，并让服务端执行。什么叫包含呢？以PHP为例，我们常常把可重复使用的函数写入到单个文件中，在使用该函数时，直接调用此文件，而无需再次编写函数，这一过程叫做包含。有时候由于网站功能需求，会让前端用户选择要包含的文件，而开发人员又没有对要包含的文件进行安全考虑，就导致攻击者可">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-10-19T03:28:18.000Z">
-<meta property="article:modified_time" content="2023-10-19T09:06:45.506Z">
+<meta property="article:modified_time" content="2023-10-19T11:37:52.017Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3k 字
+          3.3k 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          25 分钟
+          28 分钟
         
       </span>
     
@@ -277,6 +277,8 @@
 <li>绝对路径</li>
 <li>相对路径：./表示当前位置路径，…/表示上一级路径位置</li>
 </ul>
+<p><strong>利用目录结构构造payload</strong>：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br>file = _GET[‘file’];      <span class="hljs-comment">// “../../etc/passwd\0</span><br><span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">file_exisits</span>(‘/home/wwwrun/’.<span class="hljs-variable">$file</span>.’.php’)) &#123;<br>  <span class="hljs-comment">//file_exists will return true as the file/home/wwwrun/../../etc/passwd exists  </span><br>  Include‘/home/wwwrun/’.<span class="hljs-variable">$file</span>.’.php’;<br>  <span class="hljs-comment">// the file /etc/passwd will be included</span><br>&#125;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
 <p><strong>常见的敏感目录信息路径：</strong></p>
 <p>Windows系统:</p>
 <ul>
