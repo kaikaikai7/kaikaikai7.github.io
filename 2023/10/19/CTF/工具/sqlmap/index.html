@@ -16,21 +16,21 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="常见用法  dirsearch -u https:&#x2F;&#x2F;xxxx 扫描某个站点 dirsearch -u https:&#x2F;&#x2F;xxxx -r 递归扫描 dirsearch -u https:&#x2F;&#x2F;xxxx -r -t 30 线程控制请求速率扫描 dirsearch -u https:&#x2F;&#x2F;xxxx -r -t 30 --proxy 127.0.0.1:8080 使用代理进行扫描">
+    <meta name="description" content="1 常用参数 ● -r :以递归方式扫描指定目录下的所有文件。 ● -u :连接目标网站并进行扫描。 ● --dbs：列出数据库的名称。 ● --tables：列出数据库中的所有表。 ● --columns：列出指定表中的所有列。 ● --dump：导出指定表中的数据。 2 GET注入  监测是否存在注入 1sqlmap -u &quot;http:&#x2F;&#x2F;xxxx&#x2F;?id&#x3D;1&amp;quo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="dirsearch">
-<meta property="og:url" content="http://example.com/2023/10/18/CTF/%E5%B7%A5%E5%85%B7/dirsearch/index.html">
+<meta property="og:title" content="sqlmap">
+<meta property="og:url" content="http://example.com/2023/10/19/CTF/%E5%B7%A5%E5%85%B7/sqlmap/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="常见用法  dirsearch -u https:&#x2F;&#x2F;xxxx 扫描某个站点 dirsearch -u https:&#x2F;&#x2F;xxxx -r 递归扫描 dirsearch -u https:&#x2F;&#x2F;xxxx -r -t 30 线程控制请求速率扫描 dirsearch -u https:&#x2F;&#x2F;xxxx -r -t 30 --proxy 127.0.0.1:8080 使用代理进行扫描">
+<meta property="og:description" content="1 常用参数 ● -r :以递归方式扫描指定目录下的所有文件。 ● -u :连接目标网站并进行扫描。 ● --dbs：列出数据库的名称。 ● --tables：列出数据库中的所有表。 ● --columns：列出指定表中的所有列。 ● --dump：导出指定表中的数据。 2 GET注入  监测是否存在注入 1sqlmap -u &quot;http:&#x2F;&#x2F;xxxx&#x2F;?id&#x3D;1&amp;quo">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-10-18T12:35:18.000Z">
-<meta property="article:modified_time" content="2023-10-19T01:44:04.327Z">
+<meta property="article:published_time" content="2023-10-19T02:08:18.000Z">
+<meta property="article:modified_time" content="2023-10-19T02:17:35.613Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>dirsearch - kaikaikai&#39;s blog</title>
+  <title>sqlmap - kaikaikai&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -184,7 +184,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="dirsearch"></span>
+            <span id="subtitle" data-typed-text="sqlmap"></span>
           
         </div>
 
@@ -195,8 +195,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-10-18 20:35" pubdate>
-          2023年10月18日 晚上
+        <time datetime="2023-10-19 10:08" pubdate>
+          2023年10月19日 上午
         </time>
       </span>
     
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          159 字
+          409 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          2 分钟
+          4 分钟
         
       </span>
     
@@ -255,19 +255,29 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">dirsearch</h1>
+            <h1 id="seo-header">sqlmap</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="常见用法">常见用法</h1>
-<ul>
-<li>dirsearch -u https://xxxx 扫描某个站点</li>
-<li>dirsearch -u https://xxxx -r 递归扫描</li>
-<li>dirsearch -u https://xxxx -r -t 30 线程控制请求速率扫描</li>
-<li>dirsearch -u https://xxxx -r -t 30 --proxy 127.0.0.1:8080
-使用代理进行扫描</li>
-</ul>
+                <h1 id="常用参数">1 常用参数</h1>
+<p>● -r :以递归方式扫描指定目录下的所有文件。 ● -u
+:连接目标网站并进行扫描。 ● --dbs：列出数据库的名称。 ●
+--tables：列出数据库中的所有表。 ● --columns：列出指定表中的所有列。 ●
+--dump：导出指定表中的数据。</p>
+<h1 id="get注入">2 GET注入</h1>
+<ol type="1">
+<li><p>监测是否存在注入</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">sqlmap -u <span class="hljs-string">&quot;http://xxxx/?id=1&quot;</span><br></code></pre></td></tr></table></figure></li>
+<li><p>获取数据库名称</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">sqlmap <span class="hljs-operator">-</span>u &quot;http://xxxx/?id=1&quot; <span class="hljs-comment">--dbs</span><br></code></pre></td></tr></table></figure></li>
+<li><p>获取表名</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">sqlmap <span class="hljs-operator">-</span>u &quot;http://xxxx/?id=1&quot; <span class="hljs-operator">-</span>D xxxx <span class="hljs-comment">--tables</span><br></code></pre></td></tr></table></figure></li>
+<li><p>获取列名</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">sqlmap <span class="hljs-operator">-</span>u &quot;http://xxxx/?id=1&quot; <span class="hljs-operator">-</span>D xxxx <span class="hljs-operator">-</span>T xxxx <span class="hljs-comment">--columns</span><br></code></pre></td></tr></table></figure></li>
+<li><p>获取字段内容</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs perl">sqlmap -u <span class="hljs-string">&quot;http://xxxx/?id=1&quot;</span> -D xxxx -T xxxx -C xxxx --<span class="hljs-keyword">dump</span><br></code></pre></td></tr></table></figure></li>
+</ol>
 
                 
               </div>
@@ -313,8 +323,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>dirsearch</div>
-      <div>http://example.com/2023/10/18/CTF/工具/dirsearch/</div>
+      <div>sqlmap</div>
+      <div>http://example.com/2023/10/19/CTF/工具/sqlmap/</div>
     </div>
     <div class="license-meta">
       
@@ -326,7 +336,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年10月18日</div>
+          <div>2023年10月19日</div>
         </div>
       
       
@@ -358,9 +368,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/10/19/CTF/Web/php%E5%BC%B1%E7%B1%BB%E5%9E%8B/" title="php弱类型">
+                      <a href="/2023/10/19/CTF/Web/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" title="文件上传">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">php弱类型</span>
+                        <span class="hidden-mobile">文件上传</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -368,8 +378,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/10/18/CTF/Web/%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6/" title="备份文件">
-                        <span class="hidden-mobile">备份文件</span>
+                      <a href="/2023/10/19/CTF/Web/php%E5%BC%B1%E7%B1%BB%E5%9E%8B/" title="php弱类型">
+                        <span class="hidden-mobile">php弱类型</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

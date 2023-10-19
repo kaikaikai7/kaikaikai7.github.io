@@ -16,21 +16,21 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="常见用法  dirsearch -u https:&#x2F;&#x2F;xxxx 扫描某个站点 dirsearch -u https:&#x2F;&#x2F;xxxx -r 递归扫描 dirsearch -u https:&#x2F;&#x2F;xxxx -r -t 30 线程控制请求速率扫描 dirsearch -u https:&#x2F;&#x2F;xxxx -r -t 30 --proxy 127.0.0.1:8080 使用代理进行扫描">
+    <meta name="description" content="1 Webshell 定义：Webshell是黑客经常使用的一种恶意脚本，其目的是获得服务器的执行操作权限，常见的webshell编写语言为asp、jsp和php。 我们如何发送命令，发送的命令如何执行？ 我们可以通过GET 、POST 、COOKIE这三种方式向一个网站提交数据，一句话木马用$_GET[&#39; &#39;]、$_POST[&#39; &#39;]、$_REQUEST[&#39; &#39;]、$_COOKIE[&#39; &#39;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="dirsearch">
-<meta property="og:url" content="http://example.com/2023/10/18/CTF/%E5%B7%A5%E5%85%B7/dirsearch/index.html">
+<meta property="og:title" content="文件上传">
+<meta property="og:url" content="http://example.com/2023/10/19/CTF/Web/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="常见用法  dirsearch -u https:&#x2F;&#x2F;xxxx 扫描某个站点 dirsearch -u https:&#x2F;&#x2F;xxxx -r 递归扫描 dirsearch -u https:&#x2F;&#x2F;xxxx -r -t 30 线程控制请求速率扫描 dirsearch -u https:&#x2F;&#x2F;xxxx -r -t 30 --proxy 127.0.0.1:8080 使用代理进行扫描">
+<meta property="og:description" content="1 Webshell 定义：Webshell是黑客经常使用的一种恶意脚本，其目的是获得服务器的执行操作权限，常见的webshell编写语言为asp、jsp和php。 我们如何发送命令，发送的命令如何执行？ 我们可以通过GET 、POST 、COOKIE这三种方式向一个网站提交数据，一句话木马用$_GET[&#39; &#39;]、$_POST[&#39; &#39;]、$_REQUEST[&#39; &#39;]、$_COOKIE[&#39; &#39;">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-10-18T12:35:18.000Z">
-<meta property="article:modified_time" content="2023-10-19T01:44:04.327Z">
+<meta property="article:published_time" content="2023-10-19T02:27:18.000Z">
+<meta property="article:modified_time" content="2023-10-19T03:13:37.187Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>dirsearch - kaikaikai&#39;s blog</title>
+  <title>文件上传 - kaikaikai&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -184,7 +184,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="dirsearch"></span>
+            <span id="subtitle" data-typed-text="文件上传"></span>
           
         </div>
 
@@ -195,8 +195,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-10-18 20:35" pubdate>
-          2023年10月18日 晚上
+        <time datetime="2023-10-19 10:27" pubdate>
+          2023年10月19日 上午
         </time>
       </span>
     
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          159 字
+          2k 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          2 分钟
+          17 分钟
         
       </span>
     
@@ -255,19 +255,145 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">dirsearch</h1>
+            <h1 id="seo-header">文件上传</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="常见用法">常见用法</h1>
-<ul>
-<li>dirsearch -u https://xxxx 扫描某个站点</li>
-<li>dirsearch -u https://xxxx -r 递归扫描</li>
-<li>dirsearch -u https://xxxx -r -t 30 线程控制请求速率扫描</li>
-<li>dirsearch -u https://xxxx -r -t 30 --proxy 127.0.0.1:8080
-使用代理进行扫描</li>
-</ul>
+                <h1 id="webshell">1 Webshell</h1>
+<p>定义：Webshell是黑客经常使用的一种恶意脚本，其目的是获得服务器的执行操作权限，常见的webshell编写语言为asp、jsp和php。</p>
+<p><strong>我们如何发送命令，发送的命令如何执行？</strong></p>
+<p>我们可以通过<code>GET 、POST 、COOKIE</code>这三种方式向一个网站提交数据，一句话木马用<code>$_GET[' ']、$_POST[' ']、$_REQUEST[' ']、$_COOKIE[' ']</code>
+接收我们传递的数据，并把接收的数据传递给一句话木马中执行命令的函数，进而执行命令。</p>
+<p>所以看到的经典一句话木马大多都是只有两个部分，一个是可以执行代码的函数部分，一个是接收数据的部分。例如：<code>&lt;?php eval(@$_POST['cmd']); ?&gt;</code>。其中<strong>eval</strong>就是执行命令的函数，**$_POST['cmd']**就是接收的数据。eval函数把接收的数据当作PHP代码来执行。这样我们就能够让插入了一句话木马的网站执行我们传递过去的任意PHP语句。这便是一句话木马的强大之处。</p>
+<h1 id="php短标签">2 php短标签</h1>
+<p>我们最常见的 PHP 标签是<code>&lt;?php ?&gt;</code>，但是 PHP
+中还有两种短标签，即<code>&lt;? ?&gt;</code>和<code>&lt;?= ?&gt;</code>。当关键字
+"php"
+被过滤了之后，此时我们便不能使用<code>&lt;?php ?&gt;</code>了，但是我们可以用另外两种短标签进行绕过，并且在短标签中的代码不需要使用分号<code>;</code>。其中，<code>&lt;? ?&gt;</code>相当于对<code>&lt;?php ?&gt;</code>的替换。而<code>&lt;?=(表达式) ?&gt;</code>则是相当于<code>&lt;?php echo (表达式) ?&gt;</code>。</p>
+<h1 id="php反引号">3 php反引号</h1>
+<p>PHP中，反引号可以直接命令执行系统命令，但是如果想要输出执行结果还需要使用
+echo 等函数：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">echo</span> `ls /`;<span class="hljs-meta">?&gt;</span><br><span class="hljs-comment"># 使用&lt;?= ?&gt;短标签（比较灵活）</span><br><span class="hljs-meta">&lt;?=</span> `ls /`<span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+<h1 id="文件头绕过">4 文件头绕过</h1>
+<table>
+<thead>
+<tr class="header">
+<th>文件类型</th>
+<th>后缀</th>
+<th>文件头</th>
+<th>文件尾</th>
+<th>标志</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>JPEG</td>
+<td>.jpg/.jpeg</td>
+<td>FFD8FF</td>
+<td>FFD9</td>
+<td>JFIF</td>
+</tr>
+<tr class="even">
+<td>PNG</td>
+<td>.png</td>
+<td>89504E47</td>
+<td>AE426082</td>
+<td>PNG IEND IHDR</td>
+</tr>
+<tr class="odd">
+<td>GIF</td>
+<td>.gif</td>
+<td>47494638(GIF8)</td>
+<td>003B</td>
+<td>GIT9a</td>
+</tr>
+<tr class="even">
+<td>TIFF</td>
+<td>.tif/.tiff</td>
+<td>49492A00</td>
+<td>4D4D2A00</td>
+<td>- II MM</td>
+</tr>
+</tbody>
+</table>
+<h1 id="mime-类型">5 MIME 类型</h1>
+<p>媒体类型（通常称为 Multipurpose Internet Mail Extensions 或 MIME
+类型）是一种标准，用来表示文档、文件或字节流的性质和格式。</p>
+<table>
+
+<thead>
+<tr class="header">
+<th style="text-align: left;">类型</th>
+<th style="text-align: left;">描述</th>
+<th style="text-align: left;">典型示例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>text</code></td>
+<td style="text-align: left;">表明文件是普通文本，理论上是人类可读</td>
+<td style="text-align: left;"><code>text/plain</code>,
+<code>text/html</code>, <code>text/css, text/javascript</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>image</code></td>
+<td
+style="text-align: left;">表明是某种图像。不包括视频，但是动态图（比如动态gif）也使用image类型</td>
+<td style="text-align: left;"><code>image/gif</code>,
+<code>image/png</code>, <code>image/jpeg</code>, <code>image/bmp</code>,
+<code>image/webp</code>, <code>image/x-icon</code>,
+<code>image/vnd.microsoft.icon</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>audio</code></td>
+<td style="text-align: left;">表明是某种音频文件</td>
+<td style="text-align: left;"><code>audio/midi</code>,
+<code>audio/mpeg, audio/webm, audio/ogg, audio/wav</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>video</code></td>
+<td style="text-align: left;">表明是某种视频文件</td>
+<td style="text-align: left;"><code>video/webm</code>,
+<code>video/ogg</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>application</code></td>
+<td style="text-align: left;">表明是某种二进制数据</td>
+<td style="text-align: left;"><code>application/octet-stream</code>,
+<code>application/pkcs12</code>,
+<code>application/vnd.mspowerpoint</code>,
+<code>application/xhtml+xml</code>, <code>application/xml</code>,
+<code>application/pdf</code></td>
+</tr>
+</tbody>
+</table>
+<p>利用：文件类型检查有缺陷-检查 Content-Type 标头是否与 MIME
+类型匹配。通过burp抓包修改 <strong>Content-Type</strong>即可绕过。</p>
+<h1 id="前端验证">6 前端验证</h1>
+<ol type="1">
+<li>禁用js</li>
+<li>先将shell修改为允许的类型，再通过burp抓包修改后缀为php</li>
+</ol>
+<h1 id="user.ini">7 .user.ini</h1>
+<p>php.ini 是 php 的一个全局配置文件，对整个 web 服务起作用；而.user.ini
+和.htaccess一样是目录的配置文件，.user.ini 就是用户自定义的一个
+php.ini，我们可以利用这个文件来构造后门和隐藏后门。</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><span class="hljs-built_in">auto</span>_prepend_file=&lt;filename&gt;	<span class="hljs-comment">//包含在文件头</span><br><span class="hljs-built_in">auto</span>_append_file=&lt;filename&gt;		<span class="hljs-comment">//包含在文件尾</span><br></code></pre></td></tr></table></figure>
+<p>局限性：：在.user.ini 中使用这条配置也说了是在同目录下的其他.php
+文件中包含配置中所指定的文件，也就是说需要该目录下存在.php
+文件，通常在文件上传中，一般是专门有一个目录用来存在图片，可能小概率会存在.php
+文件。因此，在实际中我们在保存上传文件的目录下应避免出现 php 文件。</p>
+<p>参考教程：</p>
+<ol type="1">
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/138200793">PHP之一句话木马 -
+知乎 (zhihu.com)</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://www.freebuf.com/articles/network/279563.html">老生常谈的无字母数字
+Webshell 总结 - FreeBuf网络安全行业门户</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.runoob.com/http/mime-types.html">MIME 类型 |
+菜鸟教程 (runoob.com)</a></li>
+</ol>
 
                 
               </div>
@@ -291,7 +417,7 @@
   
     <span>></span>
     
-  <a href="/categories/CTF/%E5%B7%A5%E5%85%B7/" class="category-chain-item">工具</a>
+  <a href="/categories/CTF/Web/" class="category-chain-item">Web</a>
   
   
 
@@ -313,8 +439,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>dirsearch</div>
-      <div>http://example.com/2023/10/18/CTF/工具/dirsearch/</div>
+      <div>文件上传</div>
+      <div>http://example.com/2023/10/19/CTF/Web/文件上传/</div>
     </div>
     <div class="license-meta">
       
@@ -326,7 +452,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年10月18日</div>
+          <div>2023年10月19日</div>
         </div>
       
       
@@ -358,9 +484,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/10/19/CTF/Web/php%E5%BC%B1%E7%B1%BB%E5%9E%8B/" title="php弱类型">
+                      <a href="/2023/10/19/CTF/Web/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" title="文件包含">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">php弱类型</span>
+                        <span class="hidden-mobile">文件包含</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -368,8 +494,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/10/18/CTF/Web/%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6/" title="备份文件">
-                        <span class="hidden-mobile">备份文件</span>
+                      <a href="/2023/10/19/CTF/%E5%B7%A5%E5%85%B7/sqlmap/" title="sqlmap">
+                        <span class="hidden-mobile">sqlmap</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
