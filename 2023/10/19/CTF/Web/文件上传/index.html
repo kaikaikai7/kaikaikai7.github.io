@@ -24,7 +24,7 @@
 <meta property="og:description" content="1 Webshell 定义：Webshell是黑客经常使用的一种恶意脚本，其目的是获得服务器的执行操作权限，常见的webshell编写语言为asp、jsp和php。 我们如何发送命令，发送的命令如何执行？ 我们可以通过GET 、POST 、COOKIE这三种方式向一个网站提交数据，一句话木马用$_GET[&#39; &#39;]、$_POST[&#39; &#39;]、$_COOKIE[&#39; &#39;]、$_REQUEST[&#39; &#39;">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-10-19T02:27:18.000Z">
-<meta property="article:modified_time" content="2023-10-19T11:50:35.394Z">
+<meta property="article:modified_time" content="2023-10-22T11:53:23.348Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -265,7 +265,7 @@
 <p><strong>我们如何发送命令，发送的命令如何执行？</strong></p>
 <p>我们可以通过<code>GET 、POST 、COOKIE</code>这三种方式向一个网站提交数据，一句话木马用<code>$_GET[' ']、$_POST[' ']、$_COOKIE[' ']、$_REQUEST[' ']</code>
 接收我们传递的数据，并把接收的数据传递给一句话木马中执行命令的函数，进而执行命令。</p>
-<p>所以看到的经典一句话木马大多都是只有两个部分，一个是可以执行代码的函数部分，一个是接收数据的部分。例如：<code>&lt;?php eval(@$_POST['cmd']); ?&gt;</code>。其中<strong>eval</strong>就是执行命令的函数，**$_POST['cmd']**就是接收的数据。eval函数把接收的数据当作PHP代码来执行。这样我们就能够让插入了一句话木马的网站执行我们传递过去的任意PHP语句。这便是一句话木马的强大之处。</p>
+<p>所以看到的经典一句话木马大多都是只有两个部分，一个是可以执行代码的函数部分，一个是接收数据的部分。例如：<code>&lt;?php eval(@$_POST['cmd']); ?&gt;</code>。其中<code>eval</code>就是执行命令的函数，<code>$_POST['cmd']</code>就是接收的数据。eval函数把接收的数据当作PHP代码来执行。这样我们就能够让插入了一句话木马的网站执行我们传递过去的任意PHP语句。这便是一句话木马的强大之处。</p>
 <h1 id="php短标签">2 php短标签</h1>
 <p>我们最常见的 PHP 标签是<code>&lt;?php ?&gt;</code>，但是 PHP
 中还有两种短标签，即<code>&lt;? ?&gt;</code>和<code>&lt;?= ?&gt;</code>。当关键字
