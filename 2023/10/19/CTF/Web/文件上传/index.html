@@ -24,7 +24,7 @@
 <meta property="og:description" content="1 Webshell 定义：Webshell是黑客经常使用的一种恶意脚本，其目的是获得服务器的执行操作权限，常见的webshell编写语言为asp、jsp和php。 我们如何发送命令，发送的命令如何执行？ 我们可以通过GET 、POST 、COOKIE这三种方式向一个网站提交数据，一句话木马用$_GET[&#39; &#39;]、$_POST[&#39; &#39;]、$_COOKIE[&#39; &#39;]、$_REQUEST[&#39; &#39;">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-10-19T02:27:18.000Z">
-<meta property="article:modified_time" content="2023-10-22T11:53:23.348Z">
+<meta property="article:modified_time" content="2023-10-25T02:35:21.343Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -270,7 +270,7 @@
 <p>我们最常见的 PHP 标签是<code>&lt;?php ?&gt;</code>，但是 PHP
 中还有两种短标签，即<code>&lt;? ?&gt;</code>和<code>&lt;?= ?&gt;</code>。当关键字
 "php"
-被过滤了之后，此时我们便不能使用<code>&lt;?php ?&gt;</code>了，但是我们可以用另外两种短标签进行绕过，并且在短标签中的代码不需要使用分号<code>;</code>。其中，<code>&lt;? ?&gt;</code>相当于对<code>&lt;?php ?&gt;</code>的替换。而<code>&lt;?=(表达式) ?&gt;</code>则是相当于<code>&lt;?php echo (表达式) ?&gt;</code>。</p>
+被过滤了之后，此时我们便不能使用<code>&lt;?php ?&gt;</code>了，但是我们可以用另外两种短标签进行绕过，并且在短标签中的代码不需要使用分号<code>;</code>。其中，<code>&lt;? ?&gt;</code>相当于对<code>&lt;?php ?&gt;</code>的替换。而<code>&lt;?=(表达式) ?&gt;</code>则是相当于<code>&lt;?php echo (表达式) ?&gt;</code>。支持版本：5.4+</p>
 <h1 id="php反引号">3 php反引号</h1>
 <p>PHP中，反引号可以直接命令执行系统命令，但是如果想要输出执行结果还需要使用
 echo 等函数：</p>
