@@ -24,7 +24,7 @@
 <meta property="og:description" content="引言 upload-labs是一个使用php语言编写的，专门收集渗透测试和CTF中遇到的各种上传漏洞的靶场.旨在帮助大家对上传漏洞有一个全面的了解.目前一共20关，每一关都包含着不同上传方式. 注意： 每一关没有固定的通关方法，大家不要自限思维！ 漏洞类型分类   image-20231023135621979  如何判断上传漏洞   image-2023102313573">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-10-23T05:53:18.000Z">
-<meta property="article:modified_time" content="2023-10-25T07:49:39.265Z">
+<meta property="article:modified_time" content="2023-10-25T10:53:47.814Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.5k 字
+          3.6k 字
         
       </span>
     
@@ -445,6 +445,7 @@ FALSE.</li>
 <ul>
 <li>提示：需要代码审计</li>
 <li>绕过方法：条件竞争(需要burp专业版).审计代码发现服务器先是将上传的文件保存下来，然后将文件的后缀名同白名单对比，如果是jpg、png、gif中的一种，就将文件进行重命名.如果不符合的话，unlink()函数就会删除该文件.</li>
+<li>条件竞争原理：当我们成功上传了php文件，服务端会在短时间内将其删除，我们需要抢在它删除之前访问文件并生成一句话木马文件，所以访问包的线程需要大于上传包的线程。</li>
 </ul>
 <h1 id="pass-18">Pass-18</h1>
 <ul>
@@ -486,6 +487,9 @@ target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_47598409/artic
 1-21关 靶场通关攻略(全网最全最完整)_upload靶场-CSDN博客</a></li>
 <li><a
 target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45588247/article/details/119177948">【精选】【文件上传绕过】——二次渲染漏洞_二次渲染绕过-CSDN博客</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://note.youdao.com/ynoteshare/index.html?id=c38d0024e15fd3edf7a7dfbf9d0aecd0&amp;type=note&amp;_time=1689208551643">有道云笔记
+(youdao.com)</a></li>
 </ol>
 
                 
