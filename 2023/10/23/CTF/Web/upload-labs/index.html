@@ -16,21 +16,24 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="前言：ThinkPHP官方2018年12月9日发布重要的安全更新，修复了一个严重的远程代码执行漏洞。该更新主要涉及一个安全更新，由于框架对控制器名没有进行足够的检测会导致在没有开启强制路由的情况下可能的getshell漏洞，受影响的版本包括5.0和5.1版本 利用：https:&#x2F;&#x2F;github.com&#x2F;SkyBlueEternal&#x2F;thinkphp-RCE-POC-Collection">
+    <meta name="description" content="引言 upload-labs是一个使用php语言编写的，专门收集渗透测试和CTF中遇到的各种上传漏洞的靶场.旨在帮助大家对上传漏洞有一个全面的了解.目前一共20关，每一关都包含着不同上传方式. 注意： 每一关没有固定的通关方法，大家不要自限思维！ 漏洞类型分类   image-20231023135621979  如何判断上传漏洞   image-2023102313573">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ThinkPHP 5.x">
-<meta property="og:url" content="http://example.com/2023/10/19/CTF/Web/ThinkPHP%205.x/index.html">
+<meta property="og:title" content="upload-labs">
+<meta property="og:url" content="http://example.com/2023/10/23/CTF/Web/upload-labs/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="前言：ThinkPHP官方2018年12月9日发布重要的安全更新，修复了一个严重的远程代码执行漏洞。该更新主要涉及一个安全更新，由于框架对控制器名没有进行足够的检测会导致在没有开启强制路由的情况下可能的getshell漏洞，受影响的版本包括5.0和5.1版本 利用：https:&#x2F;&#x2F;github.com&#x2F;SkyBlueEternal&#x2F;thinkphp-RCE-POC-Collection">
+<meta property="og:description" content="引言 upload-labs是一个使用php语言编写的，专门收集渗透测试和CTF中遇到的各种上传漏洞的靶场.旨在帮助大家对上传漏洞有一个全面的了解.目前一共20关，每一关都包含着不同上传方式. 注意： 每一关没有固定的通关方法，大家不要自限思维！ 漏洞类型分类   image-20231023135621979  如何判断上传漏洞   image-2023102313573">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-10-19T08:33:18.000Z">
-<meta property="article:modified_time" content="2023-10-19T08:35:29.891Z">
+<meta property="og:image" content="http://example.com/2023/10/23/CTF/Web/upload-labs/upload-labs.assets/image-20231023135621979.png">
+<meta property="og:image" content="http://example.com/2023/10/23/CTF/Web/upload-labs/upload-labs.assets/image-20231023135738427.png">
+<meta property="article:published_time" content="2023-10-23T05:53:18.000Z">
+<meta property="article:modified_time" content="2023-10-23T08:20:44.671Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/2023/10/23/CTF/Web/upload-labs/upload-labs.assets/image-20231023135621979.png">
   
   
   
-  <title>ThinkPHP 5.x - kaikaikai&#39;s blog</title>
+  <title>upload-labs - kaikaikai&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -184,7 +187,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="ThinkPHP 5.x"></span>
+            <span id="subtitle" data-typed-text="upload-labs"></span>
           
         </div>
 
@@ -195,8 +198,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-10-19 16:33" pubdate>
-          2023年10月19日 下午
+        <time datetime="2023-10-23 13:53" pubdate>
+          2023年10月23日 下午
         </time>
       </span>
     
@@ -207,7 +210,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          193 字
+          1.5k 字
         
       </span>
     
@@ -218,7 +221,7 @@
         
         
         
-          2 分钟
+          13 分钟
         
       </span>
     
@@ -255,13 +258,116 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">ThinkPHP 5.x</h1>
+            <h1 id="seo-header">upload-labs</h1>
             
             
               <div class="markdown-body">
                 
-                <p>前言：ThinkPHP官方2018年12月9日发布重要的安全更新，修复了一个严重的远程代码执行漏洞。该更新主要涉及一个安全更新，由于框架对控制器名没有进行足够的检测会导致在没有开启强制路由的情况下可能的getshell漏洞，受影响的版本包括5.0和5.1版本</p>
-<p>利用：https://github.com/SkyBlueEternal/thinkphp-RCE-POC-Collection</p>
+                <h1 id="引言">引言</h1>
+<p>upload-labs是一个使用php语言编写的，专门收集渗透测试和CTF中遇到的各种上传漏洞的靶场.旨在帮助大家对上传漏洞有一个全面的了解.目前一共20关，每一关都包含着不同上传方式.</p>
+<p><strong>注意：</strong></p>
+<p>每一关没有固定的通关方法，大家不要自限思维！</p>
+<p><strong>漏洞类型分类</strong></p>
+<figure>
+<img src="upload-labs.assets/image-20231023135621979.png" srcset="/img/loading.gif" lazyload
+alt="image-20231023135621979" />
+<figcaption aria-hidden="true">image-20231023135621979</figcaption>
+</figure>
+<p><strong>如何判断上传漏洞</strong></p>
+<figure>
+<img src="upload-labs.assets/image-20231023135738427.png" srcset="/img/loading.gif" lazyload
+alt="image-20231023135738427" />
+<figcaption aria-hidden="true">image-20231023135738427</figcaption>
+</figure>
+<h1 id="pass-01">Pass-01</h1>
+<ul>
+<li>提示：在客户端使用js对不合法图片进行检查</li>
+<li>利用方法：
+<ul>
+<li>禁用JavaScript</li>
+<li>先将webshell修改为合法后缀，上传过程中使用burp抓包拦截，修改后缀为php</li>
+</ul></li>
+</ul>
+<h1 id="pass-02">Pass-02</h1>
+<ul>
+<li>提示：在服务端对数据包的MIME进行检查</li>
+<li>利用方法：利用burp抓包修改webshell的Content-Type为服务器允许的类型</li>
+<li>媒体类型（通常称为 Multipurpose Internet Mail Extensions 或 MIME
+类型）是一种标准，用来表示文档、文件或字节流的性质和格式</li>
+</ul>
+<table>
+
+<thead>
+<tr class="header">
+<th style="text-align: left;">类型</th>
+<th style="text-align: left;">描述</th>
+<th style="text-align: left;">典型示例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>text</code></td>
+<td style="text-align: left;">表明文件是普通文本，理论上是人类可读</td>
+<td style="text-align: left;"><code>text/plain</code>,
+<code>text/html</code>, <code>text/css, text/javascript</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>image</code></td>
+<td
+style="text-align: left;">表明是某种图像.不包括视频，但是动态图（比如动态gif）也使用image类型</td>
+<td style="text-align: left;"><code>image/gif</code>,
+<code>image/png</code>, <code>image/jpeg</code>, <code>image/bmp</code>,
+<code>image/webp</code>, <code>image/x-icon</code>,
+<code>image/vnd.microsoft.icon</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>audio</code></td>
+<td style="text-align: left;">表明是某种音频文件</td>
+<td style="text-align: left;"><code>audio/midi</code>,
+<code>audio/mpeg, audio/webm, audio/ogg, audio/wav</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>video</code></td>
+<td style="text-align: left;">表明是某种视频文件</td>
+<td style="text-align: left;"><code>video/webm</code>,
+<code>video/ogg</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>application</code></td>
+<td style="text-align: left;">表明是某种二进制数据</td>
+<td style="text-align: left;"><code>application/octet-stream</code>,
+<code>application/pkcs12</code>,
+<code>application/vnd.mspowerpoint</code>,
+<code>application/xhtml+xml</code>, <code>application/xml</code>,
+<code>application/pdf</code></td>
+</tr>
+</tbody>
+</table>
+<h1 id="pass-03">Pass-03</h1>
+<ul>
+<li>提示：禁止上传<code>.asp|.aspx|.php|.jsp</code>后缀文件</li>
+<li>利用方法：
+<ul>
+<li>使用php文件其它扩展名：<code>.phtml .phps .php5 .pht</code>.可以成功上传，但没有作为php代码执行，这与中间件对于文件类型的解析规则有关.</li>
+<li>利用windows特性，构造<code>::$DATA</code>.例：<code>shell.php::$DA::$DATATA</code></li>
+</ul></li>
+<li>Windows保存文件过程中如果出现文件名+<code>::$DATA</code>，会认<code>::$DATA</code>是
+NTFS
+文件流的一部分，将其清除.例如：<code>phpinfo.php::$DATA</code>,Windows会自动去掉末尾的<code>::$DATA</code>使其变成<code>phpinfo.php</code>.</li>
+</ul>
+<h1 id="pass-04">Pass-04</h1>
+<ul>
+<li><p>提示：禁止上传<code>.php|.php5|.php4|.php3|……</code>后缀文件</p></li>
+<li><p>利用方法：先上传一个<code>.htaccess</code>
+配置文件，增添解析规则，再上传webshell.可以成功上传，但没有生效，这与中间件的配置文件有关.</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-section">&lt;FilesMatch <span class="hljs-string">&quot;shell.png&quot;</span>&gt;</span><br><span class="hljs-attribute">SetHandler</span> application/x-httpd-php<br></code></pre></td></tr></table></figure></li>
+<li><p><code>.htaccess</code>基础知识：<code>.htaccess</code>可以帮我们实现：文件夹密码保护、用户自动重定向、自定义错误页面、改变文件扩展名、封禁特定IP地址的用户、只允许特定IP地址的用户、禁止目录列表，以及使用其他文件作为index文件等一些功能.<code>.htaccess</code>文件相当于一种部分配置文件，好比局部变量一样，只在当前目录生效.</p></li>
+</ul>
+<h1 id="pass-05">Pass-05</h1>
+<ul>
+<li>提示：禁止上传<code>.htaccess</code>等后缀文件</li>
+<li><h2 id="利用方法">利用方法：</h2></li>
+</ul>
 
                 
               </div>
@@ -307,8 +413,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>ThinkPHP 5.x</div>
-      <div>http://example.com/2023/10/19/CTF/Web/ThinkPHP 5.x/</div>
+      <div>upload-labs</div>
+      <div>http://example.com/2023/10/23/CTF/Web/upload-labs/</div>
     </div>
     <div class="license-meta">
       
@@ -320,7 +426,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年10月19日</div>
+          <div>2023年10月23日</div>
         </div>
       
       
@@ -352,9 +458,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/10/23/CTF/Web/upload-labs/" title="upload-labs">
+                      <a href="/2023/10/25/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/%E7%90%86%E8%AE%BA%E7%AF%87/04%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/" title="CH4-软件漏洞-环境变量">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">upload-labs</span>
+                        <span class="hidden-mobile">CH4-软件漏洞-环境变量</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -362,8 +468,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/10/19/CTF/Web/%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/" title="模板注入">
-                        <span class="hidden-mobile">模板注入</span>
+                      <a href="/2023/10/19/CTF/Web/ThinkPHP%205.x/" title="ThinkPHP 5.x">
+                        <span class="hidden-mobile">ThinkPHP 5.x</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
