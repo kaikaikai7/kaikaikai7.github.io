@@ -4,11 +4,287 @@
   
   
   <entry>
+    <title>网站克隆和钓鱼邮件</title>
+    <link href="/2023/10/28/SCSA-S/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E4%B8%8E%E7%A4%BE%E5%B7%A5%E6%8A%80%E5%B7%A7/%E7%BD%91%E7%AB%99%E5%85%8B%E9%9A%86%E5%92%8C%E9%92%93%E9%B1%BC%E9%82%AE%E4%BB%B6/"/>
+    <url>/2023/10/28/SCSA-S/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E4%B8%8E%E7%A4%BE%E5%B7%A5%E6%8A%80%E5%B7%A7/%E7%BD%91%E7%AB%99%E5%85%8B%E9%9A%86%E5%92%8C%E9%92%93%E9%B1%BC%E9%82%AE%E4%BB%B6/</url>
+    
+    <content type="html"><![CDATA[<h1 id="网站克隆">1. 网站克隆</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281045687.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281045688.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281045689.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281045690.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><h1 id="钓鱼邮件">2. 钓鱼邮件</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281045691.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281045692.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281045693.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281045694.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281045695.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281045696.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281045697.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281045698.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281045699.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>SCSA-S</category>
+      
+      <category>渗透测试基础</category>
+      
+      <category>信息收集与社工技巧</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>钓鱼</title>
+    <link href="/2023/10/28/SCSA-S/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E4%B8%8E%E7%A4%BE%E5%B7%A5%E6%8A%80%E5%B7%A7/%E9%92%93%E9%B1%BC/"/>
+    <url>/2023/10/28/SCSA-S/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E4%B8%8E%E7%A4%BE%E5%B7%A5%E6%8A%80%E5%B7%A7/%E9%92%93%E9%B1%BC/</url>
+    
+    <content type="html"><![CDATA[<h1 id="chm钓鱼">1. CHM钓鱼</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281040226.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281040227.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281040228.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281040230.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281040231.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281040232.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281040233.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281040234.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281040235.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><h1 id="lnk钓鱼">2. LNK钓鱼</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281040236.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281040237.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281040238.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281040239.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><h1 id="hta钓鱼">3. HTA钓鱼</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281040240.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281040241.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281040242.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>SCSA-S</category>
+      
+      <category>渗透测试基础</category>
+      
+      <category>信息收集与社工技巧</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>office钓鱼</title>
+    <link href="/2023/10/28/SCSA-S/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E4%B8%8E%E7%A4%BE%E5%B7%A5%E6%8A%80%E5%B7%A7/office%E9%92%93%E9%B1%BC/"/>
+    <url>/2023/10/28/SCSA-S/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E4%B8%8E%E7%A4%BE%E5%B7%A5%E6%8A%80%E5%B7%A7/office%E9%92%93%E9%B1%BC/</url>
+    
+    <content type="html"><![CDATA[<h1 id="介绍">1. 介绍</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281034084.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><h1 id="cobalt-strike钓鱼">2. Cobalt Strike钓鱼</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281034086.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281034087.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281034088.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281034089.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281034090.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281034091.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><h1 id="cve-2017-11882">3. CVE-2017-11882</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281034092.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281034093.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281034094.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281034095.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>SCSA-S</category>
+      
+      <category>渗透测试基础</category>
+      
+      <category>信息收集与社工技巧</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>CobaltStrike配置</title>
+    <link href="/2023/10/28/SCSA-S/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E4%B8%8E%E7%A4%BE%E5%B7%A5%E6%8A%80%E5%B7%A7/CobaltStrike%E9%85%8D%E7%BD%AE/"/>
+    <url>/2023/10/28/SCSA-S/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E4%B8%8E%E7%A4%BE%E5%B7%A5%E6%8A%80%E5%B7%A7/CobaltStrike%E9%85%8D%E7%BD%AE/</url>
+    
+    <content type="html"><![CDATA[<h1 id="介绍">1. 介绍</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281017476.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><h1 id="安装配置">2. 安装配置</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281017478.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281017479.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281017480.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281017481.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281017482.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281017483.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><h1 id="使用">3. 使用</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281017484.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281017485.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281017486.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281017487.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>SCSA-S</category>
+      
+      <category>渗透测试基础</category>
+      
+      <category>信息收集与社工技巧</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>社工库和多维度信息收集</title>
+    <link href="/2023/10/28/SCSA-S/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E4%B8%8E%E7%A4%BE%E5%B7%A5%E6%8A%80%E5%B7%A7/%E7%A4%BE%E5%B7%A5%E5%BA%93%E5%92%8C%E5%A4%9A%E7%BB%B4%E5%BA%A6%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/"/>
+    <url>/2023/10/28/SCSA-S/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E4%B8%8E%E7%A4%BE%E5%B7%A5%E6%8A%80%E5%B7%A7/%E7%A4%BE%E5%B7%A5%E5%BA%93%E5%92%8C%E5%A4%9A%E7%BB%B4%E5%BA%A6%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/</url>
+    
+    <content type="html"><![CDATA[<h1 id="社工库">1. 社工库</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281009075.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281009076.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281009077.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><h1 id="多维度信息收集">2. 多维度信息收集</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281009078.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281009079.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281009080.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281009081.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281009082.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281009083.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281009084.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281009085.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281009087.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>SCSA-S</category>
+      
+      <category>渗透测试基础</category>
+      
+      <category>信息收集与社工技巧</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>情报分析</title>
+    <link href="/2023/10/28/SCSA-S/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E4%B8%8E%E7%A4%BE%E5%B7%A5%E6%8A%80%E5%B7%A7/%E6%83%85%E6%8A%A5%E5%88%86%E6%9E%90/"/>
+    <url>/2023/10/28/SCSA-S/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E4%B8%8E%E7%A4%BE%E5%B7%A5%E6%8A%80%E5%B7%A7/%E6%83%85%E6%8A%A5%E5%88%86%E6%9E%90/</url>
+    
+    <content type="html"><![CDATA[<h1 id="概念">1. 概念</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281000052.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><h1 id="maltego">2. maltego</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281000053.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281000054.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281000055.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281000056.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281000057.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281000059.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281000060.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281000061.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><p>​</p><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310281000062.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>SCSA-S</category>
+      
+      <category>渗透测试基础</category>
+      
+      <category>信息收集与社工技巧</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>网络空间搜索引擎</title>
+    <link href="/2023/10/28/SCSA-S/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E4%B8%8E%E7%A4%BE%E5%B7%A5%E6%8A%80%E5%B7%A7/%E7%BD%91%E7%BB%9C%E7%A9%BA%E9%97%B4%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/"/>
+    <url>/2023/10/28/SCSA-S/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E4%B8%8E%E7%A4%BE%E5%B7%A5%E6%8A%80%E5%B7%A7/%E7%BD%91%E7%BB%9C%E7%A9%BA%E9%97%B4%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/</url>
+    
+    <content type="html"><![CDATA[<h1 id="概述">1. 概述</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280946155.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><h1 id="常见搜索引擎">2. 常见搜索引擎</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280946156.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><h1 id="shodan">3. SHODAN</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280946157.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280946158.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><h2 id="基本语法">3.1 基本语法</h2><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280946159.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280946160.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><h2 id="基本使用">3.2 基本使用</h2><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280946162.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280946163.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280946164.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><p>图标哈希值</p><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280946165.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><h2 id="命令行使用">3.3 命令行使用</h2><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280946166.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280946167.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280946168.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280946169.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280946170.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280946171.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280946172.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>SCSA-S</category>
+      
+      <category>渗透测试基础</category>
+      
+      <category>信息收集与社工技巧</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Google Hacking</title>
+    <link href="/2023/10/28/SCSA-S/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E4%B8%8E%E7%A4%BE%E5%B7%A5%E6%8A%80%E5%B7%A7/GoogleHacking/"/>
+    <url>/2023/10/28/SCSA-S/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E4%B8%8E%E7%A4%BE%E5%B7%A5%E6%8A%80%E5%B7%A7/GoogleHacking/</url>
+    
+    <content type="html"><![CDATA[<h1 id="介绍">1. 介绍</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280936005.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><h1 id="逻辑运算符">2. 逻辑运算符</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280936006.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><h1 id="基本语法">3. 基本语法</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280936007.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280936009.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280936010.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><h1 id="实例">4. 实例</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280936011.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280936012.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280936013.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280936014.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280936015.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280936016.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>SCSA-S</category>
+      
+      <category>渗透测试基础</category>
+      
+      <category>信息收集与社工技巧</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>指纹识别</title>
+    <link href="/2023/10/28/SCSA-S/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E4%B8%8E%E7%A4%BE%E5%B7%A5%E6%8A%80%E5%B7%A7/%E6%8C%87%E7%BA%B9%E8%AF%86%E5%88%AB/"/>
+    <url>/2023/10/28/SCSA-S/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E4%B8%8E%E7%A4%BE%E5%B7%A5%E6%8A%80%E5%B7%A7/%E6%8C%87%E7%BA%B9%E8%AF%86%E5%88%AB/</url>
+    
+    <content type="html"><![CDATA[<h1 id="系统指纹识别">1. 系统指纹识别</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280929818.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280929819.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280929821.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><p>​ <imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280929822.png"alt="img" /></p><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280929823.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><h1 id="中间件指纹识别">2. 中间件指纹识别</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280929824.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280929825.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280929826.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280929827.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><h1 id="web程序指纹识别">3. Web程序指纹识别</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280929828.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280929829.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280929830.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280929831.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280929832.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280929833.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280929834.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280929835.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280929836.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><h1 id="防火墙指纹识别">4. 防火墙指纹识别</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280929837.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280929838.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280929839.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>SCSA-S</category>
+      
+      <category>渗透测试基础</category>
+      
+      <category>信息收集与社工技巧</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Web目录扫描</title>
+    <link href="/2023/10/28/SCSA-S/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E4%B8%8E%E7%A4%BE%E5%B7%A5%E6%8A%80%E5%B7%A7/Web%E7%9B%AE%E5%BD%95%E6%89%AB%E6%8F%8F/"/>
+    <url>/2023/10/28/SCSA-S/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E4%B8%8E%E7%A4%BE%E5%B7%A5%E6%8A%80%E5%B7%A7/Web%E7%9B%AE%E5%BD%95%E6%89%AB%E6%8F%8F/</url>
+    
+    <content type="html"><![CDATA[<h1 id="扫描原因">1. 扫描原因</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280924035.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><h1 id="扫描方法">2. 扫描方法</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280924036.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><h2 id="robots.txt">2.1 robots.txt</h2><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280924037.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280924038.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><h2 id="搜索引擎">2.2 搜索引擎</h2><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280924039.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280924040.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><h2 id="爆破">2.3 爆破</h2><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280924041.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280924042.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280924043.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280924044.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280924045.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280924046.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280924047.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280924048.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280924049.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>SCSA-S</category>
+      
+      <category>渗透测试基础</category>
+      
+      <category>信息收集与社工技巧</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>C段扫描</title>
+    <link href="/2023/10/28/SCSA-S/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E4%B8%8E%E7%A4%BE%E5%B7%A5%E6%8A%80%E5%B7%A7/C%E6%AE%B5%E6%89%AB%E6%8F%8F/"/>
+    <url>/2023/10/28/SCSA-S/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E4%B8%8E%E7%A4%BE%E5%B7%A5%E6%8A%80%E5%B7%A7/C%E6%AE%B5%E6%89%AB%E6%8F%8F/</url>
+    
+    <content type="html"><![CDATA[<h1 id="扫描原因">1. 扫描原因</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280920829.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><h1 id="扫描方法">2. 扫描方法</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280920831.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><h2 id="nmap">2.1 Nmap</h2><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280920832.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280920833.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280920834.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280920835.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><h2 id="masscan">2.2 Masscan</h2><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280920836.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280920837.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280920838.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280920839.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280920840.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280920841.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280920842.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>SCSA-S</category>
+      
+      <category>渗透测试基础</category>
+      
+      <category>信息收集与社工技巧</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>子域名收集</title>
+    <link href="/2023/10/28/SCSA-S/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E4%B8%8E%E7%A4%BE%E5%B7%A5%E6%8A%80%E5%B7%A7/%E5%AD%90%E5%9F%9F%E5%90%8D%E6%94%B6%E9%9B%86/"/>
+    <url>/2023/10/28/SCSA-S/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E4%B8%8E%E7%A4%BE%E5%B7%A5%E6%8A%80%E5%B7%A7/%E5%AD%90%E5%9F%9F%E5%90%8D%E6%94%B6%E9%9B%86/</url>
+    
+    <content type="html"><![CDATA[<h1 id="收集原因">1. 收集原因</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280855778.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><h1 id="收集方法">2. 收集方法</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280855779.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><h2 id="爆破">2.1 爆破</h2><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280855780.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><h2 id="搜索引擎">2.2 搜索引擎</h2><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280855781.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280855782.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280855783.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280855784.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280855785.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280855786.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280855787.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><h2 id="域传送">2.3 域传送</h2><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280855788.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280855789.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280855790.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><h2 id="在线网站">2.4 在线网站</h2><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280855791.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>SCSA-S</category>
+      
+      <category>渗透测试基础</category>
+      
+      <category>信息收集与社工技巧</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>DNS介绍</title>
     <link href="/2023/10/27/SCSA-S/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E4%B8%8E%E7%A4%BE%E5%B7%A5%E6%8A%80%E5%B7%A7/DNS%E4%BB%8B%E7%BB%8D/"/>
     <url>/2023/10/27/SCSA-S/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E4%B8%8E%E7%A4%BE%E5%B7%A5%E6%8A%80%E5%B7%A7/DNS%E4%BB%8B%E7%BB%8D/</url>
     
-    <content type="html"><![CDATA[<h1 id="dns原理">1. DNS原理</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271732295.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271732297.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><h1 id="dns记录">2. DNS记录</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271732298.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271732299.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271732300.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271732301.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271732302.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><p>补充：AAAA记录(AAAArecord)是用来将域名解析到IPv6地址的DNS记录。与之相对的A记录只能将域名解析到IPv4地址上，如果需要将域名解析到一个IPv6地址上，就需要添加一条AAAA记录。</p><h1 id="域名信息查询">3. 域名信息查询</h1><p>whois是一种传输协议，时常用于域名相关注册信息查询，它通常采用的的协议端口是TCP协议的43号端口.</p><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271732303.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271732304.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure>]]></content>
+    <content type="html"><![CDATA[<h1 id="dns原理">1. DNS原理</h1><p>注：<strong>DNS在区域传输的时候使用TCP协议，其他时候使用UDP协议</strong></p><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271732295.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271732297.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><h1 id="dns记录">2. DNS记录</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271732298.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271732299.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271732300.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271732301.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271732302.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><p>补充：<strong>AAAA记录(AAAArecord)</strong>是用来将域名解析到IPv6地址的DNS记录.与之相对的A记录只能将域名解析到IPv4地址上，如果需要将域名解析到一个IPv6地址上，就需要添加一条AAAA记录.</p><h1 id="域名信息查询">3. 域名信息查询</h1><p>whois是一种传输协议，时常用于域名相关注册信息查询，它通常采用的的协议端口是TCP协议的43号端口.</p><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271732303.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271732304.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure>]]></content>
     
     
     <categories>
@@ -31,7 +307,7 @@
     <link href="/2023/10/27/SCSA-S/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E4%B8%8E%E7%A4%BE%E5%B7%A5%E6%8A%80%E5%B7%A7/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E6%80%BB%E8%A7%88/"/>
     <url>/2023/10/27/SCSA-S/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E4%B8%8E%E7%A4%BE%E5%B7%A5%E6%8A%80%E5%B7%A7/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E6%80%BB%E8%A7%88/</url>
     
-    <content type="html"><![CDATA[<figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271721567.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><p><strong>DNS在区域传输的时候使用TCP协议，其他时候使用UDP协议</strong></p><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271716108.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271716110.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271716111.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271716112.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271716113.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271716114.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271716115.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271716116.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271716117.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure>]]></content>
+    <content type="html"><![CDATA[<figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271721567.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271716108.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271716110.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271716111.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271716112.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271716113.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271716114.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271716115.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271716116.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271716117.png"alt="img" /><figcaption aria-hidden="true">img</figcaption></figure>]]></content>
     
     
     <categories>
