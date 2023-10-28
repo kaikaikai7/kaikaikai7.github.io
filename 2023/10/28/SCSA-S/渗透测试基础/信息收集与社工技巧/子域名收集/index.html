@@ -16,15 +16,15 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1. 收集原因   img  2. 收集方法   img  2.1 爆破   img  2.2 搜索引擎   img    img    img    img    img    img    img  2.3 域传送   img    img  如：dig @192.168.0.1 -t a">
+    <meta name="description" content="1. 收集原因   img  2. 收集方法   img  2.1 爆破 12python3 subDomainsBrute.py --full -t 10 sangfor.com.cn -w&#x2F;&#x2F;使用-w进行扩展扫描，增大命中概率   img  2.2 搜索引擎   img    img  注：-b 指定某一种或全部(all)搜索.如果要使用sh">
 <meta property="og:type" content="article">
 <meta property="og:title" content="子域名收集">
 <meta property="og:url" content="http://example.com/2023/10/28/SCSA-S/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E4%B8%8E%E7%A4%BE%E5%B7%A5%E6%8A%80%E5%B7%A7/%E5%AD%90%E5%9F%9F%E5%90%8D%E6%94%B6%E9%9B%86/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="1. 收集原因   img  2. 收集方法   img  2.1 爆破   img  2.2 搜索引擎   img    img    img    img    img    img    img  2.3 域传送   img    img  如：dig @192.168.0.1 -t a">
+<meta property="og:description" content="1. 收集原因   img  2. 收集方法   img  2.1 爆破 12python3 subDomainsBrute.py --full -t 10 sangfor.com.cn -w&#x2F;&#x2F;使用-w进行扩展扫描，增大命中概率   img  2.2 搜索引擎   img    img  注：-b 指定某一种或全部(all)搜索.如果要使用sh">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-10-28T00:43:18.000Z">
-<meta property="article:modified_time" content="2023-10-28T03:44:48.986Z">
+<meta property="article:modified_time" content="2023-10-28T08:42:32.613Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          148 字
+          577 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          2 分钟
+          5 分钟
         
       </span>
     
@@ -275,6 +275,7 @@ alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h2 id="爆破">2.1 爆破</h2>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs stylus">python3 subDomainsBrute<span class="hljs-selector-class">.py</span> <span class="hljs-attr">--full</span> -t <span class="hljs-number">10</span> sangfor<span class="hljs-selector-class">.com</span><span class="hljs-selector-class">.cn</span> -w<br><span class="hljs-comment">//使用-w进行扩展扫描，增大命中概率</span><br></code></pre></td></tr></table></figure>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280855780.png" srcset="/img/loading.gif" lazyload
@@ -294,6 +295,8 @@ src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/20231028085
 alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
+<p>注：-b
+指定某一种或全部(all)搜索.<strong>如果要使用<code>shodan</code>、<code>github</code>等引擎搜索，需要设置对应的API-key，对应的文件是<code>api-keys.yaml</code>，路径为<code>/etc/theHarvester</code>目录下.</strong></p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280855783.png" srcset="/img/loading.gif" lazyload
@@ -306,12 +309,14 @@ src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/20231028085
 alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs excel">aquatone-discover -d sangfor.com.cn -<span class="hljs-built_in">t</span> <span class="hljs-number">1</span> -s <span class="hljs-number">2</span><br>使用参数-d指定了目标域名；使用-<span class="hljs-built_in">t</span>指定<span class="hljs-number">1</span>个线程，-s指定每隔<span class="hljs-number">2</span>秒发送查询包<br></code></pre></td></tr></table></figure>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280855785.png" srcset="/img/loading.gif" lazyload
 alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs diff">aquatone-scan -d sangfor.com.cn -p 22,3389,80,21 -t 1 -s 2<br><span class="hljs-deletion">-d，指定域名，此处域名需与 discover 节点扫描的内容一致</span><br><span class="hljs-deletion">-p，指定扫描的端口，使用逗号分隔</span><br><span class="hljs-deletion">-t，指定线程数</span><br><span class="hljs-deletion">-s，指定发送请求时，间隔2秒</span><br></code></pre></td></tr></table></figure>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280855786.png" srcset="/img/loading.gif" lazyload
@@ -337,10 +342,13 @@ src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/20231028085
 alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
-<p>如：dig <span class="citation"
-data-cites="192.168.0.1">@192.168.0.1</span> -t axfr
-vulhub.org(<code>-t axfr</code>
-表示请求类型（type）为axfr，即表示域传输请求类型)</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs avrasm">dig <span class="hljs-subst">@192</span><span class="hljs-number">.168</span><span class="hljs-number">.0</span><span class="hljs-number">.161</span> -t axfr vulhub<span class="hljs-meta">.org</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>@192.168.0.161</code> 表示指定域名解析服务器，即DNS服务器</li>
+<li><code>-t axfr</code>
+表示请求类型（type）为axfr，即表示域传输请求类型</li>
+<li><code>vulhub.org</code> 表示请求的域名</li>
+</ul>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310280855790.png" srcset="/img/loading.gif" lazyload
