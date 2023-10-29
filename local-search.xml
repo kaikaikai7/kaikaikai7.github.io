@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>CH05-IDA Pro</title>
+    <link href="/2023/10/29/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E7%90%86%E8%AE%BA%E7%AF%87/05IDA%20Pro/"/>
+    <url>/2023/10/29/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E7%90%86%E8%AE%BA%E7%AF%87/05IDA%20Pro/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    <categories>
+      
+      <category>恶意代码分析</category>
+      
+      <category>理论篇</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>网站克隆和钓鱼邮件</title>
     <link href="/2023/10/28/SCSA-S/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E4%B8%8E%E7%A4%BE%E5%B7%A5%E6%8A%80%E5%B7%A7/%E7%BD%91%E7%AB%99%E5%85%8B%E9%9A%86%E5%92%8C%E9%92%93%E9%B1%BC%E9%82%AE%E4%BB%B6/"/>
     <url>/2023/10/28/SCSA-S/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E4%B8%8E%E7%A4%BE%E5%B7%A5%E6%8A%80%E5%B7%A7/%E7%BD%91%E7%AB%99%E5%85%8B%E9%9A%86%E5%92%8C%E9%92%93%E9%B1%BC%E9%82%AE%E4%BB%B6/</url>
@@ -843,6 +864,27 @@
       <category>SEED-LABS</category>
       
       <category>Software Security</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>CH03-x86反汇编速成班</title>
+    <link href="/2023/10/16/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E7%90%86%E8%AE%BA%E7%AF%87/04x86%E5%8F%8D%E6%B1%87%E7%BC%96%E9%80%9F%E6%88%90%E7%8F%AD/"/>
+    <url>/2023/10/16/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E7%90%86%E8%AE%BA%E7%AF%87/04x86%E5%8F%8D%E6%B1%87%E7%BC%96%E9%80%9F%E6%88%90%E7%8F%AD/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    <categories>
+      
+      <category>恶意代码分析</category>
+      
+      <category>理论篇</category>
       
     </categories>
     
