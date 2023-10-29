@@ -16,21 +16,21 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1 反病毒引擎扫描  原理：依靠一个已知恶意代码可识别片段的特征数据库（病毒文件特征库），以及基于行为与模式匹配的分析（启发式检测），来识别可疑文件 具体使用：  使用反病毒软件进行检测 开源恶意代码扫描引擎ClamAV 从反病毒厂商获得已知恶意代码的分析报告和结果   2 哈希值  哈希是一种用来唯一标识恶意代码的常用方法 恶意代码样本通过一个哈希程序，会产生出一段用于">
+    <meta name="description" content="1 恶意代码基础知识 1.1 定义 使计算机按照攻击者的意图运行以达到恶意目的的指令集合（二进制执行文件，脚本语言代码，宏代码，寄生在文件、启动扇区的指令流） 1.2 分类  计算机病毒(Virus)：  定义特征：通过感染文件(可执行文件、数据文件、电子邮件等)或磁盘引导扇区进行传播，一般需要宿主程序被执行或人为交互才能运行。 典型实例：Brain，Concept，CIH，勒索软">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CH02-静态分析基础技术">
-<meta property="og:url" content="http://example.com/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E7%90%86%E8%AE%BA%E7%AF%87/02%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E6%8A%80%E6%9C%AF/index.html">
+<meta property="og:title" content="CH00-恶意代码分析技术入门">
+<meta property="og:url" content="http://example.com/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E7%90%86%E8%AE%BA%E7%AF%87/00%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E6%8A%80%E6%9C%AF%E5%85%A5%E9%97%A8/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="1 反病毒引擎扫描  原理：依靠一个已知恶意代码可识别片段的特征数据库（病毒文件特征库），以及基于行为与模式匹配的分析（启发式检测），来识别可疑文件 具体使用：  使用反病毒软件进行检测 开源恶意代码扫描引擎ClamAV 从反病毒厂商获得已知恶意代码的分析报告和结果   2 哈希值  哈希是一种用来唯一标识恶意代码的常用方法 恶意代码样本通过一个哈希程序，会产生出一段用于">
+<meta property="og:description" content="1 恶意代码基础知识 1.1 定义 使计算机按照攻击者的意图运行以达到恶意目的的指令集合（二进制执行文件，脚本语言代码，宏代码，寄生在文件、启动扇区的指令流） 1.2 分类  计算机病毒(Virus)：  定义特征：通过感染文件(可执行文件、数据文件、电子邮件等)或磁盘引导扇区进行传播，一般需要宿主程序被执行或人为交互才能运行。 典型实例：Brain，Concept，CIH，勒索软">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-10-12T02:48:12.000Z">
-<meta property="article:modified_time" content="2023-10-29T01:13:27.076Z">
+<meta property="article:published_time" content="2023-10-12T02:09:12.000Z">
+<meta property="article:modified_time" content="2023-10-29T01:58:04.758Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>CH02-静态分析基础技术 - kaikaikai&#39;s blog</title>
+  <title>CH00-恶意代码分析技术入门 - kaikaikai&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -184,7 +184,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="CH02-静态分析基础技术"></span>
+            <span id="subtitle" data-typed-text="CH00-恶意代码分析技术入门"></span>
           
         </div>
 
@@ -195,7 +195,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-10-12 10:48" pubdate>
+        <time datetime="2023-10-12 10:09" pubdate>
           2023年10月12日 上午
         </time>
       </span>
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2k 字
+          1.2k 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          17 分钟
+          11 分钟
         
       </span>
     
@@ -255,123 +255,104 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">CH02-静态分析基础技术</h1>
+            <h1 id="seo-header">CH00-恶意代码分析技术入门</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="反病毒引擎扫描">1 反病毒引擎扫描</h1>
+                <h1 id="恶意代码基础知识">1 恶意代码基础知识</h1>
+<h2 id="定义">1.1 定义</h2>
+<p>使计算机按照攻击者的意图运行以达到恶意目的的<strong>指令集合</strong>（二进制执行文件，脚本语言代码，宏代码，寄生在文件、启动扇区的指令流）</p>
+<h2 id="分类">1.2 分类</h2>
 <ul>
-<li>原理：依靠一个已知恶意代码可识别片段的特征数据库（病毒文件特征库），以及基于行为与模式匹配的分析（启发式检测），来识别可疑文件</li>
-<li>具体使用：
+<li>计算机病毒(Virus)：
 <ul>
-<li>使用反病毒软件进行检测</li>
-<li>开源恶意代码扫描引擎ClamAV</li>
-<li>从反病毒厂商获得已知恶意代码的分析报告和结果</li>
+<li>定义特征：通过感染文件(可执行文件、数据文件、电子邮件等)或磁盘引导扇区进行传播，一般<strong>需要</strong>宿主程序被执行或人为交互才能运行。</li>
+<li>典型实例：Brain，Concept，CIH，勒索软件</li>
+</ul></li>
+<li>蠕虫(Worm)：
+<ul>
+<li>定义特征：一般为<strong>不需要</strong>宿主的单独文件，通过网络传播，自动复制，通常无需人为交互便可感染传播。</li>
+<li>典型实例：Morris，CodeRed，Slammer</li>
+</ul></li>
+<li>启动器(Downloader)：
+<ul>
+<li>定义特征：从远程主机下载到本地执行的轻量级恶意代码，不需要或仅需要极少的人为干预。代表性的开发工具有：JavaScript，VBScript，Java，以及ActiveX。启动其他恶意程序的恶意代码。</li>
+<li>典型实例：SantyWorm等。</li>
+</ul></li>
+<li>后门(Backdoor)：
+<ul>
+<li>定义特征：绕过正常的安全控制机制，从而为攻击者提供访问途径。</li>
+<li>典型实例：Netcat，BO，冰河，Glupteba。</li>
+</ul></li>
+<li>特洛伊木马(Trojan)：
+<ul>
+<li>定义特征：伪装成有用软件，隐藏其恶意目标，欺骗用户安装执行。</li>
+<li>典型实例：Setiri，Emotet，Dridex，Ramnit</li>
+</ul></li>
+<li>僵尸程序(Bot)：
+<ul>
+<li>定义特征：一般为<strong>不需要</strong>宿主的单独文件，通过网络传播，自动复制，通常无需人为交互便可感染传播；使用一对多的命令与控制机制组成僵尸网络。</li>
+<li>典型实例：Sdbot，Agobot，Mirai，Glupteba</li>
+</ul></li>
+<li>内核套件(Rootkit)：
+<ul>
+<li>定义特征：通过替换或修改系统关键可执行文件（用户态），或者通过控制操作系统内核(内核态)，用以获取并保持最高控制权(root
+access)。</li>
+<li>典型实例：LRK，FU，hdef</li>
+</ul></li>
+<li>融合型恶意代码及Bootkit：
+<ul>
+<li>定义特征：融合上述多种恶意代码技术，构成更具破坏性的恶意代码形态，如Bootkit。</li>
+<li>典型实例：Nimda、Stuxnet、Flame、Duqu</li>
 </ul></li>
 </ul>
-<h1 id="哈希值">2 哈希值</h1>
+<h1 id="恶意代码分析技术">2 恶意代码分析技术</h1>
+<table>
+
+<thead>
+<tr class="header">
+<th><strong>区别项</strong></th>
+<th><strong>恶意代码分析</strong></th>
+<th><strong>良性代码分析</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>目的公开性</td>
+<td>目的未知，需分析和推测其目的</td>
+<td>一般情况下，目的是公开且明确的，可辅助分析过程</td>
+</tr>
+<tr class="even">
+<td>目的恶意性</td>
+<td>恶意目的，需要受控环境</td>
+<td>良性，无需受控环境</td>
+</tr>
+<tr class="odd">
+<td>是否存在源码</td>
+<td>绝大多数情况无源码，二进制分析</td>
+<td>开源软件存在源码，源码分析；闭源软件则需二进制分析</td>
+</tr>
+<tr class="even">
+<td>使用对抗分析技术</td>
+<td>各种多样化对抗分析，博弈问题</td>
+<td>一般无对抗分析，商业软件也引入对抗分析保护产权</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li>哈希是一种用来唯一标识恶意代码的常用方法</li>
-<li>恶意代码样本通过一个哈希程序，会产生出一段用于唯一标识这个样本的独特哈希值（类似指纹）</li>
-<li>常用哈希函数：MD5、SHA-1</li>
-</ul>
-<h1 id="查找字符串">3 查找字符串</h1>
+<li><strong>静态</strong>分析
 <ul>
-<li>程序中的字符串就是一段可打印的字符序列，其中会包含很多信息，比如弹出的消息，读取的位置，链接的URL等。</li>
-<li>存储方式：ASCLL、Unicode</li>
-<li>两种类型格式都以NULL结束符，表示字符串是完整的。ASCII字符串每个字符使用一个字节，Unicode使用两个字节。</li>
-<li>然而有些时候检测到的也并非是真正的字符串，可能是内存地址，CPU指令序列。</li>
-<li>使用：strings -
-查找目标文件或二进制文件中的可显示字符串（https://docs.oracle.com/cd/E56344_01/html/E54075/strings-1.html）</li>
-</ul>
-<h1 id="加壳与混淆恶意代码">4 加壳与混淆恶意代码</h1>
+<li>通过反病毒引擎扫描识别已知的恶意代码家族和变种名</li>
+<li>逆向分析恶意代码模块构成，内部数据结构，关键控制流程等，理解恶意代码的机理，并提取特征码用于检测。</li>
+<li>分析方法：恶意代码扫描、文件格式识别、字符串提取、二进制结构分析、反汇编、反编译、代码结构与逻辑分析、加壳识别和代码脱壳</li>
+</ul></li>
+<li><strong>动态</strong>分析
 <ul>
-<li>合法程序通常会包含很多字符串，而由被加壳或者混淆的恶意代码直接分析获得的可打印字符串则很少</li>
-<li>加壳和混淆代码通常至少会包含LoadLibrary和GetProcAddress函数，它们是用来加载和使用其他函数功能的</li>
+<li>通过在受控环境中执行目标代码，以获取目标代码的行为及运行结果。</li>
+<li>分析方法：快照比对、动态行为监控(APIHooking)、网络监控、沙盒(sandbox)、动态跟踪调试</li>
+</ul></li>
 </ul>
-<h2 id="文件加壳">4.1 文件加壳</h2>
-<p>当加壳程序运行时，会首先运行一小段脱壳代码，来解压缩加壳的文件，然后再运行脱壳后的文件。左边文件是可执行程序源文件，右边是加壳后的可执行程序。</p>
-<figure>
-<img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310121049831.png" srcset="/img/loading.gif" lazyload
-alt="image-20231012102949934" />
-<figcaption aria-hidden="true">image-20231012102949934</figcaption>
-</figure>
-<h2 id="使用peid检测加壳">4.2 使用PEiD检测加壳</h2>
-<p>检测加壳器的类型，或用来链接应用程序的编译器类型</p>
-<figure>
-<img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310121049832.png" srcset="/img/loading.gif" lazyload
-alt="image-20231012103355802" />
-<figcaption aria-hidden="true">image-20231012103355802</figcaption>
-</figure>
-<h1 id="pe文件格式">5 PE文件格式</h1>
-<ul>
-<li>PE（Portable
-Execute）文件格式是windows可执行文件的总称，常见的有DLL，EXE，OCX，SYS等。</li>
-<li>PE是指32位可执行文件，64位的可执行文件称为PE+或者PE32+，并非PE64。</li>
-<li>PE文件以一个文件头开始，其中包含代码信息、应用程序类型、所需的库函数与空间要求。</li>
-</ul>
-<figure>
-<img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310121049833.png" srcset="/img/loading.gif" lazyload
-alt="image-20231012103534449" />
-<figcaption aria-hidden="true">image-20231012103534449</figcaption>
-</figure>
-<h1 id="链接库与函数">6 链接库与函数</h1>
-<ul>
-<li><strong>导入函数</strong>也叫引入函数，引入函数被该模块调用，但它又不在该模块中，调用模块中只包含该函数的一些信息，比如函数名以及它所在的模块（链接库）名等信息</li>
-<li><strong>导入表</strong>，导入函数相关信息都保存在PE文件中的导入表中。要找到PE文件的导入表，必须先找到data
-directory，即数据目录</li>
-</ul>
-<h2 id="静态链接运行时链接与动态链接">6.1
-静态链接、运行时链接与动态链接</h2>
-<ul>
-<li><strong>静态</strong>链接：在生成可执行程序时，就把库中的内容加入到程序中。在程序运行前，先将其目标模块及它们所需的库函数，链接成一个完整的装配模块，以后不再拆开的链接方式。</li>
-<li><strong>动态</strong>链接：用户源程序编译后得到的一组目标模块，在装入内存时釆用边装入边链接的链接方式。装入一个目标模块时，若发生一个外部模块调用，将引起装入程序去找出相应的外部目标模块，并将它装入内存，还要修改目标模中的相对地址。</li>
-<li><strong>运行时</strong>链接：有些目标模块的链接，推迟到执行时才进行。即在执行过程中，若发现一个被调用模块尚未装入内存时，由OS去找到该模块，将它装入内存，并把它连接到调用者模块上。对某些目标模块的链接，是在程序执行中需要该目标模块时，才对它进行的链接。</li>
-</ul>
-<h2 id="dependency-walker">6.2 Dependency Walker</h2>
-<ul>
-<li><p>该工具用于探索动态链接函数</p></li>
-<li><p>常见DLL程序</p>
-<figure>
-<img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310121049834.png" srcset="/img/loading.gif" lazyload
-alt="image-20231012104028617" />
-<figcaption aria-hidden="true">image-20231012104028617</figcaption>
-</figure></li>
-</ul>
-<h2 id="导入函数">6.3 导入函数</h2>
-<p>PE文件头包含可执行文件使用的特定函数相关信息。导入函数描述可执行文件会使用哪些Windows
-API函数，也就是可能会有什么样的操作。</p>
-<h2 id="导出函数">6.4 导出函数</h2>
-<p>用来与其他程序和代码进行交互时所使用的。一个DLL会出现一个或多个功能函数，然后将其导出，供别的程序导入并使用。</p>
-<h1 id="pe文件头与节">7 PE文件头与节</h1>
-<ul>
-<li>.text：包含CPU执行指令。所有其他节存储数据和支持性的信息。一般来说，这是唯一可以执行的节，也应该是唯一包含代码的节。</li>
-<li>.rdata：包含导入与导出函数信息，与Dependency
-Walker和PeView工具所获得的信息是相同的。还可以存储程序所使用的其他只读数据。有些文件包括.idata和.edata节来存储导入导出信息。</li>
-<li>.data：包含程序的全局数据，可以从程序的任何地方访问到。本地数据并不存储在这个节中，而是在PE文件的某个其他位置上。</li>
-<li>.rsrc：包含由可执行文件所使用的资源，不能执行，比如：图标、图片、菜单项、字符串等。字符串也可以存储在主程序中。存放在这是为提供多语种支持。</li>
-</ul>
-<figure>
-<img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310121049835.png" srcset="/img/loading.gif" lazyload
-alt="image-20231012104458546" />
-<figcaption aria-hidden="true">image-20231012104458546</figcaption>
-</figure>
-<figure>
-<img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310121049836.png" srcset="/img/loading.gif" lazyload
-alt="image-20231012104534105" />
-<figcaption aria-hidden="true">image-20231012104534105</figcaption>
-</figure>
-<p>参考教程：</p>
-<p><a
-target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/24208568">常见恶意软件工具分析（一）
-- 知乎 (zhihu.com)</a></p>
 
                 
               </div>
@@ -417,8 +398,8 @@ target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/24208568">常�
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>CH02-静态分析基础技术</div>
-      <div>http://example.com/2023/10/12/恶意代码分析/理论篇/02静态分析基础技术/</div>
+      <div>CH00-恶意代码分析技术入门</div>
+      <div>http://example.com/2023/10/12/恶意代码分析/理论篇/00恶意代码分析技术入门/</div>
     </div>
     <div class="license-meta">
       
@@ -462,9 +443,9 @@ target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/24208568">常�
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E7%90%86%E8%AE%BA%E7%AF%87/03%E5%9C%A8%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%AD%E5%88%86%E6%9E%90%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81/" title="CH03-在虚拟机中分析恶意代码">
+                      <a href="/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E7%90%86%E8%AE%BA%E7%AF%87/01%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E6%8A%80%E6%9C%AF/" title="CH01-静态分析基础技术">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">CH03-在虚拟机中分析恶意代码</span>
+                        <span class="hidden-mobile">CH01-静态分析基础技术</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -472,8 +453,8 @@ target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/24208568">常�
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E7%90%86%E8%AE%BA%E7%AF%87/01%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E6%8A%80%E6%9C%AF%E5%85%A5%E9%97%A8/" title="CH01-恶意代码分析技术入门">
-                        <span class="hidden-mobile">CH01-恶意代码分析技术入门</span>
+                      <a href="/2023/10/11/SEED-LABS/Software%20Security/Buffer-Overflow%20Attack%20Lab%20(Server%20Version)/" title="Buffer-Overflow Attack Lab (Server Version)">
+                        <span class="hidden-mobile">Buffer-Overflow Attack Lab (Server Version)</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
