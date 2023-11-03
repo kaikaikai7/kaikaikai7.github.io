@@ -24,7 +24,7 @@
 <meta property="og:description" content="0. SQL注入漏洞 0.1 漏洞原理 未经充分验证和过滤的用户输入数据被直接拼接到SQL查询中，导致攻击者能够插入恶意SQL代码执行未经授权的数据库操作。 0.2 分类 0.2.1 按注入点类型分类 0.2.1.1 数字型注入 原理： 输入的参数为整数，如ID、年龄、页码等，如果存在注入型漏洞，则为数字型 (整型）注入。 例：http:&#x2F;www.testweb.com&#x2F;user.">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-11-01T08:02:18.000Z">
-<meta property="article:modified_time" content="2023-11-03T06:42:19.749Z">
+<meta property="article:modified_time" content="2023-11-03T12:10:26.150Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -335,13 +335,11 @@
 <li>堆查询注入：同时执行多条语句的注入</li>
 </ul>
 <h2 id="sql基础">0.3 SQL基础</h2>
-<p>注释符：</p>
-<blockquote>
+<p>常用注释符：</p>
 <ul>
-<li><h1 id="section"></h1>
-<hr /></li>
+<li><p><code>#</code></p></li>
+<li><p><code>--</code></p></li>
 </ul>
-</blockquote>
 <h1 id="基于联合查询的数字型get注入">1. 基于联合查询的数字型GET注入</h1>
 <h2 id="原理">1.1 原理</h2>
 <p>数字型GET注入，其注入点存在于URL中的GET参数处，如<code>http://www.testweb.com/user.php?id=8</code>，而服务器后端实际查询代码原型诸如：<code>select … from … where id=$id…</code>。攻击者可以通过构造恶意的GET输入参数，利用union
