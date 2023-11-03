@@ -24,7 +24,7 @@
 <meta property="og:description" content="1. 文件包含概述 1.1 原理  文件包含：把可重复使用的函数写入到单个文件中，在需要使用该函数时，直接调用此文件，无需再次编写函数。这一调用文件的过程被称为包含。 文件包含漏洞原理：和SQL注入等攻击方式一样，文件包含漏洞也是一种注入型漏洞，其本质就是输入一段用户能够控制的脚本或者代码，并让服务端执行。有时候由于网站功能需求，会让前端用户选择要包含的文件，而开发人员又没有对要包含的文件">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-10-19T03:28:18.000Z">
-<meta property="article:modified_time" content="2023-11-02T13:20:07.266Z">
+<meta property="article:modified_time" content="2023-11-03T00:52:35.296Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -304,7 +304,6 @@ lnclusion，远程文件包含）两种。而区分二者最简单的办法就�
 <h2 id="读取敏感文件信息">3.1 读取敏感文件信息</h2>
 <p>利用文件包含可以获取很多敏感信息，包含不存在的文件可能可以获取Web服务器、Web根目录、网站路径以及服务器的操作系统信息，根据Web服务器和Web根目录可以获取Apache的配置文件信息和日志文件信息，同时在知道服务器的操作系统后，也可以包含一些操作系统的敏感文件获取相关信息。利用文件包含获取敏感文件就是需要尽可能多的收集敏感文件的路径。</p>
 <p>Windows系统:</p>
-<blockquote>
 <ul>
 <li>C:.ini //查看系统版本</li>
 <li>C:.xml //IIS配置文件</li>
@@ -313,9 +312,7 @@ lnclusion，远程文件包含）两种。而区分二者最简单的办法就�
 <li>C:.MYD //MySQL root密码</li>
 <li>C:.ini //php配置信息</li>
 </ul>
-</blockquote>
 <p>Linux/Unix系统:</p>
-<blockquote>
 <ul>
 <li>/etc/password //账户信息</li>
 <li>/etc/shadow //账户密码信息</li>
@@ -326,7 +323,6 @@ lnclusion，远程文件包含）两种。而区分二者最简单的办法就�
 <li>/etc/httpd/conf/httpd.conf //Apache配置文件</li>
 <li>/etc/my.conf //mysql配置文件</li>
 </ul>
-</blockquote>
 <h2 id="本地包含配合文件上传">3.2 本地包含配合文件上传</h2>
 <p>文件上传漏洞在绕过内容检测的时候，会制作图片马上传，但是图片马在上传之后，又不能解析。如果网站同时存在文件包含漏洞，利用文件包含无视后缀名，只要被包含的文件内容符合PHP语法规范，任何扩展名都可以被PHP解析的特点来解析上传的图片马。
 制作图片马的方式有很多，常见的有两种：</p>
