@@ -16,21 +16,21 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1. 渗透测试工具使用   image-20231027091354324">
+    <meta name="description" content="引言 upload-labs是一个使用php语言编写的，专门收集渗透测试和CTF中遇到的各种上传漏洞的靶场.旨在帮助大家对上传漏洞有一个全面的了解.目前一共20关，每一关都包含着不同上传方式. 注意： 每一关没有固定的通关方法，大家不要自限思维！ 漏洞类型分类   image-20231023135621979  如何判断上传漏洞   image-2023102313573">
 <meta property="og:type" content="article">
-<meta property="og:title" content="知识框架">
-<meta property="og:url" content="http://example.com/2023/10/27/SCSA-S/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/index.html">
+<meta property="og:title" content="upload-labs">
+<meta property="og:url" content="http://example.com/2023/10/23/%E5%AE%89%E5%85%A8%E6%9C%8D%E5%8A%A1/Web%E6%B8%97%E9%80%8F/upload-labs/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="1. 渗透测试工具使用   image-20231027091354324">
+<meta property="og:description" content="引言 upload-labs是一个使用php语言编写的，专门收集渗透测试和CTF中遇到的各种上传漏洞的靶场.旨在帮助大家对上传漏洞有一个全面的了解.目前一共20关，每一关都包含着不同上传方式. 注意： 每一关没有固定的通关方法，大家不要自限思维！ 漏洞类型分类   image-20231023135621979  如何判断上传漏洞   image-2023102313573">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-10-27T01:13:49.000Z">
-<meta property="article:modified_time" content="2023-10-27T05:59:45.157Z">
+<meta property="article:published_time" content="2023-10-23T05:53:18.000Z">
+<meta property="article:modified_time" content="2023-11-03T06:42:31.873Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>知识框架 - kaikaikai&#39;s blog</title>
+  <title>upload-labs - kaikaikai&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -184,7 +184,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="知识框架"></span>
+            <span id="subtitle" data-typed-text="upload-labs"></span>
           
         </div>
 
@@ -195,8 +195,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-10-27 09:13" pubdate>
-          2023年10月27日 上午
+        <time datetime="2023-10-23 13:53" pubdate>
+          2023年10月23日 下午
         </time>
       </span>
     
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          33 字
+          3.6k 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          1 分钟
+          30 分钟
         
       </span>
     
@@ -255,18 +255,242 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">知识框架</h1>
+            <h1 id="seo-header">upload-labs</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="渗透测试工具使用">1. 渗透测试工具使用</h1>
+                <h1 id="引言">引言</h1>
+<p>upload-labs是一个使用php语言编写的，专门收集渗透测试和CTF中遇到的各种上传漏洞的靶场.旨在帮助大家对上传漏洞有一个全面的了解.目前一共20关，每一关都包含着不同上传方式.</p>
+<p><strong>注意：</strong></p>
+<p>每一关没有固定的通关方法，大家不要自限思维！</p>
+<p><strong>漏洞类型分类</strong></p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271359505.png" srcset="/img/loading.gif" lazyload
-alt="image-20231027091354324" />
-<figcaption aria-hidden="true">image-20231027091354324</figcaption>
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310251547692.png" srcset="/img/loading.gif" lazyload
+alt="image-20231023135621979" />
+<figcaption aria-hidden="true">image-20231023135621979</figcaption>
 </figure>
+<p><strong>如何判断上传漏洞</strong></p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310251549661.png" srcset="/img/loading.gif" lazyload
+alt="image-20231023135738427" />
+<figcaption aria-hidden="true">image-20231023135738427</figcaption>
+</figure>
+<h1 id="pass-01">Pass-01</h1>
+<ul>
+<li>提示：在客户端使用js对不合法图片进行检查</li>
+<li>绕过方法：
+<ul>
+<li>禁用JavaScript</li>
+<li>先将webshell修改为合法后缀，上传过程中使用burp抓包拦截，修改后缀为php</li>
+</ul></li>
+</ul>
+<h1 id="pass-02">Pass-02</h1>
+<ul>
+<li>提示：在服务端对数据包的MIME进行检查</li>
+<li>绕过方法：利用burp抓包修改webshell的Content-Type为服务器允许的类型</li>
+<li>媒体类型（通常称为 Multipurpose Internet Mail Extensions 或 MIME
+类型）是一种标准，用来表示文档、文件或字节流的性质和格式</li>
+</ul>
+<table>
+
+<thead>
+<tr class="header">
+<th style="text-align: left;">类型</th>
+<th style="text-align: left;">描述</th>
+<th style="text-align: left;">典型示例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>text</code></td>
+<td style="text-align: left;">表明文件是普通文本，理论上是人类可读</td>
+<td style="text-align: left;"><code>text/plain</code>,
+<code>text/html</code>, <code>text/css, text/javascript</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>image</code></td>
+<td
+style="text-align: left;">表明是某种图像.不包括视频，但是动态图（比如动态gif）也使用image类型</td>
+<td style="text-align: left;"><code>image/gif</code>,
+<code>image/png</code>, <code>image/jpeg</code>, <code>image/bmp</code>,
+<code>image/webp</code>, <code>image/x-icon</code>,
+<code>image/vnd.microsoft.icon</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>audio</code></td>
+<td style="text-align: left;">表明是某种音频文件</td>
+<td style="text-align: left;"><code>audio/midi</code>,
+<code>audio/mpeg, audio/webm, audio/ogg, audio/wav</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>video</code></td>
+<td style="text-align: left;">表明是某种视频文件</td>
+<td style="text-align: left;"><code>video/webm</code>,
+<code>video/ogg</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>application</code></td>
+<td style="text-align: left;">表明是某种二进制数据</td>
+<td style="text-align: left;"><code>application/octet-stream</code>,
+<code>application/pkcs12</code>,
+<code>application/vnd.mspowerpoint</code>,
+<code>application/xhtml+xml</code>, <code>application/xml</code>,
+<code>application/pdf</code></td>
+</tr>
+</tbody>
+</table>
+<h1 id="pass-03">Pass-03</h1>
+<ul>
+<li>提示：禁止上传<code>.asp|.aspx|.php|.jsp</code>后缀文件</li>
+<li>绕过方法：
+<ul>
+<li>使用php文件其它扩展名：<code>.phtml .phps .php5 .pht</code>.可以成功上传，但没有作为php代码执行，这与中间件对于文件类型的解析规则有关.</li>
+<li>构造<code>::$DATA</code>.例：<code>shell.php::$DA::$DATATA</code>.</li>
+</ul></li>
+<li>Windows保存文件过程中如果出现文件名+<code>::$DATA</code>，会认<code>::$DATA</code>是
+NTFS
+文件流的一部分，将其清除.例如：<code>phpinfo.php::$DATA</code>,Windows会自动去掉末尾的<code>::$DATA</code>使其变成<code>phpinfo.php</code>.</li>
+</ul>
+<h1 id="pass-04">Pass-04</h1>
+<ul>
+<li><p>提示：禁止上传<code>.php|.php5|.php4|.php3|……</code>后缀文件</p></li>
+<li><p>绕过方法：先上传一个<code>.htaccess</code>
+配置文件，增添解析规则，再上传webshell.可以成功上传，但没有生效，这与中间件的配置文件有关.</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-section">&lt;FilesMatch <span class="hljs-string">&quot;shell.png&quot;</span>&gt;</span><br><span class="hljs-attribute">SetHandler</span> application/x-httpd-php<br></code></pre></td></tr></table></figure></li>
+<li><p><code>.htaccess</code>基础知识：<code>.htaccess</code>可以帮我们实现：文件夹密码保护、用户自动重定向、自定义错误页面、改变文件扩展名、封禁特定IP地址的用户、只允许特定IP地址的用户、禁止目录列表，以及使用其他文件作为index文件等一些功能.<code>.htaccess</code>文件相当于一种部分配置文件，好比局部变量一样，只在当前目录生效.</p></li>
+</ul>
+<h1 id="pass-05">Pass-05</h1>
+<ul>
+<li>提示：禁止上传<code>.php|.php5|.php4|.php3|……|.htaccess</code>后缀文件</li>
+<li>绕过方法：大小写绕过，修改后缀为<code>PHP</code>即可</li>
+</ul>
+<h1 id="pass-06">Pass-06</h1>
+<ul>
+<li>提示：禁止上传<code>.php|.php5|.php4|.php3|……</code>后缀文件</li>
+<li>绕过方法：
+<ul>
+<li>空格绕过：文件末尾加空格</li>
+<li>构造<code>::$DATA</code></li>
+</ul></li>
+<li>空格绕过原理：window 操作系统保存文件过程中空格会被作为空处理</li>
+</ul>
+<h1 id="pass-07">Pass-07</h1>
+<ul>
+<li>提示：禁止上传所有可以解析的后缀！</li>
+<li>绕过方法：点绕过：文件末尾加<code>.</code>若不成功，可以加<code>..</code>(php版本问题)</li>
+<li>点绕过原理：window
+操作系统保存文件过程中文件后缀名末尾的点会被自动去除</li>
+</ul>
+<h1 id="pass-08">Pass-08</h1>
+<ul>
+<li>提示：禁止上传<code>.php|.php5|.php4|.php3|……|.htaccess</code>后缀文件</li>
+<li>绕过方法：::<span
+class="math inline">\(DATA绕过.例：`shell.php::\)</span>DATATA`</li>
+</ul>
+<h1 id="pass-09">Pass-09</h1>
+<ul>
+<li>提示：只允许上传<code>.jpg|.png|.gif</code>后缀的文件</li>
+<li>绕过方法：构造<code>shell.php. .</code></li>
+<li>原理：deldot()从字符串的尾部开始，从后向前删除点<code>.</code>，直到该字符串的末尾字符不是<code>.</code>为止.加上它没有进行循环验证，也就是说这些收尾去空，删除末尾的点，去除字符串::$DATA，转换为小写这些东西只是验证了一次.</li>
+</ul>
+<h1 id="pass-10">Pass-10</h1>
+<ul>
+<li>提示：会从文件名中去除<code>.php|.php5|.php4|.php3|......|.htaccess</code>字符</li>
+<li>绕过方法：源码中对非法后缀进行了替换，但只替换了一次，构造<code>shell.pphphp</code></li>
+</ul>
+<h1 id="pass-11">Pass-11</h1>
+<ul>
+<li>提示：上传路径可控</li>
+<li>绕过方法：使用%00截断，构造<code>shell.php%00</code>，同时修改shell为合法后缀</li>
+<li>原理：00 截断是操作系统层的漏洞，由于操作系统是 C
+语言或汇编语言编写的，这两种语言在定义字符串时，都是以\0作为字符串的结尾.</li>
+</ul>
+<h1 id="pass-12">Pass-12</h1>
+<ul>
+<li>提示：上传路径可控</li>
+<li>绕过方法：使用%00截断，但接收值变成了 post,区别就是 get
+会自行解码，post 不会自行解码，因此我们需要对%00 进行url解码</li>
+</ul>
+<h1 id="pass-13">Pass-13</h1>
+<ul>
+<li>提示：检查图标内容开头2个字节</li>
+<li>绕过方法：图片马+文件包含漏洞</li>
+<li>图片马制作：<code>copy picName.jpg /b + shellName.php /a webshell.jpg</code></li>
+</ul>
+<h1 id="pass-14">Pass-14</h1>
+<ul>
+<li>提示：使用getimagesize()检查是否为图片文件</li>
+<li>绕过方法：图片马+文件包含漏洞</li>
+<li>getimagesize()：会对目标文件的16进制去进行一个读取，去读取头几个字符串是不是符合图片的要求</li>
+</ul>
+<h1 id="pass-15">Pass-15</h1>
+<ul>
+<li>提示：使用exif_imagetype()检查是否为图片文件</li>
+<li>绕过方法：图片马+文件包含漏洞</li>
+<li>exif_imagetype()：
+读取一个图像的第一个字节并检查其签名，如果发现了恰当的签名则返回一个对应的常量，否则返回
+FALSE.</li>
+</ul>
+<h1 id="pass-16">Pass-16</h1>
+<ul>
+<li>提示：重新渲染了图片</li>
+<li>绕过方法：把一句话木马插入到图片在二次渲染后会保留的那部分数据里，确保不会在二次处理时删除掉</li>
+<li>二次渲染原理：
+在我们上传文件后，网站会对图片进行二次处理（格式、尺寸要求等），服务器会把里面的内容进行替换更新，处理完成后，根据我们原有的图片生成一个新的图片并放到网站对应的标签进行显示.<strong>判断是否经过二次渲染</strong>：对比要上传图片与上传后的图片大小</li>
+</ul>
+<h1 id="pass-17">Pass-17</h1>
+<ul>
+<li>提示：需要代码审计</li>
+<li>绕过方法：条件竞争(需要burp专业版).审计代码发现服务器先是将上传的文件保存下来，然后将文件的后缀名同白名单对比，如果是jpg、png、gif中的一种，就将文件进行重命名.如果不符合的话，unlink()函数就会删除该文件.</li>
+<li>条件竞争原理：当我们成功上传了php文件，服务端会在短时间内将其删除，我们需要抢在它删除之前访问文件并生成一句话木马文件，所以访问包的线程需要大于上传包的线程（均为较大值，如500）.</li>
+</ul>
+<h1 id="pass-18">Pass-18</h1>
+<ul>
+<li>提示：需要代码审计</li>
+<li>绕过方法：条件竞争.从源码来看的话，服务器先是将文件后缀跟白名单做了对比，然后检查了文件大小以及文件是否已经存在.文件上传之后又对其进行了重命名.</li>
+</ul>
+<h1 id="pass-19">Pass-19</h1>
+<ul>
+<li>提示：取文件名通过$_POST来获取</li>
+<li>绕过方法：
+<ul>
+<li>move_uploaded_file()特性，会忽略掉文件末尾的
+/.，构造<code>upload-19.php/.</code></li>
+<li>00截断</li>
+</ul></li>
+</ul>
+<h1 id="pass-20">Pass-20</h1>
+<ul>
+<li>提示：审计代码</li>
+<li>绕过方法：构造数组</li>
+<li>验证过程：
+<ul>
+<li>验证上传路径是否存在</li>
+<li>验证['upload_file']的content-type是否合法（可以抓包修改）</li>
+<li>判断POST参数是否为空定义file变量（关键：构造数组绕过下一步的判断）</li>
+<li>判断file不是数组则使用<code>explode('.', strtolower($file))</code>对file进行切割，将file变为一个数组</li>
+<li>判断数组最后一个元素是否合法</li>
+<li>数组第一位和<code>$file[count($file) - 1]</code>进行拼接，产生保存文件名file_name</li>
+<li>上传文件</li>
+</ul></li>
+</ul>
+<p>参考教程：</p>
+<ol type="1">
+<li><a
+target="_blank" rel="noopener" href="https://www.cnblogs.com/chu-jian/p/15515770.html">upload-labs通关攻略（全）
+- 清茶先生 - 博客园 (cnblogs.com)</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_47598409/article/details/115050869">【精选】Upload-labs
+1-21关 靶场通关攻略(全网最全最完整)_upload靶场-CSDN博客</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45588247/article/details/119177948">【精选】【文件上传绕过】——二次渲染漏洞_二次渲染绕过-CSDN博客</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://note.youdao.com/ynoteshare/index.html?id=c38d0024e15fd3edf7a7dfbf9d0aecd0&amp;type=note&amp;_time=1689208551643">有道云笔记
+(youdao.com)</a></li>
+</ol>
 
                 
               </div>
@@ -285,8 +509,15 @@ alt="image-20231027091354324" />
     
       <span class="category-chain">
         
-  <a href="/categories/SCSA-S/" class="category-chain-item">SCSA-S</a>
+  <a href="/categories/%E5%AE%89%E5%85%A8%E6%9C%8D%E5%8A%A1/" class="category-chain-item">安全服务</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%AE%89%E5%85%A8%E6%9C%8D%E5%8A%A1/Web%E6%B8%97%E9%80%8F/" class="category-chain-item">Web渗透</a>
+  
+  
+
   
 
       </span>
@@ -305,8 +536,8 @@ alt="image-20231027091354324" />
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>知识框架</div>
-      <div>http://example.com/2023/10/27/SCSA-S/知识框架/</div>
+      <div>upload-labs</div>
+      <div>http://example.com/2023/10/23/安全服务/Web渗透/upload-labs/</div>
     </div>
     <div class="license-meta">
       
@@ -318,7 +549,7 @@ alt="image-20231027091354324" />
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年10月27日</div>
+          <div>2023年10月23日</div>
         </div>
       
       
@@ -350,9 +581,9 @@ alt="image-20231027091354324" />
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/10/29/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E7%90%86%E8%AE%BA%E7%AF%87/05IDA%20Pro/" title="CH05-IDA Pro">
+                      <a href="/2023/10/25/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/%E7%90%86%E8%AE%BA%E7%AF%87/04%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/" title="CH4-软件漏洞-环境变量">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">CH05-IDA Pro</span>
+                        <span class="hidden-mobile">CH4-软件漏洞-环境变量</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -360,8 +591,8 @@ alt="image-20231027091354324" />
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/10/25/%E5%AE%89%E5%85%A8%E6%9C%8D%E5%8A%A1/Web%E6%B8%97%E9%80%8F/%E6%BC%8F%E6%B4%9E(%E5%90%88%E9%9B%86)/" title="漏洞(合集)">
-                        <span class="hidden-mobile">漏洞(合集)</span>
+                      <a href="/2023/10/19/%E5%AE%89%E5%85%A8%E6%9C%8D%E5%8A%A1/Web%E6%B8%97%E9%80%8F/%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/" title="模板注入">
+                        <span class="hidden-mobile">模板注入</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

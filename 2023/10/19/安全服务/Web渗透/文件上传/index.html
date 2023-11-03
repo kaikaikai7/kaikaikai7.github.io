@@ -16,21 +16,21 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1. 渗透测试工具使用   image-20231027091354324">
+    <meta name="description" content="1. Webshell 定义：Webshell是黑客经常使用的一种恶意脚本，其目的是获得服务器的执行操作权限，常见的webshell编写语言为php、asp和jsp. 原理：  我们可以通过GET 、POST 、COOKIE这三种方式向一个网站提交数据，一句话木马用$_GET[&#39; &#39;]、$_POST[&#39; &#39;]、$_COOKIE[&#39; &#39;]、$_REQUEST[&#39; &#39;] 接收我们传递的数据，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="知识框架">
-<meta property="og:url" content="http://example.com/2023/10/27/SCSA-S/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/index.html">
+<meta property="og:title" content="文件上传">
+<meta property="og:url" content="http://example.com/2023/10/19/%E5%AE%89%E5%85%A8%E6%9C%8D%E5%8A%A1/Web%E6%B8%97%E9%80%8F/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="1. 渗透测试工具使用   image-20231027091354324">
+<meta property="og:description" content="1. Webshell 定义：Webshell是黑客经常使用的一种恶意脚本，其目的是获得服务器的执行操作权限，常见的webshell编写语言为php、asp和jsp. 原理：  我们可以通过GET 、POST 、COOKIE这三种方式向一个网站提交数据，一句话木马用$_GET[&#39; &#39;]、$_POST[&#39; &#39;]、$_COOKIE[&#39; &#39;]、$_REQUEST[&#39; &#39;] 接收我们传递的数据，">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-10-27T01:13:49.000Z">
-<meta property="article:modified_time" content="2023-10-27T05:59:45.157Z">
+<meta property="article:published_time" content="2023-10-19T02:27:18.000Z">
+<meta property="article:modified_time" content="2023-11-03T06:42:47.718Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>知识框架 - kaikaikai&#39;s blog</title>
+  <title>文件上传 - kaikaikai&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -184,7 +184,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="知识框架"></span>
+            <span id="subtitle" data-typed-text="文件上传"></span>
           
         </div>
 
@@ -195,8 +195,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-10-27 09:13" pubdate>
-          2023年10月27日 上午
+        <time datetime="2023-10-19 10:27" pubdate>
+          2023年10月19日 上午
         </time>
       </span>
     
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          33 字
+          2.6k 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          1 分钟
+          22 分钟
         
       </span>
     
@@ -255,18 +255,128 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">知识框架</h1>
+            <h1 id="seo-header">文件上传</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="渗透测试工具使用">1. 渗透测试工具使用</h1>
-<figure>
-<img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271359505.png" srcset="/img/loading.gif" lazyload
-alt="image-20231027091354324" />
-<figcaption aria-hidden="true">image-20231027091354324</figcaption>
-</figure>
+                <h1 id="webshell">1. Webshell</h1>
+<p><strong>定义</strong>：Webshell是黑客经常使用的一种恶意脚本，其目的是获得服务器的执行操作权限，常见的webshell编写语言为php、asp和jsp.</p>
+<p><strong>原理：</strong></p>
+<ul>
+<li>我们可以通过<code>GET 、POST 、COOKIE</code>这三种方式向一个网站提交数据，一句话木马用<code>$_GET[' ']、$_POST[' ']、$_COOKIE[' ']、$_REQUEST[' ']</code>
+接收我们传递的数据，并把接收的数据传递给一句话木马中执行命令的函数，进而执行命令.</li>
+<li>所以看到的经典一句话木马大多都是只有两个部分，一个是可以执行代码的函数部分，一个是接收数据的部分.例如：<code>&lt;?php eval(@$_POST['cmd']); ?&gt;</code>，其中<code>eval</code>就是执行命令的函数，<code>$_POST['cmd']</code>就是接收的数据，eval函数把接收的数据当作PHP代码来执行.这样我们就能够让插入了一句话木马的网站执行我们传递过去的任意PHP语句，这便是一句话木马的强大之处.</li>
+</ul>
+<h1 id="常见函数">2. 常见函数</h1>
+<p><strong>deldot():</strong></p>
+<p>deldot()函数为upload-labs中一个常见的函数，它实际为一个自定义函数.功能：从字符串的尾部开始，从后向前删除点<code>.</code>，直到该字符串的末尾字符不是<code>.</code>为止.</p>
+<p><strong>in_array():</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-title function_ invoke__">in_array</span>(<span class="hljs-keyword">mixed</span> <span class="hljs-variable">$needle</span>, <span class="hljs-keyword">array</span> <span class="hljs-variable">$haystack</span>, <span class="hljs-keyword">bool</span> <span class="hljs-variable">$strict</span> = <span class="hljs-literal">false</span>): <span class="hljs-keyword">bool</span><br></code></pre></td></tr></table></figure>
+<p>功能：用来检查数组中是否存在某个值，如果找到 needle 则返回
+true，否则返回 false.</p>
+<p><strong>intval():</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">int</span> <span class="hljs-title function_ invoke__">intval</span> ( <span class="hljs-keyword">mixed</span> <span class="hljs-variable">$var</span> [, <span class="hljs-keyword">int</span> <span class="hljs-variable">$base</span> = <span class="hljs-number">10</span> ] )<br></code></pre></td></tr></table></figure>
+<p>功能：通过使用指定的进制 base 转换（默认是十进制），返回变量 var 的
+integer 数值.</p>
+<p><strong>strrchr():</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-title function_ invoke__">strrchr</span>(<span class="hljs-keyword">string</span> <span class="hljs-variable">$haystack</span>, <span class="hljs-keyword">mixed</span> <span class="hljs-variable">$needle</span>): <span class="hljs-keyword">string</span><br></code></pre></td></tr></table></figure>
+<p>功能：strrchr函数在字符串haystack中查找needle，并将最后一次查找到的needle及其后面的字符串返回.如果没有在该字符串中查找到needle，则返回false.</p>
+<p><strong>strtolower():</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-title function_ invoke__">strtolower</span>(<span class="hljs-keyword">string</span> <span class="hljs-variable">$string</span>): <span class="hljs-keyword">string</span><br></code></pre></td></tr></table></figure>
+<p>功能：将字符串string中的各个英文字符转换为小写并返回</p>
+<p><strong>strrpos():</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-title function_ invoke__">strrpos</span>(<span class="hljs-keyword">string</span> <span class="hljs-variable">$haystack</span>, <span class="hljs-keyword">string</span> <span class="hljs-variable">$needle</span>, <span class="hljs-keyword">int</span> <span class="hljs-variable">$start</span> = <span class="hljs-number">0</span>)<br></code></pre></td></tr></table></figure>
+<p>功能：返回字符<code>$needle</code>最后一次出现的位置</p>
+<p><strong>str_ireplace()</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-title function_ invoke__">str_ireplace</span>(<span class="hljs-keyword">mixed</span> <span class="hljs-variable">$search</span>,<span class="hljs-keyword">mixed</span> <span class="hljs-variable">$replace</span>,<span class="hljs-keyword">mixed</span> <span class="hljs-variable">$subject</span>,<span class="hljs-keyword">int</span> &amp;<span class="hljs-variable">$count</span> = ?)<br></code></pre></td></tr></table></figure>
+<p>功能：用于对数组中的元素或字符串中的子串进行替换，替换从左到右进行，该函数替换不区分字母大小写（另外一个函数<code>str_replace</code>区分大小写）.第一个参数<code>$search</code>为需要替换的内容（子串或数组），第二个参数<code>$replace</code>为替换成的内容（字符串或数组），第三个参数<code>$subject</code>为被替换的字符串.</p>
+<p><strong>strstr():</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-title function_ invoke__">strstr</span>(<span class="hljs-keyword">string</span> <span class="hljs-variable">$haystack</span>, <span class="hljs-keyword">mixed</span> <span class="hljs-variable">$needle</span>, <span class="hljs-keyword">bool</span> <span class="hljs-variable">$before_needle</span> = <span class="hljs-literal">false</span>)<br></code></pre></td></tr></table></figure>
+<p>功能：查找字符串<code>$needle</code>在<code>$haystack</code>中首次出现的位置，并将<code>$needle</code>及其之后的字符串返回.</p>
+<p><strong>substr():</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-title function_ invoke__">substr</span>(<span class="hljs-keyword">string</span> <span class="hljs-variable">$string</span>, <span class="hljs-keyword">int</span> <span class="hljs-variable">$offset</span>, ?<span class="hljs-keyword">int</span> <span class="hljs-variable">$length</span> = <span class="hljs-literal">null</span>)<br></code></pre></td></tr></table></figure>
+<p>功能：返回字符串<code>$string</code>中的子串.<code>$offset</code>指定子串首个字符在<code>$string</code>中的下标位置，<code>$length</code>指定截取的子串长度.</p>
+<p><strong>trim():</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-title function_ invoke__">trim</span>(<span class="hljs-keyword">string</span> <span class="hljs-variable">$str</span>, <span class="hljs-keyword">string</span> <span class="hljs-variable">$character_mask</span> = <span class="hljs-string">&quot;(空格)\t\n\r\0\x0B&quot;</span>)<br></code></pre></td></tr></table></figure>
+<p>功能：去除字符串<code>$str</code>的首尾的空白字符.第二个参数保持默认时，去除的字符为上述字符.</p>
+<h1 id="绕过姿势">3. 绕过姿势</h1>
+<h2 id="php短标签">3.1 php短标签</h2>
+<p>我们最常见的 PHP 标签是<code>&lt;?php ?&gt;</code>，但是 PHP
+中还有两种短标签，即<code>&lt;? ?&gt;</code>和<code>&lt;?= ?&gt;</code>.当关键字
+"php"
+被过滤了之后，此时我们便不能使用<code>&lt;?php ?&gt;</code>了，但是我们可以用另外两种短标签进行绕过，并且在短标签中的代码不需要使用分号<code>;</code>.其中，<code>&lt;? ?&gt;</code>相当于对<code>&lt;?php ?&gt;</code>的替换，而<code>&lt;?=(表达式) ?&gt;</code>则是相当于<code>&lt;?php echo (表达式) ?&gt;</code>.支持版本：PHP5.4+</p>
+<h2 id="php反引号">3.2 php反引号</h2>
+<p>PHP中，反引号可以直接命令执行系统命令，但是如果想要输出执行结果还需要使用
+echo 等函数：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">echo</span> `ls /`;<span class="hljs-meta">?&gt;</span><br><span class="hljs-comment"># 使用&lt;?= ?&gt;短标签（比较灵活）</span><br><span class="hljs-meta">&lt;?=</span> `ls /`<span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+<h2 id="文件头绕过">3.3 文件头绕过</h2>
+<table>
+<thead>
+<tr class="header">
+<th>文件类型</th>
+<th>后缀</th>
+<th>文件头</th>
+<th>文件尾</th>
+<th>标志</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>JPEG</td>
+<td>.jpg/.jpeg</td>
+<td>FFD8FF</td>
+<td>FFD9</td>
+<td>JFIF</td>
+</tr>
+<tr class="even">
+<td>PNG</td>
+<td>.png</td>
+<td>89504E47</td>
+<td>AE426082</td>
+<td>PNG IEND IHDR</td>
+</tr>
+<tr class="odd">
+<td>GIF</td>
+<td>.gif</td>
+<td>47494638(GIF8)</td>
+<td>003B</td>
+<td>GIT9a</td>
+</tr>
+<tr class="even">
+<td>TIFF</td>
+<td>.tif/.tiff</td>
+<td>49492A00</td>
+<td>4D4D2A00</td>
+<td>- II MM</td>
+</tr>
+</tbody>
+</table>
+<h2 id="上传-.user.ini">3.4 上传 .user.ini</h2>
+<ul>
+<li><p>php.ini 是 php 的一个全局配置文件，对整个 web
+服务起作用；而.user.ini 和.htaccess一样是目录的配置文件，.user.ini
+就是用户自定义的一个
+php.ini，我们可以利用这个文件来构造后门和隐藏后门.</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><span class="hljs-built_in">auto</span>_prepend_file=&lt;filename&gt;	<span class="hljs-comment">//包含在文件头</span><br><span class="hljs-built_in">auto</span>_append_file=&lt;filename&gt;		<span class="hljs-comment">//包含在文件尾</span><br></code></pre></td></tr></table></figure></li>
+<li><p>局限性：在.user.ini 中使用这条配置是在同目录下的其他.php
+文件中包含配置中所指定的文件，也就是说需要该目录下存在.php
+文件.通常在文件上传中，一般是专门有一个目录用来存在图片，可能小概率会存在.php
+文件.</p></li>
+</ul>
+<p>参考教程：</p>
+<ol type="1">
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/138200793">PHP之一句话木马 -
+知乎 (zhihu.com)</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://www.freebuf.com/articles/network/279563.html">老生常谈的无字母数字
+Webshell 总结 - FreeBuf网络安全行业门户</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://www.cnblogs.com/-zhong/p/10969749.html">php的intval函数 -
+yourse1f - 博客园 (cnblogs.com)</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://blog.csdn.net/qq_35630119/article/details/122642068">文件上传利用的常见函数_文件上传函数_wingaso的博客-CSDN博客</a></li>
+</ol>
 
                 
               </div>
@@ -285,8 +395,15 @@ alt="image-20231027091354324" />
     
       <span class="category-chain">
         
-  <a href="/categories/SCSA-S/" class="category-chain-item">SCSA-S</a>
+  <a href="/categories/%E5%AE%89%E5%85%A8%E6%9C%8D%E5%8A%A1/" class="category-chain-item">安全服务</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%AE%89%E5%85%A8%E6%9C%8D%E5%8A%A1/Web%E6%B8%97%E9%80%8F/" class="category-chain-item">Web渗透</a>
+  
+  
+
   
 
       </span>
@@ -305,8 +422,8 @@ alt="image-20231027091354324" />
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>知识框架</div>
-      <div>http://example.com/2023/10/27/SCSA-S/知识框架/</div>
+      <div>文件上传</div>
+      <div>http://example.com/2023/10/19/安全服务/Web渗透/文件上传/</div>
     </div>
     <div class="license-meta">
       
@@ -318,7 +435,7 @@ alt="image-20231027091354324" />
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年10月27日</div>
+          <div>2023年10月19日</div>
         </div>
       
       
@@ -350,9 +467,9 @@ alt="image-20231027091354324" />
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/10/29/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E7%90%86%E8%AE%BA%E7%AF%87/05IDA%20Pro/" title="CH05-IDA Pro">
+                      <a href="/2023/10/19/%E5%AE%89%E5%85%A8%E6%9C%8D%E5%8A%A1/Web%E6%B8%97%E9%80%8F/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" title="文件包含">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">CH05-IDA Pro</span>
+                        <span class="hidden-mobile">文件包含</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -360,8 +477,8 @@ alt="image-20231027091354324" />
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/10/25/%E5%AE%89%E5%85%A8%E6%9C%8D%E5%8A%A1/Web%E6%B8%97%E9%80%8F/%E6%BC%8F%E6%B4%9E(%E5%90%88%E9%9B%86)/" title="漏洞(合集)">
-                        <span class="hidden-mobile">漏洞(合集)</span>
+                      <a href="/2023/10/19/%E5%AE%89%E5%85%A8%E6%9C%8D%E5%8A%A1/%E5%B7%A5%E5%85%B7/sqlmap/" title="sqlmap">
+                        <span class="hidden-mobile">sqlmap</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
