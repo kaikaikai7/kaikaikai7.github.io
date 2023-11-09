@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>Git</title>
+    <link href="/2023/11/09/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/Git/"/>
+    <url>/2023/11/09/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/Git/</url>
+    
+    <content type="html"><![CDATA[<h1 id="上传本地项目">1. 上传本地项目</h1><ul><li><p>github新建仓库（分支为master，选择生成readme）</p></li><li><p>在本地找到需要上传到远程仓库的项目的根目录，然后点击鼠标右键打开GitBash Here</p><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">git init <span class="hljs-comment">#初始化</span><br>git remote <span class="hljs-keyword">add </span><span class="hljs-keyword">origin </span>仓库地址 <span class="hljs-comment">#与远程仓库进行关联</span><br>git pull <span class="hljs-keyword">origin </span>master <span class="hljs-comment">#将远程分支与本地分支进行关联</span><br>git <span class="hljs-keyword">add </span>. <span class="hljs-comment">#把所有修改的信息添加到暂存区</span><br>git commit -m <span class="hljs-string">&quot;message&quot;</span> <span class="hljs-comment">#将暂存区的修改提交到本地仓库</span><br>git push <span class="hljs-keyword">origin </span>master <span class="hljs-comment">#将本地仓库master分支的更新推送到远程仓库上</span><br></code></pre></td></tr></table></figure></li></ul><h1 id="常见报错">2. 常见报错</h1><h2id="unable-to-access-xxxxx.git-recv-failure-connection-was-reset">2.1unable to access 'xxxxx.git' Recv failure Connection was reset</h2><ol type="1"><li><p>报错信息</p><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309302011809.png"alt="image-20230930200808727" /><figcaption aria-hidden="true">image-20230930200808727</figcaption></figure></li><li><p>解决方案</p><ul><li><p>报错原因：开启了代理，所以端口不对无法连接</p></li><li><p>解决：</p><ul><li><p>查看代理使用端口，如7890</p></li><li><p>配置git</p></li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># xxxx为端口号</span><br>git config --global http.proxy http://127.0.0.1:xxxx<br></code></pre></td></tr></table></figure></li></ul></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>工具使用</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>SQL Injection Attack</title>
     <link href="/2023/11/07/SEED-LABS/Web%20Security/SQL%20Injection%20Attack/"/>
     <url>/2023/11/07/SEED-LABS/Web%20Security/SQL%20Injection%20Attack/</url>
@@ -847,25 +866,6 @@
       <category>Spider</category>
       
       <category>Scrapy</category>
-      
-    </categories>
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>报错：unable to access &#39;xxxxx.git&#39; Recv failure Connection was reset</title>
-    <link href="/2023/09/30/Git/%E6%8A%A5%E9%94%99%EF%BC%9Aunable%20to%20access%20&#39;xxxxx.git&#39;%20Recv%20failure%20Connection%20was%20reset/"/>
-    <url>/2023/09/30/Git/%E6%8A%A5%E9%94%99%EF%BC%9Aunable%20to%20access%20&#39;xxxxx.git&#39;%20Recv%20failure%20Connection%20was%20reset/</url>
-    
-    <content type="html"><![CDATA[<h1 id="报错信息">1 报错信息</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309302011809.png"alt="image-20230930200808727" /><figcaption aria-hidden="true">image-20230930200808727</figcaption></figure><h1 id="解决方案">2 解决方案</h1><ul><li><p>报错原因：开启了代理，所以端口不对无法连接</p></li><li><p>解决：</p><ol type="1"><li><p>查看代理使用端口，如7890</p></li><li><p>配置git</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># xxxx为端口号</span><br>git config --global http.proxy http://127.0.0.1:xxxx<br></code></pre></td></tr></table></figure></li></ol></li></ul>]]></content>
-    
-    
-    <categories>
-      
-      <category>Git</category>
       
     </categories>
     
