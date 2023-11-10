@@ -171,15 +171,17 @@
   
   <entry>
     <title>知识框架</title>
-    <link href="/2023/10/27/SCSA-S/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/"/>
-    <url>/2023/10/27/SCSA-S/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/</url>
+    <link href="/2023/10/27/%E5%AE%89%E5%85%A8%E6%9C%8D%E5%8A%A1/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/"/>
+    <url>/2023/10/27/%E5%AE%89%E5%85%A8%E6%9C%8D%E5%8A%A1/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/</url>
     
-    <content type="html"><![CDATA[<h1 id="渗透测试工具使用">1. 渗透测试工具使用</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271359505.png"alt="image-20231027091354324" /><figcaption aria-hidden="true">image-20231027091354324</figcaption></figure>]]></content>
+    <content type="html"><![CDATA[<h1 id="渗透测试工具使用">1. 渗透测试工具使用</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310271359505.png"alt="image-20231027091354324" /><figcaption aria-hidden="true">image-20231027091354324</figcaption></figure><h1 id="信息收集">2. 信息收集</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311101403241.png"alt="image-20231110140312361" /><figcaption aria-hidden="true">image-20231110140312361</figcaption></figure>]]></content>
     
     
     <categories>
       
-      <category>SCSA-S</category>
+      <category>安全服务</category>
+      
+      <category>知识框架</category>
       
     </categories>
     
