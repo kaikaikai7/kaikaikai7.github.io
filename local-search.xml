@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>BurpSuite</title>
+    <link href="/2023/11/13/%E5%AE%89%E5%85%A8%E6%9C%8D%E5%8A%A1/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7/BurpSuite/"/>
+    <url>/2023/11/13/%E5%AE%89%E5%85%A8%E6%9C%8D%E5%8A%A1/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7/BurpSuite/</url>
+    
+    <content type="html"><![CDATA[<h1 id="burp介绍">1. Burp介绍</h1><p><strong>简介：</strong></p><p>BurpSuite（简称Burp）是基于Java开发的Web安全领域的集成工具，被称为信息安全界的瑞士军刀，它包含Proxy、Intruder、Repeater、Decoder、Comparer等多个模块，模块间通过共享相互传递HTTP/HTTPS消息数据包。</p><p><strong>插件：</strong></p><p>BurpSuite可以使用三种语言编写的扩展插件：Java，Python和Ruby。除Java外，其它两种需要的扩展插件需要置运行环境。</p><h1 id="burp功能模块">2. Burp功能模块</h1><ul><li>Target：显示目标目录结构的一个功能</li><li>Proxy：Proxy以拦截代理的方式，拦截所有通过代理的HTTP和HTTPS协议的流量。通过拦截，BurpSuite以中间人的方式，可以对客户端请求数据、服务端返回做各种处理，以达到安全评估测试的目的。</li><li>lntruder：lntruder在原始请求数据的基础上，通过修改各种请求参数，以获取不同的请求应答。每一次请求中，Intruder通常会携带一个或多个有效攻击载荷，在不同的位置进行攻击重放，通过应答数据的比对分析来获得需要的特征数据。</li><li>Repeater：作为BurpSuite中一款手工验证HTTP消息的测试工具，Repeater通常用于多次重放请求响应和手工修改请求消息及修改后对服务器端响应的消息分析。</li><li>Sequencer：作为BurpSuite中一款用于检测数据样本随机性质量的工具，Sequencer通常用于检测访问令牌是否可预测、密码重置令牌是否可预测等场景，通过Sequencer的数据样本分析，能很好地降低这些关键数据被伪造的风险。</li><li>Decoder：作为BurpSuite中一款编码解码工具，Decoder的功能比较简单，它能对原始数据进行各种编码格式和散列的转换。</li><li>Comparer：Comparer在BurpSuite中主要提供一个可视化的差异比对功能，来对比分析两次数据之间的区别。</li></ul><h1 id="proxy模块">3. Proxy模块</h1><p><strong>HTTP报文抓取与修改：</strong></p><ol type="1"><li>设置BurpSuite代理服务端口</li><li>设置FireFox浏览器代理端口</li><li>抓取HTTP请求报文</li></ol><p><strong>HTTPS报文抓取与修改：</strong></p><ol type="1"><li>设置BurpSuite代理服务端口</li><li>设置FireFox浏览器代理端口</li><li>下载CA证书<code>http://burp</code></li><li>浏览器中导入CA证书</li><li>抓取HTTPS请求报文</li></ol><h1 id="repeater模块">4. Repeater模块</h1><ul><li>修改请求参数，验证输入的漏洞</li><li>修改请求参数，验证逻辑越权</li><li>从拦截历史记录中，捕获特征性的请求消息进行请求重放</li></ul><h1 id="intruder模块">5. Intruder模块</h1><p><strong>攻击模式：</strong></p><ul><li>狙手模式（Sniper）：单payload位置，单payload集合，简单替换，若有多个payload位置，则会在每一个位置上遍历一次payload集合。</li><li>攻城锤模式（Batteringram）：多payload位置，单payload集合，在多个位置上使用相同的payload。</li><li>草叉模式（Pitchfork)︰多payload位置，多payload集合，在每个payload位置上遍历对应的payload集合，攻击次数为最短的payload集合的元素个数。</li><li>集束炸弹模式（Clusterbomb）：多payload位置，多payload集合，以多个payload集合的笛卡尔积作为攻击序列。如第一个位置的payload集合是{A,B}，第二格位置的payload集合是{C,D}，则攻击序列为{&lt;A,C&gt;，&lt;A,D&gt;,&lt;B,C&gt;，B,D&gt;}</li></ul><p><strong>payload类型:</strong></p><ul><li>简单列表（Simplelist）：最简单的payload类型，配置一个字符串列表作为payload，也可以手工添加字符串列表或从文件加载字符串列表。</li><li>运行时文件（Runtimefile）：指定文件，作为相对应payload位置上的payload列表。</li><li>自定义迭代器(Customiterator)：它共有8个占位，每个占位可以定义一个简单列表，最终所使用的payload为每一个占位的简单列表的笛卡儿积。</li><li>字符串替换（Charactersubstitution)：对预定义的字符串进行“枚举替换”后生成新的payload。</li><li>递归提取(Recursivegrep）：从服务器端提取有效数据的场景，需要先从服务器的响应中提取数据作为payload，然后替换payload的位置，进行攻击。递归的配置需要进入Options-&gt;Grep-&gt;Extract进行配置；使用该模式时，线程数必须为1。</li><li>字符块（Characterblocks）︰：使用一个给出的输入字符串，根据指定的设置产生指定大小的字符块，表现形式为生成指定长度的字符串。</li><li>数字类型（Number)：根据配置，生成一系列的数字作为payload。</li><li>日期类型（Dates）:根据配置，生成一系列的日期。</li><li>暴力字典（Bruteforcer）:生成包含一个指定的字符集的所有排列特定长的有效载荷，通常用于枚举字典的生成。</li><li>空类型(Null payloads）︰产生的payload其值是一个空字符串。</li><li>payload复制（Copy otherpayload）:这种类型的payload是将其他位置的参数复制到payload位置上。</li></ul><p><strong>Option子选项卡：</strong></p><ul><li>请求消息头设置(Request Headers）</li><li>请求引擎设置（Request Engine)</li><li>攻击结果设置（Attack Results）</li><li>正则匹配（Grep Match)</li><li>正则提取（Grep Extract)</li><li>正则匹配payload（Grep payloads）</li><li>重定向(Redirections）</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>安全服务</category>
+      
+      <category>渗透测试工具</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>逻辑漏洞</title>
     <link href="/2023/11/13/%E5%AE%89%E5%85%A8%E6%9C%8D%E5%8A%A1/Web%E6%B8%97%E9%80%8F/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/"/>
     <url>/2023/11/13/%E5%AE%89%E5%85%A8%E6%9C%8D%E5%8A%A1/Web%E6%B8%97%E9%80%8F/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/</url>
