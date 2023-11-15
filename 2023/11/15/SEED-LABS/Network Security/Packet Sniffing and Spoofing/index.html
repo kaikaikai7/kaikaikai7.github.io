@@ -24,7 +24,7 @@
 <meta property="og:description" content="1. Overview 数据包嗅探和欺骗是网络安全中的两个重要概念，也是网络通信中的两大威胁。了解这两种威胁对于理解网络安全措施至关重要。目前有许多数据包嗅探和欺骗工具，如 Wireshark、Tcpdump、Netwox、Scapy 等。其中一些工具被安全专家和攻击者广泛使用。会使用这些工具对学生来说很重要，但对学习网络安全课程的学生来说更重要的是了解这些工具是如何工作的，即数据包嗅探和欺">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-11-15T06:16:23.000Z">
-<meta property="article:modified_time" content="2023-11-15T10:14:49.843Z">
+<meta property="article:modified_time" content="2023-11-15T10:54:00.095Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -429,7 +429,7 @@ alt="image-20231115153842402" />
 <figcaption aria-hidden="true">image-20231115153842402</figcaption>
 </figure></li>
 </ul></li>
-<li><p>原因分析：容器通过虚拟交换机相连，属于交换网络。如果两台主机处于相同的子网，它们会通过ARP协议将目标主机的IP地址解析为MAC地址，然后直接将数据包发送到目标主机，如果尝试访问子网内不存在的主机，ARP表中没有相应条目，则不会发送数据包；如果两台主机不在同一个子网内，通常需要经过网关才能进行通信。源主机将使用
+<li><p>原因分析：容器通过虚拟交换机相连，属于交换网络。如果两台主机处于相同的子网，源主机通过ARP协议将目标主机的IP地址解析为MAC地址，然后直接将数据包发送到目标主机，如果尝试访问子网内不存在的主机，ARP表中没有相应条目，则不会发送数据包；如果两台主机不在同一个子网内，通常需要经过网关才能进行通信。源主机将使用
 ARP 协议查找网关的 MAC
 地址，并将数据包发送到网关。网关将负责将数据包转发到目标主机。（攻击机可监听所有发出的数据包）</p>
 <figure>
