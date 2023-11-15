@@ -16,21 +16,21 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1.1 网络安全威胁 1.1.1 事件 1.1.2 成因  技术因素  协议缺陷：网络协议缺乏认证、加密等基本的安全特性 软件漏洞：软件规模庞大，复杂度提高，开发者安全知识缺乏 策略弱点：安全需求与应用需求不相一致，安全策略设计不当 硬件漏洞：硬件设计软件化使得软件漏洞同样出现在硬件之中  人为因素  攻击者：成分复杂，多数掌握着丰富的攻击资源 防御者：广大的网络应用人">
+    <meta name="description" content="2.1 信息收集概述 2.1.1 信息收集的内容  定义：信息收集是指黑客为了更加有效地实施攻击而在攻击前或攻击过程中对目标的所有探测活动 内容：域名和IP地址；操作系统类型；开放端口；提供开放端口的服务或应用程序；防火墙、入侵检测等安全防范措施 分类：  主动：通过直接访问、扫描网站，这种将流量流经网站的行为 被动：利用第三方的服务对目标进行访问了解，比例：Google搜索">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CH1-网络攻击概述">
-<meta property="og:url" content="http://example.com/2023/09/24/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/%E7%90%86%E8%AE%BA%E7%AF%87/01%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E6%A6%82%E8%BF%B0/index.html">
+<meta property="og:title" content="CH2-信息收集技术">
+<meta property="og:url" content="http://example.com/2023/09/24/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/02%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E6%8A%80%E6%9C%AF/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="1.1 网络安全威胁 1.1.1 事件 1.1.2 成因  技术因素  协议缺陷：网络协议缺乏认证、加密等基本的安全特性 软件漏洞：软件规模庞大，复杂度提高，开发者安全知识缺乏 策略弱点：安全需求与应用需求不相一致，安全策略设计不当 硬件漏洞：硬件设计软件化使得软件漏洞同样出现在硬件之中  人为因素  攻击者：成分复杂，多数掌握着丰富的攻击资源 防御者：广大的网络应用人">
+<meta property="og:description" content="2.1 信息收集概述 2.1.1 信息收集的内容  定义：信息收集是指黑客为了更加有效地实施攻击而在攻击前或攻击过程中对目标的所有探测活动 内容：域名和IP地址；操作系统类型；开放端口；提供开放端口的服务或应用程序；防火墙、入侵检测等安全防范措施 分类：  主动：通过直接访问、扫描网站，这种将流量流经网站的行为 被动：利用第三方的服务对目标进行访问了解，比例：Google搜索">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-09-24T01:58:05.000Z">
-<meta property="article:modified_time" content="2023-09-24T02:06:21.798Z">
+<meta property="article:published_time" content="2023-09-24T02:05:36.000Z">
+<meta property="article:modified_time" content="2023-11-15T01:30:14.744Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>CH1-网络攻击概述 - kaikaikai&#39;s blog</title>
+  <title>CH2-信息收集技术 - kaikaikai&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -184,7 +184,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="CH1-网络攻击概述"></span>
+            <span id="subtitle" data-typed-text="CH2-信息收集技术"></span>
           
         </div>
 
@@ -195,7 +195,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-09-24 09:58" pubdate>
+        <time datetime="2023-09-24 10:05" pubdate>
           2023年9月24日 上午
         </time>
       </span>
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          481 字
+          3.4k 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          5 分钟
+          28 分钟
         
       </span>
     
@@ -255,50 +255,302 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">CH1-网络攻击概述</h1>
+            <h1 id="seo-header">CH2-信息收集技术</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="网络安全威胁">1.1 网络安全威胁</h1>
-<h2 id="事件">1.1.1 事件</h2>
-<h2 id="成因">1.1.2 成因</h2>
+                <h1 id="信息收集概述">2.1 信息收集概述</h1>
+<h2 id="信息收集的内容">2.1.1 信息收集的内容</h2>
 <ul>
-<li>技术因素
+<li>定义：信息收集是指黑客为了更加有效地实施攻击而在攻击前或攻击过程中对目标的所有探测活动</li>
+<li>内容：域名和IP地址；操作系统类型；开放端口；提供开放端口的服务或应用程序；防火墙、入侵检测等安全防范措施</li>
+<li>分类：
 <ul>
-<li>协议缺陷：网络协议缺乏认证、加密等基本的安全特性</li>
-<li>软件漏洞：软件规模庞大，复杂度提高，开发者安全知识缺乏</li>
-<li>策略弱点：安全需求与应用需求不相一致，安全策略设计不当</li>
-<li>硬件漏洞：硬件设计软件化使得软件漏洞同样出现在硬件之中</li>
-</ul></li>
-<li>人为因素
-<ul>
-<li>攻击者：成分复杂，多数掌握着丰富的攻击资源</li>
-<li>防御者：广大的网络应用人群缺少安全知识，专业人员数量、质量尚难满足对安全人才的迫切需求</li>
+<li>主动：通过直接访问、扫描网站，这种将流量流经网站的行为</li>
+<li>被动：利用第三方的服务对目标进行访问了解，比例：Google搜索</li>
 </ul></li>
 </ul>
-<h1 id="网络攻击技术">1.2 网络攻击技术</h1>
-<h2 id="分类">1.2.1 分类</h2>
+<h2 id="信息收集的方法">2.1.2 信息收集的方法</h2>
 <ul>
-<li>本地（物理）攻击：指攻击者通过实际接触被攻击的主机实施的各种攻击方法</li>
-<li>主动攻击：指攻击者利用Web、FTP、Telnet等开放网络服务对目标实施的各种攻击</li>
-<li>被动攻击：攻击者利用浏览器、邮件接收程序、文字处理程序等客户端应用程序漏洞或系统用户弱点，对目标实施的各种攻击</li>
-<li>中间人攻击：指攻击者处于被攻击主机的某个网络应用的中间人位置，进行数据窃听、破坏或篡改等攻击</li>
+<li>社会工程学</li>
+<li>技术手段：公开信息收集、网络扫描、漏洞扫描、网络拓扑检测</li>
 </ul>
-<p>注：主动与被动，主要是看是否需要对方采取动作</p>
-<h2 id="步骤与方法">1.2.2 步骤与方法</h2>
+<h1 id="公开信息收集">2.2 公开信息收集</h1>
+<h2 id="利用web服务">2.2.1 利用web服务</h2>
 <ul>
-<li>信息收集</li>
-<li>权限获取</li>
-<li>安装后门</li>
-<li>扩大影响</li>
-<li>清除痕迹</li>
+<li><p>网站公开邮箱（结合社会工程学）</p></li>
+<li><p>目标域名、IP地址、网站模板、网络管理员信息、公司人员名单</p></li>
+<li><p>网络拓扑结构图</p></li>
 </ul>
-<h1 id="网络攻击的发展趋势">1.3 网络攻击的发展趋势</h1>
+<h2 id="利用搜索引擎服务">2.2.2 利用搜索引擎服务</h2>
 <ul>
-<li>攻击影响日益深远</li>
-<li>攻击领域不断扩展</li>
-<li>攻击技术愈加精细</li>
+<li><p>基本语法</p>
+<table>
+<thead>
+<tr class="header">
+<th><strong>And</strong></th>
+<th><strong>与</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>OR</strong></td>
+<td><strong>或</strong></td>
+</tr>
+<tr class="even">
+<td><strong>+</strong></td>
+<td><strong>强制包含搜索项</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>-</strong></td>
+<td><strong>非，去掉搜索项</strong></td>
+</tr>
+<tr class="even">
+<td><strong>“”</strong></td>
+<td><strong>包含一个完整的语义</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>.</strong></td>
+<td><strong>单个通配符</strong></td>
+</tr>
+<tr class="even">
+<td>*****</td>
+<td><strong>任意通配符</strong></td>
+</tr>
+</tbody>
+</table></li>
+<li><p>搜索语法</p>
+<table>
+<thead>
+<tr class="header">
+<th><strong>site</strong></th>
+<th><strong>搜索具体服务器或域名的网页</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>filetype</strong></td>
+<td><strong>搜索特定类型的文件</strong></td>
+</tr>
+<tr class="even">
+<td><strong>intitle</strong></td>
+<td><strong>搜索网页标题</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>inurl</strong></td>
+<td><strong>搜索URL </strong></td>
+</tr>
+<tr class="even">
+<td><strong>intext</strong></td>
+<td><strong>搜索正文</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>link</strong></td>
+<td><strong>搜索连接到指定网页的网页</strong></td>
+</tr>
+</tbody>
+</table></li>
+<li><p>https://zhuanlan.zhihu.com/p/142832509（谷歌黑客常用搜索语句一览）</p></li>
+<li><p>搜索引擎：https://www.shodan.io/</p></li>
+</ul>
+<h2 id="利用whole服务">2.2.3 利用Whole服务</h2>
+<ul>
+<li>功能：查看已注册域名（域名登记人信息、联系电话和邮箱、域名注册时间和更新时间、权威DNS的IP地址）</li>
+<li>使用方法：https://whois.chinaz.com/</li>
+</ul>
+<h2 id="利用dns域名服务">2.2.4 利用DNS域名服务</h2>
+<ul>
+<li>主服务器</li>
+<li>辅助服务器（定期进行区域传送：允许一个辅域名服务器更新自己的区域数据）</li>
+<li>缓存服务器</li>
+</ul>
+<p><strong>利用思路</strong>：</p>
+<p>如果DNS配置不当，可能造成内部主机名和IP地址对的泄漏。即主DNS服务器允许任意IP地址从该服务器进行区域传送，进而泄露信息。</p>
+<h2 id="cdn">2.2.5 CDN</h2>
+<p>内容分发网络<code>CDN</code>是一个互连服务器网络，可加快数据密集型应用程序的网页加载速度。<code>CDN</code>可以表示内容分发网络或内容分配网络。当用户访问某个网站时，来自该网站服务器的数据必须通过互联网传输到用户的计算机。如果用户距离该服务器较远，则加载大文件（例如视频或网站图像）将需要很长时间。相反，如果网站内容存储在距离用户较近的
+<code>CDN</code>服务器上，就可以更快到达他们的计算机。</p>
+<h1 id="网络扫描">2.3 网络扫描</h1>
+<h2 id="主机扫描">2.3.1 主机扫描</h2>
+<h3 id="icmp扫描">2.3.1.1 ICMP扫描</h3>
+<p><strong>ping扫描原理</strong>：</p>
+<p>利用<code>ICMP协议</code>（响应请求/应答）进行工作</p>
+<p><strong><code>ICMP</code>报文格式：</strong></p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309241014073.png" srcset="/img/loading.gif" lazyload
+alt="image-20230920161113121" />
+<figcaption aria-hidden="true">image-20230920161113121</figcaption>
+</figure>
+<p>类型域指明类型；代码域指明作用</p>
+<p><strong>常见<code>ICMP</code>报文：</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th><strong>名称</strong></th>
+<th><strong>类型</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong><code>ICMP</code> Destination
+Unreachable（目标不可达）</strong></td>
+<td><strong>3</strong></td>
+</tr>
+<tr class="even">
+<td><strong><code>ICMP</code> Source Quench</strong>
+<strong>（源抑制）</strong></td>
+<td><strong>4</strong></td>
+</tr>
+<tr class="odd">
+<td><strong><code>ICMP</code> Redirection（重定向）</strong></td>
+<td><strong>5</strong></td>
+</tr>
+<tr class="even">
+<td><strong><code>ICMP</code> Timestamp
+Request/Reply（时间戳）</strong></td>
+<td><strong>13/14</strong></td>
+</tr>
+<tr class="odd">
+<td><strong><code>ICMP</code> Address Mask
+Request/Reply（子网掩码）</strong></td>
+<td><strong>17/18</strong></td>
+</tr>
+<tr class="even">
+<td><strong><code>ICMP</code> Echo
+Request/Reply（响应请求/应答）</strong></td>
+<td><strong>8/0</strong></td>
+</tr>
+</tbody>
+</table>
+<p>注：根据RFC的定义，<code>TCP/IP</code>协议栈应该支持各种类型的<code>ICMP</code>报文。但事实上，在各个操作系统具体实现TCP/IP时，可能并没有完全遵循RFC标准。</p>
+<h3 id="其他类型的主机扫描">2.3.1.2 其他类型的主机扫描</h3>
+<ul>
+<li>构造异常的<code>IP</code>包头</li>
+<li>在<code>IP</code>头中设置无效的字段值</li>
+<li>构造错误的数据分片</li>
+<li>通过超长包探测内部路由器</li>
+<li>反向映射探测</li>
+</ul>
+<h2 id="端口扫描">2.3.2 端口扫描</h2>
+<p>参阅：https://nmap.org/man/zh/man-port-scanning-techniques.html</p>
+<h3 id="connect扫描">2.3.2.1 Connect扫描</h3>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309241014075.png" srcset="/img/loading.gif" lazyload
+alt="image-20230920162546395" />
+<figcaption aria-hidden="true">image-20230920162546395</figcaption>
+</figure>
+<ul>
+<li>即TCP Connect扫描。左边为服务端，右边为客户端。</li>
+<li>优点：实现简单、可以用普通用户权限执行</li>
+<li>缺点：容易被目标应用日志所记录</li>
+</ul>
+<h3 id="syn扫描和fin扫描">2.3.2.2 SYN扫描和FIN扫描</h3>
+<p><strong>SYN扫描</strong></p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309241014076.png" srcset="/img/loading.gif" lazyload
+alt="image-20230920163233117" />
+<figcaption aria-hidden="true">image-20230920163233117</figcaption>
+</figure>
+<ul>
+<li>半连接扫描基于TCP三次握手规则，探测服务端口是否开放。</li>
+<li>服务端口开放，会返回<code>SYN/ACK</code>消息</li>
+<li>服务端口关闭，会返回<code>RST</code>消息</li>
+<li>如果数次重发后仍没响应，该端口就被标记为被过滤。如果收到<code>ICMP</code>不可到达错误
+(类型3，代码1，2，3，9，10，或者13)，该端口也被标记为被过滤。</li>
+<li>优点：一般不会被目标主机的应用所记录</li>
+<li>缺点：运行Raw Socket时必须拥有管理员权限</li>
+</ul>
+<p><strong>FIN扫描</strong></p>
+<ul>
+<li>假设扫描系统遵循RFC标准，如果收到一个<code>RST</code>报文，该端口被认为是
+closed(关闭的)</li>
+<li>没有响应则意味着端口是open|filtered(开放或者被过滤的)</li>
+<li>如果收到<code>ICMP</code>不可到达错误(类型 3，代号
+1，2，3，9，10，或者13)，该端口就被标记为被过滤的。</li>
+<li>优点：它们能躲过一些无状态防火墙和报文过滤路由器，不会被记录到日志</li>
+<li>缺点：大部分系统并不遵循该标准</li>
+<li>FIN扫描 (-sF)：只设置<code>TCP FIN</code>标志位。</li>
+<li>Null扫描 (-sN)：不设置任何标志位(tcp标志头是0)</li>
+<li>Xmas扫描
+(-sX)：设置<code>FIN</code>，<code>PSH</code>，和<code>URG</code>标志位</li>
+<li>除了探测报文的标志位不同，这三种扫描在行为上完全一致。</li>
+</ul>
+<h3 id="其他端口扫描技术">2.3.2.3 其他端口扫描技术</h3>
+<ul>
+<li><code>ACK</code>扫描：向目标主机的端口发送<code>ACK</code>包，如果收到<code>RST</code>包，说明该端口没有被防火墙屏蔽；不响应的端口或者发送特定的<code>ICMP</code>错误消息(类型3，代号1，2，3，9，10，
+或者13)的端口，标记为 filtered(被过滤的)。</li>
+<li><code>IP</code>分段扫描</li>
+<li>TCP FTP Proxy扫描</li>
+</ul>
+<h3 id="udp扫描">2.3.2.4 UDP扫描</h3>
+<p>只需向目标主机<code>UDP</code>端口发送任意数据，如果端口没有开放，则返回一个“目标不可达”的<code>ICMP</code>报文</p>
+<h2 id="系统类型扫描">2.3.3 系统类型扫描</h2>
+<h3 id="利用端口扫描结果">2.3.3.1 利用端口扫描结果</h3>
+<ul>
+<li>由于现代操作系统往往提供一些自身特有的功能，而这些功能又很可能打开一些特定的端口</li>
+<li>windows：135，137，139等</li>
+<li>Lniux：512，513，514，2049等</li>
+</ul>
+<h3 id="利用banner">2.3.3.2 利用Banner</h3>
+<p>服务程序接收到客户端的正常连接后所给出的欢迎信息</p>
+<h3 id="tcpip协议栈指纹">2.3.3.3 TCP/IP协议栈指纹</h3>
+<ul>
+<li>不同的操作系统在实现<code>TCP/IP</code>协议栈时都或多或少地存在着差异。而这些差异，我们就称之为<code>TCP/IP</code>协议栈指纹</li>
+<li>TCP指纹：<code>FIN</code>探测、<code>BOGUS</code>标记位探测、<code>SYN</code>泛洪测试等</li>
+<li><code>IP</code>、<code>ICMP</code>指纹：<code>ICMP</code>错误信息查询、<code>ICMP</code>信息引用、<code>TOS</code>和<code>TTL</code></li>
+</ul>
+<h1 id="漏洞扫描">2.4 漏洞扫描</h1>
+<h2 id="概念">2.4.1 概念</h2>
+<ul>
+<li><p>漏洞：在计算机安全领域，安全漏洞<code>SecurityHole</code>通常又称作脆弱性（vulnerability）</p></li>
+<li><p>来源：</p>
+<p>（1）硬件、软件或协议设计时的瑕疵 （2）硬件、软件或协议实现中的弱点
+（3）硬件、软件本身的瑕疵 （4）系统和网络的错误配置</p></li>
+<li><p>漏洞扫描：指利用一些专门或综合漏洞扫描程序对目标存在的系统漏洞或应用程序漏洞进行扫描。</p></li>
+</ul>
+<h2 id="分类">2.4.2 分类</h2>
+<ul>
+<li>主动式策略是<strong>基于网络</strong>的检测，通过执行一些脚本文件对系统进行攻击，并记录它的反应，从而发现其中的漏洞</li>
+<li>被动式策略是<strong>基于主机</strong>的检测，对系统中不合适的设置、脆弱的口令以及其他同安全规则相抵触的对象进行检查</li>
+</ul>
+<h2 id="方法">2.4.3 方法</h2>
+<ul>
+<li>直接测试：指利用漏洞特点发现系统漏洞的方法</li>
+<li>推断：它并不直接渗透漏洞，只是间接地寻找漏洞存在的证据。采用推断方法的检测手段主要有版本检查、程序行为分析、操作系统堆栈指纹分析和时序分析等。</li>
+<li>带凭证的测试
+：凭证是指访问服务所需要的用户名或者密码，包括UNIX的登录权限和从网络调用Windows
+NT的<code>API</code>的能力。如果赋予测试进程目标系统的角色，将能够检查出更多的漏洞。</li>
+</ul>
+<h1 id="网络拓扑探测">2.5 网络拓扑探测</h1>
+<h2 id="拓扑探测">2.5.1 拓扑探测</h2>
+<ul>
+<li><code>Traceroute</code>：<code>UDP</code>数据包、<code>TTL</code></li>
+<li><code>SNMP</code>（简单网络管理协议）：不同类型网络设备之间客户机/服务器模式的简单通信协议
+<ul>
+<li>Read：观察设备配置信息</li>
+<li>Read/Write：有权写入信息</li>
+</ul></li>
+</ul>
+<h2 id="网络设备识别">2.5.2 网络设备识别</h2>
+<h3 id="利用专门搜索引擎">2.5.2.1 利用专门搜索引擎</h3>
+<p>https://www.shodan.io/</p>
+<p>https://www.zoomeye.org/</p>
+<h3 id="基于设备指纹的设备类型探测">2.5.2.2
+基于设备指纹的设备类型探测</h3>
+<p>主要介绍基于应用服务Banner的设备识别技术：</p>
+<ul>
+<li>FTP协议</li>
+<li>SSH</li>
+<li>Telnet</li>
+<li>HTTP</li>
+</ul>
+<h3 id="网络实体ip地理位置定位">2.5.2.3 网络实体IP地理位置定位</h3>
+<ul>
+<li>基于查询信息的定位：通过查询机构注册的信息确定网络设备的地理位置</li>
+<li>基于网络测量的定位：利用探测源与目标实体的时延、拓扑或其他信息估计目标实体的位置</li>
 </ul>
 
                 
@@ -321,13 +573,6 @@
   <a href="/categories/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/" class="category-chain-item">网络攻防技术</a>
   
   
-    <span>></span>
-    
-  <a href="/categories/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/%E7%90%86%E8%AE%BA%E7%AF%87/" class="category-chain-item">理论篇</a>
-  
-  
-
-  
 
       </span>
     
@@ -345,8 +590,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>CH1-网络攻击概述</div>
-      <div>http://example.com/2023/09/24/网络攻防技术/理论篇/01网络攻击概述/</div>
+      <div>CH2-信息收集技术</div>
+      <div>http://example.com/2023/09/24/网络攻防技术/02信息收集技术/</div>
     </div>
     <div class="license-meta">
       
@@ -390,9 +635,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/09/24/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/%E7%90%86%E8%AE%BA%E7%AF%87/02%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E6%8A%80%E6%9C%AF/" title="CH2-信息收集技术">
+                      <a href="/2023/09/27/SEED-LABS/Cryptography/MD5-Collision-Attack/" title="MD5 Collision Attack">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">CH2-信息收集技术</span>
+                        <span class="hidden-mobile">MD5 Collision Attack</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -400,8 +645,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/09/23/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/GitHub+PicGo%E6%90%AD%E5%BB%BA%E5%85%8D%E8%B4%B9%E5%9B%BE%E5%BA%8A/" title="GitHub+PicGo搭建免费图床">
-                        <span class="hidden-mobile">GitHub+PicGo搭建免费图床</span>
+                      <a href="/2023/09/24/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/01%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E6%A6%82%E8%BF%B0/" title="CH1-网络攻击概述">
+                        <span class="hidden-mobile">CH1-网络攻击概述</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

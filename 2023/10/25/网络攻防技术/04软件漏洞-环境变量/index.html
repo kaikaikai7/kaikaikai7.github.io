@@ -16,21 +16,21 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1. 同源策略 1.1 含义 1995年，同源政策由 Netscape 公司引入浏览器。目前，所有浏览器都实行这个政策。最初，它的含义是指，A网页设置的 Cookie，B网页不能打开，除非这两个网页&quot;同源&quot;。所谓&quot;同源&quot;指的是&quot;三个相同&quot;：   协议相同 域名相同 端口相同   举例来说，http:&#x2F;&#x2F;www.example.com&#x2F;dir&#x2F;page.html这个网址，协议">
+    <meta name="description" content="1. 基础知识 1.1 环境变量  一组动态的定义值 操作系统运行环境的一部分 影响正在运行进程的行为方式（加载哪些外部DLL） 在Unix中提出，也被微软操作系统采用 示例：PATH变量.当执行一个程序时，如果没有提供完整的路径，shell进程将使用环境变量来找到程序的位置.  1.2 环境变量的内存位置  envp和environ最初指向同一个地方 envp只能在主函数">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CH5-Web安全-XSS攻击">
-<meta property="og:url" content="http://example.com/2023/10/31/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/%E7%90%86%E8%AE%BA%E7%AF%87/05Web%E5%AE%89%E5%85%A8-XSS%E6%94%BB%E5%87%BB/index.html">
+<meta property="og:title" content="CH4-软件漏洞-环境变量">
+<meta property="og:url" content="http://example.com/2023/10/25/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/04%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="1. 同源策略 1.1 含义 1995年，同源政策由 Netscape 公司引入浏览器。目前，所有浏览器都实行这个政策。最初，它的含义是指，A网页设置的 Cookie，B网页不能打开，除非这两个网页&quot;同源&quot;。所谓&quot;同源&quot;指的是&quot;三个相同&quot;：   协议相同 域名相同 端口相同   举例来说，http:&#x2F;&#x2F;www.example.com&#x2F;dir&#x2F;page.html这个网址，协议">
+<meta property="og:description" content="1. 基础知识 1.1 环境变量  一组动态的定义值 操作系统运行环境的一部分 影响正在运行进程的行为方式（加载哪些外部DLL） 在Unix中提出，也被微软操作系统采用 示例：PATH变量.当执行一个程序时，如果没有提供完整的路径，shell进程将使用环境变量来找到程序的位置.  1.2 环境变量的内存位置  envp和environ最初指向同一个地方 envp只能在主函数">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-10-31T12:40:07.000Z">
-<meta property="article:modified_time" content="2023-10-31T12:40:52.659Z">
+<meta property="article:published_time" content="2023-10-25T01:37:07.000Z">
+<meta property="article:modified_time" content="2023-11-15T01:30:27.238Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>CH5-Web安全-XSS攻击 - kaikaikai&#39;s blog</title>
+  <title>CH4-软件漏洞-环境变量 - kaikaikai&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -184,7 +184,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="CH5-Web安全-XSS攻击"></span>
+            <span id="subtitle" data-typed-text="CH4-软件漏洞-环境变量"></span>
           
         </div>
 
@@ -195,8 +195,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-10-31 20:40" pubdate>
-          2023年10月31日 晚上
+        <time datetime="2023-10-25 09:37" pubdate>
+          2023年10月25日 上午
         </time>
       </span>
     
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.9k 字
+          2.5k 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          33 分钟
+          22 分钟
         
       </span>
     
@@ -255,152 +255,130 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">CH5-Web安全-XSS攻击</h1>
+            <h1 id="seo-header">CH4-软件漏洞-环境变量</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="同源策略">1. 同源策略</h1>
-<h3 id="含义">1.1 含义</h3>
-<p>1995年，同源政策由 Netscape
-公司引入浏览器。目前，所有浏览器都实行这个政策。最初，它的含义是指，A网页设置的
-Cookie，B网页不能打开，除非这两个网页"同源"。所谓"同源"指的是"三个相同"：</p>
-<blockquote>
+                <h1 id="基础知识">1. 基础知识</h1>
+<h2 id="环境变量">1.1 环境变量</h2>
 <ul>
-<li>协议相同</li>
-<li>域名相同</li>
-<li>端口相同</li>
+<li>一组动态的定义值</li>
+<li>操作系统运行环境的一部分</li>
+<li>影响正在运行进程的行为方式（加载哪些外部DLL）</li>
+<li>在Unix中提出，也被微软操作系统采用</li>
+<li>示例：PATH变量.当执行一个程序时，如果没有提供完整的路径，shell进程将使用环境变量来找到程序的位置.</li>
 </ul>
-</blockquote>
-<p>举例来说，<code>http://www.example.com/dir/page.html</code>这个网址，协议是<code>http://</code>，域名是<code>www.example.com</code>，端口是<code>80</code>（默认端口可以省略）。它的同源情况如下：</p>
-<blockquote>
+<h2 id="环境变量的内存位置">1.2 环境变量的内存位置</h2>
 <ul>
-<li><code>http://www.example.com/dir2/other.html</code>：同源</li>
-<li><code>http://example.com/dir/other.html</code>：不同源（域名不同）</li>
-<li><code>http://v2.www.example.com/dir/other.html</code>：不同源（域名不同）</li>
-<li><code>http://www.example.com:81/dir/other.html</code>：不同源（端口不同）</li>
-</ul>
-</blockquote>
-<h3 id="目的">1.2 目的</h3>
-<p>同源政策的目的，是为了保证用户信息的安全，防止恶意的网站窃取数据。设想这样一种情况：A网站是一家银行，用户登录以后，又去浏览其他网站。如果其他网站可以读取A网站的
-Cookie，会发生什么？</p>
-<p>很显然，如果 Cookie
-包含隐私（比如存款总额），这些信息就会泄漏。更可怕的是，Cookie
-往往用来保存用户的登录状态，如果用户没有退出登录，其他网站就可以冒充用户，为所欲为。因为浏览器同时还规定，提交表单不受同源政策的限制。</p>
-<p>由此可见，"同源政策"是必需的，否则 Cookie
-可以共享，互联网就毫无安全可言了。</p>
-<h3 id="限制范围">1.3 限制范围</h3>
-<p>随着互联网的发展，"同源政策"越来越严格。目前，如果非同源，共有三种行为受到限制。</p>
-<blockquote>
-<p>（1） Cookie、LocalStorage 和 IndexDB 无法读取。</p>
-<p>（2） DOM 无法获得。</p>
-<p>（3） AJAX 请求不能发送。</p>
-</blockquote>
-<p>虽然这些限制是必要的，但是有时很不方便，合理的用途也受到影响。下面，我将详细介绍，如何规避上面三种限制。</p>
-<h1 id="cookie">2. Cookie</h1>
-<p>Cookie
-是服务器写入浏览器的一小段信息，只有同源的网页才能共享。但是，两个网页一级域名相同，只是二级域名不同，浏览器允许通过设置<code>document.domain</code>共享
-Cookie。</p>
-<p>举例来说，A网页是<code>http://w1.example.com/a.html</code>，B网页是<code>http://w2.example.com/b.html</code>，那么只要设置相同的<code>document.domain</code>，两个网页就可以共享Cookie。</p>
-<blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable language_">document</span>.<span class="hljs-property">domain</span> = <span class="hljs-string">&#x27;example.com&#x27;</span>;<br></code></pre></td></tr></table></figure>
-</blockquote>
-<p>现在，A网页通过脚本设置一个 Cookie。</p>
-<blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable language_">document</span>.<span class="hljs-property">cookie</span> = <span class="hljs-string">&quot;test1=hello&quot;</span>;<br></code></pre></td></tr></table></figure>
-</blockquote>
-<p>B网页就可以读到这个 Cookie。</p>
-<blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> allCookie = <span class="hljs-variable language_">document</span>.<span class="hljs-property">cookie</span>;<br></code></pre></td></tr></table></figure>
-</blockquote>
-<p>注意，这种方法只适用于 Cookie 和 iframe 窗口，LocalStorage 和 IndexDB
-无法通过这种方法，规避同源政策，而要使用下文介绍的PostMessage API。</p>
-<p>另外，服务器也可以在设置Cookie的时候，指定Cookie的所属域名为一级域名，比如<code>.example.com</code>。</p>
-<blockquote>
-<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs http"><span class="hljs-attribute">Set-Cookie</span><span class="hljs-punctuation">: </span>key=value; domain=.example.com; path=/<br></code></pre></td></tr></table></figure>
-</blockquote>
-<p>这样的话，二级域名和三级域名不用做任何设置，都可以读取这个Cookie。</p>
-<h1 id="xss攻击">3. XSS攻击</h1>
-<h2 id="概述">3.1 概述</h2>
-<p>跨站脚本攻击（Cross-Site
-Scripting，简称XSS攻击）出现在上世纪90年代中，由于跨站脚本攻击的缩写和层叠样式表（Cascading
-Style
-Sheets，CSS）的缩写一样，为了防止混淆，故缩写成XSS攻击。XSS攻击是由于Web应用程序对用户输入过滤不足而产生的，使得攻击者输入的特定数据变成了JavaScript脚本或HTML代码。</p>
-<h2 id="分类">3.2 分类</h2>
-<h3 id="反射型xss">3.2.1 反射型XSS</h3>
+<li><p>envp和environ最初指向同一个地方</p></li>
+<li><p>envp只能在主函数中可访问，而 environ 是一个全局变量</p></li>
+<li><p>当对环境变量进行更改时（例如添加新变量），存储环境变量的位置可能会移动到堆中，因此environ将发生更改（envp不会更改）</p></li>
+<li><p>添加或删除环境变量或修改现有变量的值，1和2中没有足够的空间。在这种情况下，整个环境变量块可能会更改到不同的位置（通常是在堆中）</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310312040585.png" srcset="/img/loading.gif" lazyload
-alt="image-20231031202501135" />
-<figcaption aria-hidden="true">image-20231031202501135</figcaption>
-</figure>
-<p>反射型XSS是比较常见和广泛的一类，举例来说，当一个网站的代码中包含类似下面的语句：<code>&lt;?php echo "&lt;p&gt;hello, $_GET['user']&lt;/p&gt;";?&gt;</code>
-，那么在访问时设置
-<code>/?user=&lt;/p&gt;&lt;script&gt;alert("hack")&lt;/script&gt;&lt;p&gt;</code>
-，则可执行预设好的JavaScript代码。</p>
-<p>反射型XSS通常出现在搜索等功能中，需要被攻击者点击对应的链接才能触发，且受到XSS
-Auditor、NoScript等防御手段的影响较大。</p>
-<p>特点：</p>
-<ul>
-<li>非持久型、参数型跨站脚本</li>
-<li>恶意脚本附加到URL地址参数中</li>
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310250937981.png" srcset="/img/loading.gif" lazyload
+alt="image-20231025085558964" />
+<figcaption aria-hidden="true">image-20231025085558964</figcaption>
+</figure></li>
 </ul>
-<p>攻击技巧：生成短网址隐藏具体内容</p>
-<h3 id="存储型xss">3.2.2 存储型XSS</h3>
-<figure>
-<img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310312040586.png" srcset="/img/loading.gif" lazyload
-alt="image-20231031201645055" />
-<figcaption aria-hidden="true">image-20231031201645055</figcaption>
-</figure>
-<p>储存型XSS相比反射型来说危害较大，在这种漏洞中，攻击者能够把攻击载荷存入服务器的数据库中，造成持久化的攻击。</p>
-<p>特点：</p>
-<ul>
-<li>持久型</li>
-<li>一般攻击存在留言、评论、博客日志中</li>
-<li>恶意脚本被存储在服务端的数据库中</li>
-</ul>
-<h3 id="dom型xss">3.2.3 DOM型XSS</h3>
-<figure>
-<img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310312040587.png" srcset="/img/loading.gif" lazyload
-alt="image-20231031202521509" />
-<figcaption aria-hidden="true">image-20231031202521509</figcaption>
-</figure>
-<p>DOM型XSS是基于DOM文档对象模型的一种漏洞。严格地说，DOM型XSS其实算反射型XSS，区别在于DOM型XSS并不会和后台进行交互，是完完全全的Web前端安全问题，要做防御也只能在客户端上进行防御。</p>
-<p>首先，客户端的脚本程序可以通过DOM动态地检查和修改页面内容，它并不与服务端进行交互而是从客户端获得DOM中的数据（如从URL中获取数据）并在本地执行；其次，浏览器用户可以操纵DOM中的一些对象如URL、location等；因此，当攻击者可以控制一些DOM对象、输入一些恶意JS代码，而客户端的脚本并没有对用户输入内容进行有效的过滤就传入一些执行危险操纵的函数如eval等或直接输出到页面时，就会导致DOM型XSS漏洞的存在。</p>
-<h3 id="区别">3.2.4 区别</h3>
-<p><strong>一、被攻击对象的不同</strong>
-反射型XSS的被攻击对象一般是攻击者去寻找的，就比如说：一个攻击者想盗取A的QQ号，那么攻击者就可以将一个含有反射型XSS的URL链接给A，此时我们可以看出，需要将特定的URL，注意是特定的URL给A，当A点击进入链接时，就受到XSS攻击，所以这种攻击范围不是特别的广。</p>
-<p>而存储型XSS是广撒网的方式或者指定的方式，就是攻击者将存储型XSS放在一些有XSS漏洞的网站上，只要有用户访问这个链接就会中招，而攻击者也可以寻找被攻击对象，比如说上面的例子，所以我们可以看出，存储型XSS的危害性更大，范围更广，可以不需要寻找被攻击对象，只要存储型XSS在服务器上就能实施攻击。</p>
-<p>DOM型XSS的被攻击对象其实和反射型XSS被攻击对象差不多，就是给攻击对象放送URL。</p>
-<p><strong>二、解析位置不同（个人感觉是反射型与存储型区别的本质）</strong>
-反射型XSS的脚本被解析的地方是浏览器，而存储型XSS的脚本被解析的地方是服务器，DOM型XSS也是浏览器，所以DOM型又叫DOM反射型XSS。但是反射型XSS需要联网，而DOM型不需要！</p>
-<p><strong>三、存储时间不同</strong>
-反射型XSS是既有即用，没有持久性，而存储型XSS是存储在服务器上，只要服务器不挂机或者是被干掉，就一直会有，DOM型XSS和反射型差不多。</p>
-<p><strong>四、允许输入点的不同（这是DOM型与其他两种的区别）</strong>
-一般情况下，反射型XSS在搜索框啊，或者是页面跳转啊这些地方，而存储型XSS一般是留言，或者用户存储的地方，而DOM呢？是在DOM位置上，不取决于输入环境上。</p>
-<h2 id="攻击方式">3.3 攻击方式</h2>
-<ul>
-<li>cookie窃取</li>
-<li>会话劫持：利用XSS攻击，冒用合法者的会话ID进行网络访问的一种攻击方式</li>
-<li>网络钓鱼：可以执行JavaScript代码动态生成网页内容或直接注入HTML代码，从而产生网络钓鱼攻击</li>
-<li>信息刺探：访问历史信息、端口信息、剪贴板内容、客户端IP地址、键盘信息等</li>
-<li>网页挂马：将恶意脚本隐藏在Web网页中，当用户浏览该网页时，这些隐藏的恶意脚本将在用户不知情的情况下执行，下载并启动木马程序</li>
-<li>XSS蠕虫：一般利用存储型XSS攻击，将一段JavaScript代码保存在服务器上，其他用户浏览相关信息时，会执行JavaScript代码，从而引发攻击</li>
-</ul>
-<h2 id="防范措施">3.4 防范措施</h2>
-<ul>
-<li>HttpOnly是另一个应用给cookie的标志，而且所有现代浏览器都支持它。HttpOnly标志的用途是指示浏览器禁止任何脚本访问cookie内容，这样就可以降低通过JavaScript发起的XSS攻击偷取cookie的风险。</li>
-<li>安全编码：PHP语言中针对XSS攻击的安全编码函数有htmlentities和htmlspecialchars等，这些函数对特殊字符的安全编码方式如下：小于号（&lt;）转换成&amp;lt、大于号（&gt;）转换成&amp;gt、与符号（&amp;）转换成&amp;amp、双引号（"）转换成&amp;quot、单引号（'）转换成&amp;#39。</li>
-</ul>
-<p>参考教程：</p>
+<h2 id="c语言访问环境变量">1.3 C语言访问环境变量</h2>
 <ol type="1">
-<li>https://www.ruanyifeng.com/blog/2016/04/same-origin-policy.html</li>
-<li>https://websec.readthedocs.io/zh/latest/vuln/xss/classify.html</li>
-<li>https://m.freebuf.com/articles/web/318982.html</li>
-<li>https://cloud.tencent.com/developer/article/2076505</li>
+<li>从主函数中访问：<code>void main(int argc, char* argv[], char* envp[])</code></li>
+<li>使用全局变量：<code>extern char** environ</code></li>
 </ol>
+<h2 id="进程获取环境变量">1.4 进程获取环境变量</h2>
+<ol type="1">
+<li>如果使用<code>fork()</code>创建了一个新进程，子进程继承父进程的环境变量</li>
+<li>如果进程使用<code>execve()</code>启动一个新程序，在此场景中内存空间被覆盖，所有旧环境变量将丢失.通过参数<code>envp</code>传递环境变量<code>int execve(const char* filename, char* const argv[], char* const envp[])</code></li>
+</ol>
+<h2 id="shell命令变量和环境变量">1.5 shell命令变量和环境变量</h2>
+<ul>
+<li><p>shell命令变量和环境变量不相同</p></li>
+<li><p>shell命令变量是shell使用的内部变量.shell提供了内置命令，允许用户创建、分配和删除Shell变量</p></li>
+<li><p>当shell程序启动时，它会将环境变量复制到自己的shell变量中.shell变量所做的更改将不会反映出在环境变量上.但是exported后的shell变量可以传到子进程.</p></li>
+<li><p>当我们在shell提示符中输入env时，shell将创建一个子进程</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310250937982.png" srcset="/img/loading.gif" lazyload
+alt="image-20231025090223045" />
+<figcaption aria-hidden="true">image-20231025090223045</figcaption>
+</figure></li>
+</ul>
+<h2 id="set-uid">1.6 Set-UID</h2>
+<ul>
+<li>Set-UID 是 Unix 操作系统中的一种重要安全机制.当 Set-UID
+程序运行时，它将拥有所有者的权限.例如，如果程序的所有者是
+root，那么当任何人运行该程序在执行过程中就会获得 root 的权限.</li>
+<li>设置后效果：原本表示文件所有者权限中的 x 权限位，却出现了 s
+权限，此种权限通常称为 SetUID，简称 SUID 特殊权限</li>
+<li>每个进程都有两个用户ID
+<ul>
+<li>Real UID (RUID):确定进程的真正所有者</li>
+<li>Effective UID (EUID): 标识进程的权限</li>
+</ul></li>
+<li>当执行正常程序时 , RUID = EUID,
+它们都等于运行程序的用户的ID；当执行Set-UID时, RUID ≠ EUID.
+RUID还是运行程序的用户 ID, 但是 EUID 是程序 owner的 ID.</li>
+</ul>
+<h1 id="环境变量攻击">2. 环境变量攻击</h1>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310250937983.png" srcset="/img/loading.gif" lazyload
+alt="image-20231025090642033" />
+<figcaption aria-hidden="true">image-20231025090642033</figcaption>
+</figure>
+<h2 id="通过动态链接器攻击">2.1 通过动态链接器攻击</h2>
+<ul>
+<li><p>静态链接：包含程序代码和涉及的外部库的代码（编译出的程序较大）</p></li>
+<li><p>动态链接：在运行使用动态链接编译的程序之前，首先将其可执行文件加载到内存.加载到内存中后，加载器将控制件传递给动态链接器，链接器为共享库找到外部库的实现.一旦链接完成，控制将提供给main()</p></li>
+<li><p>可以使用<code>ldd</code>命令来查看程序依赖于什么共享库</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310250937984.png" srcset="/img/loading.gif" lazyload
+alt="image-20231025091306026" />
+<figcaption aria-hidden="true">image-20231025091306026</figcaption>
+</figure></li>
+</ul>
+<p><strong>攻击方式：</strong></p>
+<ul>
+<li>LD_PRELOAD 包含一个共享库的列表，链接器将首先搜索它；</li>
+<li>如果没有找到所有函数，链接器将在几个文件夹列表中搜索，包括LD_LIBRARY_PATH指定的文件夹；</li>
+<li>这两个变量都可以由用户设置，因此使他们有机会控制链接过程结果.例：用户创建一个共享库(如实现自己的sleep函数)，并将共享库添加到LD_PRELOAD环境变量首位.执行调用sleep函数的程序时，执行的sleep函数为用户自定义的函数.</li>
+<li>如果该程序是一个Set-UID程序，它可能会导致安全漏洞.当EUID≠RUID时，动态链接器会忽略LD_PRELOAD和LD_LIBRARY_PATH</li>
+</ul>
+<h2 id="通过外部程序攻击">2.2 通过外部程序攻击</h2>
+<ul>
+<li><p>应用程序可以调用外部程序.应用程序本身可能不使用环境变量，但被调用的外部程序可能会使用.</p></li>
+<li><p>调用外部程序：</p>
+<ul>
+<li>exec()函数家族，它们以不同的形式调用execve，直接运行程序.</li>
+<li>system()，先调用execl()，execl()最终调用execve()运行/bin/sh，然后通过shell运行程序.shell程序会继承环境变量.</li>
+</ul></li>
+<li><p>操作PATH变量进行攻击：shell运行命令而没有提供绝对路径时，它将使用PATH变量来找到该命令.</p></li>
+<li><p>例：正常的程序(vul.c)中存在<code>system("cal");</code>，通过操作路径变量，使shell将cal命令定位到自定义的cal程序(攻击者可在这个程序中继承环境变量，以root权限执行其他命令)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo <span class="hljs-built_in">chown</span> root vul.o<br>sudo <span class="hljs-built_in">chmod</span> 4755 vul.o<br>gcc cal.c -o cal<br><span class="hljs-built_in">export</span> PATH=.:<span class="hljs-variable">$PATH</span>	<span class="hljs-comment"># 将当前路径添加到PATH变量中</span><br>./vul.o<br></code></pre></td></tr></table></figure></li>
+<li><p>当在特权程序中调用外部程序时，应该使用execve()，不调用shell，因此不受环境变量的影响.</p></li>
+</ul>
+<h2 id="通过外部库攻击">2.3 通过外部库攻击</h2>
+<p>程序通常使用来自外部库的函数。如果这些函数使用环境变量，则它们会添加到攻击表面.</p>
+<h2 id="通过应用程序代码攻击">2.4 通过应用程序代码攻击</h2>
+<ul>
+<li>程序可以直接使用环境变量。如果这些是特权程序，它可能会导致不可信任的输入.</li>
+<li>当从shell执行命令时，将创建一个新的进程.shell使用shell变量设置这个新进程的环境变量PWD.因此，该值可以被用户篡改.如果这个程序是一个Set-UID，用户可以通过将PWD变量设置为一个任意的长字符串来利用它.攻击者可以进一步利用缓冲区溢出来获得特权.</li>
+</ul>
+<h2 id="服务方法">2.5 服务方法</h2>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310250937985.png" srcset="/img/loading.gif" lazyload
+alt="image-20231025093450923" />
+<figcaption aria-hidden="true">image-20231025093450923</figcaption>
+</figure>
+<ul>
+<li>Set-UID方法：普通用户必须运行一个特殊的程序才能临时获得根权限.不能信任环境变量.</li>
+<li>服务方法：普通用户必须请求特权服务才能为他们执行操作.可以信任环境变量.</li>
+<li>从功能的角度来看，Set-UID的性能更好。这是因为它不需要一个正在运行的后台进程；从安全的角度来看，Set-UID方法具有更广泛的攻击面.</li>
+</ul>
 
                 
               </div>
@@ -422,13 +400,6 @@ alt="image-20231031202521509" />
   <a href="/categories/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/" class="category-chain-item">网络攻防技术</a>
   
   
-    <span>></span>
-    
-  <a href="/categories/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/%E7%90%86%E8%AE%BA%E7%AF%87/" class="category-chain-item">理论篇</a>
-  
-  
-
-  
 
       </span>
     
@@ -446,8 +417,8 @@ alt="image-20231031202521509" />
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>CH5-Web安全-XSS攻击</div>
-      <div>http://example.com/2023/10/31/网络攻防技术/理论篇/05Web安全-XSS攻击/</div>
+      <div>CH4-软件漏洞-环境变量</div>
+      <div>http://example.com/2023/10/25/网络攻防技术/04软件漏洞-环境变量/</div>
     </div>
     <div class="license-meta">
       
@@ -459,7 +430,7 @@ alt="image-20231031202521509" />
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年10月31日</div>
+          <div>2023年10月25日</div>
         </div>
       
       
@@ -491,9 +462,9 @@ alt="image-20231031202521509" />
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/11/01/%E5%AE%89%E5%85%A8%E6%9C%8D%E5%8A%A1/Web%E6%B8%97%E9%80%8F/SQL%E6%B3%A8%E5%85%A5/" title="SQL注入">
+                      <a href="/2023/10/25/SEED-LABS/Software%20Security/Environment_Variable_and_SetUID/" title="Environment_Variable_and_SetUID">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">SQL注入</span>
+                        <span class="hidden-mobile">Environment_Variable_and_SetUID</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -501,8 +472,8 @@ alt="image-20231031202521509" />
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/10/31/SEED-LABS/Web%20Security/Cross-Site%20Scripting%20Attack%20Lab/" title="Cross-Site Scripting Attack Lab">
-                        <span class="hidden-mobile">Cross-Site Scripting Attack Lab</span>
+                      <a href="/2023/10/23/%E5%AE%89%E5%85%A8%E6%9C%8D%E5%8A%A1/Web%E6%B8%97%E9%80%8F/upload-labs/" title="upload-labs">
+                        <span class="hidden-mobile">upload-labs</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

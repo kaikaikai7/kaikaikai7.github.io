@@ -16,21 +16,21 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="3.1 概述 3.1.1 口令和身份认证  身份认证：用户向计算机系统以一种安全的方式提交自己的身份证明，然后由系统确认用户的身份是否属实，最终拒绝用户或者赋予用户一定的权限。 口令认证是身份认证的一种手段。 其他认证方式：磁卡或者智能卡认证 、基于人的生理特征认证、基于地理位置的认证 。 认证过程：   image-20230928144139441   3.1.2 口">
+    <meta name="description" content="4.1 概述 漏洞定义：可以被攻击利用的系统弱点 漏洞攻击过程：漏洞发现、漏洞分析、漏洞利用 漏洞造成后果：以匿名身份直接获取系统最高权限；从普通用户提升为管理员用户；实施远程拒绝服务攻击等 4.2 典型的漏洞类型 4.2.1 栈溢出 1.栈溢出原理 当程序运行时，计算机会在内存区域中开辟一段连续的内存块，包括代码段、数据段和堆栈段三部分。   image-2023101516">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CH3-口令攻击">
-<meta property="og:url" content="http://example.com/2023/09/28/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/%E7%90%86%E8%AE%BA%E7%AF%87/03%E5%8F%A3%E4%BB%A4%E6%94%BB%E5%87%BB/index.html">
+<meta property="og:title" content="CH4-软件漏洞-缓冲区溢出">
+<meta property="og:url" content="http://example.com/2023/10/15/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/04%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E-%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="3.1 概述 3.1.1 口令和身份认证  身份认证：用户向计算机系统以一种安全的方式提交自己的身份证明，然后由系统确认用户的身份是否属实，最终拒绝用户或者赋予用户一定的权限。 口令认证是身份认证的一种手段。 其他认证方式：磁卡或者智能卡认证 、基于人的生理特征认证、基于地理位置的认证 。 认证过程：   image-20230928144139441   3.1.2 口">
+<meta property="og:description" content="4.1 概述 漏洞定义：可以被攻击利用的系统弱点 漏洞攻击过程：漏洞发现、漏洞分析、漏洞利用 漏洞造成后果：以匿名身份直接获取系统最高权限；从普通用户提升为管理员用户；实施远程拒绝服务攻击等 4.2 典型的漏洞类型 4.2.1 栈溢出 1.栈溢出原理 当程序运行时，计算机会在内存区域中开辟一段连续的内存块，包括代码段、数据段和堆栈段三部分。   image-2023101516">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-09-28T06:32:07.000Z">
-<meta property="article:modified_time" content="2023-09-28T07:35:13.155Z">
+<meta property="article:published_time" content="2023-10-15T09:37:07.000Z">
+<meta property="article:modified_time" content="2023-11-15T01:30:33.583Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>CH3-口令攻击 - kaikaikai&#39;s blog</title>
+  <title>CH4-软件漏洞-缓冲区溢出 - kaikaikai&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -184,7 +184,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="CH3-口令攻击"></span>
+            <span id="subtitle" data-typed-text="CH4-软件漏洞-缓冲区溢出"></span>
           
         </div>
 
@@ -195,8 +195,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-09-28 14:32" pubdate>
-          2023年9月28日 下午
+        <time datetime="2023-10-15 17:37" pubdate>
+          2023年10月15日 下午
         </time>
       </span>
     
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k 字
+          2.7k 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          11 分钟
+          23 分钟
         
       </span>
     
@@ -255,101 +255,186 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">CH3-口令攻击</h1>
+            <h1 id="seo-header">CH4-软件漏洞-缓冲区溢出</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="概述">3.1 概述</h1>
-<h2 id="口令和身份认证">3.1.1 口令和身份认证</h2>
-<ul>
-<li><p>身份认证：用户向计算机系统以一种安全的方式提交自己的身份证明，然后由系统确认用户的身份是否属实，最终拒绝用户或者赋予用户一定的权限。</p></li>
-<li><p>口令认证是身份认证的一种手段。</p></li>
-<li><p>其他认证方式：磁卡或者智能卡认证
-、基于人的生理特征认证、基于地理位置的认证 。</p></li>
-<li><p>认证过程：</p>
+                <h1 id="概述">4.1 概述</h1>
+<p><strong>漏洞定义：</strong>可以被攻击利用的系统弱点</p>
+<p><strong>漏洞攻击过程：</strong>漏洞发现、漏洞分析、漏洞利用</p>
+<p><strong>漏洞造成后果：</strong>以匿名身份直接获取系统最高权限；从普通用户提升为管理员用户；实施远程拒绝服务攻击等</p>
+<h1 id="典型的漏洞类型">4.2 典型的漏洞类型</h1>
+<h2 id="栈溢出">4.2.1 栈溢出</h2>
+<h3 id="栈溢出原理">1.栈溢出原理</h3>
+<p>当程序运行时，计算机会在内存区域中开辟一段连续的内存块，包括代码段、数据段和堆栈段三部分。</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281533483.png" srcset="/img/loading.gif" lazyload
-alt="image-20230928144139441" />
-<figcaption aria-hidden="true">image-20230928144139441</figcaption>
-</figure></li>
-</ul>
-<h2 id="口令攻击的分类">3.1.2 口令攻击的分类</h2>
-<ul>
-<li>口令分类：
-<ul>
-<li>静态口令</li>
-<li>动态口令：加入不确定因子进行散列</li>
-</ul></li>
-<li>口令攻击分类：
-<ul>
-<li>针对口令强度的攻击</li>
-<li>针对口令存储的攻击：文件、缓存、数据库</li>
-<li>针对口令传输的攻击：在口令认证交互过程中，利用网络监听非法得到用户传送的口令</li>
-</ul></li>
-</ul>
-<h1 id="针对口令强度的攻击">3.2 针对口令强度的攻击</h1>
-<h2 id="强口令与弱口令">3.2.1 强口令与弱口令</h2>
-<ul>
-<li>较为安全的口令应该不容易被发现规律，并且有足够的长度。</li>
-<li>对长度的要求随应用环境的不同而不同，应该使得攻击者在某个时间段内很难破解</li>
-</ul>
-<h2 id="针对口令强度的攻击-1">3.2.2 针对口令强度的攻击</h2>
-<ul>
-<li><p>强力攻击：穷举法</p></li>
-<li><p>字典攻击：将使用概率较高的口令集中存放在字典文件中，通过不同的变异规则生成猜测字典。强力攻击的进阶版。</p></li>
-<li><p>组合攻击：强力攻击+字典攻击。如：字典单词尾部串接任意个字母和数字。</p></li>
-<li><p>撞库攻击：攻击者通过收集在网络上已泄露的用户名、口令等信息，之后用这些账号和口令尝试批量登录其他网站，最终得到可以登录这些网站的用户账号和口令。一般流程：拖库→洗库→撞库。</p></li>
-<li><p>彩虹表破解：指拿着获取到的hash值通过查询彩虹表找出其原始值的攻击方式。狭义上，彩虹表一般是指以“hash值:原始值”为行组成的文件，如下图所示。</p>
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310151742321.png" srcset="/img/loading.gif" lazyload
+alt="image-20231015162805933" />
+<figcaption aria-hidden="true">image-20231015162805933</figcaption>
+</figure>
+<p>程序在内存中的存放形式</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281533484.png" srcset="/img/loading.gif" lazyload
-alt="img" />
-<figcaption aria-hidden="true">img</figcaption>
-</figure></li>
-</ul>
-<h1 id="针对口令存储的攻击">3.3 针对口令存储的攻击</h1>
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310151742323.png" srcset="/img/loading.gif" lazyload
+alt="image-20231015163018123" />
+<figcaption aria-hidden="true">image-20231015163018123</figcaption>
+</figure>
 <ul>
-<li><p>不同系统的口令存储位置不同，有些存放在文件中，比如Linux系统的Shadow文件，Windows系统的SAM文件；有些存放在数据库中，比如Oracle数据库账户文件；有些则存放在注册表中，比如Windows平台下的许多应用软件。另外，在身份验证程序运行时，还会将口令或口令的密文加载到内存中，方便进行比较。</p></li>
-<li><p>Linux shadow文件：</p>
+<li>代码段(.text)：也称文本段(Text
+Segment)，存放着程序的机器码和只读数据，可执行指令就是从这里取得的，这个段在内存中一般被标记为只读，任何对该区的写操作都会导致段错误(Segmentation
+Fault)</li>
+<li>数据段：包括已初始化的数据段(.data)和未初始化的数据段(.bss)，前者用来存放保存全局的和静态的已初始化变量，后者用来保存全局的和静态的未初始化变量。数据段在编译时分配。</li>
+<li>堆（Heap）：向<strong>高</strong>地址扩展的数据结构，是不连续的内存区域。动态分配，其空间的分配和释放都由程序员控制。也就是说，堆的大小并不固定，可动态扩张或缩减，其分配由<code>malloc()</code>等这类实时内存分配函数来实现。当进程调用<code>malloc()</code>等函数分配内存时，新分配的内存就被动态添加到堆上（堆被扩张）；当利用<code>free()</code>等函数释放内存时，被释放的内存从堆中被剔除（堆被缩减）。</li>
+<li>栈（Stack）：向<strong>低</strong>地址扩展的数据结构，是一块连续的内存区域。一种用来存储函数调用时的临时信息的结构，如函数调用所传递的参数、函数的返回地址、函数的局部变量等。由编译器自动管理，其分配方式有两种：静态分配和动态分配。静态分配由编译器完成，比如局部变量的分配。动态分配由<code>alloca()</code>函数进行分配，但是栈的动态分配和堆是不同的，它的动态分配是由编译器进行释放，无需手工控制。</li>
+</ul>
+<p>实例：假设一个程序的函数调用顺序为：主函数main调用函数func1，函数func1调用函数func2。当这个程序被操作系统调入内存运行时，其对应的进程在内存中的映射结果如下图所示。进程的<strong>栈</strong>是由多个<strong>栈帧</strong>构成的，其中每个<strong>栈帧</strong>都对应一个<strong>函数调用</strong>。当调用函数时，新的栈帧被压入栈；当函数返回时，相应的栈帧从栈中弹出。各函数的栈帧大小随着函数的性质的不同而不等，由函数的局部变量的数目决定。
+由于需要将函数返回地址这样的重要数据保存在程序员可见的堆栈中，因此也给系统安全带来了极大的隐患。</p>
+<p>如果在堆栈中压入的数据超过预先给堆栈分配的容量时，就会出现堆栈溢出，从而使得程序运行失败；如果发生溢出的是大型程序还有可能会导致系统崩溃。</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309281535352.png" srcset="/img/loading.gif" lazyload
-alt="image-20230928153443475" />
-<figcaption aria-hidden="true">image-20230928153443475</figcaption>
-</figure></li>
-<li><p>salt用途：使用salt时，相同的输入可能导致不同的散列。密码散列=单向散列循环（密码|
-|随机字符串）。可以防止字典攻击、彩虹表攻击。</p></li>
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310151742324.png" srcset="/img/loading.gif" lazyload
+alt="image-20231015163904871" />
+<figcaption aria-hidden="true">image-20231015163904871</figcaption>
+</figure>
+<p><strong>栈帧：</strong>某个函数运行时，机器需要分配一定的内存去进行函数内的各种操作，这个过程中分配的那部分栈称为栈帧。下图描述了栈帧的通用结构。栈帧是一段有界限的内存区间，由最顶端的两个指针界定，寄存器%ebp为帧指针，而寄存器%esp为栈指针。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310151742325.png" srcset="/img/loading.gif" lazyload
+alt="image-20231015165704058" />
+<figcaption aria-hidden="true">image-20231015165704058</figcaption>
+</figure>
+<h3 id="函数调用机制">2.函数调用机制</h3>
+<ol type="1">
+<li><p><strong>从右至左</strong>依次把被调函数需要的参数压入栈</p></li>
+<li><p>使用call指令调用被调函数，并把call指令的下一条指令的地址作为返回地址压入栈中（该压栈操作隐含在call指令中）。call指令完成两项操作：一是将返回地址（call指令下一条指令地址）压入栈，二是跳转到调用函数入口处</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-keyword">call</span> 被调用函数地址<br><span class="hljs-meta"># 等价操作</span><br><span class="hljs-keyword">push</span> 返回地址<br><span class="hljs-keyword">jmp</span>  被调用函数地址<br></code></pre></td></tr></table></figure></li>
+<li><p>进入被调函数执行。被调函数会先保存调用者函数的栈底地址（<code>push ebp</code>），然后进行栈帧切换，把调用者函数的栈顶切换成被调函数的栈底，即调用函数的栈顶就是当前被调函数的栈底（<code>mov ebp，esp</code>）</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs x86asm"><span class="hljs-keyword">push</span> <span class="hljs-built_in">ebp</span><br><span class="hljs-keyword">mov</span> <span class="hljs-built_in">ebp</span>,<span class="hljs-built_in">esp</span><br></code></pre></td></tr></table></figure></li>
+<li><p>为局部变量和临时变量开辟存储空间。先定义的变量先入栈，后定义的变量后入栈。</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs x86asm"><span class="hljs-keyword">sub</span> <span class="hljs-built_in">esp</span>，xxx<br></code></pre></td></tr></table></figure></li>
+<li><p>函数调用返回</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs x86asm"># 恢复栈帧<br><span class="hljs-keyword">mov</span> <span class="hljs-built_in">esp</span>,<span class="hljs-built_in">ebp</span><br><span class="hljs-keyword">pop</span> <span class="hljs-built_in">ebp</span><br># 返回调用者函数执行<br><span class="hljs-keyword">ret</span>  # 等价于<span class="hljs-keyword">pop</span> <span class="hljs-built_in">eip</span><br></code></pre></td></tr></table></figure></li>
+</ol>
+<p>实例：C程序每条语句对寄存器的影响情况</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdio.h&gt;</span></span><br><br><span class="hljs-type">int</span> <span class="hljs-title function_">add</span><span class="hljs-params">(<span class="hljs-type">int</span> a, <span class="hljs-type">int</span> b)</span> &#123;<br>	<span class="hljs-keyword">return</span> a + b;<br>&#125;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span> &#123;<br>	<span class="hljs-type">int</span> i = <span class="hljs-number">10</span>;<br>	<span class="hljs-type">int</span> j = <span class="hljs-number">16</span>;<br>	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>, add(i, j));<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<table>
+
+<thead>
+<tr class="header">
+<th style="text-align: center;">汇编</th>
+<th style="text-align: center;">影响</th>
+<th style="text-align: center;">受影响的寄存器取值</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">mov dword ptr [i],0Ah</td>
+<td style="text-align: center;">EIP</td>
+<td style="text-align: center;">EIP = 00A818CC</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">mov dword ptr [j],10h</td>
+<td style="text-align: center;">EIP</td>
+<td style="text-align: center;">EIP = 00A818D3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">mov eax,dword ptr [j]</td>
+<td style="text-align: center;">EAX;EIP</td>
+<td style="text-align: center;">EAX = 00000010;EIP = 00A818D6</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">push eax</td>
+<td style="text-align: center;">ESP-4;EIP</td>
+<td style="text-align: center;">ESP = 00EFF958;EIP = 00A818D7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">mov ecx,dword ptr [i]</td>
+<td style="text-align: center;">ECX;EIP</td>
+<td style="text-align: center;">ECX = 0000000A;EIP = 00A818DA</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">push ecx</td>
+<td style="text-align: center;">ESP-4;EIP</td>
+<td style="text-align: center;">ESP = 00EFF954;EIP = 00A818DB</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">push ebp</td>
+<td style="text-align: center;">ESP-4;EIP</td>
+<td style="text-align: center;">ESP = 00EFF94C;EIP = 00A81771</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">mov ebp,esp</td>
+<td style="text-align: center;">EBP=ESP;EIP</td>
+<td style="text-align: center;">EBP = 00EFF94C;EIP = 00A81773</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">mov eax,dword ptr [a]</td>
+<td style="text-align: center;">EAX;EIP</td>
+<td style="text-align: center;">EAX = 0000000A;EIP = 00A81794</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">add eax,dword ptr [b]</td>
+<td style="text-align: center;">EAX;EIP</td>
+<td style="text-align: center;">EAX = 0000001A;EIP = 00A81797</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">mov esp,ebp</td>
+<td style="text-align: center;">ESP=EBP；EIP</td>
+<td style="text-align: center;">EIP = 00A817A9</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">pop ebp</td>
+<td style="text-align: center;">EBP;ESP+4;EIP</td>
+<td style="text-align: center;">EBP = 00B8F9CC;ESP = 00B8F8DC;EIP =
+00A817AA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">ret</td>
+<td style="text-align: center;">ESP+4;EIP</td>
+<td style="text-align: center;">ESP = 00B8F8E0;EIP = 00A818E0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">add esp,8</td>
+<td style="text-align: center;">ESP+8;EFL;EIP</td>
+<td style="text-align: center;">ESP = 00B8F8E8;EFL = 00000206;EIP =
+00A818E3</td>
+</tr>
+</tbody>
+</table>
+<h2 id="堆溢出">4.2.2 堆溢出</h2>
+<h2 id="格式化串漏洞">4.2.3 格式化串漏洞</h2>
+<h2 id="整型溢出">4.2.4 整型溢出</h2>
+<h2 id="释放再使用">4.2.5 释放再使用</h2>
+<h1 id="溢出漏洞利用原理">4.3 溢出漏洞利用原理</h1>
+<h2 id="溢出攻击的基本流程">4.3.1 溢出攻击的基本流程</h2>
+<ol type="1">
+<li>注入恶意数据</li>
+<li>溢出缓冲区</li>
+<li>重定向控制流</li>
+<li>执行有效载荷</li>
+</ol>
+<h2 id="溢出利用的关键技术">4.3.2 溢出利用的关键技术</h2>
+<ul>
+<li>溢出点定位</li>
+<li>覆盖执行控制地址</li>
+<li>覆盖异常处理结构</li>
+<li>跳转地址的确定</li>
+<li>Shellcode定位和跳转</li>
 </ul>
-<h1 id="针对口令传输的攻击">3.4 针对口令传输的攻击</h1>
-<h2 id="口令嗅探">3.4.1 口令嗅探</h2>
+<h1 id="漏洞利用保护机制">4.4 漏洞利用保护机制</h1>
 <ul>
-<li>如果主机B处于主机A和FTP通信的信道上，就可以“窃听到”合法的用户名及口令。</li>
-<li>802.3以太网是一种使用广播信道的网络，在以太网中所有通信都是广播的。</li>
-<li>网卡侦听模式：
-<ul>
-<li>广播模式</li>
-<li>组播模式</li>
-<li>普通模式</li>
-<li><strong>混杂模式</strong></li>
-</ul></li>
-</ul>
-<h2 id="键盘记录">3.4.2 键盘记录</h2>
-<ul>
-<li>硬件截获：修改主机的键盘接口。</li>
-<li>软件截获：监视操作系统处理键盘输入的接口，将来自键盘的数据记录下来。</li>
-</ul>
-<h2 id="网络钓鱼">3.4.3 网络钓鱼</h2>
-<p>“网络钓鱼（Phishing）”就是攻击者利用欺骗性的电子邮件和伪造的Web站点，骗取用户输入口令以及其他身份敏感信息。</p>
-<h2 id="重放攻击">3.4.4 重放攻击</h2>
-<ul>
-<li>指攻击者记录下当前的通讯流量，以后在适当的时候重发给通讯的某一方，达到欺骗的目的。</li>
-<li>分类：简单重放、反向重放。</li>
+<li>GS编译保护机制</li>
+<li>SafeSEH保护机制</li>
+<li>DEP机制</li>
+<li>ASLR机制</li>
 </ul>
 <p>参考教程：</p>
 <ol type="1">
-<li>https://www.cnblogs.com/lsdb/p/10038835.html</li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/186812518">一文理解缓冲区溢出
+- 知乎 (zhihu.com)</a></li>
+<li>https://blog.csdn.net/xbb224007/article/details/80106961</li>
 </ol>
 
                 
@@ -372,13 +457,6 @@ alt="image-20230928153443475" />
   <a href="/categories/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/" class="category-chain-item">网络攻防技术</a>
   
   
-    <span>></span>
-    
-  <a href="/categories/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/%E7%90%86%E8%AE%BA%E7%AF%87/" class="category-chain-item">理论篇</a>
-  
-  
-
-  
 
       </span>
     
@@ -396,8 +474,8 @@ alt="image-20230928153443475" />
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>CH3-口令攻击</div>
-      <div>http://example.com/2023/09/28/网络攻防技术/理论篇/03口令攻击/</div>
+      <div>CH4-软件漏洞-缓冲区溢出</div>
+      <div>http://example.com/2023/10/15/网络攻防技术/04软件漏洞-缓冲区溢出/</div>
     </div>
     <div class="license-meta">
       
@@ -409,7 +487,7 @@ alt="image-20230928153443475" />
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年9月28日</div>
+          <div>2023年10月15日</div>
         </div>
       
       
@@ -441,9 +519,9 @@ alt="image-20230928153443475" />
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/09/29/Python/Spider/Scrapy/Scrapy%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E4%B8%8E%E4%BB%8B%E7%BB%8D/" title="Scrapy基本使用与介绍">
+                      <a href="/2023/10/15/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%AE%9E%E8%B7%B5%E7%AF%87/XSS%E6%94%BB%E5%87%BB%E4%BB%A3%E7%A0%81%E6%A3%80%E6%B5%8B/" title="XSS攻击代码检测">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Scrapy基本使用与介绍</span>
+                        <span class="hidden-mobile">XSS攻击代码检测</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -451,8 +529,8 @@ alt="image-20230928153443475" />
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/09/28/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/%E5%AE%9E%E9%AA%8C%E7%AF%87/Nmap%E6%89%AB%E6%8F%8F%E5%B7%A5%E5%85%B7%E5%9F%BA%E7%A1%80/" title="Nmap扫描工具基础">
-                        <span class="hidden-mobile">Nmap扫描工具基础</span>
+                      <a href="/2023/10/14/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E5%AE%9E%E9%AA%8C%E7%AF%87/Chapter_3L/" title="Chapter_3L">
+                        <span class="hidden-mobile">Chapter_3L</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
