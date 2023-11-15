@@ -16,21 +16,21 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1. Burp介绍 简介： BurpSuite （简称Burp）是基于Java开发的Web安全领域的集成工具，被称为信息安全界的瑞士军刀，它包含Proxy、Intruder、Repeater、Decoder、Comparer等多个模块，模块间通过共享相互传递HTTP&#x2F;HTTPS消息数据包。 插件： BurpSuite可以使用三种语言编写的扩展插件：Java，Python和Ruby。除Ja">
+    <meta name="description" content="6.1 概述 6.1.1 TCP&#x2F;IP脆弱性 TCP&#x2F;IP协议在设计时缺乏有效的数据加密和身份鉴别机制，于是攻击者可通过伪造身份，实施假消息攻击来破坏正常的数据通信过程，以达到获取权限、窃取消息的目的。 6.1.2 假消息攻击概述 定义： 指攻击者利用网络协议的脆弱性或策略配置的缺陷，通过发送虚假的网络数据包，达到窃取敏感信息、欺骗认证过程，实施拒绝服务等目标的一种攻击方式。 模式：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="BurpSuite">
-<meta property="og:url" content="http://example.com/2023/11/13/%E5%AE%89%E5%85%A8%E6%9C%8D%E5%8A%A1/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7/BurpSuite/index.html">
+<meta property="og:title" content="CH6-假消息攻击">
+<meta property="og:url" content="http://example.com/2023/11/15/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/06%E5%81%87%E6%B6%88%E6%81%AF%E6%94%BB%E5%87%BB/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="1. Burp介绍 简介： BurpSuite （简称Burp）是基于Java开发的Web安全领域的集成工具，被称为信息安全界的瑞士军刀，它包含Proxy、Intruder、Repeater、Decoder、Comparer等多个模块，模块间通过共享相互传递HTTP&#x2F;HTTPS消息数据包。 插件： BurpSuite可以使用三种语言编写的扩展插件：Java，Python和Ruby。除Ja">
+<meta property="og:description" content="6.1 概述 6.1.1 TCP&#x2F;IP脆弱性 TCP&#x2F;IP协议在设计时缺乏有效的数据加密和身份鉴别机制，于是攻击者可通过伪造身份，实施假消息攻击来破坏正常的数据通信过程，以达到获取权限、窃取消息的目的。 6.1.2 假消息攻击概述 定义： 指攻击者利用网络协议的脆弱性或策略配置的缺陷，通过发送虚假的网络数据包，达到窃取敏感信息、欺骗认证过程，实施拒绝服务等目标的一种攻击方式。 模式：">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-11-13T07:51:18.000Z">
-<meta property="article:modified_time" content="2023-11-13T12:54:52.946Z">
+<meta property="article:published_time" content="2023-11-15T01:33:07.000Z">
+<meta property="article:modified_time" content="2023-11-15T03:44:43.346Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>BurpSuite - kaikaikai&#39;s blog</title>
+  <title>CH6-假消息攻击 - kaikaikai&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -184,7 +184,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="BurpSuite"></span>
+            <span id="subtitle" data-typed-text="CH6-假消息攻击"></span>
           
         </div>
 
@@ -195,8 +195,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-11-13 15:51" pubdate>
-          2023年11月13日 下午
+        <time datetime="2023-11-15 09:33" pubdate>
+          2023年11月15日 上午
         </time>
       </span>
     
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.3k 字
+          2.1k 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          19 分钟
+          18 分钟
         
       </span>
     
@@ -255,90 +255,140 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">BurpSuite</h1>
+            <h1 id="seo-header">CH6-假消息攻击</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="burp介绍">1. Burp介绍</h1>
-<p><strong>简介：</strong></p>
-<p>BurpSuite
-（简称Burp）是基于Java开发的Web安全领域的集成工具，被称为信息安全界的瑞士军刀，它包含Proxy、Intruder、Repeater、Decoder、Comparer等多个模块，模块间通过共享相互传递HTTP/HTTPS消息数据包。</p>
-<p><strong>插件：</strong></p>
-<p>BurpSuite可以使用三种语言编写的扩展插件：Java，Python和Ruby。除Java外，其它两种需要的扩展插件需要置运行环境。</p>
-<h1 id="burp功能模块">2. Burp功能模块</h1>
+                <h1 id="概述">6.1 概述</h1>
+<h2 id="tcpip脆弱性">6.1.1 TCP/IP脆弱性</h2>
+<p>TCP/IP协议在设计时缺乏有效的数据加密和身份鉴别机制，于是攻击者可通过伪造身份，实施假消息攻击来破坏正常的数据通信过程，以达到获取权限、窃取消息的目的。</p>
+<h2 id="假消息攻击概述">6.1.2 假消息攻击概述</h2>
+<p><strong>定义：</strong></p>
+<p>指攻击者利用网络协议的脆弱性或策略配置的缺陷，通过发送虚假的网络数据包，达到窃取敏感信息、欺骗认证过程，实施拒绝服务等目标的一种攻击方式。</p>
+<p><strong>模式：</strong></p>
 <ul>
-<li>Target：显示目标目录结构的一个功能</li>
-<li>Proxy：Proxy以拦截代理的方式，拦截所有通过代理的HTTP和HTTPS协议的流量。通过拦截，BurpSuite以中间人的方式，可以对客户端请求数据、服务端返回做各种处理，以达到安全评估测试的目的。</li>
-<li>lntruder：lntruder在原始请求数据的基础上，通过修改各种请求参数，以获取不同的请求应答。每一次请求中，Intruder通常会携带一个或多个有效攻击载荷，在不同的位置进行攻击重放，通过应答数据的比对分析来获得需要的特征数据。</li>
-<li>Repeater：作为BurpSuite中一款手工验证HTTP消息的测试工具，Repeater通常用于多次重放请求响应和手工修改请求消息及修改后对服务器端响应的消息分析。</li>
-<li>Sequencer：作为BurpSuite中一款用于检测数据样本随机性质量的工具，Sequencer通常用于检测访问令牌是否可预测、密码重置令牌是否可预测等场景，通过Sequencer的数据样本分析，能很好地降低这些关键数据被伪造的风险。</li>
-<li>Decoder：作为BurpSuite中一款编码解码工具，Decoder的功能比较简单，它能对原始数据进行各种编码格式和散列的转换。</li>
-<li>Comparer：Comparer在BurpSuite中主要提供一个可视化的差异比对功能，来对比分析两次数据之间的区别。</li>
+<li>主动攻击：指攻击者利用网络协议中存在的脆弱性，主动向被攻击主机发送一些经过篡改和伪造的数据包。
+<ul>
+<li>针对数据链路层的攻击：ARP欺骗攻击</li>
+<li>针对网络层的攻击：ICMP路由重定向攻击</li>
+<li>针对传输层的攻击：IP欺骗攻击</li>
+<li>针对应用层的攻击：DNS欺骗攻击</li>
+</ul></li>
+<li>中间人攻击：指攻击者介入通信双方的信道中，以中间人的身份转发双方的通信数据，达到既能获取也能篡改通信内容的目的。</li>
 </ul>
-<h1 id="proxy模块">3. Proxy模块</h1>
-<p><strong>HTTP报文抓取与修改：</strong></p>
+<h1 id="网络嗅探">6.2 网络嗅探</h1>
+<p>网络嗅探：指使用嗅探程序对网络数据流进行截获与分析</p>
+<h2 id="网络嗅探的原理与实现">6.2.1 网络嗅探的原理与实现</h2>
 <ol type="1">
-<li>设置BurpSuite代理服务端口</li>
-<li>设置FireFox浏览器代理端口</li>
-<li>抓取HTTP请求报文</li>
+<li><p><strong>网卡及局域网的工作原理</strong></p>
+<p>网卡收到传输来的数据时，网卡驱动程序先分析数据包头部的目的MAC地址，根据驱动程序设置的接收模式判断是否应该接收，如果接收则产生中断信号通知CPU进行接收处理；如果不接受则直接丢弃。CPU得到中断信号后产生中断，操作系统会根据中断程序地址调用驱动程序接收数据，之后放入系统堆栈以方便操作系统处理。</p>
+<p>网卡工作模式：</p>
+<ul>
+<li>广播模式：能够接收网络中的广播信息</li>
+<li>组播模式：能够接收组播数据</li>
+<li>普通模式：只有目的网卡才能接收该数据</li>
+<li>混杂模式：接收一切通过它的数据</li>
+</ul>
+<p>正常情况下，网卡只处于广播模式和普通模式。</p></li>
+<li><p><strong>共享式局域网中的嗅探</strong></p>
+<p>共享式局域网：在共享式局域网中，当一个数据包到来时，Hub先接收数据，，然后把它接收到的数据发送到<strong>其他所有</strong>接口。因此，在共享式局域网中，同一个网段的所有网络接口都有能力访问在物理媒体上传输的所有数据。</p>
+<p>嗅探器的组成：</p>
+<ul>
+<li>网络数据驱动：从网卡取得数据包或者根据过滤规则取出数据包的子集，再转交给上层分析模块</li>
+<li>协议解码：将数据按照网络层次逐层剥去协议头部，并分析出每一层数据的含义</li>
+<li>缓冲区管理：当网络捕获速度大于协议分析速度时，存放捕获的网络数据</li>
+</ul></li>
+<li><p><strong>交换网络中的嗅探</strong></p>
+<p>交换机工作原理：</p>
+<ul>
+<li>从某一接口收到一个帧（广播帧除外）时，将执行两个动作</li>
+<li>如果该帧的目的MAC地址未出现在接口映射表中，将该帧发送到<strong>其他所有</strong>节点，相当于该帧是一个广播帧，并把该MAC地址加入表中，这样以后就知道该MAC地址在哪一个节点</li>
+<li>如果该帧的目的MAC地址已经在接口映射表中，则将该帧发送到对应的端口，不必像Hub集线器那样将该帧发送到所有端口</li>
+</ul>
+<p>交换网络中实现嗅探的方法：</p>
+<ul>
+<li>MAC泛洪：发送大量含有虚构MAC地址和IP地址的IP包，致使交换机进入“打开失效”模式</li>
+<li>MAC欺骗：将源MAC地址伪造成目标主机的源MAC地址</li>
+<li>ARP欺骗</li>
+</ul></li>
 </ol>
-<p><strong>HTTPS报文抓取与修改：</strong></p>
+<h2 id="网络嗅探与协议还原">6.2.2 网络嗅探与协议还原</h2>
 <ol type="1">
-<li>设置BurpSuite代理服务端口</li>
-<li>设置FireFox浏览器代理端口</li>
-<li>下载CA证书<code>http://burp</code></li>
-<li>浏览器中导入CA证书</li>
-<li>抓取HTTPS请求报文</li>
+<li><p><strong>主机封包：</strong></p>
+<p>当一个数据包从一个主机送出时，应用层会首先准备好相应的应用层数据，而后由操作系统为数据装配正确的TCP报文头和IP包头，最后由网络接口设备装配好帧头发送到通信介质上。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311151142505.jpg" srcset="/img/loading.gif" lazyload
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure></li>
+<li><p><strong>嗅探器抓包</strong></p>
+<p>当嗅探器对网络进行监听，尤其是在网络流量较大时，通过网卡监听到的通常是一串无序的数据包。嗅探器通常不区分这些数据，统统交给上层的协议解码模块处理，由它完成组包工作。</p></li>
+<li><p><strong>嗅探器组包</strong></p>
+<p>主机组包：与封包相反，首先由网络接口设备处理帧头，再由操作系统剥去IP头和TCP头，并将之交给相应的应用程序。</p>
+<p>嗅探器组包：原理同主机组包一致，但无法借助操作系统，只能自己完成。依据各层协议规范对多个数据包进行解码和组包的过程。</p></li>
 </ol>
-<h1 id="repeater模块">4. Repeater模块</h1>
+<h2 id="嗅探器的检测与防范">6.2.3 嗅探器的检测与防范</h2>
+<p><strong>检测：</strong></p>
 <ul>
-<li>修改请求参数，验证输入的漏洞</li>
-<li>修改请求参数，验证逻辑越权</li>
-<li>从拦截历史记录中，捕获特征性的请求消息进行请求重放</li>
+<li>网络通信丢包率</li>
+<li>检测嗅探器发出的数据包</li>
+<li>检测主机对特殊数据的相应</li>
 </ul>
-<h1 id="intruder模块">5. Intruder模块</h1>
-<p><strong>攻击模式：</strong></p>
+<p><strong>防范：</strong></p>
 <ul>
-<li>狙手模式（Sniper）：单payload位置，单payload集合，简单替换，若有多个payload位置，则会在每一个位置上遍历一次payload集合。</li>
-<li>攻城锤模式（Battering
-ram）：多payload位置，单payload集合，在多个位置上使用相同的payload。</li>
-<li>草叉模式（Pitchfork)︰多payload位置，多payload集合，在每个payload位置上遍历对应的payload集合，攻击次数为最短的payload集合的元素个数。</li>
-<li>集束炸弹模式（Cluster
-bomb）：多payload位置，多payload集合，以多个payload集合的笛卡尔积作为攻击序列。如第一个位置的payload集合是{A,B}，第二格位置的payload集合是{C,D}，则攻击序列为{&lt;A,C&gt;，&lt;A,D&gt;,&lt;B,C&gt;，B,D&gt;}</li>
+<li>网络分段：嗅探器只能在当前网络段上进行数据捕获</li>
+<li>会话加密</li>
+<li>使用静态的ARP缓存</li>
 </ul>
-<p><strong>payload类型:</strong></p>
+<h1 id="arp欺骗攻击">6.3 ARP欺骗攻击</h1>
+<h2 id="arp欺骗原理与应用">6.3.1 ARP欺骗原理与应用</h2>
+<ol type="1">
+<li><p><strong>MAC地址</strong></p>
+<p>48比特的二进制数：前面24比特分配给网卡的生产厂商，后24比特由厂商自行指派。</p></li>
+<li><p><strong>ARP协议和数据包格式</strong></p>
+<p>ARP：地址解析协议，用于实现IP地址与对应的MAC地址的相互转换</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311151142507.jpg" srcset="/img/loading.gif" lazyload
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure></li>
+<li><p><strong>ARP工作过程</strong>：请求应答</p>
 <ul>
-<li>简单列表（Simple
-list）：最简单的payload类型，配置一个字符串列表作为payload，也可以手工添加字符串列表或从文件加载字符串列表。</li>
-<li>运行时文件（Runtime
-file）：指定文件，作为相对应payload位置上的payload列表。</li>
-<li>自定义迭代器(Custom
-iterator)：它共有8个占位，每个占位可以定义一个简单列表，最终所使用的payload为每一个占位的简单列表的笛卡儿积。</li>
-<li>字符串替换（Character
-substitution)：对预定义的字符串进行“枚举替换”后生成新的payload。</li>
-<li>递归提取(Recursive
-grep）：从服务器端提取有效数据的场景，需要先从服务器的响应中提取数据作为payload，然后替换payload的位置，进行攻击。递归的配置需要进入Options-&gt;Grep-&gt;Extract进行配置；使用该模式时，线程数必须为1。</li>
-<li>字符块（Character
-blocks）︰：使用一个给出的输入字符串，根据指定的设置产生指定大小的字符块，表现形式为生成指定长度的字符串。</li>
-<li>数字类型（Number)：根据配置，生成一系列的数字作为payload。</li>
-<li>日期类型（Dates）:根据配置，生成一系列的日期。</li>
-<li>暴力字典（Brute
-forcer）:生成包含一个指定的字符集的所有排列特定长的有效载荷，通常用于枚举字典的生成。</li>
-<li>空类型(Null payloads）︰产生的payload其值是一个空字符串。</li>
-<li>payload复制（Copy other
-payload）:这种类型的payload是将其他位置的参数复制到payload位置上。</li>
-</ul>
-<p><strong>Option子选项卡：</strong></p>
+<li>ARP缓存</li>
+<li>响应ARP请求的主机会缓存请求者的MAC和IP映射</li>
+<li>主动的ARP应答会被视为有效信息而被目的主机接受</li>
+</ul></li>
+<li><p><strong>ARP欺骗的实现</strong></p>
+<p>基于ARP缓存更新原理实现</p></li>
+</ol>
+<h2 id="arp欺骗的防范">6.3.2 ARP欺骗的防范</h2>
 <ul>
-<li>请求消息头设置(Request Headers）</li>
-<li>请求引擎设置（Request Engine)</li>
-<li>攻击结果设置（Attack Results）</li>
-<li>正则匹配（Grep Match)</li>
-<li>正则提取（Grep Extract)</li>
-<li>正则匹配payload（Grep payloads）</li>
-<li>重定向(Redirections）</li>
+<li>建立DHCP服务器</li>
+<li>建立MAC数据库</li>
+<li>网关关闭ARP动态刷新</li>
+<li>网关监听网络安全</li>
+<li>使用VLAN或PVLAN技术</li>
 </ul>
+<h1 id="icmp路由重定向攻击">6.4 ICMP路由重定向攻击</h1>
+<h2 id="icmp路由重定向原理">6.4.1 ICMP路由重定向原理</h2>
+<p><strong>ICMP重定向报文：</strong></p>
+<p>当路由器检测到一台机器使用非优化路由时，它会向该主机发送一个ICMP重定向报文，请求主机改变路由，路由器也会把初始数据包向它的目的地转发。</p>
+<p><strong>主机接受ICMP报文条件：</strong></p>
+<ul>
+<li>新路由必须是直达的</li>
+<li>重定向包必须来自主机去往目的主机的当前路由</li>
+<li>重定向包不能通知主机用自己做路由</li>
+<li>被改变的路由必须是一条间接路由</li>
+</ul>
+<p><strong>安全性问题：</strong></p>
+<p>ICMP重定向报文没有设置身份认证，任何主机都可以冒充路由器发送该报文。</p>
+<p><strong>攻击范围：</strong></p>
+<p>局域网内，用来改变目标主机与外界主机的一对一路由</p>
+<h2 id="icmp路由重定向的防范">6.4.2 ICMP路由重定向的防范</h2>
+<p>配置操作系统拒收ICMP重定向报文</p>
 
                 
               </div>
@@ -357,15 +407,8 @@ payload）:这种类型的payload是将其他位置的参数复制到payload位�
     
       <span class="category-chain">
         
-  <a href="/categories/%E5%AE%89%E5%85%A8%E6%9C%8D%E5%8A%A1/" class="category-chain-item">安全服务</a>
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/" class="category-chain-item">网络攻防技术</a>
   
-  
-    <span>></span>
-    
-  <a href="/categories/%E5%AE%89%E5%85%A8%E6%9C%8D%E5%8A%A1/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7/" class="category-chain-item">渗透测试工具</a>
-  
-  
-
   
 
       </span>
@@ -384,8 +427,8 @@ payload）:这种类型的payload是将其他位置的参数复制到payload位�
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>BurpSuite</div>
-      <div>http://example.com/2023/11/13/安全服务/渗透测试工具/BurpSuite/</div>
+      <div>CH6-假消息攻击</div>
+      <div>http://example.com/2023/11/15/网络攻防技术/06假消息攻击/</div>
     </div>
     <div class="license-meta">
       
@@ -397,7 +440,7 @@ payload）:这种类型的payload是将其他位置的参数复制到payload位�
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年11月13日</div>
+          <div>2023年11月15日</div>
         </div>
       
       
@@ -429,18 +472,12 @@ payload）:这种类型的payload是将其他位置的参数复制到payload位�
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/11/15/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E6%8A%80%E6%9C%AF/06%E5%81%87%E6%B6%88%E6%81%AF%E6%94%BB%E5%87%BB/" title="CH6-假消息攻击">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">CH6-假消息攻击</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/11/13/%E5%AE%89%E5%85%A8%E6%9C%8D%E5%8A%A1/Web%E6%B8%97%E9%80%8F/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/" title="逻辑漏洞">
-                        <span class="hidden-mobile">逻辑漏洞</span>
+                      <a href="/2023/11/13/%E5%AE%89%E5%85%A8%E6%9C%8D%E5%8A%A1/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7/BurpSuite/" title="BurpSuite">
+                        <span class="hidden-mobile">BurpSuite</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
