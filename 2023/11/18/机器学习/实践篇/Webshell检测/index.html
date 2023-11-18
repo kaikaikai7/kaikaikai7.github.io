@@ -1,0 +1,777 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="kaikaikai">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Code 1. 特征处理和模型训练 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Webshell检测">
+<meta property="og:url" content="http://example.com/2023/11/18/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%AE%9E%E8%B7%B5%E7%AF%87/Webshell%E6%A3%80%E6%B5%8B/index.html">
+<meta property="og:site_name" content="kaikaikai&#39;s blog">
+<meta property="og:description" content="Code 1. 特征处理和模型训练 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-11-18T08:41:02.000Z">
+<meta property="article:modified_time" content="2023-11-18T09:05:16.800Z">
+<meta property="article:author" content="kaikaikai">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Webshell检测 - kaikaikai&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>kaikaikai&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Webshell检测"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-11-18 16:41" pubdate>
+          2023年11月18日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          55 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Webshell检测</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="code">Code</h1>
+<h2 id="特征处理和模型训练">1. 特征处理和模型训练</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> zipfile<br><span class="hljs-keyword">from</span> sklearn.metrics <span class="hljs-keyword">import</span> roc_curve, auc<br><span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> metrics<br><span class="hljs-keyword">import</span> joblib<br><span class="hljs-keyword">from</span> sklearn.feature_extraction.text <span class="hljs-keyword">import</span> CountVectorizer, TfidfTransformer<br><span class="hljs-keyword">from</span> sklearn.metrics <span class="hljs-keyword">import</span> classification_report, confusion_matrix<br><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split<br><span class="hljs-keyword">from</span> sklearn.naive_bayes <span class="hljs-keyword">import</span> GaussianNB<br><span class="hljs-keyword">from</span> sklearn.neural_network <span class="hljs-keyword">import</span> MLPClassifier<br><span class="hljs-keyword">from</span> xgboost <span class="hljs-keyword">import</span> XGBClassifier<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">model_collection</span>(<span class="hljs-params">mode</span>):<br>    <span class="hljs-keyword">if</span> mode == <span class="hljs-string">&#x27;mlp&#x27;</span>:<br>        <span class="hljs-comment"># 返回一个多层感知机（MLP）分类器对象</span><br>        <span class="hljs-comment"># 参数包括 solver（优化算法）、alpha（L2正则化参数）、hidden_layer_sizes（隐藏层的神经元数量）</span><br>        <span class="hljs-keyword">return</span> MLPClassifier(solver=<span class="hljs-string">&quot;lbfgs&quot;</span>, alpha=<span class="hljs-number">1e-5</span>, hidden_layer_sizes=(<span class="hljs-number">5</span>, <span class="hljs-number">2</span>), random_state=<span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">if</span> mode == <span class="hljs-string">&#x27;xgb&#x27;</span>:<br>        <span class="hljs-comment"># 返回一个XGBoost分类器对象</span><br>        <span class="hljs-keyword">return</span> XGBClassifier(eval_metric=<span class="hljs-string">&#x27;error&#x27;</span>)<br>    <span class="hljs-keyword">if</span> mode == <span class="hljs-string">&#x27;gnb&#x27;</span>:<br>        <span class="hljs-comment"># 返回一个高斯朴素贝叶斯（Gaussian Naive Bayes）分类器对象</span><br>        <span class="hljs-keyword">return</span> GaussianNB()<br><br><span class="hljs-comment"># 函数功能：从指定的 ZIP 文件中读取所有以 .php 结尾的文件，并将每个文件的内容以字符串形式存储在一个列表中</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">read_file_from_zip</span>(<span class="hljs-params">zip_file, file_extension=<span class="hljs-string">&quot;.php&quot;</span></span>):<br>    text_list = []<br>    <span class="hljs-keyword">with</span> zipfile.ZipFile(zip_file, <span class="hljs-string">&#x27;r&#x27;</span>) <span class="hljs-keyword">as</span> z:<br>        file_list = [name <span class="hljs-keyword">for</span> name <span class="hljs-keyword">in</span> z.namelist() <span class="hljs-keyword">if</span> name.endswith(file_extension)]<br>        <span class="hljs-keyword">for</span> file_name <span class="hljs-keyword">in</span> file_list:<br>            <span class="hljs-keyword">with</span> z.<span class="hljs-built_in">open</span>(file_name) <span class="hljs-keyword">as</span> f:<br>                text = f.read().decode(<span class="hljs-string">&#x27;utf-8&#x27;</span>, <span class="hljs-string">&#x27;ignore&#x27;</span>)<br>                text_list.append(text)<br>    <span class="hljs-keyword">return</span> text_list<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">features_process</span>(<span class="hljs-params">negative_zip, positive_zip, max_features</span>):<br>    <span class="hljs-comment"># 读取黑样本文件内容</span><br>    webshell_texts = read_file_from_zip(negative_zip)<br>    <span class="hljs-comment"># 读取白样本文件内容</span><br>    normal_texts = read_file_from_zip(positive_zip)<br>    <span class="hljs-comment"># 统计样本数量</span><br>    webshell_number = <span class="hljs-built_in">len</span>(webshell_texts)<br>    normal_number = <span class="hljs-built_in">len</span>(normal_texts)<br>    <span class="hljs-comment"># 合并文本和标签</span><br>    texts = webshell_texts + normal_texts<br>    webshell_labels = [<span class="hljs-number">1</span>] * webshell_number<br>    normal_labels = [<span class="hljs-number">0</span>] * normal_number<br>    labels = webshell_labels + normal_labels<br>    <span class="hljs-comment"># 输出样本数量信息</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;白样本总量：%i&quot;</span> % normal_number)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;黑样本总量：%i&quot;</span> % webshell_number)<br>    <br>    <span class="hljs-comment"># CountVectorizer 是 Scikit-learn 库中用于将文本数据转换为词频矩阵的工具</span><br>    count_vectorizer = CountVectorizer(ngram_range=(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>), decode_error=<span class="hljs-string">&quot;ignore&quot;</span>,<br>                                       min_df=<span class="hljs-number">1</span>, analyzer=<span class="hljs-string">&quot;word&quot;</span>,<br>                                       token_pattern=<span class="hljs-string">r&#x27;[^\w\s]+|\b\w+\b&#x27;</span>,<br>                                       max_features=max_features)<br>    <span class="hljs-comment"># 创建一个 TF-IDF 转换器的实例。smooth_idf 参数控制是否应用平滑化（默认为 True）。在这里，设置为 False 表示不进行平滑化。</span><br>    tfidf_transformer = TfidfTransformer(smooth_idf=<span class="hljs-literal">False</span>)<br>    <span class="hljs-comment"># 将文本数据 texts 转换为词频矩阵</span><br>    cv_x = count_vectorizer.fit_transform(texts).toarray()<br>    <span class="hljs-comment"># TfidfTransformer 是 Scikit-learn 库中用于将词频矩阵转换为 TF-IDF（Term Frequency-Inverse Document Frequency，词频-逆文档频率） 矩阵的工具。</span><br>    tf_x = tfidf_transformer.fit_transform(cv_x).toarray()<br><br>    <span class="hljs-keyword">return</span> tf_x, labels, count_vectorizer, tfidf_transformer<br><br><br><span class="hljs-comment"># 用于评估模型的性能并输出相关结果</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">evaluation</span>(<span class="hljs-params">y_test, y_pred, title</span>):<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;title&#125;</span> 模型评估结果：&quot;</span>)<br>    <span class="hljs-comment"># 打印模型准确率</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;准确率:%s&quot;</span> % metrics.accuracy_score(y_test, y_pred))<br>    <span class="hljs-comment"># 打印模型精确率</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;精确率:%s&quot;</span> % metrics.precision_score(y_test, y_pred))<br>    <span class="hljs-comment"># 打印混淆矩阵</span><br>    <span class="hljs-built_in">print</span>(confusion_matrix(y_test, y_pred))<br>    <span class="hljs-comment"># # 打印分类报告</span><br>    <span class="hljs-comment"># print(classification_report(y_test, y_pred))</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">train_and_save_model</span>(<span class="hljs-params">train_set, labels, mode, seed</span>):<br>    <span class="hljs-comment"># 将数据集划分为训练集和测试集</span><br>    x_train, x_test, y_train, y_test = train_test_split(train_set, labels, test_size=<span class="hljs-number">0.3</span>, random_state=seed)<br>    <span class="hljs-comment"># 使用 model_collection 函数根据模型类型创建分类器（clf）</span><br>    clf = model_collection(mode)<br>    <span class="hljs-comment"># 使用训练集训练模型</span><br>    clf.fit(x_train, y_train)<br>    <span class="hljs-comment"># 评估模型性能</span><br>    evaluation(y_test, clf.predict(x_test), mode)<br>    <span class="hljs-comment"># 保存模型</span><br>    model_name = <span class="hljs-string">f&quot;work/<span class="hljs-subst">&#123;mode&#125;</span>_model.pkl&quot;</span><br>    joblib.dump(clf, model_name, compress=<span class="hljs-number">3</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;mode&#125;</span> 模型已保存到 <span class="hljs-subst">&#123;model_name&#125;</span>&quot;</span>)<br><br><span class="hljs-comment"># 数据集路径</span><br>positive_zip = <span class="hljs-string">&quot;data/data61842/php-benign.zip&quot;</span><br>negative_zip = <span class="hljs-string">&quot;data/data61842/php-webshell.zip&quot;</span><br><br><span class="hljs-comment"># 参数</span><br><span class="hljs-comment"># 特征维度影响模型性能，高维度可能导致过拟合和计算成本增加，适当选择和处理特征能提升模型的泛化能力</span><br><span class="hljs-comment"># 设置随机种子保证实验可复现，确保每次运行相同的随机性操作得到一致的结果</span><br>max_features = <span class="hljs-number">25000</span><br>seed = <span class="hljs-number">777</span>  <br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;初始化参数：&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;白样本路径：%s&quot;</span> % positive_zip)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;黑样本路径：%s&quot;</span> % negative_zip)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;随机种子：%s&quot;</span> % seed)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;特征维度：%s&quot;</span> % max_features)<br><br><span class="hljs-comment"># s_time 变量被赋值为当前时间戳，表示开始时间（start time）</span><br>s_time = time.time()<br><br><span class="hljs-comment"># 特征处理</span><br>x, y,count_vectorizer, tfidf_transformer = features_process(negative_zip, positive_zip, max_features)<br><br><span class="hljs-comment"># 训练和保存模型</span><br>train_and_save_model(x, y, <span class="hljs-string">&#x27;mlp&#x27;</span>, seed)<br>train_and_save_model(x, y, <span class="hljs-string">&#x27;xgb&#x27;</span>, seed)<br>train_and_save_model(x, y, <span class="hljs-string">&#x27;gnb&#x27;</span>, seed)<br><br><span class="hljs-comment"># e_time 变量被赋值为当前时间戳，表示结束时间（end time）</span><br>e_time = time.time()<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;训练总耗时：%s&quot;</span> % <span class="hljs-built_in">str</span>(e_time - s_time))<br></code></pre></td></tr></table></figure>
+<h2 id="模型测试">2. 模型测试</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">evaluate_php_file</span>(<span class="hljs-params">file_path, model_path</span>):<br>    <span class="hljs-comment"># 加载训练好的模型</span><br>    clf = joblib.load(model_path)<br><br>    <span class="hljs-comment"># 读取用户提供的 PHP 文件内容</span><br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(file_path, <span class="hljs-string">&#x27;r&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>) <span class="hljs-keyword">as</span> file:<br>        user_php_content = file.read()<br><br>    <span class="hljs-comment"># Fit and transform the CountVectorizer on the user-provided content</span><br>    user_features = count_vectorizer.transform([user_php_content]).toarray()<br><br>    <span class="hljs-comment"># 使用模型进行预测</span><br>    prediction = clf.predict(tfidf_transformer.transform(user_features))<br><br>    <span class="hljs-keyword">if</span> prediction[<span class="hljs-number">0</span>] == <span class="hljs-number">0</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;用户提供的 PHP 文件是安全的。&quot;</span><br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;用户提供的 PHP 文件可能包含恶意代码。&quot;</span><br><br><span class="hljs-comment"># 使用示例</span><br>file_path = <span class="hljs-string">&quot;work/file.php&quot;</span><br>model_path = <span class="hljs-string">&quot;work/xgb_model.pkl&quot;</span><br><br>result = evaluate_php_file(file_path, model_path)<br><span class="hljs-built_in">print</span>(result)<br></code></pre></td></tr></table></figure>
+<h1 id="doc">Doc</h1>
+<h2 id="概述">1. 概述</h2>
+<h3 id="实验目的">1.1 实验目的</h3>
+<p>本实验旨在设计和构建一个用于WebShell检测的机器学习模型。通过该实验，我们需要验证不同分类器在WebShell检测任务上的性能，包括多层感知机（MLP），XGBoost，和高斯朴素贝叶斯（Gaussian
+Naive Bayes），并找到在给定数据集上表现最佳的模型。</p>
+<h3 id="数据集">1.2 数据集</h3>
+<p>高质量的训练样本是决定模型好坏的先决条件。本实验使用两个数据集进行训练和评估：正常php文件(PHP-benign)和WebShell(PHP-webshell)的数据集。这两个数据集分别储存在<code>php-benign.zip</code>和<code>php-webshell.zip</code>文件中。</p>
+<h2 id="实验记录">2. 实验记录</h2>
+<h3 id="初始化参数">2.1 初始化参数</h3>
+<p>实验开始时，我们设置了关键参数，包括白样本路径、黑样本路径、随机种子和特征维度。这些参数对于实验的可复现性和性能调整至关重要。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311181704366.png" srcset="/img/loading.gif" lazyload
+alt="image-20231118164750596" />
+<figcaption aria-hidden="true">image-20231118164750596</figcaption>
+</figure>
+<h3 id="特征处理">2.2 特征处理</h3>
+<ol type="1">
+<li><strong>文本预处理：</strong>
+首先，对于每个以<code>.php</code>结尾的文件，我们进行了文本预处理操作。这包括将文件内容以字符串形式读取，并对其进行UTF-8解码，以确保文本数据的一致性和正确性。此外，我们使用了忽略非法字符的策略，处理可能存在的非法字符。</li>
+<li><strong>文本分词与标记化：</strong>
+通过CountVectorizer，我们将文本数据进行分词和标记化。具体而言，我们使用了n-gram模型，设置ngram_range=(2,
+2)，以考虑相邻的2个词语，更好地捕捉潜在的特征。此外，我们通过正则表达式<code>token_pattern=r'[^\w\s]+|\b\w+\b'</code>进行标点符号和空格的处理，以保留有效的文本信息。</li>
+<li><strong>词频矩阵转换：</strong>
+利用CountVectorizer将文本数据转换为词频矩阵，该矩阵表示每个文档中词语的出现频率。我们设置了<code>max_features</code>参数，限制了词频矩阵中特征的数量，以避免高维度可能导致的过拟合和计算成本增加问题。</li>
+<li><strong>TF-IDF转换：</strong>
+进一步，通过TF-IDF转换器，我们将词频矩阵转换为TF-IDF矩阵。TF-IDF考虑了词语在整个语料库中的重要性，对高频词进行了降权，从而更好地捕捉文档中关键词的信息。</li>
+</ol>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311181704367.png" srcset="/img/loading.gif" lazyload
+alt="image-20231118164110441" />
+<figcaption aria-hidden="true">image-20231118164110441</figcaption>
+</figure>
+<h3 id="分类器选择">2.3 分类器选择</h3>
+<p>本实验选择了三种不同类型的分类器进行比较：</p>
+<ol type="1">
+<li><strong>多层感知机（MLP）：</strong>
+通过<code>MLPClassifier</code>实现，MLP是一种深度学习模型，适用于复杂的非线性关系。</li>
+<li><strong>XGBoost：</strong>
+通过<code>XGBClassifier</code>实现，XGBoost是一种基于梯度提升树的机器学习算法，在处理复杂数据集和特征时表现出色。</li>
+<li><strong>高斯朴素贝叶斯（Gaussian Naive Bayes）：</strong>
+通过<code>GaussianNB</code>实现，朴素贝叶斯是一种基于贝叶斯定理的统计分类器，适用于特征之间相互独立的情况。</li>
+</ol>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311181704368.png" srcset="/img/loading.gif" lazyload
+alt="image-20231118164537948" />
+<figcaption aria-hidden="true">image-20231118164537948</figcaption>
+</figure>
+<h3 id="模型训练">2.4 模型训练</h3>
+<p>利用<code>train_and_save_model</code>函数，我们将数据集划分为训练集和测试集，并使用不同的分类器进行模型训练。最后，保存了训练好的模型，方便后续使用。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311181704369.png" srcset="/img/loading.gif" lazyload
+alt="image-20231118164934553" />
+<figcaption aria-hidden="true">image-20231118164934553</figcaption>
+</figure>
+<h3 id="模型评估">2.5 模型评估</h3>
+<p>使用测试集对训练好的模型进行评估。通过调用<code>evaluation</code>函数，计算模型的准确率、精确率和混淆矩阵等性能指标。这些指标提供了模型的性能表现。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311181704370.png" srcset="/img/loading.gif" lazyload
+alt="image-20231118165122890" />
+<figcaption aria-hidden="true">image-20231118165122890</figcaption>
+</figure>
+<h3 id="结果分析">2.6 结果分析</h3>
+<p>实验结果显示，在所选的三种分类器中，XGBoost表现最佳，对WebShell检测任务具有更高的准确率和精确率。</p>
+<h4 id="多层感知机">2.6.1 多层感知机</h4>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311181704371.png" srcset="/img/loading.gif" lazyload
+alt="image-20231118165234892" />
+<figcaption aria-hidden="true">image-20231118165234892</figcaption>
+</figure>
+<h4 id="xgboost">2.6.2 XGBoost</h4>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311181704372.png" srcset="/img/loading.gif" lazyload
+alt="image-20231118165255319" />
+<figcaption aria-hidden="true">image-20231118165255319</figcaption>
+</figure>
+<h4 id="高斯朴素贝叶斯">2.6.3 高斯朴素贝叶斯</h4>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311181704373.png" srcset="/img/loading.gif" lazyload
+alt="image-20231118165314037" />
+<figcaption aria-hidden="true">image-20231118165314037</figcaption>
+</figure>
+<h2 id="测试">3. 测试</h2>
+<p>以下是用于测试WebShell检测模型的Python代码。该代码通过加载训练好的模型，读取用户提供的PHP文件内容，并使用模型进行预测，从而判断用户提供的PHP文件是否包含恶意代码。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311181704374.png" srcset="/img/loading.gif" lazyload
+alt="image-20231118165657622" />
+<figcaption aria-hidden="true">image-20231118165657622</figcaption>
+</figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-chain-item">机器学习</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%AE%9E%E8%B7%B5%E7%AF%87/" class="category-chain-item">实践篇</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Webshell检测</div>
+      <div>http://example.com/2023/11/18/机器学习/实践篇/Webshell检测/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>kaikaikai</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年11月18日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/11/15/SEED-LABS/Network%20Security/Packet%20Sniffing%20and%20Spoofing/" title="Packet Sniffing and Spoofing">
+                        <span class="hidden-mobile">Packet Sniffing and Spoofing</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
