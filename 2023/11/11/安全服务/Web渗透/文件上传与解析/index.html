@@ -24,7 +24,7 @@
 <meta property="og:description" content="1. 文件上传漏洞概述 1.1 概述  文件上传是现代互联网常见的功能，允许用户上传图片、视频、及其他类型文件，向用户提供的功能越多，Web受攻击的风险就越大。 Form表单编码格式：     值 描述     application&#x2F;x-www-form-urlencoded 默认。在发送前对所有字符进行编码(将空格转换为“+&quot;符号，特殊字符转换为ASCII H">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-11-11T02:27:18.000Z">
-<meta property="article:modified_time" content="2023-11-11T09:32:11.181Z">
+<meta property="article:modified_time" content="2023-11-22T08:20:26.331Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -308,7 +308,7 @@ body中，然后发送到服务器。</li>
 <ul>
 <li>Web
 应用开放了文件上传功能，并且<strong>对上传的文件没有进行足够的限制</strong></li>
-<li>程序开发部署时候，没有考虑到<strong>系统特性</strong>和过滤不严格</li>
+<li>程序开发部署时候，没有考虑到<strong>系统特性</strong>和<strong>过滤不严格</strong></li>
 <li>攻击者通过<strong>Web服务器解析漏洞</strong>绕过限制，导致可以上传任意文件</li>
 </ul>
 <h2 id="利用">1.3 利用</h2>
@@ -536,13 +536,12 @@ Framework</li>
 6.0</strong>在处理含有特殊符号的文件路径时会出现逻辑错误，从而造成文件解析漏洞。这—漏洞有两种完全不同的利用方式:
 <ul>
 <li>特殊符号“/”，任意文件夹名.asp目录下的任何文件都会被IIS当作asp脚本执行</li>
-<li>特殊符号“;”，任意文件名.asp;.jpg，后缀是.jpg，可以绕过限制，但是IIS6.0的特殊符号“;”会将该文件当作asp脚本执行</li>
+<li>特殊符号“;”，任意文件名.asp;.jpg，虽然真正后缀是.jpg，但是IIS6.0的特殊符号“;”会将该文件当作asp脚本执行</li>
+<li><strong>修复方法：</strong>升级IIS版本，IIS5.1与7.5均无此漏洞。</li>
 </ul></li>
+<li><strong>IIS
+7.5</strong>解析漏洞：<code>文件/任意文件名.php</code>，从而解析脚本文件。实例：<code>http://ip/upload/6720210701210811.png/.php</code></li>
 </ul>
-<p><strong>修复方法：</strong>升级IIS版本，IIS5.1与7.5均无此漏洞。</p>
-<p>IIS
-7.5解析漏洞：<code>文件/任意文件名.php</code>，从而解析脚本文件。</p>
-<p>实例：<code>http://ip/upload/6720210701210811.png/.php</code></p>
 <h1 id="apache文件解析漏洞">4. Apache文件解析漏洞</h1>
 <p><strong>Apache和php三种结合方法:</strong></p>
 <ul>
