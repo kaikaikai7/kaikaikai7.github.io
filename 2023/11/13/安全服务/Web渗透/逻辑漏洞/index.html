@@ -24,7 +24,7 @@
 <meta property="og:description" content="0. 逻辑漏洞 0.1 访问控制概述  访问控制(AccessControl）指系统对用户身份及其所属的预先定义的策略组限制其使用数据资源能力的手段。通常用于系统管理员控制用户对服务器、目录、文件等网络资源的访问。访问控制是系统保密性、完整性、可用性和合法使用性的重要基础，是网络安全防范和资源保护的关键策略之一，也是主体依据某些控制策略或权限对客体本身或其资源进行的不同授权访问。 三要素：">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-11-13T07:11:18.000Z">
-<meta property="article:modified_time" content="2023-11-10T06:25:11.522Z">
+<meta property="article:modified_time" content="2023-11-22T09:04:48.905Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.9k 字
+          4k 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          33 分钟
+          34 分钟
         
       </span>
     
@@ -333,7 +333,7 @@ alt="image-20231103152006342" />
 <h1 id="会话管理">2. 会话管理</h1>
 <h2 id="会话令牌">2.1 会话令牌</h2>
 <ul>
-<li>会话：用户登录成功后为其建立一个会话，通过会话记录用户的各种状态，通常使用Cookie、Session及，Token实现会话机制。</li>
+<li>会话：用户登录成功后为其建立一个会话，通过会话记录用户的各种状态，通常使用Cookie、Session及Token实现会话机制。</li>
 <li>cookie的属性值expires，就是用于设置cookie过期时间，如果设置一个时间，到期后cookie则失效，如果默认不设置，则为浏览器关闭后cookie失效。</li>
 <li>执行会话最简单、最常见的方式是向每名用户发布一个唯一的会话令牌或标识符，用户在每一个请求中提交这个令牌。</li>
 </ul>
@@ -351,7 +351,7 @@ alt="image-20231103152006342" />
 <li>在网络上泄露令牌：使用HTTP协议</li>
 <li>在日志中泄露令牌：协助网络管理人员的系统日志如果记录了最近的会话日志，且未对访问控制进行严格管理，那么在此种情况下，攻击者可能通过日志获得登录会话</li>
 <li>会话令牌与会话的映射易受到攻击：运行并行登录；使用静态令牌，即一个用户令牌发布后不再改变</li>
-<li>客户端暴露在令牌劫持风险中：XSS；CSRF；会话固定</li>
+<li>客户端暴露在令牌劫持风险中：<strong>XSS；CSRF；会话固定</strong></li>
 </ul>
 <h2 id="令牌不失效">2.5 令牌不失效</h2>
 <ul>
@@ -359,6 +359,8 @@ alt="image-20231103152006342" />
 <li>令牌尝试次数过多</li>
 <li>无效的令牌重置的手段</li>
 </ul>
+<h2 id="会话管理问题">2.6 会话管理问题</h2>
+<p>cookie的属性值expires，就是用于设置cookie过期时间，如果设置一个时间，到期后cookie则失效，如果默认不设置，则为浏览器关闭后cookie失效。</p>
 <h1 id="权限控制">3. 权限控制</h1>
 <h2 id="概述-1">3.1 概述</h2>
 <ul>
