@@ -24,7 +24,7 @@
 <meta property="og:description" content="1. 文件上传漏洞概述 1.1 概述  文件上传是现代互联网常见的功能，允许用户上传图片、视频、及其他类型文件，向用户提供的功能越多，Web受攻击的风险就越大。 Form表单编码格式：     值 描述     application&#x2F;x-www-form-urlencoded 默认。在发送前对所有字符进行编码(将空格转换为“+&quot;符号，特殊字符转换为ASCII H">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-11-11T02:27:18.000Z">
-<meta property="article:modified_time" content="2023-11-22T08:33:44.140Z">
+<meta property="article:modified_time" content="2023-11-23T07:37:10.533Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -427,7 +427,7 @@ Extensions)是描述消息内容类型的因特网标准。MIME
 <p>绕过方法：</p>
 <ul>
 <li>在脚本文件开头补充图片对应的头部值（幻数）</li>
-<li>制作图片马（图片木的解析需要配合文件包含漏洞或者解析漏洞），在图片后写入脚本代码：<code>copy 1.jpg/b+1.php/a 2.jpg</code>
+<li>制作图片马（图片马的解析需要配合文件包含漏洞或者解析漏洞），在图片后写入脚本代码：<code>copy 1.jpg/b+1.php/a 2.jpg</code>
 <ul>
 <li>参数/b指定以二进制格式复制、合并文件，用于图像类/声音类文件</li>
 <li>参数/a指定以ASCIl格式复制、合并文件，用于txt等文档类文件</li>
