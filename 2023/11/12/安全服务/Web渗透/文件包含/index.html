@@ -24,7 +24,7 @@
 <meta property="og:description" content="1. 文件包含概述 1.1 原理  文件包含：把可重复使用的函数写入到单个文件中，在需要使用该函数时，直接调用此文件，无需再次编写函数。这一调用文件的过程被称为包含。 文件包含漏洞原理：和SQL注入等攻击方式一样，文件包含漏洞也是一种注入型漏洞，其本质就是输入一段用户能够控制的脚本或者代码，并让服务端执行。有时候由于网站功能需求，会让前端用户选择要包含的文件，而开发人员又没有对要包含的文件">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-11-12T03:28:18.000Z">
-<meta property="article:modified_time" content="2023-11-23T08:07:02.649Z">
+<meta property="article:modified_time" content="2023-11-23T08:34:49.297Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -408,7 +408,7 @@ root密码</li>
 <h2 id="data">4.3 data://</h2>
 <p><strong>用途：</strong>类似与php://input，可以让用户来控制输入流，当它与包含函数结合时，用户输入的data://流会被当作php文件执行。从而导致任意代码执行。</p>
 <p><strong>利用：</strong></p>
-<figure class="highlight php-template"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php-template"><span class="language-xml">//实例</span><br><span class="language-xml">data://text/plain,</span><span class="language-php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-title function_ invoke__">phpinfo</span>();<span class="hljs-meta">?&gt;</span></span><span class="language-xml"></span><br><span class="language-xml">//如果此处对特殊字符进行了过滤，我们还可以通过base64编码后再输入：</span><br><span class="language-xml">data://text/plain;base64,PD9waHAgcGhwaW5mbygpPz4=</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight php-template"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php-template"><span class="language-xml">//实例</span><br><span class="language-xml">data://text/plain,</span><span class="language-php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-title function_ invoke__">phpinfo</span>()<span class="hljs-meta">?&gt;</span></span><span class="language-xml"></span><br><span class="language-xml">//如果此处对特殊字符进行了过滤，我们还可以通过base64编码后再输入：</span><br><span class="language-xml">data://text/plain;base64,PD9waHAgcGhwaW5mbygpPz4=</span><br></code></pre></td></tr></table></figure>
 <h2 id="zip">4.4 zip://</h2>
 <p>利用zip流，先将要执行的PHP代码写好，文件名为test.txt，将test.txt进行zip压缩，压缩文件名为test.zip，上传文件绕过上传检测（若不能直接上传zip文件，便将test.zip重命名为test.jpg后再上传），再进行包含解析。使用zip协议需要指定绝对路径，使用相对路径会包含失败，同时将#编码为%23。</p>
 <p>实例：</p>
@@ -418,8 +418,8 @@ root密码</li>
 <p>先将要执行的PHP代码写好文件名为test.txt，将test.txt进行zip压缩,压缩文件名为test.zip，绕过文件上传的限制，如果可以上传zip文件便直接上传，若不能便将test.zip重命名为test.jpg后再上传。使用phar流绝对路径和相对路径都可以。</p>
 <p>实例：</p>
 <p><code>http://ip/include/include.php?page=phar://C:/server/apache22/htdocs/up/upload/info.zip/info.txt</code></p>
-<p><code>http://ip/include/include.php?page=phar://…/up/upload/info.zip/info.txt</code></p>
-<p><code>http://ip/include/include.php?page=phar://…/up/upload/info.jpg/info.txt</code></p>
+<p><code>http://ip/include/include.php?page=phar://../up/upload/info.zip/info.txt</code></p>
+<p><code>http://ip/include/include.php?page=phar://../up/upload/info.jpg/info.txt</code></p>
 <h2 id="伪协议用法小结">4.6 伪协议用法小结</h2>
 <figure>
 <img
