@@ -16,21 +16,21 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1 恶意代码基础知识 1.1 定义 使计算机按照攻击者的意图运行以达到恶意目的的指令集合（二进制执行文件，脚本语言代码，宏代码，寄生在文件、启动扇区的指令流） 1.2 分类  计算机病毒(Virus)：  定义特征：通过感染文件(可执行文件、数据文件、电子邮件等)或磁盘引导扇区进行传播，一般需要宿主程序被执行或人为交互才能运行。 典型实例：Brain，Concept，CIH，勒索软">
+    <meta name="description" content="1 虚拟机概述  概念：Virtual Machine，指通过软件模拟的具有完整硬件系统功能的、运行在一个完全隔离环境中的完整计算机系统。 软件：VMware(VMware ACE）、Xen、Virtual Box和KVM等，它们都能在Windows系统上虚拟出多个计算机。 虚拟机监视器（Virtual Machine Monitor，VMM）是虚拟机技术的核心，它是一层位于操作系统">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CH00-恶意代码分析技术入门">
-<meta property="og:url" content="http://example.com/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E7%90%86%E8%AE%BA%E7%AF%87/00%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E6%8A%80%E6%9C%AF%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:title" content="CH03-在虚拟机中分析恶意代码">
+<meta property="og:url" content="http://example.com/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E7%90%86%E8%AE%BA%E7%AF%87/CH03%E5%9C%A8%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%AD%E5%88%86%E6%9E%90%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="1 恶意代码基础知识 1.1 定义 使计算机按照攻击者的意图运行以达到恶意目的的指令集合（二进制执行文件，脚本语言代码，宏代码，寄生在文件、启动扇区的指令流） 1.2 分类  计算机病毒(Virus)：  定义特征：通过感染文件(可执行文件、数据文件、电子邮件等)或磁盘引导扇区进行传播，一般需要宿主程序被执行或人为交互才能运行。 典型实例：Brain，Concept，CIH，勒索软">
+<meta property="og:description" content="1 虚拟机概述  概念：Virtual Machine，指通过软件模拟的具有完整硬件系统功能的、运行在一个完全隔离环境中的完整计算机系统。 软件：VMware(VMware ACE）、Xen、Virtual Box和KVM等，它们都能在Windows系统上虚拟出多个计算机。 虚拟机监视器（Virtual Machine Monitor，VMM）是虚拟机技术的核心，它是一层位于操作系统">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-10-12T02:09:12.000Z">
-<meta property="article:modified_time" content="2023-10-29T01:58:04.758Z">
+<meta property="article:published_time" content="2023-10-12T03:46:22.000Z">
+<meta property="article:modified_time" content="2023-11-25T05:51:39.607Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>CH00-恶意代码分析技术入门 - kaikaikai&#39;s blog</title>
+  <title>CH03-在虚拟机中分析恶意代码 - kaikaikai&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -184,7 +184,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="CH00-恶意代码分析技术入门"></span>
+            <span id="subtitle" data-typed-text="CH03-在虚拟机中分析恶意代码"></span>
           
         </div>
 
@@ -195,8 +195,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-10-12 10:09" pubdate>
-          2023年10月12日 上午
+        <time datetime="2023-10-12 11:46" pubdate>
+          2023年10月12日 中午
         </time>
       </span>
     
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k 字
+          1.5k 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          11 分钟
+          13 分钟
         
       </span>
     
@@ -255,104 +255,97 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">CH00-恶意代码分析技术入门</h1>
+            <h1 id="seo-header">CH03-在虚拟机中分析恶意代码</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="恶意代码基础知识">1 恶意代码基础知识</h1>
-<h2 id="定义">1.1 定义</h2>
-<p>使计算机按照攻击者的意图运行以达到恶意目的的<strong>指令集合</strong>（二进制执行文件，脚本语言代码，宏代码，寄生在文件、启动扇区的指令流）</p>
-<h2 id="分类">1.2 分类</h2>
+                <h1 id="虚拟机概述">1 虚拟机概述</h1>
 <ul>
-<li>计算机病毒(Virus)：
-<ul>
-<li>定义特征：通过感染文件(可执行文件、数据文件、电子邮件等)或磁盘引导扇区进行传播，一般<strong>需要</strong>宿主程序被执行或人为交互才能运行。</li>
-<li>典型实例：Brain，Concept，CIH，勒索软件</li>
-</ul></li>
-<li>蠕虫(Worm)：
-<ul>
-<li>定义特征：一般为<strong>不需要</strong>宿主的单独文件，通过网络传播，自动复制，通常无需人为交互便可感染传播。</li>
-<li>典型实例：Morris，CodeRed，Slammer</li>
-</ul></li>
-<li>启动器(Downloader)：
-<ul>
-<li>定义特征：从远程主机下载到本地执行的轻量级恶意代码，不需要或仅需要极少的人为干预。代表性的开发工具有：JavaScript，VBScript，Java，以及ActiveX。启动其他恶意程序的恶意代码。</li>
-<li>典型实例：SantyWorm等。</li>
-</ul></li>
-<li>后门(Backdoor)：
-<ul>
-<li>定义特征：绕过正常的安全控制机制，从而为攻击者提供访问途径。</li>
-<li>典型实例：Netcat，BO，冰河，Glupteba。</li>
-</ul></li>
-<li>特洛伊木马(Trojan)：
-<ul>
-<li>定义特征：伪装成有用软件，隐藏其恶意目标，欺骗用户安装执行。</li>
-<li>典型实例：Setiri，Emotet，Dridex，Ramnit</li>
-</ul></li>
-<li>僵尸程序(Bot)：
-<ul>
-<li>定义特征：一般为<strong>不需要</strong>宿主的单独文件，通过网络传播，自动复制，通常无需人为交互便可感染传播；使用一对多的命令与控制机制组成僵尸网络。</li>
-<li>典型实例：Sdbot，Agobot，Mirai，Glupteba</li>
-</ul></li>
-<li>内核套件(Rootkit)：
-<ul>
-<li>定义特征：通过替换或修改系统关键可执行文件（用户态），或者通过控制操作系统内核(内核态)，用以获取并保持最高控制权(root
-access)。</li>
-<li>典型实例：LRK，FU，hdef</li>
-</ul></li>
-<li>融合型恶意代码及Bootkit：
-<ul>
-<li>定义特征：融合上述多种恶意代码技术，构成更具破坏性的恶意代码形态，如Bootkit。</li>
-<li>典型实例：Nimda、Stuxnet、Flame、Duqu</li>
-</ul></li>
+<li>概念：Virtual
+Machine，指通过软件模拟的具有完整硬件系统功能的、运行在一个完全隔离环境中的完整计算机系统。</li>
+<li>软件：VMware(VMware ACE）、Xen、Virtual
+Box和KVM等，它们都能在Windows系统上虚拟出多个计算机。</li>
+<li>虚拟机监视器（Virtual Machine
+Monitor，VMM）是虚拟机技术的核心，它是一层位于操作系统和计算机硬件之间的代码，用来将硬件平台分割成多个虚拟机。主要作用是隔离并且管理上层运行的多个虚拟机，仲裁它们对底层运行在特权模式硬件的访问，并为每个客户操作系统虚拟一套独立于实际硬件的虚拟硬件环境（包括：处理器、内存、I/O
+设备等）。</li>
 </ul>
-<h1 id="恶意代码分析技术">2 恶意代码分析技术</h1>
-<table>
-
-<thead>
-<tr class="header">
-<th><strong>区别项</strong></th>
-<th><strong>恶意代码分析</strong></th>
-<th><strong>良性代码分析</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>目的公开性</td>
-<td>目的未知，需分析和推测其目的</td>
-<td>一般情况下，目的是公开且明确的，可辅助分析过程</td>
-</tr>
-<tr class="even">
-<td>目的恶意性</td>
-<td>恶意目的，需要受控环境</td>
-<td>良性，无需受控环境</td>
-</tr>
-<tr class="odd">
-<td>是否存在源码</td>
-<td>绝大多数情况无源码，二进制分析</td>
-<td>开源软件存在源码，源码分析；闭源软件则需二进制分析</td>
-</tr>
-<tr class="even">
-<td>使用对抗分析技术</td>
-<td>各种多样化对抗分析，博弈问题</td>
-<td>一般无对抗分析，商业软件也引入对抗分析保护产权</td>
-</tr>
-</tbody>
-</table>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310121153628.png" srcset="/img/loading.gif" lazyload
+alt="image-20231012110721542" />
+<figcaption aria-hidden="true">image-20231012110721542</figcaption>
+</figure>
+<h1 id="虚拟机网络模式">2 虚拟机网络模式</h1>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310121153629.png" srcset="/img/loading.gif" lazyload
+alt="image-20231012112120331" />
+<figcaption aria-hidden="true">image-20231012112120331</figcaption>
+</figure>
+<h2 id="bridged桥接模式">2.1 Bridged（桥接模式）</h2>
 <ul>
-<li><strong>静态</strong>分析
-<ul>
-<li>通过反病毒引擎扫描识别已知的恶意代码家族和变种名</li>
-<li>逆向分析恶意代码模块构成，内部数据结构，关键控制流程等，理解恶意代码的机理，并提取特征码用于检测。</li>
-<li>分析方法：恶意代码扫描、文件格式识别、字符串提取、二进制结构分析、反汇编、反编译、代码结构与逻辑分析、加壳识别和代码脱壳</li>
-</ul></li>
-<li><strong>动态</strong>分析
-<ul>
-<li>通过在受控环境中执行目标代码，以获取目标代码的行为及运行结果。</li>
-<li>分析方法：快照比对、动态行为监控(APIHooking)、网络监控、沙盒(sandbox)、动态跟踪调试</li>
-</ul></li>
+<li>在bridged模式下，VMWare虚拟出来的虚拟机就像是局域网中的一台独立的主机，它可以访问网内任何一台机器。主机网卡和虚拟网卡的IP地址处于同一个网段，子网掩码、网关、DNS等参数都相同。</li>
+<li>在此种模式下，虚拟机内部的网卡（例如linux下的eth0)直接连到了物理网卡所在的网络上，可以想象为虚拟机和host机处于对等的地位，在网络关系上是平等的，没有谁在谁后面的问题。</li>
 </ul>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310121153630.png" srcset="/img/loading.gif" lazyload
+alt="image-20231012112631034" />
+<figcaption aria-hidden="true">image-20231012112631034</figcaption>
+</figure>
+<h2 id="nat地址转换模式">2.2 NAT（地址转换模式）</h2>
+<ul>
+<li>桥接模式配置简单，但如果网络环境是ip资源很缺少或对ip管理比较严格的话，那桥接模式就不太适用了，这时候NAT模式是最好的选择。</li>
+<li>NAT模式借助虚拟NAT设备和虚拟DHCP服务器，使得虚拟机可以联网。就是让虚拟系统借助NAT(网络地址转换)功能，通过宿主机器所在的网络来访问公网。</li>
+</ul>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310121153631.png" srcset="/img/loading.gif" lazyload
+alt="image-20231012113616352" />
+<figcaption aria-hidden="true">image-20231012113616352</figcaption>
+</figure>
+<h2 id="host-only仅主机模式">2.3 Host-Only（仅主机模式）</h2>
+<ul>
+<li><p>Host-Only模式其实就是NAT模式去除了虚拟NAT设备，然后使用VMware
+Network Adapter
+VMnet1虚拟网卡连接VMnet1虚拟交换机来与虚拟机通信的，Host-Only模式将虚拟机与外网隔开，使得虚拟机成为一个独立的系统，只与主机相互通讯。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310121153632.png" srcset="/img/loading.gif" lazyload
+alt="image-20231012114151982" />
+<figcaption aria-hidden="true">image-20231012114151982</figcaption>
+</figure></li>
+</ul>
+<h1 id="搭建虚拟机环境">3 搭建虚拟机环境</h1>
+<ul>
+<li>Apatedns：ApateDNS是一个用于控制DNS响应的工具，主要用在本地系统上的DNS服务器。
+ApateDNS可以欺骗由恶意软件生成的DNS请求至UDP端口53上的指定IP地址。</li>
+<li>Inetsim：INetSim是一个基于Linux的工具，主要用于恶意软件分析，它可以模拟最常见的互联网服务，如http、https、DNS、FTP以及其他的。在Windows机器上执行动态恶意软件分析时，你可以使用和恶意软件分析机器在同一网络中的虚拟机来运行INetSim。
+INetSim能够伪造恶意软件可能使用的常见的互联网服务，并回答相应的请求。</li>
+</ul>
+<p>参考教程：</p>
+<ol type="1">
+<li>https://www.cnblogs.com/hyq20135317/p/5515675.html</li>
+<li><a
+target="_blank" rel="noopener" href="https://blog.csdn.net/m0_46687377/article/details/120733392">恶意代码分析实战——使用Apatedns和Inetsim模拟网络环境_妙蛙种子吃了都会妙妙妙的妙脆角的博客-CSDN博客</a></li>
+</ol>
+<h1 id="使用vmware-进行恶意代码分析的风险">4 使用VMware
+进行恶意代码分析的风险</h1>
+<ul>
+<li>虚拟机探测：恶意代码使用反虚拟机技术，使分析变得更加困难</li>
+<li>虚拟机逃逸：虚拟机软件本身具有漏洞，有可能被恶意代码利用</li>
+<li>信息破坏：未知风险，无论如何使用非敏感机器</li>
+</ul>
+<p>参考教程：</p>
+<ol type="1">
+<li><a
+target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/65103100">“桥接”和“NAT”方式区别 -
+知乎 (zhihu.com)</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://www.cnblogs.com/zhangweimee/p/9467436.html">Vmware虚拟机三种网络模式详解
+- 醉城、 - 博客园 (cnblogs.com)</a></li>
+</ol>
 
                 
               </div>
@@ -398,8 +391,8 @@ access)。</li>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>CH00-恶意代码分析技术入门</div>
-      <div>http://example.com/2023/10/12/恶意代码分析/理论篇/00恶意代码分析技术入门/</div>
+      <div>CH03-在虚拟机中分析恶意代码</div>
+      <div>http://example.com/2023/10/12/恶意代码分析/理论篇/CH03在虚拟机中分析恶意代码/</div>
     </div>
     <div class="license-meta">
       
@@ -443,9 +436,9 @@ access)。</li>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E7%90%86%E8%AE%BA%E7%AF%87/01%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E6%8A%80%E6%9C%AF/" title="CH01-静态分析基础技术">
+                      <a href="/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E5%AE%9E%E9%AA%8C%E7%AF%87/Chapter_1L/" title="Chapter_1L">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">CH01-静态分析基础技术</span>
+                        <span class="hidden-mobile">Chapter_1L</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -453,8 +446,8 @@ access)。</li>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/10/11/SEED-LABS/Software%20Security/Buffer-Overflow%20Attack(Server%20Version)/" title="Buffer-Overflow Attack (Server Version)">
-                        <span class="hidden-mobile">Buffer-Overflow Attack (Server Version)</span>
+                      <a href="/2023/10/12/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E7%90%86%E8%AE%BA%E7%AF%87/CH02%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E6%8A%80%E6%9C%AF/" title="CH02-静态分析基础技术">
+                        <span class="hidden-mobile">CH02-静态分析基础技术</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
