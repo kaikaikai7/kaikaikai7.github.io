@@ -23,15 +23,10 @@
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
 <meta property="og:description" content="0. 引言  多数恶意代码与操作系统进行紧密交互； 对Windows编程概念的深刻理解，能帮助识别主机上的感染现象和跟踪恶意代码的执行； 正常代码总体上是由编译器良好的生成，并且遵循微软的指导原则； 恶意代码通常结构很差，并且趋向于执行预期之外的动作。  1. Windows API  一个广泛的功能集合 管理（恶意）代码与微软程序库之间的交互方式 功能强大  1.1 类">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2023/11/25/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E7%90%86%E8%AE%BA%E7%AF%87/CH05%E5%88%86%E6%9E%90%E6%81%B6%E6%84%8FWindows%E7%A8%8B%E5%BA%8F/CH05%E5%88%86%E6%9E%90%E6%81%B6%E6%84%8FWindows%E7%A8%8B%E5%BA%8F.assets/image-20231125140512261.png">
-<meta property="og:image" content="http://example.com/2023/11/25/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E7%90%86%E8%AE%BA%E7%AF%87/CH05%E5%88%86%E6%9E%90%E6%81%B6%E6%84%8FWindows%E7%A8%8B%E5%BA%8F/CH05%E5%88%86%E6%9E%90%E6%81%B6%E6%84%8FWindows%E7%A8%8B%E5%BA%8F.assets/image-20231125144237479.png">
-<meta property="og:image" content="http://example.com/2023/11/25/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E7%90%86%E8%AE%BA%E7%AF%87/CH05%E5%88%86%E6%9E%90%E6%81%B6%E6%84%8FWindows%E7%A8%8B%E5%BA%8F/CH05%E5%88%86%E6%9E%90%E6%81%B6%E6%84%8FWindows%E7%A8%8B%E5%BA%8F.assets/image-20231125144328290.png">
-<meta property="og:image" content="http://example.com/2023/11/25/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E7%90%86%E8%AE%BA%E7%AF%87/CH05%E5%88%86%E6%9E%90%E6%81%B6%E6%84%8FWindows%E7%A8%8B%E5%BA%8F/CH05%E5%88%86%E6%9E%90%E6%81%B6%E6%84%8FWindows%E7%A8%8B%E5%BA%8F.assets/image-20231125150911338.png">
 <meta property="article:published_time" content="2023-11-25T05:57:22.000Z">
-<meta property="article:modified_time" content="2023-11-25T07:11:23.224Z">
+<meta property="article:modified_time" content="2023-11-25T07:23:45.894Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/2023/11/25/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E7%90%86%E8%AE%BA%E7%AF%87/CH05%E5%88%86%E6%9E%90%E6%81%B6%E6%84%8FWindows%E7%A8%8B%E5%BA%8F/CH05%E5%88%86%E6%9E%90%E6%81%B6%E6%84%8FWindows%E7%A8%8B%E5%BA%8F.assets/image-20231125140512261.png">
   
   
   
@@ -288,7 +283,8 @@ API使用自己的名字来表示C语言类型，标准C类型如int、short通�
 </ul>
 <p><strong>Windows API中的常见类型：</strong></p>
 <figure>
-<img src="CH05分析恶意Windows程序.assets/image-20231125140512261.png" srcset="/img/loading.gif" lazyload
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311251523402.png" srcset="/img/loading.gif" lazyload
 alt="image-20231125140512261" />
 <figcaption aria-hidden="true">image-20231125140512261</figcaption>
 </figure>
@@ -409,13 +405,15 @@ alt="image-20231125140512261" />
 <h2 id="伯克利兼容套接字">3.1 伯克利兼容套接字</h2>
 <p>由Winsock库实现，主要在ws2_32.dll中。</p>
 <figure>
-<img src="CH05分析恶意Windows程序.assets/image-20231125144237479.png" srcset="/img/loading.gif" lazyload
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311251523403.png" srcset="/img/loading.gif" lazyload
 alt="image-20231125144237479" />
 <figcaption aria-hidden="true">image-20231125144237479</figcaption>
 </figure>
 <h2 id="网络的服务器和客户端">3.2 网络的服务器和客户端</h2>
 <figure>
-<img src="CH05分析恶意Windows程序.assets/image-20231125144328290.png" srcset="/img/loading.gif" lazyload
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311251523404.png" srcset="/img/loading.gif" lazyload
 alt="image-20231125144328290" />
 <figcaption aria-hidden="true">image-20231125144328290</figcaption>
 </figure>
@@ -508,7 +506,8 @@ alt="image-20231125144328290" />
 API。</p>
 <h1 id="原生api">6. 原生API</h1>
 <figure>
-<img src="CH05分析恶意Windows程序.assets/image-20231125150911338.png" srcset="/img/loading.gif" lazyload
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311251523405.png" srcset="/img/loading.gif" lazyload
 alt="image-20231125150911338" />
 <figcaption aria-hidden="true">image-20231125150911338</figcaption>
 </figure>
