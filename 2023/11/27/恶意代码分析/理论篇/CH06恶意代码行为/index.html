@@ -16,15 +16,15 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1. 下载器和启动器 1.1 下载器  定义：这是一类只是用来下载其他恶意代码的恶意代码。下载器通常是在攻击者获得系统的访问时首先进行安装的。下载器程序会下载和安装其他的恶意代码。 特点：  常用Windows API函数：URLDownloadtoFileA和WinExec 短小精干、功能单一，防查杀   1.2 启动器  定义：用来启动其他恶意程序的恶意代码。通常情况">
+    <meta name="description" content="1. 下载器和启动器 1.1 下载器  定义：这是一类只是用来下载其他恶意代码的恶意代码。下载器通常是在攻击者获得系统的访问时首先进行安装的。下载器程序会下载和安装其他的恶意代码。 特点：  常用Windows API函数：URLDownloadtoFileA和WinExec 短小精干、功能单一、防查杀   1.2 启动器  定义：用来启动其他恶意程序的恶意代码。通常情况">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CH06-恶意代码行为">
 <meta property="og:url" content="http://example.com/2023/11/27/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/%E7%90%86%E8%AE%BA%E7%AF%87/CH06%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E8%A1%8C%E4%B8%BA/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="1. 下载器和启动器 1.1 下载器  定义：这是一类只是用来下载其他恶意代码的恶意代码。下载器通常是在攻击者获得系统的访问时首先进行安装的。下载器程序会下载和安装其他的恶意代码。 特点：  常用Windows API函数：URLDownloadtoFileA和WinExec 短小精干、功能单一，防查杀   1.2 启动器  定义：用来启动其他恶意程序的恶意代码。通常情况">
+<meta property="og:description" content="1. 下载器和启动器 1.1 下载器  定义：这是一类只是用来下载其他恶意代码的恶意代码。下载器通常是在攻击者获得系统的访问时首先进行安装的。下载器程序会下载和安装其他的恶意代码。 特点：  常用Windows API函数：URLDownloadtoFileA和WinExec 短小精干、功能单一、防查杀   1.2 启动器  定义：用来启动其他恶意程序的恶意代码。通常情况">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-11-27T06:27:22.000Z">
-<meta property="article:modified_time" content="2023-11-27T08:02:46.725Z">
+<meta property="article:modified_time" content="2023-11-29T06:38:12.595Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.2k 字
+          4.7k 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          36 分钟
+          39 分钟
         
       </span>
     
@@ -268,7 +268,7 @@
 <ul>
 <li>常用Windows
 API函数：<code>URLDownloadtoFileA</code>和<code>WinExec</code></li>
-<li>短小精干、功能单一，防查杀</li>
+<li>短小精干、功能单一、防查杀</li>
 </ul></li>
 </ul>
 <h2 id="启动器">1.2 启动器</h2>
@@ -279,7 +279,7 @@ API函数：<code>URLDownloadtoFileA</code>和<code>WinExec</code></li>
 <ul>
 <li>绕过正常的安全控制机制，为攻击者提供远程访问受害主机的途径；</li>
 <li>最常见的恶意代码，实现了全套功能，不需要下载额外的恶意代码；</li>
-<li>通信方式多种多样，常用端口80（http协议）、53（DNS)；</li>
+<li>通信方式多种多样，常用端口80（HTTP协议）、53（DNS)；</li>
 <li>查看后门使用和导入的Windows函数，可以确定其功能；</li>
 <li>同类应用：木马、远程控制、僵尸网络。</li>
 </ul>
@@ -383,7 +383,7 @@ alt="image-20231127151522576" />
 <p><strong>内核空间的击键记录器：</strong></p>
 <ul>
 <li>键盘类设备驱动：KbdClass被称为键盘类设备驱动。不管是USB键盘，还是PS/2键盘均经过它，所以在这层做拦截，能获得很好的通用性。</li>
-<li>原理：把自己的设备对象绑定在KbdClass设备对象之上。那么发送到KbdClass的IRP（I/O请求包）都会先经过自己的设备对象，攻击者可以在读派遣函数中设置完成例程，当IRP完成后在完成历程中得到按键信息。</li>
+<li>原理：把自己的设备对象绑定在KbdClass设备对象之上。那么发送到KbdClass的IRP（I/O请求包）都会先经过自己的设备对象，攻击者可以在读派遣函数中设置完成例程，当IRP完成后在完成例程中得到按键信息。</li>
 </ul>
 <p><strong>用户空间的击键记录器：</strong></p>
 <ul>
@@ -434,15 +434,19 @@ alt="image-20231127153937137" />
 <li>当被感染的二进制文件下次运行或者加载时，将会强制运行恶意代码。</li>
 </ul>
 <h2 id="dll加载顺序劫持">4.3 DLL加载顺序劫持</h2>
+<p>DLL加载顺序劫持允许恶意代码编写者在不使用注册表项或者特洛伊二进制文件的前提下创建一个存活的、恶意的DLL程序。这种技术甚至不需要单独的恶意加载器，因为它有能力让Windows加载他。</p>
+<p>如果应用程序开发人员希望从C:WindowsSystem32加载DLL，但在应用程序中没有明确写入，那么就会在搜索System32中的合法DLL之前，先加载应用程序目录中被植入的恶意DLL。这种恶意DLL加载方式被称为DLL劫持，攻击者以这种方式将恶意代码加载到受信任或已签名的应用程序中。</p>
 <p><strong>Windows XP加载DLL的默认顺序</strong></p>
 <ol type="1">
 <li>应用程序所在目录；</li>
 <li>当前目录：GetCurrentDirectory返回的目录；</li>
-<li>系统目录：GetSystemDirectory返回的目录，通常是系统盘；</li>
+<li>系统目录：GetSystemDirectory返回的目录，通常是系统盘<code>..\Windows\System32</code>；</li>
 <li>16位系统目录：该项只是为了向前兼容的处理，可以不考虑；</li>
-<li>Windows目录：GetWindowsDirectory返回的目录，通常是系统盘 ；</li>
+<li>Windows目录：GetWindowsDirectory返回的目录，通常是系统盘<code>.. \Windows</code>；</li>
 <li>环境变量PATH中所有目录。</li>
 </ol>
+<p>参考链接：<a
+target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/209563">探索DLL搜索顺序劫持的原理和自动化侦查方法</a></p>
 <h1 id="提权">5. 提权</h1>
 <p><strong>SeDebugPrivilege：</strong></p>
 <ul>
@@ -455,7 +459,7 @@ token）包含进程安全描述符的对象，指定拥有者的访问权限；
 <h1 id="隐藏它的踪迹-用户态的rootkit">6.
 隐藏它的踪迹-用户态的Rootkit</h1>
 <ul>
-<li>Rootkit：是一种特殊的恶意软件，它的功能是在安装目标上隐藏自身及指定的文件、进程和网络链接等信息，比较多见到的是Rootkit一般都和木马、后门等其他恶意程序结合使用。Rootkit通过加载特殊的驱动，修改系统内核，进而达到隐藏信息的目的。</li>
+<li>Rootkit：是一种特殊的恶意软件，它的功能是<strong>在安装目标上隐藏自身及指定的文件、进程和网络链接等信息</strong>，比较多见到的是Rootkit一般都和木马、后门等其他恶意程序结合使用。Rootkit通过加载特殊的驱动，修改系统内核，进而达到隐藏信息的目的。</li>
 <li>Rootkit分类
 <ul>
 <li>固件化Rootkit和BIOS Rootkit</li>
@@ -480,9 +484,12 @@ alt="image-20231127155503886" />
 <figcaption aria-hidden="true">image-20231127155503886</figcaption>
 </figure>
 <ul>
+<li>这种挂钩方法修改导入地址表或导出地址表</li>
 <li>上面的路径是正常执行流，下面路径是加入Rootkit后的执行流。</li>
 <li>IAT
 Hook时如果要钩取的API不在IAT中(LoadLibrary后调用)，则无法使用该技术。</li>
+<li>过时且容易探测的挂钩方式，现代的Rootkit都使用更高级的inline
+Hook。</li>
 </ul>
 <p><strong>Detours：</strong></p>
 <ul>
@@ -493,6 +500,9 @@ Hook时如果要钩取的API不在IAT中(LoadLibrary后调用)，则无法使用
 <ul>
 <li>原理：
 <ul>
+<li>Inline
+Hook是通过覆盖导入DLL中API函数的代码来实现的，所以它必须等到DLL被加载后才能执行。IAT
+Hook只简单的修改函数指针，但inline Hook将修改实际的函数代码。</li>
 <li>就是对函数执行流程进行修改，达到控制函数过滤操作的目的。理论上可以在函数任何地方把原来指令替换成hook的跳转指令，来躲避inline
 hook的检测。前提是必须对函数的流程和指令非常熟悉，且这种深层次的inline不具有通用性，稳定性也是问题。</li>
 <li>Inline
