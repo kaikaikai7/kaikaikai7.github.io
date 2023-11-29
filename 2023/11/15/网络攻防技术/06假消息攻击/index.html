@@ -24,7 +24,7 @@
 <meta property="og:description" content="6.1 概述 6.1.1 TCP&#x2F;IP脆弱性 TCP&#x2F;IP协议在设计时缺乏有效的数据加密和身份鉴别机制，于是攻击者可通过伪造身份，实施假消息攻击来破坏正常的数据通信过程，以达到获取权限、窃取消息的目的。 6.1.2 假消息攻击概述 定义： 指攻击者利用网络协议的脆弱性或策略配置的缺陷，通过发送虚假的网络数据包，达到窃取敏感信息、欺骗认证过程，实施拒绝服务等目标的一种攻击方式。 模式：">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-11-15T01:33:07.000Z">
-<meta property="article:modified_time" content="2023-11-15T03:44:43.346Z">
+<meta property="article:modified_time" content="2023-11-29T02:09:42.432Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.1k 字
+          5.8k 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          18 分钟
+          49 分钟
         
       </span>
     
@@ -343,6 +343,7 @@ alt="img" />
 <li>使用静态的ARP缓存</li>
 </ul>
 <h1 id="arp欺骗攻击">6.3 ARP欺骗攻击</h1>
+<p>ARP欺骗位于数据链路层</p>
 <h2 id="arp欺骗原理与应用">6.3.1 ARP欺骗原理与应用</h2>
 <ol type="1">
 <li><p><strong>MAC地址</strong></p>
@@ -373,6 +374,7 @@ alt="img" />
 <li>使用VLAN或PVLAN技术</li>
 </ul>
 <h1 id="icmp路由重定向攻击">6.4 ICMP路由重定向攻击</h1>
+<p>ICMP路由重定向位于网络层</p>
 <h2 id="icmp路由重定向原理">6.4.1 ICMP路由重定向原理</h2>
 <p><strong>ICMP重定向报文：</strong></p>
 <p>当路由器检测到一台机器使用非优化路由时，它会向该主机发送一个ICMP重定向报文，请求主机改变路由，路由器也会把初始数据包向它的目的地转发。</p>
@@ -389,6 +391,227 @@ alt="img" />
 <p>局域网内，用来改变目标主机与外界主机的一对一路由</p>
 <h2 id="icmp路由重定向的防范">6.4.2 ICMP路由重定向的防范</h2>
 <p>配置操作系统拒收ICMP重定向报文</p>
+<h1 id="ip欺骗攻击">6.5 IP欺骗攻击</h1>
+<p>IP欺骗攻击攻击位于传输层，通过伪造IP包头中的源或目的IP地址字段，达到伪造身份、窃取信息、拒绝服务等攻击目的。</p>
+<h2 id="ip欺骗与tcp序列号猜测">6.5.1 IP欺骗与TCP序列号猜测</h2>
+<ul>
+<li>UDP：基于IP进行身份验证，实现简单</li>
+<li>TCP：需要预测或获得正确的序列号</li>
+</ul>
+<ol type="1">
+<li><p><strong>TCP报文：</strong></p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311291009803.png" srcset="/img/loading.gif" lazyload
+alt="image-20231129090150418" />
+<figcaption aria-hidden="true">image-20231129090150418</figcaption>
+</figure>
+<ul>
+<li>SEQ：当前数据包中第一个字节的序号</li>
+<li>ACK：期望收到对方数据包中第一个字节的序号</li>
+<li>WIND：接收窗口</li>
+</ul>
+<p>服务器端与客户端进行数据传输时各字段要求：</p>
+<ul>
+<li><code>C_ACK&lt;=C_SEQ&lt;=C_ACK+C_WIND</code></li>
+<li><code>S_ACK&lt;=S_SEQ&lt;=S_ACK+S_WIND</code></li>
+</ul></li>
+<li><p><strong>TCP三次握手：</strong></p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311291009804.png" srcset="/img/loading.gif" lazyload
+alt="image-20231129091335737" />
+<figcaption aria-hidden="true">image-20231129091335737</figcaption>
+</figure>
+<ul>
+<li>SYN包，客户端使用随机生成的数字x作为序列号</li>
+<li>SYN+ACK，服务器端使用随机生成的数字y作为序列号</li>
+<li>ACK，客户端确认，结束握手</li>
+</ul></li>
+<li><p><strong>TCP数据交换：</strong></p>
+<ul>
+<li>一方会发送一个或多个TCP数据报，另一方则不时发回一个TCP数据报，带有ACK标志，通知发送者发出的数据报已收到</li>
+<li>确认号说明了期望接收的数据字节的最低序号，确认号加上窗口域中的数字值正好说明接收时将放在输入缓冲区的数据字节的最大序号</li>
+</ul></li>
+<li><p><strong>伪造的TCP数据报：</strong></p>
+<ul>
+<li>知道下一发送字节的精确序列号：若早于合法数据到达，则直接放入输入缓存区；若迟于合法数据到达，如果包含数据少于合法数据，则完全丢弃，如果包含数据大于合法数据，则部分丢弃。</li>
+<li>猜测序列号小于发送的下一序列号：如果包含足够多的数据，接收方会把伪造数据报后面的数据放入输入缓冲区。</li>
+<li>猜测序列号大于发送的下一序列号：放入输入缓冲区，超出窗口大小的部分直接丢弃。</li>
+</ul></li>
+<li><p><strong>如何获得序列号：</strong></p>
+<ul>
+<li>基于嗅探</li>
+<li>基于猜测（对现代操作系统不适用，因为采用了强随机算法）</li>
+</ul></li>
+</ol>
+<h2 id="tcp攻击类型">6.5.2 TCP攻击类型</h2>
+<ol type="1">
+<li><p><strong>SYN Flooding攻击：</strong></p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311291009805.png" srcset="/img/loading.gif" lazyload
+alt="image-20231129092348181" />
+<figcaption aria-hidden="true">image-20231129092348181</figcaption>
+</figure>
+<ul>
+<li>当服务器接收到初始SYN数据包时，它使用TCB（传输控制块）存储有关连接的信息。服务器将TCB存储在仅用于半开放连接的队列中。在服务器获得ACK数据包后，它将把这个TCB从队列中取出并存储在另一个地方
+。如果ACK没有到达，服务器将重新发送SYN+ACK数据包。一段时间后，TCB最终将
+被丢弃。</li>
+<li>攻击原理：持续向服务器发送大量
+SYN数据包。这会通过插入TCB记录来消耗队列
+中的空间。最终服务器端没有空间为任何新的半开放连接存储TCB，导致无法接收新的客户端连接请求。</li>
+<li>防范：syncookies。在服务器接收到SYN数据包后，它使用只有服务器知道的密钥从数据包中的信息计算密钥散列（H）。此哈希（H）作为初始序列号从服务器发送到客户端。服务器不会将半开放连接存储在其队列中。如果客户端是攻击者，H将无法到达攻击者。如果客户端不是攻击者，则在确认字段中输入H+1。服务器通过重新计算cookie来检查确认字段中的数字是否有效。</li>
+</ul></li>
+<li><p><strong>TCP重置攻击：</strong></p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311291009806.png" srcset="/img/loading.gif" lazyload
+alt="image-20231129092728880" />
+<figcaption aria-hidden="true">image-20231129092728880</figcaption>
+</figure>
+<ul>
+<li>使用重置标志：通信一方发送RST包则立即断开连接。</li>
+<li>伪造的RST数据包需要正确设置以下字段：源/目的IP；源/目的端口；序列号（接收方窗口内）</li>
+</ul></li>
+<li><p><strong>TCP会话劫持攻击：</strong></p>
+<ul>
+<li><p>目标：在已建立连接中注入数据</p></li>
+<li><p>TCP会话劫持数据包需要正确设置以下字段：源/目的IP；源/目的端口；序列号（接收方窗口内）</p></li>
+<li><p>如果接收器已接收到序列号x之前的一些数据，则下一个序列号为x+1。如果伪造的数据包使用序列号x+𝛿,
+它变得不正常了。 此数据包中的数据将存储在接收器缓冲区的位置x+𝛿。如果𝛿
+如果是大的，它可能会掉出边界。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311291009807.png" srcset="/img/loading.gif" lazyload
+alt="image-20231129093123042" />
+<figcaption aria-hidden="true">image-20231129093123042</figcaption>
+</figure></li>
+</ul></li>
+</ol>
+<h2 id="ip欺骗防御">6.5.3 IP欺骗防御</h2>
+<ul>
+<li>使攻击者难以伪造数据包
+<ul>
+<li>随机化源端口号</li>
+<li>随机化初始序列号</li>
+<li>对本地攻击无效</li>
+</ul></li>
+<li>加密有效载荷</li>
+</ul>
+<h1 id="dns欺骗攻击">6.6 DNS欺骗攻击</h1>
+<p>DNS欺骗攻击位于应用层，通过篡改DNS响应包的内容，在用户访问域名时重定向到其他恶意IP地址。</p>
+<h2 id="dns域名系统">6.6.1 DNS域名系统</h2>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311291009808.png" srcset="/img/loading.gif" lazyload
+alt="image-20231129093829973" />
+<figcaption aria-hidden="true">image-20231129093829973</figcaption>
+</figure>
+<p><strong>DNS层次结构：</strong></p>
+<ul>
+<li>根域名：有13个DNS根服务器</li>
+<li>顶级域TLD：
+<ul>
+<li>基础结构：arpa</li>
+<li>通用：.com .net</li>
+<li>赞助：.edu .gov .mail</li>
+<li>国家代码：.cn .us</li>
+<li>保留：.example .localhost</li>
+</ul></li>
+<li>二级域名</li>
+</ul>
+<p><strong>区域和域：</strong></p>
+<ul>
+<li><p>域和子域都是概念上的划分，区域是实际物理意义上的划分，也就是根据权限域名服务器划分。</p></li>
+<li><p>每个DNS区域至少有一个权威名称服务器，用于发布有关该区域的信息。它提供了DNS查询的原始和最终答案。权威名称服务器可以是主服务器（主服务器）或从服务器（辅助服务器）。主服务器存储所有区域记录的主副本，而从服务器使用自动更新机制来维护主记录的相同副本。</p></li>
+<li><p>DNS区域仅包含域的一部分DNS数据。如果域未划分为子域，则区域和域本质上是相同的，因为区域包含域的所有DNS数据。当一个域被划分为子域时，它们的DNS数据仍然可以放在同一个区域中，因此域和区域仍然是相同的。但是子域可以有自己的区域。usa.example.com是一个域名，其子域为波士顿、纽约和芝加哥。为usa.example.com创建了两个区域。第一个包含芝加哥和波士顿子域，第二个包含NYC子域。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311291009809.png" srcset="/img/loading.gif" lazyload
+alt="image-20231129094721563" />
+<figcaption aria-hidden="true">image-20231129094721563</figcaption>
+</figure></li>
+</ul>
+<h2 id="dns解析过程">6.6.2 DNS解析过程</h2>
+<p>DNS查询的结果通常会在本地域名服务器中进行缓存，如果本地域名服务器中有缓存的情况下，则会跳过如下DNS查询步骤，很快返回解析结果。下面的示例则概述了本地域名服务器没有缓存的情况下，DNS查询所需的8个步骤：</p>
+<p>1、用户在Web浏览器中输入“example.com”，
+则由本地域名服务器开始进行递归查询。</p>
+<p>2、本地域名服务器采用迭代查询的方法，向根域名服务器进行查询。</p>
+<p>3、根域名服务器告诉本地域名服务器，下一步应该查询的顶级域名服务器.com
+TLD的IP地址。</p>
+<p>4、本地域名服务器向顶级域名服务器.com TLD进行查询。</p>
+<p>5、.com
+TLD服务器告诉本地域名服务器，下一步查询example.com权威域名服务器的IP地址。</p>
+<p>6、本地域名服务器向example.com权威域名服务器发送查询。</p>
+<p>7、example.com权威域名服务器告诉本地域名服务器所查询的主机IP地址。</p>
+<p>8、本地域名服务器最后把查询的IP地址响应给Web浏览器。</p>
+<p><strong>一旦DNS查询的8个步骤返回了example.com的IP地址，浏览器就能够发出对网页的请求：</strong></p>
+<p><strong>9、浏览器向IP地址发出HTTP请求</strong></p>
+<p><strong>10、该IP处的Web服务器返回要在浏览器中呈现的网页</strong></p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311291009810.png" srcset="/img/loading.gif" lazyload
+alt="image-20231129095007721" />
+<figcaption aria-hidden="true">image-20231129095007721</figcaption>
+</figure>
+<h2 id="本地dns文件">6.6.3 本地DNS文件</h2>
+<ul>
+<li>/etc/hosts：存储某些主机名的IP地址。在计算机联系本地DNS服务器之前，它首先在该文件中查找IP地址。</li>
+<li>/etc/resolv.conf：向计算机的DNS解析器提供有关本地DNS服务器地址的信息。DHCP提供的本地DNS服务器的IP地址也存储在这里。</li>
+</ul>
+<h2 id="dns响应">6.6.4 DNS响应</h2>
+<ul>
+<li>问题部分：向名称服务器描述问题</li>
+<li>回答部分：回答问题的记录</li>
+<li>权威部分：指向权威名称服务器的记录</li>
+<li>附加部分：与查询相关的记录</li>
+</ul>
+<p>DNS缓存：当本地DNS服务器从其他DNS服务器获取信息时，它会缓存该信息。缓存中的每一条信息都有一个生存时间值，最终将超时并从缓存中删除</p>
+<h2 id="dns数据包">6.6.5 DNS数据包</h2>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311291009811.png" srcset="/img/loading.gif" lazyload
+alt="image-20231129095329850" />
+<figcaption aria-hidden="true">image-20231129095329850</figcaption>
+</figure>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311291009812.png" srcset="/img/loading.gif" lazyload
+alt="image-20231129095336613" />
+<figcaption aria-hidden="true">image-20231129095336613</figcaption>
+</figure>
+<h2 id="dns攻击">6.6.6 DNS攻击</h2>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311291009814.png" srcset="/img/loading.gif" lazyload
+alt="image-20231129095920373" />
+<figcaption aria-hidden="true">image-20231129095920373</figcaption>
+</figure>
+<ul>
+<li>拒绝服务攻击：使本地DNS服务器和权威名称服务器无法响应DNS查询</li>
+<li>DNS欺骗：向受害者提供欺骗性IP地址，诱使他们与不同于他们意图的机器进行通信</li>
+<li>受损机器：如果攻击者获得了机器的根权限，可以修改<code>/etc/resolv.conf</code>和
+<code>/etc/hosts</code></li>
+<li>来自恶意DNS服务器的回复伪造攻击：恶意DNS服务器在Authority
+Section和Additional Section中提供伪造数据</li>
+<li>反向DNS查找中的应答伪造：如果数据包来自攻击者，则反向DNS查找将返回到攻击者的名称服务器。
+攻击者可以使用他们想要的任何主机名进行回复。</li>
+<li>DNS重新绑定攻击：通过修改DNS解析来绕过同源政策（Same-Origin
+Policy）以访问受害者的敏感信息或执行恶意操作，因为虽然原始请求的域名与恶意内容的域名不同，但它们现在解析到同一个IP地址上，从而使浏览器认为它们是同源的。</li>
+<li>DNS缓存中毒攻击：
+<ul>
+<li>本地DNS缓存中毒攻击：在看到来自本地DNS的查询后伪造DNS应答(Answer
+Section和Authority Section)</li>
+<li>远程DNS缓存中毒攻击：需要猜测查询数据包使用的两个随机数，源端口号和事务ID。如果一次尝试失败，local
+DNS 将缓存实际回复；攻击者需要等待缓存超时以进行下一次尝试。</li>
+</ul></li>
+</ul>
+<h2 id="防止dns缓存中毒攻击">6.6.7 防止DNS缓存中毒攻击</h2>
+<ul>
+<li>DNSSEC：对DNS数据提供身份验证和完整性检查。（数字签名机制）</li>
+<li>TLS/SSL：服务器必须提供由受信任实体签名的公钥证书，并证明它是证书的所有者。</li>
+</ul>
 
                 
               </div>
