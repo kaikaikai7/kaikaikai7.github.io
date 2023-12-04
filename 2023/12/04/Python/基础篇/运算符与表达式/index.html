@@ -1,0 +1,803 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="kaikaikai">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1 运算符 1.1 算术运算符 在Python中，有几个常见的算术运算符用于执行基本的数学运算。一些常见的算术运算符包括：  加法 +：用于相加两个数。 1a &#x3D; 5 + 3  # a 的值为 8 减法 -：用于相减两个数。 1b &#x3D; 7 - 2  # b 的值为 5 乘法 *：用于相乘两个数。 1c &#x3D; 4 * 6  # c 的值为 24 除法 &#x2F;：用于相除两个数。 1d">
+<meta property="og:type" content="article">
+<meta property="og:title" content="运算符与表达式">
+<meta property="og:url" content="http://example.com/2023/12/04/Python/%E5%9F%BA%E7%A1%80%E7%AF%87/%E8%BF%90%E7%AE%97%E7%AC%A6%E4%B8%8E%E8%A1%A8%E8%BE%BE%E5%BC%8F/index.html">
+<meta property="og:site_name" content="kaikaikai&#39;s blog">
+<meta property="og:description" content="1 运算符 1.1 算术运算符 在Python中，有几个常见的算术运算符用于执行基本的数学运算。一些常见的算术运算符包括：  加法 +：用于相加两个数。 1a &#x3D; 5 + 3  # a 的值为 8 减法 -：用于相减两个数。 1b &#x3D; 7 - 2  # b 的值为 5 乘法 *：用于相乘两个数。 1c &#x3D; 4 * 6  # c 的值为 24 除法 &#x2F;：用于相除两个数。 1d">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-12-04T06:38:21.000Z">
+<meta property="article:modified_time" content="2023-12-04T06:58:19.698Z">
+<meta property="article:author" content="kaikaikai">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>运算符与表达式 - kaikaikai&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>kaikaikai&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="运算符与表达式"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-12-04 14:38" pubdate>
+          2023年12月4日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          25 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">运算符与表达式</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="运算符">1 运算符</h1>
+<h2 id="算术运算符">1.1 算术运算符</h2>
+<p>在Python中，有几个常见的算术运算符用于执行基本的数学运算。一些常见的算术运算符包括：</p>
+<ol type="1">
+<li><p><strong>加法 <code>+</code></strong>：用于相加两个数。
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">a = <span class="hljs-number">5</span> + <span class="hljs-number">3</span>  <span class="hljs-comment"># a 的值为 8</span><br></code></pre></td></tr></table></figure></p></li>
+<li><p><strong>减法 <code>-</code></strong>：用于相减两个数。
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">b = <span class="hljs-number">7</span> - <span class="hljs-number">2</span>  <span class="hljs-comment"># b 的值为 5</span><br></code></pre></td></tr></table></figure></p></li>
+<li><p><strong>乘法 <code>*</code></strong>：用于相乘两个数。
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">c = <span class="hljs-number">4</span> * <span class="hljs-number">6</span>  <span class="hljs-comment"># c 的值为 24</span><br></code></pre></td></tr></table></figure></p></li>
+<li><p><strong>除法 <code>/</code></strong>：用于相除两个数。
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">d = <span class="hljs-number">15</span> / <span class="hljs-number">3</span>  <span class="hljs-comment"># d 的值为 5.0 (Python 3 中除法结果默认为浮点数)</span><br></code></pre></td></tr></table></figure></p></li>
+<li><p><strong>整数除法 <code>//</code></strong>：返回除法的整数部分。
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">e = <span class="hljs-number">15</span> // <span class="hljs-number">3</span>  <span class="hljs-comment"># e 的值为 5</span><br></code></pre></td></tr></table></figure></p></li>
+<li><p><strong>取模运算 <code>%</code></strong>：返回除法的余数。
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">f = <span class="hljs-number">17</span> % <span class="hljs-number">4</span>  <span class="hljs-comment"># f 的值为 1 (17 除以 4 的余数是 1)</span><br></code></pre></td></tr></table></figure></p></li>
+<li><p><strong>幂运算 <code>**</code></strong>：用于计算一个数的幂。
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">g = <span class="hljs-number">2</span> ** <span class="hljs-number">3</span>  <span class="hljs-comment"># g 的值为 8 (2 的 3次方)</span><br></code></pre></td></tr></table></figure></p></li>
+</ol>
+<p>这些算术运算符可以用于执行各种数学运算，你可以将它们组合使用来得到你想要的结果。</p>
+<h2 id="赋值运算符">1.2 赋值运算符</h2>
+<p>赋值运算符用于将值赋给变量。它们不仅仅是把一个值赋给一个变量，还可以与其他运算符一起使用来对变量进行操作并赋值。以下是常见的赋值运算符：</p>
+<ol type="1">
+<li><p><strong>等号 <code>=</code></strong>：将右侧的值赋给左侧的变量。
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">x = <span class="hljs-number">5</span>  <span class="hljs-comment"># 将值 5 赋给变量 x</span><br></code></pre></td></tr></table></figure></p></li>
+<li><p><strong>复合赋值运算符（例如 <code>+=</code>, <code>-=</code>,
+<code>*=</code>, <code>/=</code>, <code>%=</code>,
+<code>**=</code>,<code>//=</code>）</strong>：将运算符右侧的值和左侧的变量进行运算，并将结果赋给左侧的变量。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">y = <span class="hljs-number">10</span><br>y += <span class="hljs-number">3</span>  <span class="hljs-comment"># 相当于 y = y + 3，结果是 y 的值变成 13</span><br></code></pre></td></tr></table></figure></li>
+<li><p><strong>多重赋值</strong>：在一行内为多个变量赋值。
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">a, b = <span class="hljs-number">5</span>, <span class="hljs-number">10</span>  <span class="hljs-comment"># a 的值是 5，b 的值是 10</span><br></code></pre></td></tr></table></figure></p></li>
+<li><p><strong>链式赋值</strong>：将同一个值赋给多个变量。
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">c = d = <span class="hljs-number">20</span>  <span class="hljs-comment"># c 和 d 的值都是 20</span><br></code></pre></td></tr></table></figure></p></li>
+</ol>
+<p>这些赋值运算符能够让你更灵活地处理变量的赋值和操作，使得代码更简洁、易读。</p>
+<h2 id="比较关系运算符">1.3 比较（关系）运算符</h2>
+<p>比较运算符用于比较两个值，并返回一个布尔值（True或False），表示比较的结果是否成立。下面是常见的比较运算符：</p>
+<ol type="1">
+<li><p><strong>等于 <code>==</code></strong>：检查两个值是否相等。
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">a = <span class="hljs-number">5</span><br>b = <span class="hljs-number">7</span><br>result = (a == b)  <span class="hljs-comment"># result 的值为 False</span><br></code></pre></td></tr></table></figure></p></li>
+<li><p><strong>不等于 <code>!=</code></strong>：检查两个值是否不相等。
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">x = <span class="hljs-number">10</span><br>y = <span class="hljs-number">5</span><br>result = (x != y)  <span class="hljs-comment"># result 的值为 True</span><br></code></pre></td></tr></table></figure></p></li>
+<li><p><strong>大于
+<code>&gt;</code></strong>：检查左侧的值是否大于右侧的值。
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">m = <span class="hljs-number">15</span><br>n = <span class="hljs-number">10</span><br>result = (m &gt; n)  <span class="hljs-comment"># result 的值为 True</span><br></code></pre></td></tr></table></figure></p></li>
+<li><p><strong>小于
+<code>&lt;</code></strong>：检查左侧的值是否小于右侧的值。
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">p = <span class="hljs-number">3</span><br>q = <span class="hljs-number">6</span><br>result = (p &lt; q)  <span class="hljs-comment"># result 的值为 True</span><br></code></pre></td></tr></table></figure></p></li>
+<li><p><strong>大于等于
+<code>&gt;=</code></strong>：检查左侧的值是否大于或等于右侧的值。
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">r = <span class="hljs-number">8</span><br>s = <span class="hljs-number">8</span><br>result = (r &gt;= s)  <span class="hljs-comment"># result 的值为 True</span><br></code></pre></td></tr></table></figure></p></li>
+<li><p><strong>小于等于
+<code>&lt;=</code></strong>：检查左侧的值是否小于或等于右侧的值。
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">t = <span class="hljs-number">4</span><br>u = <span class="hljs-number">7</span><br>result = (t &lt;= u)  <span class="hljs-comment"># result 的值为 True</span><br></code></pre></td></tr></table></figure></p></li>
+</ol>
+<p>这些比较运算符可用于在程序中进行条件判断，并根据条件的成立与否执行相应的代码块。</p>
+<h2 id="逻辑运算符">1.4 逻辑运算符</h2>
+<p>逻辑运算符用于对布尔值进行操作，可以将多个条件结合起来进行逻辑运算。Python中常见的逻辑运算符包括：</p>
+<ol type="1">
+<li><p><strong>与运算
+<code>and</code></strong>：当且仅当所有条件都为真时，结果为真。
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">x = <span class="hljs-number">5</span><br>result = (x &gt; <span class="hljs-number">0</span>) <span class="hljs-keyword">and</span> (x &lt; <span class="hljs-number">10</span>)  <span class="hljs-comment"># result 的值为 True</span><br></code></pre></td></tr></table></figure></p></li>
+<li><p><strong>或运算
+<code>or</code></strong>：只要有一个条件为真，结果就为真。
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">y = <span class="hljs-number">15</span><br>result = (y &lt; <span class="hljs-number">10</span>) <span class="hljs-keyword">or</span> (y % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>)  <span class="hljs-comment"># result 的值为 True</span><br></code></pre></td></tr></table></figure></p></li>
+<li><p><strong>非运算
+<code>not</code></strong>：用于取反一个条件的值，如果条件为真，则返回假；如果条件为假，则返回真。
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">z = <span class="hljs-number">7</span><br>result = <span class="hljs-keyword">not</span> (z == <span class="hljs-number">10</span>)  <span class="hljs-comment"># result 的值为 True</span><br></code></pre></td></tr></table></figure></p></li>
+</ol>
+<p>这些逻辑运算符可以结合多个条件，根据这些条件的逻辑关系得出最终的布尔值结果。在条件判断、循环控制等方面，逻辑运算符非常有用。</p>
+<h2 id="位运算符">1.5 位运算符</h2>
+<p>位运算符用于对整数在二进制形式下的位进行操作。在Python中，有几个常见的位运算符：</p>
+<p><strong>按位与 <code>&amp;</code></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">result_and = <span class="hljs-number">0b1010</span> &amp; <span class="hljs-number">0b1100</span>  <span class="hljs-comment"># 0b1010 表示十进制的 10，0b1100 表示十进制的 12</span><br><span class="hljs-comment"># 10 的二进制是 1010，12 的二进制是 1100，按位与操作结果是 1000（十进制为 8）</span><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">bin</span>(result_and))  <span class="hljs-comment"># 输出：0b1000</span><br></code></pre></td></tr></table></figure>
+<p><strong>按位或 <code>|</code></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">result_or = <span class="hljs-number">0b1010</span> | <span class="hljs-number">0b1100</span><br><span class="hljs-comment"># 10 的二进制是 1010，12 的二进制是 1100，按位或操作结果是 1110（十进制为 14）</span><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">bin</span>(result_or))  <span class="hljs-comment"># 输出：0b1110</span><br></code></pre></td></tr></table></figure>
+<p><strong>按位异或 <code>^</code></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">result_xor = <span class="hljs-number">0b1010</span> ^ <span class="hljs-number">0b1100</span><br><span class="hljs-comment"># 10 的二进制是 1010，12 的二进制是 1100，按位异或操作结果是 0110（十进制为 6）</span><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">bin</span>(result_xor))  <span class="hljs-comment"># 输出：0b110</span><br></code></pre></td></tr></table></figure>
+<p><strong>按位取反 <code>~</code></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">result_complement = ~<span class="hljs-number">0b1010</span><br><span class="hljs-comment"># 10 的二进制是 1010，按位取反操作结果是 -11（在二进制中表示为 -0b1011）</span><br><span class="hljs-comment"># 按位取反操作是对整数的二进制补码进行取反操作，但需要注意结果可能是负数，并且在 Python 中输出的形式是以 - 符号和补码形式的二进制来表示。</span><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">bin</span>(result_complement))  <span class="hljs-comment"># 输出：-0b1011</span><br></code></pre></td></tr></table></figure>
+<p><strong>左移 <code>&lt;&lt;</code></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">result_left_shift = <span class="hljs-number">0b1010</span> &lt;&lt; <span class="hljs-number">2</span><br><span class="hljs-comment"># 10 的二进制是 1010，向左移动两位结果是 101000（十进制为 40）</span><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">bin</span>(result_left_shift))  <span class="hljs-comment"># 输出：0b101000</span><br></code></pre></td></tr></table></figure>
+<p><strong>右移 <code>&gt;&gt;</code></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">result_right_shift = <span class="hljs-number">0b1010</span> &gt;&gt; <span class="hljs-number">1</span><br><span class="hljs-comment"># 10 的二进制是 1010，向右移动一位结果是 101（十进制为 5）</span><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">bin</span>(result_right_shift))  <span class="hljs-comment"># 输出：0b101</span><br></code></pre></td></tr></table></figure>
+<h1 id="运算符优先级">2 运算符优先级</h1>
+<p>在 Python
+中，不同的运算符有不同的优先级。当一个表达式中有多个运算符时，Python
+会根据优先级规则来确定计算顺序。以下是常见运算符的优先级，从高到低排列：</p>
+<ol type="1">
+<li><strong>括号
+<code>()</code></strong>（最高优先级）：括号中的表达式优先计算。</li>
+<li><strong>指数运算 <code>**</code></strong>：例如，<code>2 ** 3</code>
+表示 2 的 3 次方。</li>
+<li><strong>按位取反 <code>~</code></strong></li>
+<li><strong>正负号 <code>+x</code>, <code>-x</code></strong></li>
+<li><strong>乘法、除法、取模、整除 <code>*</code>, <code>/</code>,
+<code>%</code>, <code>//</code></strong></li>
+<li><strong>加法和减法 <code>+</code>, <code>-</code></strong></li>
+<li><strong>按位左移、按位右移 <code>&lt;&lt;</code>,
+<code>&gt;&gt;</code></strong></li>
+<li><strong>按位与 <code>&amp;</code></strong></li>
+<li><strong>按位异或 <code>^</code></strong></li>
+<li><strong>按位或 <code>|</code></strong></li>
+<li><strong>比较运算符 <code>==</code>, <code>!=</code>,
+<code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>,
+<code>&lt;=</code></strong></li>
+<li><strong>逻辑运算符 <code>not</code>, <code>and</code>,
+<code>or</code></strong>（逻辑运算符的优先级低于比较运算符）</li>
+</ol>
+<p>如果在一个表达式中含有多个运算符，Python
+将按照上述优先级顺序进行计算。当优先级相同时，Python
+会从左向右计算表达式。为了避免混淆，建议在复杂的表达式中使用括号来明确计算顺序。</p>
+<h1 id="条件表达式">3 条件表达式</h1>
+<p>条件表达式是一种在单行代码中根据条件选择不同操作的方式。在 Python
+中，条件表达式也被称为三元运算符，它使用了类似于数学中的三元操作符的语法结构。其基本形式如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">result = [表达式为真时的值] <span class="hljs-keyword">if</span> [条件] <span class="hljs-keyword">else</span> [表达式为假时的值]<br></code></pre></td></tr></table></figure>
+<p>这种结构允许根据条件的真假来选择不同的值。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">x = <span class="hljs-number">5</span><br>y = <span class="hljs-number">10</span><br>result = x <span class="hljs-keyword">if</span> x &gt; y <span class="hljs-keyword">else</span> y  <span class="hljs-comment"># 如果 x 大于 y，则 result 等于 x，否则等于 y</span><br><span class="hljs-built_in">print</span>(result)  <span class="hljs-comment"># 输出：10（因为 x 小于 y）</span><br></code></pre></td></tr></table></figure>
+<p>在这个例子中，如果 <code>x</code> 大于 <code>y</code>，则
+<code>result</code> 的值为 <code>x</code>，否则 <code>result</code>
+的值为 <code>y</code>。</p>
+<p>条件表达式通常用于简洁地表示基于条件进行赋值或操作的情况。但过度使用条件表达式可能会降低代码的可读性，因此在确保代码可读性的前提下使用它们会更好。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Python/" class="category-chain-item">Python</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Python/%E5%9F%BA%E7%A1%80%E7%AF%87/" class="category-chain-item">基础篇</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>运算符与表达式</div>
+      <div>http://example.com/2023/12/04/Python/基础篇/运算符与表达式/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>kaikaikai</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年12月4日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/12/04/Python/%E5%9F%BA%E7%A1%80%E7%AF%87/%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E8%AF%AD%E5%8F%A5/" title="流程控制语句">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">流程控制语句</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/12/04/Python/%E5%9F%BA%E7%A1%80%E7%AF%87/Python%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/" title="Python语言基础">
+                        <span class="hidden-mobile">Python语言基础</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
