@@ -16,15 +16,15 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1. Overview  本实验的学习目标是让学生了解环境变量如何影响程序和系统行为.环境变量是一组动态命名值，可影响运行进程在计算机上的行为方式.自 1979 年 Unix 引入环境变量以来，大多数操作系统都在使用它们.尽管环境变量会影响程序行为，但许多程序员并不十分了解它们是如何实现这一目标的.因此，如果程序使用了环境变量，但程序员并不知道使用了环境变量，程序就可能存在漏洞. 在本实">
+    <meta name="description" content="1. Overview  本实验的学习目标是让学生了解环境变量如何影响程序和系统行为。环境变量是一组动态的命名值，可以影响计算机上运行进程的行为方式。自 1979 年 Unix 引入环境变量以来，大多数操作系统都使用环境变量。尽管环境变量会影响程序的行为，但许多程序员并不十分了解它们是如何实现的。因此，如果程序使用了环境变量，但程序员并不知道使用了环境变量，程序就可能存在漏洞。 在本实验">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Environment_Variable_and_SetUID">
 <meta property="og:url" content="http://example.com/2023/10/25/SEED-LABS/Software%20Security/Environment_Variable_and_SetUID/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="1. Overview  本实验的学习目标是让学生了解环境变量如何影响程序和系统行为.环境变量是一组动态命名值，可影响运行进程在计算机上的行为方式.自 1979 年 Unix 引入环境变量以来，大多数操作系统都在使用它们.尽管环境变量会影响程序行为，但许多程序员并不十分了解它们是如何实现这一目标的.因此，如果程序使用了环境变量，但程序员并不知道使用了环境变量，程序就可能存在漏洞. 在本实">
+<meta property="og:description" content="1. Overview  本实验的学习目标是让学生了解环境变量如何影响程序和系统行为。环境变量是一组动态的命名值，可以影响计算机上运行进程的行为方式。自 1979 年 Unix 引入环境变量以来，大多数操作系统都使用环境变量。尽管环境变量会影响程序的行为，但许多程序员并不十分了解它们是如何实现的。因此，如果程序使用了环境变量，但程序员并不知道使用了环境变量，程序就可能存在漏洞。 在本实验">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-10-25T01:40:23.000Z">
-<meta property="article:modified_time" content="2023-10-25T02:16:04.336Z">
+<meta property="article:modified_time" content="2023-12-08T07:54:11.957Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5k 字
+          9.1k 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          42 分钟
+          77 分钟
         
       </span>
     
@@ -262,14 +262,14 @@
                 
                 <h1 id="overview">1. Overview</h1>
 <ul>
-<li>本实验的学习目标是让学生了解环境变量如何影响程序和系统行为.环境变量是一组动态命名值，可影响运行进程在计算机上的行为方式.自
+<li>本实验的学习目标是让学生了解环境变量如何影响程序和系统行为。环境变量是一组动态的命名值，可以影响计算机上运行进程的行为方式。自
 1979 年 Unix
-引入环境变量以来，大多数操作系统都在使用它们.尽管环境变量会影响程序行为，但许多程序员并不十分了解它们是如何实现这一目标的.因此，如果程序使用了环境变量，但程序员并不知道使用了环境变量，程序就可能存在漏洞.</li>
-<li>在本实验室中，学生将了解环境变量的工作原理、环境变量如何从父进程传播到子进程，以及环境变量如何影响系统/程序行为.我们尤其感兴趣的是环境变量如何影响
-Set-UID 程序的行为，这些程序通常是特权程序.本实验室涵盖以下主题：
+引入环境变量以来，大多数操作系统都使用环境变量。尽管环境变量会影响程序的行为，但许多程序员并不十分了解它们是如何实现的。因此，如果程序使用了环境变量，但程序员并不知道使用了环境变量，程序就可能存在漏洞。</li>
+<li>在本实验室中，学生将了解环境变量的工作原理、环境变量如何从父进程传播到子进程，以及环境变量如何影响系统/程序行为。我们尤其感兴趣的是环境变量如何影响
+Set-UID 程序的行为，这些程序通常是特权程序。本实验室涵盖以下主题：
 <ul>
 <li>环境变量</li>
-<li>设置 UID 程序</li>
+<li>Set-UID 程序</li>
 <li>安全调用外部程序</li>
 <li>能力泄露</li>
 <li>动态加载器/链接器</li>
@@ -278,10 +278,15 @@ Set-UID 程序的行为，这些程序通常是特权程序.本实验室涵盖�
 <h1 id="lab-tasks">2. Lab Tasks</h1>
 <h2 id="task-1-manipulating-environment-variables">2.1 Task 1:
 Manipulating Environment Variables</h2>
+<p>在本任务中，我们将学习用于设置和取消设置环境变量的命令。我们在种子账户中使用
+Bash。用户使用的默认 shell 设置在 /etc/passwd
+文件中（每个条目的最后一栏）。你可以使用 <code>chsh</code>
+命令将其更改为其他 shell
+程序（请不要在本实验中使用）。请完成以下任务：</p>
 <ol type="1">
-<li><p>使用<code>printenv</code>或<code>env</code>命令打印出环境变量.对于特定的环境变量，如
+<li><p>使用<code>printenv</code>或<code>env</code>命令打印出环境变量。对于特定的环境变量，如
 PWD，可以使用<code>printenv PWD</code>或
-<code>env | grep PWD</code>.</p>
+<code>env | grep PWD</code>。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310251015240.png" srcset="/img/loading.gif" lazyload
@@ -289,8 +294,8 @@ alt="image-20231025094609055" />
 <figcaption aria-hidden="true">image-20231025094609055</figcaption>
 </figure></li>
 <li><p>使用 export 和 unset
-设置或取消设置环境变量.需要注意的是，这两条命令并不是独立的程序；它们是
-Bash 的两个内部命令，即在 Bash 之外无法找到它们.</p>
+设置或取消设置环境变量。需要注意的是，这两条命令并不是独立的程序；它们是
+Bash 的两个内部命令，即在 Bash 之外无法找到它们。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310251015241.png" srcset="/img/loading.gif" lazyload
@@ -302,11 +307,39 @@ alt="image-20231025094645788" />
 id="task-2-passing-environment-variables-from-parent-process-to-child-process">2.2
 Task 2: Passing Environment Variables from Parent Process to Child
 Process</h2>
+<p>在本任务中，我们将研究子进程如何从父进程获取环境变量。在 Unix
+中，fork()
+通过复制调用进程来创建一个新进程。被称为子进程的新进程与被称为父进程的调用进程完全相同，但子进程并不继承父进程的某些功能（请键入以下命令查看
+fork() 的使用手册：man
+fork）。在本任务中，我们想知道父进程的环境变量是否被子进程继承。</p>
+<p><strong>步骤
+1</strong>：请编译并运行以下程序，并描述你的观察结果。该程序可以在
+Labsetup
+文件夹中找到；可以使用<code>gcc myprintenv.c</code>进行编译，编译后将生成名为
+<code>a.out</code>的二进制文件。让我们运行它，并使用
+<code>a.out &gt; file</code>将输出保存到文件中。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312081553568.png" srcset="/img/loading.gif" lazyload
+alt="image-20231208150724790" />
+<figcaption aria-hidden="true">image-20231208150724790</figcaption>
+</figure>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312081553569.png" srcset="/img/loading.gif" lazyload
+alt="image-20231208150753552" />
+<figcaption aria-hidden="true">image-20231208150753552</figcaption>
+</figure>
+<p><strong>步骤 2</strong>：现在注释掉子进程情况下的 printenv() 语句（第
+➀ 行），取消注释父进程情况下的 printenv() 语句（第 ➁
+行）。再次编译并运行代码，并描述您的观察结果。将输出保存到另一个文件中。</p>
+<p><strong>步骤 3</strong>：使用 diff
+命令比较这两个文件的差异。请得出结论。</p>
+<p><strong>实验流程：</strong></p>
 <ol type="1">
-<li><p>每个程序都有一个环境表，它是一个字符指针数组，其中每个指针包含一个以NULL结尾的C字符串的地址.全局变量environ则包含了该指针数组的地址.
-fork()函数会通过系统调用创建一个与父进程几乎完全相同的子进程，fork()函数会有两个返回值，在父进程中返回子进程的ID；在子进程中返回0，若出现错误则返回一个负值.</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// myprintenv.c</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unistd.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdlib.h&gt;</span></span><br><br><span class="hljs-keyword">extern</span> <span class="hljs-type">char</span> **environ;<br><br><span class="hljs-type">void</span> <span class="hljs-title function_">printenv</span><span class="hljs-params">()</span><br>&#123;<br>  <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>;<br>  <span class="hljs-keyword">while</span> (environ[i] != <span class="hljs-literal">NULL</span>) &#123;<br>     <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s\n&quot;</span>, environ[i]);<br>     i++;<br>  &#125;<br>&#125;<br><br><span class="hljs-type">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span><br>&#123;<br>  <span class="hljs-type">pid_t</span> childPid;<br>  <span class="hljs-keyword">switch</span>(childPid = fork()) &#123;<br>    <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>:  <span class="hljs-comment">/* child process */</span><br>      printenv();          <br>      <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);<br>    <span class="hljs-keyword">default</span>:  <span class="hljs-comment">/* parent process */</span><br>      <span class="hljs-comment">//printenv();       </span><br>      <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
-<li><p>编译运行myprintenv.c，并将输出结果保存到child_env，输出打印了子进程的环境变量.</p>
+<li><p>每个程序都有一个环境表，它是一个字符指针数组，其中每个指针包含一个以NULL结尾的C字符串的地址。全局变量environ则包含了该指针数组的地址。
+fork()函数会通过系统调用创建一个与父进程几乎完全相同的子进程，fork()函数会有两个返回值，在父进程中返回子进程的ID；在子进程中返回0，若出现错误则返回一个负值。</p></li>
+<li><p>编译运行myprintenv.c，并将输出结果保存到child_env，输出打印了子进程的环境变量。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310251015242.png" srcset="/img/loading.gif" lazyload
@@ -315,7 +348,7 @@ alt="image-20231025094953836" />
 </figure></li>
 <li><p>注释掉子进程情况下的 printenv() 语句，取消注释父进程情况下的的
 printenv()
-语句.再次编译并运行代码，并将输出保存到parent_env，输出打印了父进程的环境变量.</p>
+语句。再次编译并运行代码，并将输出保存到parent_env，输出打印了父进程的环境变量。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310251015243.png" srcset="/img/loading.gif" lazyload
@@ -323,7 +356,7 @@ alt="image-20231025095016365" />
 <figcaption aria-hidden="true">image-20231025095016365</figcaption>
 </figure></li>
 <li><p>使用 diff
-命令比较这两个文件的差异，发现两个文件完全相同.<strong>结论：如果使用fork()创建了一个新进程，则子进程将继承其父进程的环境变量.</strong></p>
+命令比较这两个文件的差异，发现两个文件完全相同。<strong>结论：如果使用fork()创建了一个新进程，则子进程将继承其父进程的环境变量。</strong></p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310251015244.png" srcset="/img/loading.gif" lazyload
@@ -333,37 +366,61 @@ alt="image-20231025095039820" />
 </ol>
 <h2 id="task-3-environment-variables-and-execve">2.3 Task 3: Environment
 Variables and execve()</h2>
+<p>在本任务中，我们将研究当通过 execve()
+执行一个新程序时，环境变量会受到怎样的影响。 函数 execve()
+调用系统调用来加载一个新命令并执行该命令；该函数永远不会返回。不会创建新进程；相反，调用进程的文本、数据、bss
+和堆栈会被加载程序的文本、数据、bss 和堆栈覆盖。本质上，execve()
+在调用进程中运行新程序。我们感兴趣的是环境变量会发生什么变化；它们会被新程序自动继承吗？</p>
+<p><strong>步骤
+1</strong>：请编译并运行以下程序，并描述你的观察结果。该程序只需执行一个名为
+/usr/bin/env 的程序，即可打印出当前进程的环境变量。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312081553570.png" srcset="/img/loading.gif" lazyload
+alt="image-20231208151147534" />
+<figcaption aria-hidden="true">image-20231208151147534</figcaption>
+</figure>
+<p><strong>步骤2</strong>：将第①行中 execve()
+的调用改为以下内容；描述你的观察结果。</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lisp">execve(<span class="hljs-string">&quot;/usr/bin/env&quot;</span>, argv, environ)<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
+<p><strong>步骤 3</strong>：请就新程序如何获取环境变量得出结论。</p>
 <ol type="1">
-<li><p>函数 execve()
-通过系统调用加载新命令并执行该命令；该函数永远不会返回，不会创建新进程；相反，调用进程的文本、数据、bss
-和堆栈会被所加载程序的文本、数据、bss 和堆栈覆盖.本质上，execve()
-在调用进程中运行新程序.</p></li>
-<li><p>execve()函数原型：filename:准备载入当前进程空间的新程序的路径名.既可以是绝对路径，又可以是相对路径.argv[]:指定了传给新程序的命令行参数，该数组对应于c语言main函数的argv参数数组，格式也相同，argv[0]对应命令名，通常情况下该值与filename中的basename(就是绝对路径的最后一个)相同.envp[]:最后一个参数envp指定了新程序的环境列表.参数envp对应于新程序的environ数组.</p>
+<li><p>execve()函数原型：filename:准备载入当前进程空间的新程序的路径名。既可以是绝对路径，又可以是相对路径；argv[]:指定了传给新程序的命令行参数，该数组对应于c语言main函数的argv参数数组，格式也相同，argv[0]对应命令名，通常情况下该值与filename中的basename(就是绝对路径的最后一个)相同；envp[]:最后一个参数envp指定了新程序的环境列表。参数envp对应于新程序的environ数组。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310251015245.png" srcset="/img/loading.gif" lazyload
 alt="image-20231025095130506" />
 <figcaption aria-hidden="true">image-20231025095130506</figcaption>
 </figure></li>
-<li><p>编译运行myenv.c，没有任何输出，说明新程序没有任何环境变量.将execve("/usr/bin/env",
+<li><p>编译运行myenv.c，没有任何输出，说明新程序没有任何环境变量。将execve("/usr/bin/env",
 argv, NULL)语句修改为execve("/usr/bin/env", argv,
-environ)，发现可以打印出环境变量.</p>
+environ)，发现可以打印出环境变量。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310251015246.png" srcset="/img/loading.gif" lazyload
 alt="image-20231025095202720" />
 <figcaption aria-hidden="true">image-20231025095202720</figcaption>
 </figure></li>
-<li><p><strong>结论：如果进程使用execve()启动一个新程序，在此场景中内存空间被覆盖，所有旧环境变量将丢失，需要通过envp参数传递环境变量.</strong></p></li>
+<li><p><strong>结论：如果进程使用execve()启动一个新程序，在此场景中内存空间被覆盖，所有旧环境变量将丢失，需要通过envp参数传递环境变量。</strong></p></li>
 </ol>
 <h2 id="task-4-environment-variables-and-system">2.4 Task 4: Environment
 Variables and system()</h2>
+<p>在本任务中，我们将研究通过 system()
+函数执行新程序时，环境变量会受到怎样的影响。该函数用于执行命令，但与直接执行命令的
+execve() 不同，system() 实际上是执行"/bin/sh -c 命令"，即执行
+/bin/sh，并要求 shell 执行命令。</p>
+<p>如果查看 system() 函数的实现，就会发现它使用 execl() 来执行
+/bin/sh；execl() 调用
+execve()，将环境变量数组传递给它。请编译并运行下面的程序来验证这一点。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312081553571.png" srcset="/img/loading.gif" lazyload
+alt="image-20231208151452185" />
+<figcaption aria-hidden="true">image-20231208151452185</figcaption>
+</figure>
+<p><strong>实验流程：</strong></p>
 <ol type="1">
-<li><p>system函数用于执行命令，但与直接执行命令的 execve()
-不同，system() 实际上是执行"/bin/sh -c 命令"，即调用/bin/sh，并要求
-shell 执行命令.函数实现: 它使用 execl()执行 /bin/sh；execl() 调用
-execve()，将环境变量数组传递给它.</p></li>
-<li><p>编译运行system.c，输出了环境变量</p>
+<li><p>编译运行system.c，输出了环境变量。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310251015247.png" srcset="/img/loading.gif" lazyload
@@ -372,51 +429,112 @@ alt="image-20231025095339373" />
 </figure></li>
 <li><p><strong>结论：使用
 system()执行命令，调用进程的环境变量会传递给新程序
-/bin/sh.</strong></p></li>
+/bin/sh。</strong></p></li>
 </ol>
 <h2 id="task-5-environment-variable-and-set-uid-programs">2.5 Task 5:
 Environment Variable and Set-UID Programs</h2>
+<p>Set-UID 是 Unix 操作系统中的一种重要安全机制。当 Set-UID
+程序运行时，它会获得所有者的权限。例如，如果程序的所有者是
+root，那么当任何人运行该程序时，程序在执行过程中都会获得 root
+的权限。Set-UID
+允许我们做许多有趣的事情，但由于它会提升用户的权限，因此风险很大。虽然
+Set-UID
+程序的行为是由程序逻辑决定的，而不是由用户决定的，但用户确实可以通过环境变量影响程序的行为。要了解
+Set-UID 程序如何受到影响，我们首先要弄清楚 Set-UID
+程序的进程是否从用户进程继承了环境变量。</p>
+<p><strong>步骤
+1</strong>：编写以下程序，打印出当前进程中的所有环境变量。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312081553572.png" srcset="/img/loading.gif" lazyload
+alt="image-20231208151853834" />
+<figcaption aria-hidden="true">image-20231208151853834</figcaption>
+</figure>
+<p><strong>步骤 2</strong>：编译上述程序，将其所有权更改为
+root，并使其成为 Set-UID 程序。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">// Asssume the program’s name is foo<br>$ sudo <span class="hljs-built_in">chown</span> root foo<br>$ sudo <span class="hljs-built_in">chmod</span> 4755 foo<br></code></pre></td></tr></table></figure>
+<p><strong>步骤 3</strong>：在 shell 中（需要使用普通用户账户，而不是
+root 账户），使用导出命令设置以下环境变量（它们可能已经存在）：</p>
+<ul>
+<li><p>PATH</p></li>
+<li><p>LD LIBRARY PATH</p></li>
+<li><p>ANY NAME（这是一个由你定义的环境变量，所以随便取个名字吧）</p>
+<p>这些环境变量是在用户的 shell 进程中设置的。现在，在 shell 中运行步骤
+2 中的 Set-UID 程序。在 shell 中键入程序名称后，shell
+会分叉一个子进程，并使用子进程运行程序。请检查您在 shell
+进程（父进程）中设置的所有环境变量是否都进入了 Set-UID
+子进程。描述你的观察结果。如果有让你感到意外的地方，请描述出来。</p></li>
+</ul>
+<p><strong>实验流程：</strong></p>
 <ol type="1">
-<li><p>Set-UID 是 Unix 操作系统中的一种重要安全机制.当 Set-UID
-程序运行时，它将拥有所有者的权限.例如，如果程序的所有者是
-root，那么当任何人运行该程序在执行过程中就会获得 root 的权限.</p></li>
-<li><p>编译foo.c，将其所有权更改为 root，并使其成为 Set-UID 程序.</p>
+<li><p>编译foo.c，将其所有权更改为 root，并使其成为 Set-UID 程序。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310251015248.png" srcset="/img/loading.gif" lazyload
 alt="image-20231025095516474" />
 <figcaption aria-hidden="true">image-20231025095516474</figcaption>
 </figure></li>
-<li><p>设置环境变量：PATH:可执行文件的搜索路径；LD_LIBRARY_PATH:
-程序编译期间查找动态链接库时指定的查找共享库的路径.</p>
+<li><p>设置环境变量：<code>PATH</code>:可执行文件的搜索路径；<code>LD_LIBRARY_PATH</code>:
+程序编译期间查找动态链接库时指定的查找共享库的路径。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310251015249.png" srcset="/img/loading.gif" lazyload
 alt="image-20231025095542115" />
 <figcaption aria-hidden="true">image-20231025095542115</figcaption>
 </figure></li>
-<li><p>运行程序. 发现PATH和ANY
-NAME进入了子进程，LD_LIBRARY_PATH没有进入子进程.</p>
+<li><p>运行程序。 发现PATH和ANY
+NAME进入了子进程，LD_LIBRARY_PATH没有进入子进程。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310251015251.png" srcset="/img/loading.gif" lazyload
 alt="image-20231025095601892" />
 <figcaption aria-hidden="true">image-20231025095601892</figcaption>
 </figure></li>
-<li><p><strong>结论：动态链接器实现了一个对策，当EUID和RUID不同时，它会忽略LD_PRELOAD和LD_LIBRARY_PATH环境变量.</strong></p></li>
+<li><p><strong>原因分析：动态链接器实现了一个对策，当EUID和RUID不同时，它会忽略<code>LD_PRELOAD</code>和<code>LD_LIBRARY_PATH</code>环境变量。</strong></p></li>
 </ol>
 <h2 id="task-6-the-path-environment-variable-and-set-uid-programs">2.6
 Task 6: The PATH Environment Variable and Set-UID Programs</h2>
+<p>由于调用的是 shell 程序，在 Set-UID 程序中调用 system()
+是相当危险的。 这是因为 shell 程序的实际行为可能会受到环境变量（如
+PATH）的影响；这些环境变量是由用户提供的，而用户可能是恶意的。通过更改这些变量，恶意用户可以控制
+Set-UID 程序的行为。在 Bash 中，你可以用以下方法更改 PATH
+环境变量（本例将目录 /home/seed 添加到 PATH 环境变量的开头）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ <span class="hljs-built_in">export</span> PATH=/home/seed:<span class="hljs-variable">$PATH</span><br></code></pre></td></tr></table></figure>
+<p>下面的 Set-UID 程序本应执行 /bin/ls 命令，但程序员只使用了 ls
+命令的相对路径，而不是绝对路径：</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312081553573.png" srcset="/img/loading.gif" lazyload
+alt="image-20231208152508393" />
+<figcaption aria-hidden="true">image-20231208152508393</figcaption>
+</figure>
+<p>请编译上述程序，将其所有者改为 root，并使其成为一个 Set-UID
+程序。你能让这个 Set-UID 程序运行你自己的恶意代码，而不是
+/bin/ls？如果可以，你的恶意代码是否以 root
+权限运行？描述并解释你的观察结果。</p>
+<p><strong>注</strong>：system(cmd)函数首先执行/bin/sh程序，然后要求该shell程序运行cmd命令。在
+Ubuntu 20.04（以及之前的几个版本）中，/bin/sh 实际上是一个指向 /bin/dash
+的符号链接。这个 shell 程序有一个防止自己在 Set-UID
+进程中被执行的对策。基本上，如果 dash 检测到它是在一个 Set-UID
+进程中执行的，它会立即将有效用户 ID 更改为进程的真实用户
+ID，从根本上取消权限。</p>
+<p>由于受害者程序是一个 Set-UID 程序，/bin/dash
+中的反措施可以阻止我们的攻击。为了了解我们的攻击在没有这种对策的情况下是如何工作的，我们将把
+/bin/sh 链接到另一个没有这种对策的 shell。我们在 Ubuntu 20.04
+虚拟机中安装了一个名为 zsh 的 shell 程序。我们使用以下命令将 /bin/sh
+链接到 /bin/zsh：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ sudo <span class="hljs-built_in">ln</span> -sf /bin/zsh /bin/sh<br></code></pre></td></tr></table></figure>
+<p><strong>实验流程：</strong></p>
 <ol type="1">
 <li><p>将目录 /home/seed
-添加到PATH环境变量的开头，因为寻找可执行文件时优先从靠前的路径中查找.</p>
+添加到PATH环境变量的开头，因为寻找可执行文件时优先从靠前的路径中查找。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310251015252.png" srcset="/img/loading.gif" lazyload
 alt="image-20231025095649662" />
 <figcaption aria-hidden="true">image-20231025095649662</figcaption>
 </figure></li>
-<li><p>编译ls.c，将其所有者改为 root，并使其成为 Set-UID 程序.</p>
+<li><p>编译ls.c，将其所有者改为 root，并使其成为 Set-UID 程序。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310251015253.png" srcset="/img/loading.gif" lazyload
@@ -430,7 +548,7 @@ src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/20231025101
 alt="image-20231025095731936" />
 <figcaption aria-hidden="true">image-20231025095731936</figcaption>
 </figure></li>
-<li><p>执行程序，成功执行了我们自定义的ls命令.</p>
+<li><p>执行程序，成功执行了我们自定义的ls命令。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310251015255.png" srcset="/img/loading.gif" lazyload
@@ -446,18 +564,64 @@ src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/20231025101
 alt="image-20231025095816376" />
 <figcaption aria-hidden="true">image-20231025095816376</figcaption>
 </figure></li>
-<li><p><strong>结论：与system()相比，execve()的攻击面更小.execve()不调用shell，因此不受环境变量的影响.当在特权程序中调用外部程序时，我们应该使用
-execve().</strong></p></li>
+<li><p><strong>结论：与system()相比，execve()的攻击面更小.execve()不调用shell，因此不受环境变量的影响。当在特权程序中调用外部程序时，我们应该使用
+execve()。</strong></p></li>
 </ol>
 <h2
 id="task-7-the-ld-preload-environment-variable-and-set-uid-programs">2.7
 Task 7: The LD PRELOAD Environment Variable and Set-UID Programs</h2>
+<p>在本任务中，我们将研究 Set-UID
+程序如何处理某些环境变量。一些环境变量（包括<code>LD PRELOAD</code>、<code>LD LIBRARY PATH</code>
+和其他<code>LD *</code>）会影响动态加载器/链接器的行为。动态加载器/链接器是操作系统（OS）的一部分，它在运行时加载（从持久存储到
+RAM）和链接可执行文件所需的共享库。</p>
+<p>在 Linux 中，<code>ld.so</code>或<code>ld-linux.so</code>
+是动态加载器/链接器（分别用于不同类型的二进制文件）。
+在影响其行为的环境变量中，<code>LD_LIBRARY_PATH</code>和<code>LD_PRELOAD</code>是本实验室所关注的两个变量。在
+Linux
+中，<code>LD_LIBRARY_PATH</code>是一组以冒号分隔的目录，应首先在这些目录中搜索库，然后再搜索标准目录集。<code>LD_PRELOAD</code>
+指定了一个额外的、用户指定的共享库列表，这些共享库将在所有其他共享库之前加载。在本任务中，我们将只研究
+<code>LD_PRELOAD</code>。</p>
+<p><strong>步骤
+1</strong>：首先，我们将了解这些环境变量在运行普通程序时如何影响动态加载器/链接器的行为。请按照以下步骤操作：</p>
 <ol type="1">
-<li><p>基本知识：LD_开头的环境变量会影响动态链接器/加载器的行为；fPIC：Generate
-position-independent code
-(PIC)，意味着生成的机器代码不依赖于位于特定的地址.</p></li>
-<li><p>建立一个动态链接库.创建以下程序，并将其命名为 mylib.c，用于覆盖
-libc 中的 sleep() 函数.</p>
+<li><p>让我们建立一个动态链接库。创建以下程序，并将其命名为
+mylib.c。它基本上覆盖了 libc 中的 sleep() 函数：</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312081553574.png" srcset="/img/loading.gif" lazyload
+alt="image-20231208153026204" />
+<figcaption aria-hidden="true">image-20231208153026204</figcaption>
+</figure></li>
+<li><p>我们可以使用以下命令编译上述程序：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ gcc -fPIC -g -c mylib.c<br>$ gcc -shared -o libmylib.so.1.0.1 mylib.o -lc<br></code></pre></td></tr></table></figure></li>
+<li><p>现在，设置 <code>LD_PRELOAD</code>环境变量：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ <span class="hljs-built_in">export</span> LD_PRELOAD=./libmylib.so.1.0.1<br></code></pre></td></tr></table></figure></li>
+<li><p>最后，编译下面的程序 myprog，并与上述动态链接库 libmylib.so.1.0.1
+放在同一目录下：</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312081553576.png" srcset="/img/loading.gif" lazyload
+alt="image-20231208153200712" />
+<figcaption aria-hidden="true">image-20231208153200712</figcaption>
+</figure></li>
+</ol>
+<p><strong>步骤 2</strong>：完成上述操作后，请在以下条件下运行
+myprog，并观察结果。</p>
+<ul>
+<li>将 myprog 设置为普通程序，并以普通用户身份运行。</li>
+<li>将 myprog 设为 Set-UID root 程序，并以普通用户身份运行。</li>
+<li>将 myprog 设置为 Set-UID root 程序，在 root 账户中再次导出
+<code>LD_PRELOAD</code>环境变量并运行它。</li>
+<li>将 myprog 设置为 Set-UID user1 程序（即所有者为
+user1，也就是另一个用户账户），在另一个用户账户（非根用户）中再次导出<code>LD_PRELOAD</code>环境变量并运行。</li>
+</ul>
+<p><strong>步骤
+3</strong>：即使运行的是同一个程序，您也应该能在上述场景中观察到不同的行为。你需要找出造成这种差异的原因。环境变量在这里起了作用。请设计一个实验来找出主要原因，并解释为什么步骤
+2 中的行为不同。(提示：子进程可能不会继承 LD * 环境变量）。</p>
+<p><strong>实验流程：</strong></p>
+<ol start="2" type="1">
+<li><p>建立一个动态链接库。创建以下程序，并将其命名为 mylib.c，用于覆盖
+libc 中的 sleep() 函数。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310251015257.png" srcset="/img/loading.gif" lazyload
@@ -471,7 +635,7 @@ src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/20231025101
 alt="image-20231025100035694" />
 <figcaption aria-hidden="true">image-20231025100035694</figcaption>
 </figure></li>
-<li><p>设置LD PRELOAD环境变量</p>
+<li><p>设置<code>LD_PRELOAD</code>环境变量</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310251015259.png" srcset="/img/loading.gif" lazyload
@@ -487,25 +651,24 @@ alt="image-20231025100118206" />
 </figure></li>
 <li><p>运行程序</p>
 <ul>
-<li><p>将 myprog 设为普通程序，并以普通用户身份运行. 成功打印LD
-PRELOAD环境变量，执行自定义函数，说明环境变量生效.</p>
+<li><p>将 myprog 设为普通程序，并以普通用户身份运行。
+成功打印<code>LD_PRELOAD</code>环境变量，执行自定义函数，说明环境变量生效。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310251015261.png" srcset="/img/loading.gif" lazyload
 alt="image-20231025100244606" />
 <figcaption aria-hidden="true">image-20231025100244606</figcaption>
 </figure></li>
-<li><p>将 myprog 设为 Set-UID root 程序，并以普通用户身份运行.
-没有打印LD PRELOAD环境变量，程序睡眠一秒，说明该环境变量被忽略.</p>
+<li><p>将 myprog 设为 Set-UID root
+程序，并以普通用户身份运行。没有打印<code>LD_PRELOAD</code>环境变量，程序睡眠一秒，说明该环境变量被忽略。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310251015262.png" srcset="/img/loading.gif" lazyload
 alt="image-20231025100251936" />
 <figcaption aria-hidden="true">image-20231025100251936</figcaption>
 </figure></li>
-<li><p>将 myprog 设置为 Set-UID root 程序，在 root 账户中再次导出 LD
-PRELOAD 环境变量，然后运行它.成功打印LD
-PRELOAD环境变量，执行自定义函数，说明环境变量生效.</p>
+<li><p>将 myprog 设置为 Set-UID root 程序，在 root
+账户中再次导出<code>LD_PRELOAD</code>环境变量，然后运行它。成功打印<code>LD_PRELOAD</code>环境变量，执行自定义函数，说明环境变量生效。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310251015263.png" srcset="/img/loading.gif" lazyload
@@ -513,9 +676,8 @@ alt="image-20231025100258347" />
 <figcaption aria-hidden="true">image-20231025100258347</figcaption>
 </figure></li>
 <li><p>将 myprog 设置为 Set-UID xukaiyu 程序（即所有者为
-xukaiyu，也就是另一个用户账户）、在另一个用户账户（seed）中再次导出 LD
-PRELOAD 环境变量，然后运行它. 没有打印LD
-PRELOAD环境变量，程序睡眠一秒，说明该环境变量被忽略.</p>
+xukaiyu，也就是另一个用户账户）、在另一个用户账户（seed）中再次导出<code>LD_PRELOAD</code>环境变量，然后运行它。
+没有打印<code>LD_PRELOAD</code>环境变量，程序睡眠一秒，说明该环境变量被忽略。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310251015264.png" srcset="/img/loading.gif" lazyload
@@ -523,28 +685,59 @@ alt="image-20231025100306718" />
 <figcaption aria-hidden="true">image-20231025100306718</figcaption>
 </figure></li>
 </ul></li>
-<li><p><strong>结论：只有EUID和RUID相同时，LD
-PRELOAD环境变量才能生效.也就是说，只有用户自己创建的程序自己去运行，才会使用LD_PRELOAD环境变量，重载sleep函数，否则的话会忽略LD_PRELOAD环境变量，不会重载sleep函数.</strong></p></li>
+<li><p><strong>结论：只有EUID和RUID相同时，<code>LD_PRELOAD</code>环境变量才能生效。也就是说，只有用户自己创建的程序自己去运行，才会使用<code>LD_PRELOAD</code>环境变量，重载sleep函数，否则的话会忽略<code>LD_PRELOAD</code>环境变量，不会重载sleep函数。</strong></p></li>
 </ol>
 <h2
 id="task-8-invoking-external-programs-using-system-versus-execve">2.8
 Task 8: Invoking External Programs Using system() versus execve()</h2>
+<p>虽然 system() 和 execve() 都可以用来运行新程序，但如果在特权程序（如
+Set-UID 程序）中使用 system()，就会非常危险。我们已经看到 PATH
+环境变量如何影响 system() 的行为，因为该变量会影响 shell
+的工作方式。execve() 不存在这个问题，因为它不调用 shell。调用 shell
+会带来另一个危险的后果，而这一次，它与环境变量无关。让我们看看下面的情况。</p>
+<p>鲍勃在一家审计机构工作，他需要调查一家公司的欺诈嫌疑。为了达到调查目的，鲍勃需要能够读取该公司
+Unix
+系统中的所有文件；另一方面，为了保护系统的完整性，鲍勃不能修改任何文件。为了实现这一目标，系统的超级用户文斯编写了一个特殊的
+set-root-uid
+程序（见下文），然后将可执行权限交给了鲍勃。该程序要求鲍勃在命令行键入一个文件名，然后运行
+/bin/cat 显示指定文件。由于程序是以根用户身份运行的，因此可以显示 Bob
+指定的任何文件。但是，由于该程序没有写入操作，所以 Vince 非常确定 Bob
+不能使用这个特殊程序修改任何文件。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312081553577.png" srcset="/img/loading.gif" lazyload
+alt="image-20231208154126215" />
+<figcaption aria-hidden="true">image-20231208154126215</figcaption>
+</figure>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312081553578.png" srcset="/img/loading.gif" lazyload
+alt="image-20231208154133781" />
+<figcaption aria-hidden="true">image-20231208154133781</figcaption>
+</figure>
+<p><strong>步骤 1</strong>：编译上述程序，使其成为根用户所有的 Set-UID
+程序。程序将使用 system()
+调用命令。如果你是鲍勃，你能破坏系统的完整性吗？例如，你能删除一个你无法写入的文件吗？</p>
+<p><strong>步骤 2</strong>：注释掉 system(command) 语句，取消对 execve()
+语句的注释；程序将使用 execve() 调用命令。编译程序，使其成为根用户的
+Set-UID。步骤 1 中的攻击还有效吗？请描述并解释你的观察结果。</p>
+<p><strong>实验流程：</strong></p>
 <ol type="1">
-<li><p>编译catall.c，使其成为根用户所有的 Set-UID 程序.</p>
+<li><p>编译catall.c，使其成为根用户所有的 Set-UID 程序。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310251015265.png" srcset="/img/loading.gif" lazyload
 alt="image-20231025100352901" />
 <figcaption aria-hidden="true">image-20231025100352901</figcaption>
 </figure></li>
-<li><p>切换到root用户，创建test.txt文件.</p>
+<li><p>切换到root用户，创建test.txt文件。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310251015266.png" srcset="/img/loading.gif" lazyload
 alt="image-20231025100414003" />
 <figcaption aria-hidden="true">image-20231025100414003</figcaption>
 </figure></li>
-<li><p>切换回seed用户.直接删除test.txt文件，无法成功.通过catall程序进行删除，命令参数为“test.txt;/bin/sh”，得到一个root权限的shell，成功删除.注：要同时在命令行执行两个命令，可以用”;”来进行分割.</p>
+<li><p>切换回seed用户。直接删除test.txt文件，无法成功。通过catall程序进行删除，命令参数为“test.txt;/bin/sh”，先得到一个root权限的shell，再进行删除操作。注：要同时在命令行执行两个命令，可以用”;”来进行分割。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310251015267.png" srcset="/img/loading.gif" lazyload
@@ -559,14 +752,14 @@ alt="image-20231025100451817" />
 </figure></li>
 <li><p>注释掉 system(command) 语句，取消对 execve()
 语句的注释；程序将使用 execve()
-调用命令.编译程序，并将其作为根用户所有的 Set-UID 程序.</p>
+调用命令。编译程序，并将其作为根用户所有的 Set-UID 程序。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310251015269.png" srcset="/img/loading.gif" lazyload
 alt="image-20231025100526231" />
 <figcaption aria-hidden="true">image-20231025100526231</figcaption>
 </figure></li>
-<li><p>再次进行前面步骤中的攻击，发现无法得到一个root权限的shell，从而不能成功攻击.</p>
+<li><p>再次进行前面步骤中的攻击，发现无法得到一个root权限的shell，从而不能成功攻击。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310251015270.png" srcset="/img/loading.gif" lazyload
@@ -575,16 +768,41 @@ alt="image-20231025100542023" />
 </figure></li>
 </ol>
 <h2 id="task-9-capability-leaking">2.9 Task 9: Capability Leaking</h2>
+<p>为了遵循 "最小权限原则"，如果不再需要根权限，Set-UID
+程序通常会永久放弃根权限。此外，有时程序需要将控制权移交给用户；在这种情况下，必须撤销
+root 权限。setuid()系统调用可用于撤销权限。根据手册，"setuid()
+设置调用进程的有效用户 ID。如果调用者的有效 UID 是 root，则实际 UID
+和保存的 set-user-ID 也会被设置"。因此，如果一个有效 UID 为 0 的 Set-UID
+程序调用 setuid(n)，该进程将成为一个正常进程，其所有 UID 都被设置为
+n。</p>
+<p>在撤销权限时，常见错误之一是能力泄露。换句话说，虽然进程的有效用户 ID
+变成了非特权用户，但进程仍然是特权进程，因为它拥有特权能力。</p>
+<p>编译以下程序，将其所有者改为 root，并使其成为 Set-UID
+程序。以普通用户身份运行该程序。你能利用该程序中的能力泄露漏洞吗？目标是以普通用户身份写入
+/etc/zzz 文件。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312081553579.png" srcset="/img/loading.gif" lazyload
+alt="image-20231208154713936" />
+<figcaption aria-hidden="true">image-20231208154713936</figcaption>
+</figure>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312081553580.png" srcset="/img/loading.gif" lazyload
+alt="image-20231208154724054" />
+<figcaption aria-hidden="true">image-20231208154724054</figcaption>
+</figure>
+<p><strong>实验流程：</strong></p>
 <ol type="1">
-<li><p>目标：以普通用户身份写入 /etc/zzz 文件</p></li>
-<li><p>以管理员身份创建文件/etc/zzz</p>
+<li><p>以管理员身份创建文件/etc/zzz，该文件普通用户无写权限。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310251015271.png" srcset="/img/loading.gif" lazyload
 alt="image-20231025100646131" />
 <figcaption aria-hidden="true">image-20231025100646131</figcaption>
 </figure></li>
-<li><p>编译cap leak.c，将其所有者改为 root，并使其成为 Set-UID 程序.</p>
+<li><p>编译cap leak.c，将其所有者改为 root，并使其成为 Set-UID
+程序。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310251015272.png" srcset="/img/loading.gif" lazyload
@@ -592,13 +810,22 @@ alt="image-20231025100619844" />
 <figcaption aria-hidden="true">image-20231025100619844</figcaption>
 </figure></li>
 <li><p>虽然代码中调用了
-setuid(getuid())，试图降低特权，但并没有完全清除特权.程序打开文件后并没有关闭文件，并且输出了文件描述符，所以我们仍然可以成功写/etc/zzz.</p>
+setuid(getuid())，试图降低特权，但并没有完全清除特权。程序打开文件后并没有关闭文件，并且输出了文件描述符，所以我们仍然可以成功写/etc/zzz。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310251015273.png" srcset="/img/loading.gif" lazyload
 alt="image-20231025100714076" />
 <figcaption aria-hidden="true">image-20231025100714076</figcaption>
 </figure></li>
+</ol>
+<p>参考教程：</p>
+<ol type="1">
+<li><a
+target="_blank" rel="noopener" href="https://seanxz401.github.io/2022/12/29/网络攻防-环境变量攻击/#Task9">网络攻防-环境变量攻击
+- Sean's Blog (seanxz401.github.io)</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://gls.show/p/c51248f4/#Task-9-Capability-Leaking">SEED-lab：Environment
+Variable and Set-UID Program Lab - 郭佳明的博客 (gls.show)</a></li>
 </ol>
 
                 

