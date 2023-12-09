@@ -16,15 +16,15 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="安装 selenium 下载浏览器引擎（需对应浏览器版本浏览器 --&gt; 设置 --&gt; 关于 Microsoft Edge --&gt; 版本信息） 文件重命名为： MicrosoftWebDriver.exe 拷贝到python.exe目录下（例：F:\Anaconda\install\envs\spider）和浏览器目录下（例：C:\Program Files (x86)\">
+    <meta name="description" content="安装selenium包(本例为Anaconda环境安装)   image-20231209144926999  查看浏览器版本：浏览器 --&gt; 设置 --&gt; 关于 Microsoft Edge --&gt; 版本信息   image-20231209145148563  下载浏览器引擎（需对应浏览器版本）   image-20231209150055610">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基本配置（Edge版）">
-<meta property="og:url" content="http://example.com/2023/10/02/Python/Spider/selenium/%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%EF%BC%88Edge%E7%89%88%EF%BC%89/index.html">
+<meta property="og:url" content="http://example.com/2023/10/02/Python/Spider/Selenium/%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%EF%BC%88Edge%E7%89%88%EF%BC%89/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="安装 selenium 下载浏览器引擎（需对应浏览器版本浏览器 --&gt; 设置 --&gt; 关于 Microsoft Edge --&gt; 版本信息） 文件重命名为： MicrosoftWebDriver.exe 拷贝到python.exe目录下（例：F:\Anaconda\install\envs\spider）和浏览器目录下（例：C:\Program Files (x86)\">
+<meta property="og:description" content="安装selenium包(本例为Anaconda环境安装)   image-20231209144926999  查看浏览器版本：浏览器 --&gt; 设置 --&gt; 关于 Microsoft Edge --&gt; 版本信息   image-20231209145148563  下载浏览器引擎（需对应浏览器版本）   image-20231209150055610">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-10-02T07:16:21.000Z">
-<meta property="article:modified_time" content="2023-10-02T09:00:09.674Z">
+<meta property="article:modified_time" content="2023-12-09T08:13:44.828Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          400 字
+          639 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          4 分钟
+          6 分钟
         
       </span>
     
@@ -261,12 +261,46 @@
               <div class="markdown-body">
                 
                 <ol type="1">
-<li><p>安装 selenium</p></li>
-<li><p>下载浏览器引擎（需对应浏览器版本<code>浏览器 --&gt; 设置 --&gt; 关于 Microsoft Edge --&gt; 版本信息</code>）</p></li>
-<li><p>文件重命名为： <code>MicrosoftWebDriver.exe</code></p></li>
-<li><p>拷贝到python.exe目录下（例：<code>F:\Anaconda\install\envs\spider</code>）和浏览器目录下（例：<code>C:\Program Files (x86)\Microsoft\Edge\Application</code>）</p></li>
-<li><p>示例代码</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> selenium <span class="hljs-keyword">import</span> webdriver<br><br>driver = webdriver.Edge(<span class="hljs-string">&quot;C:\Program Files (x86)\Microsoft\Edge\Application\MicrosoftWebDriver.exe&quot;</span>)<br>driver.get(<span class="hljs-string">&quot;https://www.baidu.com&quot;</span>)   <span class="hljs-comment"># 你要进入的网页</span><br></code></pre></td></tr></table></figure></li>
+<li><p>安装<code>selenium</code>包(本例为Anaconda环境安装)</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312091504622.png" srcset="/img/loading.gif" lazyload
+alt="image-20231209144926999" />
+<figcaption aria-hidden="true">image-20231209144926999</figcaption>
+</figure></li>
+<li><p>查看浏览器版本：<code>浏览器 --&gt; 设置 --&gt; 关于 Microsoft Edge --&gt; 版本信息</code></p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312091504624.png" srcset="/img/loading.gif" lazyload
+alt="image-20231209145148563" />
+<figcaption aria-hidden="true">image-20231209145148563</figcaption>
+</figure></li>
+<li><p>下载<a
+href="%5BMicrosoft%20Edge%20WebDriver%20%7C%20Microsoft%20Edge%20Developer%5D(https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/#downloads)">浏览器引擎</a>（需对应浏览器版本）</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312091504625.png" srcset="/img/loading.gif" lazyload
+alt="image-20231209150055610" />
+<figcaption aria-hidden="true">image-20231209150055610</figcaption>
+</figure></li>
+<li><p>将下载的压缩包进行解压，并将文件重命名为：
+<code>MicrosoftWebDriver.exe</code>。文件重命名原因：<code>webdriver.py</code>
+里定义了浏览器驱动的名字是：<code>MicrosoftWebDriver.exe</code>。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312091504626.png" srcset="/img/loading.gif" lazyload
+alt="image-20231209150307977" />
+<figcaption aria-hidden="true">image-20231209150307977</figcaption>
+</figure></li>
+<li><p>将文件拷贝到<code>python.exe</code>目录下（例：<code>F:\Anaconda\install\envs\spider</code>）和浏览器目录下（例：<code>C:\Program Files (x86)\Microsoft\Edge\Application</code>）</p></li>
+<li><p>测试代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> selenium <span class="hljs-keyword">import</span> webdriver<br><br>driver = webdriver.Edge(<span class="hljs-string">&quot;C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\MicrosoftWebDriver.exe&quot;</span>)<br>driver.get(<span class="hljs-string">&quot;https://www.baidu.com&quot;</span>)  <span class="hljs-comment"># 你要进入的网页</span><br></code></pre></td></tr></table></figure></li>
+</ol>
+<p>参考教程：</p>
+<ol type="1">
+<li><a
+target="_blank" rel="noopener" href="https://blog.csdn.net/tk1023/article/details/109078613#:~:text=使用%20selenium%20操作%20Edge%20浏览器。%201、先安装%20selenium，我是通过%20PyCharm,，再点击%20“install%20package”。%203、需要下载浏览器引擎：https%3A%2F%2Fdeveloper.microsoft.com%2Fen-us%2Fmicrosoft-edge%2Ftools%2Fwebdriver%2F4、浏览器%20--%3E%20设置%20--%3E.._selenium%20edge">selenium
++ Edge 浏览器_selenium edge-CSDN博客</a></li>
 </ol>
 
                 
@@ -296,7 +330,7 @@
   
     <span>></span>
     
-  <a href="/categories/Python/Spider/selenium/" class="category-chain-item">selenium</a>
+  <a href="/categories/Python/Spider/Selenium/" class="category-chain-item">Selenium</a>
   
   
 
@@ -321,7 +355,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>基本配置（Edge版）</div>
-      <div>http://example.com/2023/10/02/Python/Spider/selenium/基本配置（Edge版）/</div>
+      <div>http://example.com/2023/10/02/Python/Spider/Selenium/基本配置（Edge版）/</div>
     </div>
     <div class="license-meta">
       
