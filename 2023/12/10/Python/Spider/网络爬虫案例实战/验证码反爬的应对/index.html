@@ -1,0 +1,735 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="kaikaikai">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="0. 引言 有些网站为了避免被过度访问，会设置验证码反爬机制，如果访问次数过多就要求用户输入验证码，甚至一开始访问时就要求输入验证码。验证码类型很多，如：图像验证码、计算题验证码、滑块验证码、滑动拼图验证码、点选验证码。 0.1 超级鹰注册 超级鹰：验证码识别平台 0.2 超级鹰接口 Python语言Demo下载：下载得到一个压缩包，解压后得到的chaojiying.py就是示例代码，然">
+<meta property="og:type" content="article">
+<meta property="og:title" content="验证码反爬的应对">
+<meta property="og:url" content="http://example.com/2023/12/10/Python/Spider/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%E6%A1%88%E4%BE%8B%E5%AE%9E%E6%88%98/%E9%AA%8C%E8%AF%81%E7%A0%81%E5%8F%8D%E7%88%AC%E7%9A%84%E5%BA%94%E5%AF%B9/index.html">
+<meta property="og:site_name" content="kaikaikai&#39;s blog">
+<meta property="og:description" content="0. 引言 有些网站为了避免被过度访问，会设置验证码反爬机制，如果访问次数过多就要求用户输入验证码，甚至一开始访问时就要求输入验证码。验证码类型很多，如：图像验证码、计算题验证码、滑块验证码、滑动拼图验证码、点选验证码。 0.1 超级鹰注册 超级鹰：验证码识别平台 0.2 超级鹰接口 Python语言Demo下载：下载得到一个压缩包，解压后得到的chaojiying.py就是示例代码，然">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-12-10T01:22:21.000Z">
+<meta property="article:modified_time" content="2023-12-10T03:44:15.141Z">
+<meta property="article:author" content="kaikaikai">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>验证码反爬的应对 - kaikaikai&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>kaikaikai&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="验证码反爬的应对"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-12-10 09:22" pubdate>
+          2023年12月10日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          61 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">验证码反爬的应对</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="引言">0. 引言</h1>
+<p>有些网站为了避免被过度访问，会设置验证码反爬机制，如果访问次数过多就要求用户输入验证码，甚至一开始访问时就要求输入验证码。验证码类型很多，如：图像验证码、计算题验证码、滑块验证码、滑动拼图验证码、点选验证码。</p>
+<h2 id="超级鹰注册">0.1 超级鹰注册</h2>
+<p><a target="_blank" rel="noopener" href="https://www.chaojiying.com/">超级鹰</a>：验证码识别平台</p>
+<h2 id="超级鹰接口">0.2 超级鹰接口</h2>
+<p><a
+target="_blank" rel="noopener" href="https://www.chaojiying.com/api-14.html">Python语言Demo下载</a>：下载得到一个压缩包，解压后得到的<code>chaojiying.py</code>就是示例代码，然后将该文件拷贝至代码文件目录下。</p>
+<h2 id="软件id">0.3 软件ID</h2>
+<p>生成软件ID，以供后续使用：<code>用户中心→软件ID→生成一个软件ID</code></p>
+<h2 id="调用示例">0.4 调用示例</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> chaojiying <span class="hljs-keyword">import</span> Chaojiying_Client<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">cjy</span>():<br>    chaojiying = Chaojiying_Client(<span class="hljs-string">&#x27;账户&#x27;</span>, <span class="hljs-string">&#x27;密码&#x27;</span>, <span class="hljs-string">&#x27;软件ID&#x27;</span>)<br>    im =<span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;a.jpg&#x27;</span>,<span class="hljs-string">&#x27;rb&#x27;</span>).read()<br>    code=chaojiying.PostPic(im,<span class="hljs-number">1902</span>) <span class="hljs-comment"># 调用PostPic()函数进行识别，返回一个字典，pic_str对应识别结果</span><br>    								 <span class="hljs-comment"># 1902为验证码类型编号</span><br>    <span class="hljs-keyword">return</span> code<br><br><br>result = cjy()<br><span class="hljs-built_in">print</span>(result)<br></code></pre></td></tr></table></figure>
+<p><a
+target="_blank" rel="noopener" href="https://www.chaojiying.com/price.html">验证码类型编号</a>：不同验证码类型，选择不同编号值。</p>
+<p>补充知识点：</p>
+<p><code>\</code>在python中有特殊含义，如<code>\n</code>表示换行。在书写绝对路径时需要使用<code>\\</code>，或者在字符串前加一个字母<code>r</code>，或者用<code>/</code>。</p>
+<h1 id="图像验证码">1. 图像验证码</h1>
+<h2 id="英文验证码">1.1 英文验证码</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> chaojiying <span class="hljs-keyword">import</span> Chaojiying_Client<br><span class="hljs-keyword">from</span> selenium <span class="hljs-keyword">import</span> webdriver<br><span class="hljs-keyword">import</span> os<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">cjy</span>():  <span class="hljs-comment"># 使用超级鹰识别</span><br>    chaojiying = Chaojiying_Client(<span class="hljs-string">&#x27;fgwyt123&#x27;</span>, <span class="hljs-string">&#x27;wyt941025&#x27;</span>, <span class="hljs-string">&#x27;96001&#x27;</span>)  <span class="hljs-comment"># 账号、密码、项目号（这个不用改）</span><br>    im = <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;a.png&#x27;</span>, <span class="hljs-string">&#x27;rb&#x27;</span>).read()  <span class="hljs-comment"># 本地图片文件路径，需要为a.png名字</span><br>    code = chaojiying.PostPic(im, <span class="hljs-number">1902</span>)[<span class="hljs-string">&#x27;pic_str&#x27;</span>]  <span class="hljs-comment"># 4-6位英文数字用1902</span><br>    <span class="hljs-keyword">return</span> code<br><br><br><span class="hljs-comment"># 1.访问网址</span><br>browser = webdriver.Chrome()<br><span class="hljs-comment"># url = r&#x27;E:\验证码反爬\英文图像验证码\index.html&#x27;</span><br>current_dir = os.path.dirname(os.path.abspath(__file__))  <span class="hljs-comment"># 获取代码所在的文件夹目录，照抄这行代码即可</span><br>url = current_dir + <span class="hljs-string">&#x27;/index.html&#x27;</span>  <span class="hljs-comment"># 获取HTML文件的文件绝对路径，/相当于\\，所以拼接的时候也可以写&#x27;\\index.html&#x27;</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;此时的文件路径为：&#x27;</span> + url)  <span class="hljs-comment"># 所以如果文件位置固定，可以直接写url = r&#x27;文件路径&#x27;</span><br>browser.get(url)  <span class="hljs-comment"># 访问网址</span><br><br><span class="hljs-comment"># 2.截取验证码图片</span><br>browser.find_element_by_xpath(<span class="hljs-string">&#x27;//*[@id=&quot;verifyCanvas&quot;]&#x27;</span>).screenshot(<span class="hljs-string">&#x27;a.png&#x27;</span>)  <span class="hljs-comment"># 截取验证码图片</span><br><br><span class="hljs-comment"># 3.通过超级鹰识别</span><br>result = cjy()  <span class="hljs-comment"># 使用超级鹰OCR识别内容</span><br><span class="hljs-built_in">print</span>(result)<br><br><span class="hljs-comment"># 4.模拟键盘输入内容，并模拟点击确认按钮</span><br>browser.find_element_by_xpath(<span class="hljs-string">&#x27;//*[@id=&quot;code_input&quot;]&#x27;</span>).send_keys(result)  <span class="hljs-comment"># 输入答案</span><br>browser.find_element_by_xpath(<span class="hljs-string">&#x27;//*[@id=&quot;my_button&quot;]&#x27;</span>).click()  <span class="hljs-comment"># 模拟点击确认按钮</span><br></code></pre></td></tr></table></figure>
+<h2 id="中文验证码">1.2 中文验证码</h2>
+<p>中文验证码的识别方法和英文验证码的识别方法基本一致，唯一需要修改的就是自定义函数<code>cjy</code>调用的<code>PostPic()</code>的验证码类型参数，修改为2004。</p>
+<h1 id="计算题验证码">2. 计算题验证码</h1>
+<p>它与普通图像验证码的区别在于增加了数学运算，需要将验证码中数学计算题的结果填到文本框中，再点击验证。计算题验证码的处理难点在于运算符号的识别，但超级鹰已经提供了用于识别此类验证码的接口。</p>
+<p>代码修改：<code>PostPic()</code>的验证码类型参数修改为6001。</p>
+<h1 id="滑块验证码">3. 滑块验证码</h1>
+<p>这种验证码的验证机制比较简单，将滑块拖动到滑轨的最右端即可完成验证。</p>
+<p>验证思路：调用Selenium库，打开网页，定位滑块，模拟鼠标操作，移动滑块至滑轨最右端。（开发者工具查看滑块滑轨尺寸）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> selenium <span class="hljs-keyword">import</span> webdriver<br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> time<br><br><span class="hljs-comment"># 1.访问网址</span><br>browser = webdriver.Chrome()<br><span class="hljs-comment"># url = r&#x27;E:\验证码反爬\滑块验证码\index.html&#x27;</span><br>current_dir = os.path.dirname(os.path.abspath(__file__))  <span class="hljs-comment"># 获取代码所在的文件夹目录</span><br>url = current_dir + <span class="hljs-string">&#x27;/index.html&#x27;</span>  <span class="hljs-comment"># 获取HTML文件的文件绝对路径</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;此时的文件路径为：&#x27;</span> + url)  <span class="hljs-comment"># 打印此时的文件路径，所以如果文件位置固定，可以直接写url = r&#x27;文件路径&#x27;</span><br>browser.get(url)  <span class="hljs-comment"># 访问网址</span><br><br><span class="hljs-comment"># 2.获取滑块按钮</span><br>huakuai = browser.find_element_by_xpath(<span class="hljs-string">&#x27;//*[@id=&quot;code-box&quot;]/span&#x27;</span>)  <span class="hljs-comment"># 获取滑块按钮</span><br><br><span class="hljs-comment"># 3.开始滑动</span><br>action = webdriver.ActionChains(browser)  <span class="hljs-comment"># 启动滑动功能</span><br>action.click_and_hold(huakuai).perform()  <span class="hljs-comment"># 按住滑块</span><br>time.sleep(<span class="hljs-number">2</span>)  <span class="hljs-comment"># 休息两秒，来看效果，不然执行太快了</span><br>action.move_by_offset(<span class="hljs-number">260</span>, <span class="hljs-number">0</span>)  <span class="hljs-comment"># 移动滑块</span><br>action.release().perform()  <span class="hljs-comment"># 释放滑块</span><br></code></pre></td></tr></table></figure>
+<p>注：如果网站采取了webdriver反爬，处理起来会比较困难。解决方法：如果是登录阶段需要进行滑块验证，则可以在代码中使用time.sleep()等待一段时间，在这段时间内使用手动登录，之后再用Selenium库继续爬取。</p>
+<h1 id="滑动拼图验证码">4. 滑动拼图验证码</h1>
+<ul>
+<li>初级版：网页源码中<strong>包含</strong>缺口位置信息</li>
+<li>高级版：网页源码中<strong>不包含</strong>缺口位置信息</li>
+</ul>
+<h2 id="初级版">4.1 初级版</h2>
+<p>初级版滑动拼图验证码是在普通滑块验证码的基础上增加了随机的滑动距离，用户需要根据拼图的缺口位置来决定滑块的滑动距离。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> selenium <span class="hljs-keyword">import</span> webdriver<br><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> re<br><span class="hljs-keyword">import</span> os<br><br>browser = webdriver.Chrome()<br><br>current_dir = os.path.dirname(os.path.abspath(__file__))  <span class="hljs-comment"># 获取代码所在的文件夹目录</span><br>url = current_dir + <span class="hljs-string">&#x27;/index.html&#x27;</span>  <span class="hljs-comment"># 获取HTML文件的文件绝对路径</span><br><span class="hljs-built_in">print</span>(url)  <span class="hljs-comment"># 打印此时的文件路径，所以如果文件位置固定，可以直接写url = r&#x27;文件路径&#x27;</span><br>browser.get(url)<br><br><span class="hljs-comment"># 定位滑块</span><br>slider = browser.find_element_by_id(<span class="hljs-string">&#x27;slideBtn&#x27;</span>)<br><br>action = webdriver.ActionChains(browser)<br>action.click_and_hold(slider).perform()<br>time.sleep(<span class="hljs-number">2</span>)<br>data = browser.page_source<br><br>p_tbk = <span class="hljs-string">&#x27;&lt;div class=&quot;slide-box-shadow&quot;.*?left: (.*?)px&#x27;</span><br>tbk_left = re.findall(p_tbk, data, re.S)<br><span class="hljs-built_in">print</span>(tbk_left)<br>distance = <span class="hljs-built_in">float</span>(tbk_left[<span class="hljs-number">0</span>]) - <span class="hljs-built_in">float</span>(<span class="hljs-number">2</span>)<br><span class="hljs-built_in">print</span>(distance)<br><br><span class="hljs-comment"># 开始滑动~！偶尔会因为移动太快导致验证失败，可以重新运行程序进行尝试</span><br>action.move_by_offset(distance, <span class="hljs-number">0</span>)<br>time.sleep(<span class="hljs-number">2</span>)<br>action.release().perform()<br></code></pre></td></tr></table></figure>
+<p><strong>模拟缓慢滑动</strong>：将滑动距离分段，让滑块分多次滑动，每次滑动后等待一定时间。</p>
+<h2 id="高级版">4.2 高级版</h2>
+<p>使用PIL库<code>pip install pillow</code>对比无缺口和有缺口的图像，从而计算出滑块需要滑动的距离。</p>
+<p><code>ImageChops.difference(image_a,image_b).getbbox</code>：返回坐标值元组。前两个元素为缺口左上角的x坐标和y坐标，后两个元素为缺口右下角的x坐标和y坐标。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> selenium <span class="hljs-keyword">import</span> webdriver<br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image, ImageChops<br><br><span class="hljs-comment"># 1.访问网址</span><br>browser = webdriver.Chrome()<br><span class="hljs-comment"># url = r&#x27;E:\验证码反爬\高级滑动拼图验证码\index.html&#x27;  # 自己用的话可以直接写这样的固定路径</span><br>current_dir = os.path.dirname(os.path.abspath(__file__))  <span class="hljs-comment"># 获取代码所在的文件夹目录</span><br>url = current_dir + <span class="hljs-string">&#x27;/index.html&#x27;</span>  <span class="hljs-comment"># 获取HTML文件的文件绝对路径</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;此时的文件路径为：&#x27;</span> + url)  <span class="hljs-comment"># 打印此时的文件路径，所以如果文件位置固定，可以直接写url = r&#x27;文件路径&#x27;</span><br>browser.get(url)  <span class="hljs-comment"># 访问网址</span><br>time.sleep(<span class="hljs-number">2</span>)<br><br><span class="hljs-comment"># 2.获取原始图片</span><br>browser.find_element_by_xpath(<span class="hljs-string">&#x27;//*[@id=&quot;jigsawCanvas&quot;]&#x27;</span>).screenshot(<span class="hljs-string">&#x27;origin.png&#x27;</span>)  <span class="hljs-comment"># 获取原始图片</span><br><br><span class="hljs-comment"># 3.获取有缺口的图片</span><br>slider = browser.find_element_by_xpath(<span class="hljs-string">&#x27;//*[@id=&quot;jigsawCircle&quot;]&#x27;</span>)  <span class="hljs-comment"># 获取滑动按钮</span><br>slider.click()  <span class="hljs-comment"># 先模拟点击下，方便下面获取到有缺口的图片</span><br>browser.find_element_by_xpath(<span class="hljs-string">&#x27;//*[@id=&quot;jigsawCanvas&quot;]&#x27;</span>).screenshot(<span class="hljs-string">&#x27;after.png&#x27;</span>)  <span class="hljs-comment"># 获取有缺口的图片</span><br><br><span class="hljs-comment"># 4.比较两幅图片的区别，获取需要移动的距离</span><br>image_a = Image.<span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;origin.png&#x27;</span>).convert(<span class="hljs-string">&#x27;RGB&#x27;</span>)  <span class="hljs-comment"># 打开原始图片</span><br>image_b = Image.<span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;after.png&#x27;</span>).convert(<span class="hljs-string">&#x27;RGB&#x27;</span>)  <span class="hljs-comment"># 打开有缺口的图片</span><br>x = ImageChops.difference(image_a, image_b).getbbox()  <span class="hljs-comment"># 比较两个图片的差别</span><br><span class="hljs-built_in">print</span>(x)  <span class="hljs-comment"># 举个例子：倘若x为：(226, 103, 277, 154)；返回缺口对应的左边横坐标（由左往右看），上边纵坐标（由上往下看），右边横坐标，下边纵坐标</span><br>distance = x[<span class="hljs-number">0</span>]  <span class="hljs-comment"># 第一个元素x[0]表示的就是缺口左边横坐标，也就是滑块需要移动的距离</span><br><span class="hljs-built_in">print</span>(distance)  <span class="hljs-comment"># 如果例子为：(226, 103, 277, 154)，那么需要移动的距离为226</span><br><br><span class="hljs-comment"># 5.开始滑动！</span><br>action = webdriver.ActionChains(browser)  <span class="hljs-comment"># 启动Selenium的动作链</span><br>action.click_and_hold(slider).perform()  <span class="hljs-comment"># 按住滑动按钮不松开</span><br>action.move_by_offset(distance-<span class="hljs-number">10</span>, <span class="hljs-number">0</span>)  <span class="hljs-comment"># 开始滑动！这里-10，是把初始圆角矩形左侧left属性值给减去了，这样更准确</span><br>action.release().perform()  <span class="hljs-comment"># 释放滑块</span><br></code></pre></td></tr></table></figure>
+<p>解决方案：<a
+target="_blank" rel="noopener" href="https://blog.csdn.net/u010698107/article/details/121163283">Python3
+PIL库问题：ImageChops.difference返回None-CSDN博客</a></p>
+<h1 id="点选验证码">5. 点选验证码</h1>
+<p>通过传统的图像识别方法进行识别比较麻烦，但超级鹰提供了相应的接口，类型代码为9004。返回格式：<code>282,54|489,59|513,44|342,157</code>。选择图片保存时，需涵盖上方的图片和下方的文字说明。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312101132640.png" srcset="/img/loading.gif" lazyload
+alt="image-20231210113224618" />
+<figcaption aria-hidden="true">image-20231210113224618</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">from</span> chaojiying <span class="hljs-keyword">import</span> Chaojiying_Client<br><span class="hljs-keyword">from</span> selenium <span class="hljs-keyword">import</span> webdriver<br><span class="hljs-keyword">import</span> time<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">cjy</span>():  <span class="hljs-comment"># 定义超级鹰识别函数</span><br>    chaojiying = Chaojiying_Client(<span class="hljs-string">&#x27;fgwyt123&#x27;</span>, <span class="hljs-string">&#x27;wyt941025&#x27;</span>, <span class="hljs-string">&#x27;905908&#x27;</span>)  <span class="hljs-comment"># 账号、密码、ID号（ID号不用改好像也没事）</span><br>    im = <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;a.png&#x27;</span>, <span class="hljs-string">&#x27;rb&#x27;</span>).read()  <span class="hljs-comment"># 本地图片文件路径</span><br>    code = chaojiying.PostPic(im, <span class="hljs-number">9004</span>)[<span class="hljs-string">&#x27;pic_str&#x27;</span>]  <span class="hljs-comment"># 9004用来识别各个点的坐标</span><br>    <span class="hljs-keyword">return</span> code  <span class="hljs-comment"># 返回识别的结果，这里返回的是各个点选文字的坐标，如：282,54|472,59|513,144|342,157，第一个点坐标就是（282, 54）</span><br><br><br><span class="hljs-comment"># 1.访问网址</span><br>browser = webdriver.Chrome()<br><span class="hljs-comment"># url = r&#x27;E:\验证码反爬\点选验证码\index.html&#x27;  # 自己用的话可以直接写这样的固定路径</span><br>current_dir = os.path.dirname(os.path.abspath(__file__))  <span class="hljs-comment"># 获取代码所在的文件夹目录</span><br>url = current_dir + <span class="hljs-string">&#x27;/index.html&#x27;</span>  <span class="hljs-comment"># 通过拼接获取HTML文件的文件绝对路径，/相当于\\，所以拼接的时候也可以写&#x27;\\index.html&#x27;</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;此时的文件路径为：&#x27;</span> + url)  <span class="hljs-comment"># 打印此时的文件路径，所以如果文件位置固定，可以直接写url = r&#x27;文件路径&#x27;</span><br>browser.get(url)  <span class="hljs-comment"># 访问网址</span><br>time.sleep(<span class="hljs-number">5</span>)  <span class="hljs-comment"># 让那个验证码稍微加载会</span><br><br><span class="hljs-comment"># 2.捕捉并截取图片</span><br>canvas = browser.find_element_by_xpath(<span class="hljs-string">&#x27;//*[@id=&quot;verify&quot;]&#x27;</span>)  <span class="hljs-comment"># 捕捉图片</span><br>canvas.screenshot(<span class="hljs-string">&#x27;a.png&#x27;</span>)  <span class="hljs-comment"># 截取图片</span><br><br><span class="hljs-comment"># 3.使用超级鹰识别，获得各点的位置坐标</span><br>result = cjy()<br><span class="hljs-built_in">print</span>(result)  <span class="hljs-comment"># 此时获得各点的坐标，但是各点坐标格式不太规范</span><br><br><span class="hljs-comment"># 4.对获取的坐标数据进行一些处理</span><br>all_location = []  <span class="hljs-comment"># 创建一个空列表，用来规范各点坐标</span><br>list_temp = result.split(<span class="hljs-string">&#x27;|&#x27;</span>)  <span class="hljs-comment"># 利用“|”将各个点的坐标提取出来，list_temp是个临时列表</span><br><span class="hljs-built_in">print</span>(list_temp)  <span class="hljs-comment"># 打印临时列表，方便大家理解</span><br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> list_temp:  <span class="hljs-comment"># 遍历上面的临时列表</span><br>    list_i = []  <span class="hljs-comment"># 用来存储每点的坐标</span><br>    x = <span class="hljs-built_in">int</span>(i.split(<span class="hljs-string">&#x27;,&#x27;</span>)[<span class="hljs-number">0</span>])  <span class="hljs-comment"># 第一个元素为横坐标，并将字符串转为整数</span><br>    y = <span class="hljs-built_in">int</span>(i.split(<span class="hljs-string">&#x27;,&#x27;</span>)[<span class="hljs-number">1</span>])  <span class="hljs-comment"># 第二个元素为纵坐标，并将字符串转为整数</span><br>    list_i.append(x)  <span class="hljs-comment"># 添加横坐标</span><br>    list_i.append(y)  <span class="hljs-comment"># 添加纵坐标</span><br>    all_location.append(list_i)  <span class="hljs-comment"># 汇总每一点的坐标</span><br><span class="hljs-built_in">print</span>(all_location)  <span class="hljs-comment"># 此时转换成立规范的坐标</span><br><br><span class="hljs-comment"># 5.依次模拟点击文字</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> all_location:<br>    x = i[<span class="hljs-number">0</span>]  <span class="hljs-comment"># x坐标</span><br>    y = i[<span class="hljs-number">1</span>]  <span class="hljs-comment"># y坐标</span><br>    action = webdriver.ActionChains(browser)  <span class="hljs-comment"># 启动Selenium的动作链</span><br>    action.move_to_element_with_offset(canvas, x, y).click().perform()  <span class="hljs-comment"># 模拟点击</span><br>    time.sleep(<span class="hljs-number">1</span>)  <span class="hljs-comment"># 休息1秒</span><br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Python/" class="category-chain-item">Python</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Python/Spider/" class="category-chain-item">Spider</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Python/Spider/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%E6%A1%88%E4%BE%8B%E5%AE%9E%E6%88%98/" class="category-chain-item">网络爬虫案例实战</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>验证码反爬的应对</div>
+      <div>http://example.com/2023/12/10/Python/Spider/网络爬虫案例实战/验证码反爬的应对/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>kaikaikai</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年12月10日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/12/09/Python/Spider/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%E6%A1%88%E4%BE%8B%E5%AE%9E%E6%88%98/Cookie%E6%A8%A1%E6%8B%9F%E7%99%BB%E5%BD%95/" title="Cookie模拟登录">
+                        <span class="hidden-mobile">Cookie模拟登录</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
