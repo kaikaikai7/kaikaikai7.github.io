@@ -24,7 +24,7 @@
 <meta property="og:description" content="1. Overview 数据包嗅探和欺骗是网络安全中的两个重要概念，也是网络通信中的两大威胁。了解这两种威胁对于理解网络安全措施至关重要。目前有许多数据包嗅探和欺骗工具，如 Wireshark、Tcpdump、Netwox、Scapy 等。其中一些工具被安全专家和攻击者广泛使用。会使用这些工具对学生来说很重要，但对学习网络安全课程的学生来说更重要的是了解这些工具是如何工作的，即数据包嗅探和欺">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-11-15T06:16:23.000Z">
-<meta property="article:modified_time" content="2023-11-15T10:54:00.095Z">
+<meta property="article:modified_time" content="2023-12-13T09:23:36.821Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          22k 字
+          28k 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          183 分钟
+          232 分钟
         
       </span>
     
@@ -273,36 +273,126 @@ Wireshark、Tcpdump、Netwox、Scapy
 </ul>
 <h1 id="environment-setup-using-container">2. Environment Setup using
 Container</h1>
+<p>在本实验室中，我们将使用连接到同一局域网的三台机器。我们既可以使用三台虚拟机，也可以使用三个容器。图
+1
+描述了使用容器的实验室环境设置。我们将在攻击者容器上进行所有攻击，同时使用其他容器作为用户机器。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311151813785.png" srcset="/img/loading.gif" lazyload
 alt="image-20231115142430163" />
 <figcaption aria-hidden="true">image-20231115142430163</figcaption>
 </figure>
-<p>关于攻击者容器（在本实验中，我们可以使用虚拟机或攻击者容器作为攻击者机器）：</p>
+<h2 id="container-setup-and-commands">2.1 Container Setup and
+Commands</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ dcbuild <span class="hljs-comment"># Alias for: docker-compose build</span><br>$ dcup <span class="hljs-comment"># Alias for: docker-compose up</span><br>$ dcdown <span class="hljs-comment"># Alias for: docker-compose down</span><br><br>$ dockps // Alias <span class="hljs-keyword">for</span>: docker ps --format <span class="hljs-string">&quot;&#123;&#123;.ID&#125;&#125; &#123;&#123;.Names&#125;&#125;&quot;</span><br>$ docksh &lt;<span class="hljs-built_in">id</span>&gt; // Alias <span class="hljs-keyword">for</span>: docker <span class="hljs-built_in">exec</span> -it &lt;<span class="hljs-built_in">id</span>&gt; /bin/bash<br></code></pre></td></tr></table></figure>
+<h2 id="about-the-attacker-container">2.2 About the Attacker
+Container</h2>
+<p>在本实验室中，我们可以使用<strong>虚拟机或攻击者容器</strong>作为攻击者机器。如果查看
+Docker Compose
+文件，你会发现攻击者容器的配置与其他容器不同。以下是不同之处：</p>
 <ul>
-<li><p>共享文件夹：方便编写代码进行使用</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">volumes:<br>- .<span class="hljs-regexp">/volumes:/</span>volumes<br></code></pre></td></tr></table></figure></li>
-<li><p>主机模式：当容器处于主机模式时，它能看到主机的所有网络接口，甚至拥有与主机相同的
-IP
-地址。基本上，它与主机虚拟机处于同一网络命名空间。不过，容器仍是一台独立的机器，因为它的其他命名空间仍与主机不同。</p></li>
-</ul>
-<p>查看网络接口名字：<code>ipconfig</code></p>
+<li><p>共享文件夹。当我们使用攻击者容器发动攻击时，需要将攻击代码放在攻击者容器内。在虚拟机中编辑代码比在容器中更方便，因为我们可以使用自己喜欢的编辑器。为了让虚拟机和容器共享文件，我们使用
+Docker 卷在虚拟机和容器之间创建了一个共享文件夹。如果查看 Docker Compose
+文件，你会发现我们在某些容器中添加了以下条目。它表示将主机（即虚拟机）上的
+./volumes 文件夹挂载到容器内的 /volumes 文件夹。我们将在 ./volumes
+文件夹（虚拟机上）中编写代码，以便在容器内使用它们。</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311151813787.png" srcset="/img/loading.gif" lazyload
-alt="image-20231115143446919" />
-<figcaption aria-hidden="true">image-20231115143446919</figcaption>
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312131722772.png" srcset="/img/loading.gif" lazyload
+alt="image-20231213162539849" />
+<figcaption aria-hidden="true">image-20231213162539849</figcaption>
+</figure></li>
+<li><p>主机模式。在本实验室中，攻击者需要能够嗅探数据包，但在容器内运行嗅探程序会有问题，因为容器实际上是连接到虚拟交换机上的，所以它只能看到自己的流量，而永远看不到其他容器中的数据包。为了解决这个问题，我们为攻击者容器使用主机模式。这样，攻击者容器就能看到所有流量。当容器处于主机模式时，它可以看到主机的所有网络接口，甚至拥有与主机相同的
+IP
+地址。不过，容器仍是一台独立的机器，因为它的其他命名空间仍与主机不同。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312131722773.png" srcset="/img/loading.gif" lazyload
+alt="image-20231213162615726" />
+<figcaption aria-hidden="true">image-20231213162615726</figcaption>
+</figure></li>
+</ul>
+<p><strong>获取网络接口名称</strong>：当我们使用提供的 Compose
+文件为本实验室创建容器时，会创建一个新的网络来连接虚拟机和容器。这个网络的
+IP 前缀是10.9.0.0/24，它是在 docker-compose.yml
+文件中指定的。分配给我们虚拟机的 IP 地址是
+10.9.0.1。我们需要找到虚拟机上相应网络接口的名称，因为我们需要在程序中使用它。接口名称是由
+br- 和 Docker 创建的网络 ID 连接而成的。当我们使用 ifconfig
+列出网络接口时，我们会看到很多。查找 IP 地址 10.9.0.1。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312131722774.png" srcset="/img/loading.gif" lazyload
+alt="image-20231213162730442" />
+<figcaption aria-hidden="true">image-20231213162730442</figcaption>
+</figure>
+<p>另一种获取接口名称的方法是使用 "docker network "命令自行查找网络
+ID（网络名称为 seed-net）：</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312131722775.png" srcset="/img/loading.gif" lazyload
+alt="image-20231213162752088" />
+<figcaption aria-hidden="true">image-20231213162752088</figcaption>
 </figure>
 <h1 id="lab-task-set-1-using-scapy-to-sniff-and-spoof-packets">3. Lab
 Task Set 1: Using Scapy to Sniff and Spoof Packets</h1>
-<p>Scapy是一个用于网络分析和交互的Python程序库。它允许用户通过构造、发送、捕获和分析网络数据包来进行网络通信的操作。Scapy提供了一个灵活的框架，使用户能够以编程方式操作网络层和传输层协议。</p>
+<p>许多工具都可以用来进行嗅探和欺骗，但它们大多只提供固定的功能。 Scapy
+则不同：它不仅可以作为工具使用，还可以作为构建其他嗅探和欺骗工具的构件，也就是说，我们可以将
+Scapy 的功能集成到自己的程序中。在这组任务中，我们将使用 Scapy
+完成每项任务。</p>
+<p>要使用 Scapy，我们可以编写一个 Python 程序，然后用 Python
+执行该程序。请看下面的示例。我们应该使用 root 权限运行
+Python，因为欺骗数据包需要该权限。在程序的开头（第 ➀ 行），我们应该导入
+Scapy 的所有模块。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312131722777.png" srcset="/img/loading.gif" lazyload
+alt="image-20231213162900878" />
+<figcaption aria-hidden="true">image-20231213162900878</figcaption>
+</figure>
+<p>我们还可以进入 Python 的交互模式，然后在Python
+提示符下一行一行地运行程序。如果我们需要在实验中频繁修改代码，这将更加方便。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312131722778.png" srcset="/img/loading.gif" lazyload
+alt="image-20231213162933176" />
+<figcaption aria-hidden="true">image-20231213162933176</figcaption>
+</figure>
 <h2 id="task-1.1-sniffing-packets">3.1 Task 1.1: Sniffing Packets</h2>
+<p>Wireshark 是最流行的嗅探工具，而且使用方便。不过，要将 Wireshark
+用作构建其他工具的基石并不容易。为此，我们将使用
+Scapy。本任务的目的是学习如何使用 Scapy 在 Python
+程序中进行数据包嗅探。下面提供了一段示例代码：</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312131722779.png" srcset="/img/loading.gif" lazyload
+alt="image-20231213163007141" />
+<figcaption aria-hidden="true">image-20231213163007141</figcaption>
+</figure>
+<p>上述代码将嗅探 br-c93733e9f913
+接口上的数据包。请阅读实验室设置部分关于如何获取接口名称的说明。如果我们想嗅探多个接口，可以将所有接口放入一个列表，并将其分配给
+iface。请参阅以下示例：</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312131722780.png" srcset="/img/loading.gif" lazyload
+alt="image-20231213163035721" />
+<figcaption aria-hidden="true">image-20231213163035721</figcaption>
+</figure>
 <h3 id="task-1.1a">Task 1.1A</h3>
+<p>在上述程序中，每捕获一个数据包，就会调用回调函数 print
+pkt()；该函数将打印出数据包的部分信息。以 root
+权限运行程序，证明你确实可以捕获数据包。然后，再次运行程序，但不使用
+root 权限；描述并解释你的观察结果。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312131722781.png" srcset="/img/loading.gif" lazyload
+alt="image-20231213163119767" />
+<figcaption aria-hidden="true">image-20231213163119767</figcaption>
+</figure>
+<p><strong>实验流程：</strong></p>
 <ol type="1">
 <li><p>代码说明：<code>show()</code>用于显示数据包的详细信息。<code>sniff()</code>从网络接口捕获数据包。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/env python3</span><br><span class="hljs-keyword">from</span> scapy.<span class="hljs-built_in">all</span> <span class="hljs-keyword">import</span> *<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">print_pkt</span>(<span class="hljs-params">pkt</span>):<br>	pkt.show()<br><span class="hljs-comment"># 根据具体需求更改网卡</span><br>pkt = sniff(iface=<span class="hljs-string">&#x27;br-1efe4687329b&#x27;</span>, <span class="hljs-built_in">filter</span>=<span class="hljs-string">&#x27;icmp&#x27;</span>, prn=print_pkt)<br></code></pre></td></tr></table></figure></li>
-<li><p>root权限运行，ping命令产生ICMP数据包，成功捕获指定网卡上的数据包。</p>
+<li><p>root权限运行，使用ping命令产生ICMP数据包，成功捕获指定网卡上的数据包。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311151813788.png" srcset="/img/loading.gif" lazyload
@@ -313,11 +403,20 @@ alt="image-20231115144546347" />
 权限才能够执行网络数据包捕获操作。这是因为网络接口的访问通常受到系统的保护，只有具有足够权限的用户才能够进行这类敏感操作。</p></li>
 </ol>
 <h3 id="task-1.1b">Task 1.1B</h3>
+<p>通常，当我们嗅探数据包时，我们只对某些类型的数据包感兴趣。我们可以通过在嗅探中设置过滤器来做到这一点。Scapy
+的过滤器使用 BPF（伯克利数据包过滤器）语法；您可以从互联网上找到BPF
+手册。请设置以下过滤器，并再次演示你的嗅探器程序（每个过滤器应单独设置）：</p>
+<ul>
+<li>只捕获 ICMP 数据包</li>
+<li>捕获来自特定 IP 且目标端口号为 23 的任何 TCP 数据包。</li>
+<li>捕获来自或前往特定子网的数据包。您可以选择任何子网，如
+128.230.0.0/16；但不应选择虚拟机所连接的子网。</li>
+</ul>
 <p><strong>BPF简介</strong></p>
 <p>BPF(Berkeley Packet
-Filter)全称为伯克利包过滤,是一种功能非常强大的过滤语法。这个语法被广泛应用于多种数据包嗅探软件,因为大部分数据包嗅探软件都依赖于使用BPF的libpcap/WinPcap库。诸如tcpdump,wireshark等等。</p>
+Filter)全称为伯克利包过滤，是一种功能非常强大的过滤语法。这个语法被广泛应用于多种数据包嗅探软件,因为大部分数据包嗅探软件都依赖于使用BPF的libpcap/WinPcap库，诸如tcpdump,wireshark等等。</p>
 <p><strong>BPF详解</strong></p>
-<p>使用BPF语法创建的过滤器被称为表达式,并且每个表达式包含一个或多个原语。原语是对网络协议标头中的字段（例如，主机、端口或
+<p>使用BPF语法创建的过滤器被称为表达式，并且每个表达式包含一个或多个原语。原语是对网络协议标头中的字段（例如，主机、端口或
 TCP
 端口）的引用，通常包含以一个或多个限定符作为前缀的标识（通常为名称或数字）。</p>
 <p><strong>BPF限定符</strong></p>
@@ -351,18 +450,68 @@ style="text-align: center;">ether、fddi、tr、wlan、ip、ip6、arp、rarp、d
 </tr>
 </tbody>
 </table>
+<p><strong>实验流程：</strong></p>
 <ul>
 <li><p>只捕获ICMP</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">filter</span>=<span class="hljs-string">&#x27;icmp&#x27;</span><br></code></pre></td></tr></table></figure></li>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">filter</span>=<span class="hljs-string">&#x27;icmp&#x27;</span><br></code></pre></td></tr></table></figure>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312131722782.png" srcset="/img/loading.gif" lazyload
+alt="image-20231213163638551" />
+<figcaption aria-hidden="true">image-20231213163638551</figcaption>
+</figure></li>
 <li><p>捕获特定源IP和目的端口的TCP包（注：可通过telnet命令产生TCP数据包，telnet协议是TCP/IP协议栈中的一员，它是基于tcp协议，使用的端口号是23）</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">filter</span>=<span class="hljs-string">&#x27;tcp and src host 10.9.0.5 and dst port 23&#x27;</span><br></code></pre></td></tr></table></figure></li>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">filter</span>=<span class="hljs-string">&#x27;tcp and src host 10.9.0.5 and dst port 23&#x27;</span><br></code></pre></td></tr></table></figure>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312131722783.png" srcset="/img/loading.gif" lazyload
+alt="image-20231213163742491" />
+<figcaption aria-hidden="true">image-20231213163742491</figcaption>
+</figure></li>
 <li><p>捕获源或目的IP属于某特定子网</p>
-<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs arcade"><span class="hljs-comment">//ping命令得到百度服务器地址</span><br><span class="hljs-built_in">filter</span>=<span class="hljs-string">&#x27;net 39.156.66.0/23&#x27;</span><br></code></pre></td></tr></table></figure></li>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs arcade"><span class="hljs-comment">//ping命令得到百度服务器地址</span><br><span class="hljs-built_in">filter</span>=<span class="hljs-string">&#x27;net 39.156.66.0/23&#x27;</span><br></code></pre></td></tr></table></figure>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312131722784.png" srcset="/img/loading.gif" lazyload
+alt="image-20231213163838418" />
+<figcaption aria-hidden="true">image-20231213163838418</figcaption>
+</figure></li>
 </ul>
 <h2 id="task-1.2-spoofing-icmp-packets">3.2 Task 1.2: Spoofing ICMP
 Packets</h2>
+<p>作为一种数据包欺骗工具，Scapy 允许我们将 IP
+数据包的字段设置为任意值。本任务的目标是使用任意源 IP 地址欺骗 IP
+数据包。我们将欺骗 ICMP echo
+请求数据包，并将其发送到同一网络上的另一个虚拟机。我们将使用 Wireshark
+观察接收方是否接受我们的请求。如果接受了，就会向被欺骗的 IP
+地址发送回声应答数据包。下面的代码举例说明了如何欺骗 ICMP 数据包。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312131722785.png" srcset="/img/loading.gif" lazyload
+alt="image-20231213164002173" />
+<figcaption aria-hidden="true">image-20231213164002173</figcaption>
+</figure>
+<p>在上面的代码中，第 ➀ 行根据 IP 类创建了一个 IP 对象；每个 IP
+头字段都定义了一个类属性。我们可以使用 ls(a) 或 ls(IP)
+查看所有属性名/值。我们还可以使用 a.show() 和 IP.show()
+来完成同样的操作。第➁行显示了如何设置目标 IP
+地址字段。如果未设置字段，将使用默认值。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312131722786.png" srcset="/img/loading.gif" lazyload
+alt="image-20231213164038802" />
+<figcaption aria-hidden="true">image-20231213164038802</figcaption>
+</figure>
+<p>第➂行创建一个 ICMP 对象。默认类型是 echo 请求。在第➃ 行，我们将 a 和
+b 堆叠在一起，形成一个新对象。/ 操作符已被 IP
+类重载，因此它不再表示除法，而是表示将 b 添加为 a
+的有效载荷字段，并相应修改 a 的字段。这样，我们就得到了一个代表 ICMP
+数据包的新对象。现在，我们可以使用第➄行中的 send()
+发送这个数据包。请对示例代码进行任何必要的修改，然后演示如何使用任意源
+IP 地址欺骗 ICMP echo 请求数据包。</p>
+<p><strong>实验流程：</strong></p>
 <ol type="1">
-<li><p>目标： 使用任意源 IP 地址伪造 IP 数据包。</p>
+<li><p>编写代码：构造发送ICMP请求数据包</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/env python3</span><br><span class="hljs-keyword">from</span> scapy.<span class="hljs-built_in">all</span> <span class="hljs-keyword">import</span> *<br><span class="hljs-comment"># 创建IP对象</span><br>a=IP()<br>src_ip=<span class="hljs-built_in">input</span>(<span class="hljs-string">&#x27;input an arbitrary source IP address:&#x27;</span>)<br>a.src=src_ip<br>a.dst=<span class="hljs-string">&#x27;10.9.0.5&#x27;</span><br><span class="hljs-comment"># 创建ICMP对象</span><br>b=ICMP()<br><span class="hljs-comment"># 添加b作为a的有效载荷字段，并相应修改a的字段</span><br>p=a/b<br>send(p)<br></code></pre></td></tr></table></figure></li>
 <li><p>运行结果</p>
 <figure>
@@ -373,9 +522,29 @@ alt="image-20231115152148646" />
 </figure></li>
 </ol>
 <h2 id="task-1.3-traceroute">3.3 Task 1.3: Traceroute</h2>
+<p>本任务的目的是使<strong>用 Scapy
+估算虚拟机与选定目的地之间的距离</strong>（以路由器数量表示）。这基本上就是
+traceroute
+工具所实现的功能。在本任务中，我们将编写自己的工具。这个想法非常简单：只需向目的地发送一个数据包（任意类型），首先将其生存时间（TTL）字段设为
+1。第一个路由器会丢弃这个数据包，并向我们发送 ICMP
+错误信息，告诉我们超过了生存时间。这就是我们获取第一个路由器 IP
+地址的方法。然后，我们将 TTL 字段增加到
+2，发送另一个数据包，并获得第二个路由器的 IP
+地址。我们将重复这个过程，直到数据包最终到达目的地。
+需要注意的是，这个实验只能得到一个估计结果，因为从理论上讲，并非所有这些数据包都会走相同的路线（但实际上，它们可能会在很短的时间内走相同的路线）。下面的代码显示了该过程中的一轮。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312131722787.png" srcset="/img/loading.gif" lazyload
+alt="image-20231213164434078" />
+<figcaption aria-hidden="true">image-20231213164434078</figcaption>
+</figure>
+<p>如果您是经验丰富的 Python
+程序员，可以编写工具来自动执行整个过程。如果你是 Python
+编程新手，可以在每一轮中手动更改 TTL 字段，并根据 Wireshark 的观察记录
+IP 地址。只要能得到结果，哪种方法都可以接受。</p>
+<p><strong>实验流程：</strong></p>
 <ol type="1">
-<li><p>目标：使用 Scapy
-估算虚拟机与所选目的地之间的距离（以路由器数量表示）。</p>
+<li><p>编写代码：以1为步长，逐渐增大TTL，发送ICMP数据包并接收响应。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/env python3</span><br><span class="hljs-keyword">from</span> scapy.<span class="hljs-built_in">all</span> <span class="hljs-keyword">import</span> *<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">traceroute</span>(<span class="hljs-params">destination, max_hops=<span class="hljs-number">30</span></span>):<br>    ttl = <span class="hljs-number">1</span><br>    destination_reached = <span class="hljs-literal">False</span><br><br>    <span class="hljs-keyword">while</span> ttl &lt;= max_hops <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> destination_reached:<br>        <span class="hljs-comment"># 构造 ICMP 请求数据包</span><br>        packet = IP(dst=destination, ttl=ttl) / ICMP()<br><br>        <span class="hljs-comment"># 发送数据包并接收响应</span><br>        reply = sr1(packet, verbose=<span class="hljs-number">0</span>, timeout=<span class="hljs-number">1</span>)<br><br>        <span class="hljs-keyword">if</span> reply <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>            <span class="hljs-comment"># 超时，没有响应</span><br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;ttl&#125;</span>. * Timeout&quot;</span>)<br>        <span class="hljs-keyword">elif</span> reply.haslayer(IP):<br>            <span class="hljs-comment"># 获取回复的源IP地址</span><br>            source_ip = reply.getlayer(IP).src<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;ttl&#125;</span>. <span class="hljs-subst">&#123;source_ip&#125;</span>&quot;</span>)<br><br>            <span class="hljs-keyword">if</span> source_ip == destination:<br>                destination_reached = <span class="hljs-literal">True</span><br><br>        ttl += <span class="hljs-number">1</span><br><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;the final ttl=&#x27;</span>+<span class="hljs-built_in">str</span>(ttl-<span class="hljs-number">1</span>))<br><br>target_ip=<span class="hljs-built_in">input</span>(<span class="hljs-string">&#x27;input an arbitrary destination IP address:&#x27;</span>)<br>traceroute(target_ip)<br></code></pre></td></tr></table></figure></li>
 <li><p>运行结果</p>
 <figure>
@@ -387,10 +556,28 @@ alt="image-20231115152631230" />
 </ol>
 <h2 id="task-1.4-sniffing-and-then-spoofing">3.4 Task 1.4: Sniffing
 and-then Spoofing</h2>
+<p>在本任务中，您将结合嗅探和欺骗技术来实现以下嗅探和欺骗程序。您需要同一局域网中的两台机器：虚拟机和用户容器。从用户容器
+ping 一个 IP X。如果 X 还活着，ping 程序将收到一个 echo
+回应，并打印出回应。你的嗅探和欺骗程序运行在虚拟机上，它通过数据包嗅探监控局域网。只要看到
+ICMP echo 请求，无论目标 IP
+地址是什么，程序都应立即使用数据包欺骗技术发送 echo 回复。因此，无论机器
+X 是否存活，ping 程序都会收到回复，表明 X 是存活的。您需要使用 Scapy
+来完成这项任务。在您的报告中，您需要提供证据来证明您的技术是有效的。</p>
+<p>在实验中，您应从用户容器 ping 以下三个 IP
+地址。报告您的观察结果并对结果进行解释。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312131722788.png" srcset="/img/loading.gif" lazyload
+alt="image-20231213164810374" />
+<figcaption aria-hidden="true">image-20231213164810374</figcaption>
+</figure>
+<p>提示：您需要了解 ARP 协议的工作原理，才能正确解释您的观察结果。
+您还需要了解一些路由知识。下面的命令可以帮助你找到指定目的地的路由器：</p>
+<p><code>ip route get 1.2.3.4</code></p>
+<p><strong>实验流程：</strong></p>
 <ol type="1">
-<li><p>目标：你的嗅探和欺骗程序在虚拟机上运行，通过数据包嗅探监控局域网。每当它看到<code>ICMP echo</code>请求时，无论目标
-IP
-地址是什么，你的程序都应立即使用数据包欺骗技术发送<code>ICMP reply</code>。</p>
+<li><p>代码编写：每当看到<code>ICMP echo</code>请求时，无论目标 IP
+地址是什么，立即使用数据包欺骗技术发送<code>ICMP reply</code>。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/env python3</span><br><span class="hljs-keyword">from</span> scapy.<span class="hljs-built_in">all</span> <span class="hljs-keyword">import</span> *<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">reply</span>(<span class="hljs-params">pkt</span>):<br>    <span class="hljs-comment"># 创建IP对象，交换源和目标IP地址</span><br>    response_ip = IP(dst=pkt[IP].src, src=pkt[IP].dst)<br>    <br>    <span class="hljs-comment"># 创建ICMP对象，复制原始数据包的序列号和标识符</span><br>    response_icmp = ICMP(<span class="hljs-built_in">type</span>=<span class="hljs-string">&#x27;echo-reply&#x27;</span>, code=<span class="hljs-number">0</span>, seq=pkt[ICMP].seq, <span class="hljs-built_in">id</span>=pkt[ICMP].<span class="hljs-built_in">id</span>)<br>    <br>    <span class="hljs-comment"># 打印简化的信息</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Received ICMP from <span class="hljs-subst">&#123;pkt[IP].src&#125;</span>, responding as <span class="hljs-subst">&#123;response_ip.src&#125;</span>&quot;</span>)<br>    <br>    <br>    <span class="hljs-comment"># 构建新的数据包，包括修改后的IP和ICMP层以及原始数据包的载荷</span><br>    <span class="hljs-comment"># 在 ICMP Echo 请求和回复中，通常会包含数据，而这部分数据是原封不动地回复的，以确保整个 ICMP 数据包结构保持一致。</span><br>    response_packet = response_ip / response_icmp / pkt[Raw]<br>    <br>    <span class="hljs-comment"># 发送回复数据包</span><br>    send(response_packet)<br><br><span class="hljs-comment"># 使用Scapy的sniff函数捕获网络数据包</span><br><span class="hljs-comment"># 监听指定网络接口，仅捕获ICMP类型为echo的数据包，并调用reply函数处理每个捕获到的数据包</span><br>sniff(iface=<span class="hljs-string">&#x27;br-1efe4687329b&#x27;</span>, <span class="hljs-built_in">filter</span>=<span class="hljs-string">&#x27;icmp[icmptype]==icmp-echo&#x27;</span>, prn=reply)<br></code></pre></td></tr></table></figure></li>
 <li><p>运行程序</p>
 <ul>
@@ -441,8 +628,35 @@ alt="image-20231115154222515" />
 </ol>
 <h1 id="lab-task-set-2-writing-programs-to-sniff-and-spoof-packets">4.
 Lab Task Set 2: Writing Programs to Sniff and Spoof Packets</h1>
+<p>对于这套任务，你应该在主机虚拟机中编译 C
+代码，然后在容器中运行代码。你可以使用 "docker cp
+"命令将文件从主机虚拟机复制到容器中。请看下面的示例（无需键入完整的
+docker ID）：</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312131722789.png" srcset="/img/loading.gif" lazyload
+alt="image-20231213165451675" />
+<figcaption aria-hidden="true">image-20231213165451675</figcaption>
+</figure>
 <h2 id="task-2.1-writing-packet-sniffing-program">4.1 Task 2.1: Writing
 Packet Sniffing Program</h2>
+<p>使用 <strong>pcap 库</strong>可以轻松编写嗅探器程序。有了
+pcap，嗅探器的任务就变成了调用 pcap
+库中的一系列简单程序。在序列结束时，数据包将被放入缓冲区，以便在捕获后立即进行进一步处理。捕获数据包的所有细节都由
+pcap 库处理。SEED 书中提供了一个示例代码，展示了如何使用 pcap
+编写一个简单的嗅探器程序。我们将在下文中介绍该示例代码（详细说明请参阅该书）。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312131722790.png" srcset="/img/loading.gif" lazyload
+alt="image-20231213165639503" />
+<figcaption aria-hidden="true">image-20231213165639503</figcaption>
+</figure>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312131722791.png" srcset="/img/loading.gif" lazyload
+alt="image-20231213165652007" />
+<figcaption aria-hidden="true">image-20231213165652007</figcaption>
+</figure>
 <p><strong>pcap工作流程</strong></p>
 <figure>
 <img
@@ -452,9 +666,29 @@ alt="img" />
 </figure>
 <h3 id="task-2.1a-understanding-how-a-sniffer-works">Task 2.1A:
 Understanding How a Sniffer Works</h3>
+<p>在本任务中，学生需要编写一个嗅探器程序，以打印出每个捕获数据包的源地址和目标
+IP 地址。学生可键入上述代码，或从 SEED 电子书网站
+(https://www.handsonsecurity.
+net/figurecode.html)下载示例代码。学生应提供截图作为证据，以证明其嗅探器程序能够成功运行并产生预期结果。此外，请回答以下问题：</p>
+<ul>
+<li><p>问题
+1.请用自己的话描述嗅探器程序所必需的库调用顺序。这只是一个摘要，而不是像教程或书籍中那样的详细解释。</p></li>
+<li><p>问题 2.为什么运行嗅探器程序需要 root 权限？如果程序在没有 root
+权限的情况下执行，会在哪里失败？</p></li>
+<li><p>问题 3.请在您的嗅探程序中打开或关闭混杂模式。pcap open live()
+中第三个参数的值为 1 时，会打开混杂模式（用 0
+关闭）。您能演示该模式开启和关闭时的区别吗？请描述如何演示。您可以使用以下命令检查接口的混杂模式是打开还是关闭（查看
+promiscuity 的值）。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312131722792.png" srcset="/img/loading.gif" lazyload
+alt="image-20231213165924971" />
+<figcaption aria-hidden="true">image-20231213165924971</figcaption>
+</figure></li>
+</ul>
+<p><strong>实验流程：</strong></p>
 <ol type="1">
-<li><p>目标：编写一个嗅探器程序，打印出每个捕获数据包的源 IP 地址和目标
-IP 地址。</p>
+<li><p>代码编写</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;pcap.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdlib.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;netinet/ip.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;netinet/if_ether.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;errno.h&gt;</span></span><br><br><span class="hljs-comment">/* 定义了一个打印IP地址的函数,将四个字节的IP地址以点分十进制的形式打印出来 */</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">print_ip</span><span class="hljs-params">(u_char* ipadd)</span>&#123;<br>     <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d.%d.%d.%d&quot;</span>, ipadd[<span class="hljs-number">0</span>], ipadd[<span class="hljs-number">1</span>], ipadd[<span class="hljs-number">2</span>], ipadd[<span class="hljs-number">3</span>]);<br>&#125;<br><br><span class="hljs-comment">/* 该函数会被pcap库调用，用于处理每个捕获到的数据包 */</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">got_packet</span><span class="hljs-params">(u_char *args, <span class="hljs-type">const</span> <span class="hljs-keyword">struct</span> pcap_pkthdr *header, <span class="hljs-type">const</span> u_char *packet)</span> &#123;<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ip</span> *<span class="hljs-title">iph</span>;</span><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n----------------Got a packet----------------\n&quot;</span>);<br>    <span class="hljs-comment">// 解析数据包中的IP头部</span><br>    iph = (<span class="hljs-keyword">struct</span> ip*)(packet + <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">struct</span> ether_header));<br>    <br>    <span class="hljs-comment">// 打印源IP地址</span><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Source Ip Address:&quot;</span>);<br>    print_ip((u_char*)&amp;(iph-&gt;ip_src));<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n&quot;</span>);<br>    <br>    <span class="hljs-comment">// 打印目的IP地址</span><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Destination Ip address:&quot;</span>);<br>    print_ip((u_char*)&amp;(iph-&gt;ip_dst));<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n&quot;</span>);<br>&#125;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-type">pcap_t</span> *handle;<br>    <span class="hljs-type">char</span> errbuf[PCAP_ERRBUF_SIZE];<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">bpf_program</span> <span class="hljs-title">fp</span>;</span><br>    <span class="hljs-comment">// char filter_exp[] = &quot;icmp&quot;; // 过滤条件2-1-A</span><br>    <span class="hljs-comment">// char filter_exp[] = &quot;icmp and host 10.9.0.5 and host 10.9.0.6&quot;; // 过滤条件2-1-B1</span><br>    <span class="hljs-type">char</span> filter_exp[] = <span class="hljs-string">&quot;tcp and dst portrange 10-100&quot;</span>; <span class="hljs-comment">// 过滤条件2-1-B2</span><br>    bpf_u_int32 net;<br>    <br>    <span class="hljs-comment">// 步骤1：打开一个网络接口,根据实际进行修改</span><br>    handle = pcap_open_live(<span class="hljs-string">&quot;br-83053c57e272&quot;</span>, BUFSIZ, <span class="hljs-number">1</span>, <span class="hljs-number">1000</span>, errbuf);<br>    <span class="hljs-keyword">if</span> (handle == <span class="hljs-literal">NULL</span>) &#123;<br>        perror(<span class="hljs-string">&quot;error in pcap_open_live&quot;</span>);<br>        <span class="hljs-built_in">exit</span>(<span class="hljs-number">-1</span>);<br>    &#125;<br>    <br>    <span class="hljs-comment">// 步骤2：编译过滤条件为BPF伪代码</span><br>    pcap_compile(handle, &amp;fp, filter_exp, <span class="hljs-number">0</span>, net);<br>    <span class="hljs-keyword">if</span> (pcap_setfilter(handle, &amp;fp) != <span class="hljs-number">0</span>) &#123;<br>        pcap_perror(handle, <span class="hljs-string">&quot;Error:&quot;</span>);<br>        <span class="hljs-built_in">exit</span>(EXIT_FAILURE);<br>    &#125;<br>    <br>    <span class="hljs-comment">// 步骤3：捕获数据包并调用got_packet函数进行处理</span><br>    pcap_loop(handle, <span class="hljs-number">-1</span>, got_packet, <span class="hljs-literal">NULL</span>);<br>    <br>    <span class="hljs-comment">// 关闭pcap句柄</span><br>    pcap_close(handle);<br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure></li>
 <li><p>运行结果（编译命令：
 <code>gcc -o sniff sniff.c -lpcap</code>）</p>
@@ -497,6 +731,14 @@ alt="image-20231115162507637" />
 </figure></li>
 </ol>
 <h3 id="task-2.1b-writing-filters">Task 2.1B: Writing Filters</h3>
+<p>请为您的嗅探器程序编写过滤表达式，以捕获以下各项内容。您可以在网上找到
+pcap
+过滤器的使用手册。在实验报告中，您需要包含截图，以显示应用每个过滤器后的结果。</p>
+<ul>
+<li>捕获两个特定主机之间的 ICMP 数据包</li>
+<li>捕获目标端口号在 10 到 100 之间的 TCP 数据包。</li>
+</ul>
+<p><strong>实验流程：</strong></p>
 <ul>
 <li><p>捕获两个特定主机之间的ICMP数据包：<code>filter="icmp and host 10.9.0.5 and host 10.9.0.6"</code></p>
 <figure>
@@ -505,7 +747,7 @@ src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/20231115181
 alt="image-20231115162751885" />
 <figcaption aria-hidden="true">image-20231115162751885</figcaption>
 </figure></li>
-<li><p>捕获目标端口号在10到100范围内的TCP数据包：<code>filter="tcp and dst portrange 10-100"</code>测试用例：用curl对多个端口发起请求。</p>
+<li><p>捕获目标端口号在10到100范围内的TCP数据包：<code>filter="tcp and dst portrange 10-100"</code>测试用例：用curl对多个端口发起请求。三次请求中只有两次在范围内，因此捕获到了两个数据包。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311151813803.png" srcset="/img/loading.gif" lazyload
@@ -514,12 +756,14 @@ alt="image-20231115162732697" />
 </figure></li>
 </ul>
 <h3 id="task-2.1c-sniffing-passwords">Task 2.1C: Sniffing Passwords</h3>
+<p>请说明如何使用您的嗅探器程序捕获有人在您监控的网络上使用 telnet
+时的密码。您可能需要修改嗅探器代码，以便打印出捕获的 TCP 数据包（telnet
+使用
+TCP）的数据部分。如果您打印出整个数据部分，然后手动标记密码（或部分密码）所在的位置，这样做是可以接受的。</p>
+<p><strong>实验流程：</strong></p>
 <ol type="1">
-<li><p>目标：请说明如何使用您的嗅探器程序捕获有人在您监控的网络上使用
-telnet 时的密码。您可能需要修改您的嗅探器代码，以便打印出捕获的 TCP
-数据包的数据部分（telnet 使用 TCP）。</p></li>
 <li><p>代码实现：用wireshark抓包可以得到Telnet发送的数据固定在报文第66字节</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;pcap.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdlib.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;netinet/ip.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;netinet/if_ether.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;errno.h&gt;</span></span><br><br><br><span class="hljs-comment">/* 该函数会被pcap库调用，用于处理每个捕获到的数据包 */</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">got_packet</span><span class="hljs-params">(u_char *args, <span class="hljs-type">const</span> <span class="hljs-keyword">struct</span> pcap_pkthdr *header, <span class="hljs-type">const</span> u_char *packet)</span> &#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Data from byte 66: %s\n&quot;</span>, (<span class="hljs-type">char</span> *)(packet + <span class="hljs-number">66</span>));  <br>&#125;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-type">pcap_t</span> *handle;<br>    <span class="hljs-type">char</span> errbuf[PCAP_ERRBUF_SIZE];<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">bpf_program</span> <span class="hljs-title">fp</span>;</span><br>    <span class="hljs-type">char</span> filter_exp[] = <span class="hljs-string">&quot;tcp&quot;</span>; <br>    bpf_u_int32 net;<br>    <br>    <span class="hljs-comment">// 步骤1：打开一个网络接口</span><br>    handle = pcap_open_live(<span class="hljs-string">&quot;br-1efe4687329b&quot;</span>, BUFSIZ, <span class="hljs-number">1</span>, <span class="hljs-number">1000</span>, errbuf);<br>    <span class="hljs-keyword">if</span> (handle == <span class="hljs-literal">NULL</span>) &#123;<br>        perror(<span class="hljs-string">&quot;error in pcap_open_live&quot;</span>);<br>        <span class="hljs-built_in">exit</span>(<span class="hljs-number">-1</span>);<br>    &#125;<br>    <br>    <span class="hljs-comment">// 步骤2：编译过滤条件为BPF伪代码</span><br>    pcap_compile(handle, &amp;fp, filter_exp, <span class="hljs-number">0</span>, net);<br>    <span class="hljs-keyword">if</span> (pcap_setfilter(handle, &amp;fp) != <span class="hljs-number">0</span>) &#123;<br>        pcap_perror(handle, <span class="hljs-string">&quot;Error:&quot;</span>);<br>        <span class="hljs-built_in">exit</span>(EXIT_FAILURE);<br>    &#125;<br>    <br>    <span class="hljs-comment">// 步骤3：捕获数据包并调用got_packet函数进行处理</span><br>    pcap_loop(handle, <span class="hljs-number">-1</span>, got_packet, <span class="hljs-literal">NULL</span>);<br>    <br>    <span class="hljs-comment">// 关闭pcap句柄</span><br>    pcap_close(handle);<br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;pcap.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdlib.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;netinet/ip.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;netinet/if_ether.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;errno.h&gt;</span></span><br><br><br><span class="hljs-comment">/* 该函数会被pcap库调用，用于处理每个捕获到的数据包 */</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">got_packet</span><span class="hljs-params">(u_char *args, <span class="hljs-type">const</span> <span class="hljs-keyword">struct</span> pcap_pkthdr *header, <span class="hljs-type">const</span> u_char *packet)</span> &#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Data from byte 66: %s\n&quot;</span>, (<span class="hljs-type">char</span> *)(packet + <span class="hljs-number">66</span>));  <br>&#125;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-type">pcap_t</span> *handle;<br>    <span class="hljs-type">char</span> errbuf[PCAP_ERRBUF_SIZE];<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">bpf_program</span> <span class="hljs-title">fp</span>;</span><br>    <span class="hljs-type">char</span> filter_exp[] = <span class="hljs-string">&quot;tcp&quot;</span>; <span class="hljs-comment">// 过滤条件</span><br>    bpf_u_int32 net;<br>    <br>    <span class="hljs-comment">// 步骤1：打开一个网络接口</span><br>    handle = pcap_open_live(<span class="hljs-string">&quot;br-1efe4687329b&quot;</span>, BUFSIZ, <span class="hljs-number">1</span>, <span class="hljs-number">1000</span>, errbuf);<br>    <span class="hljs-keyword">if</span> (handle == <span class="hljs-literal">NULL</span>) &#123;<br>        perror(<span class="hljs-string">&quot;error in pcap_open_live&quot;</span>);<br>        <span class="hljs-built_in">exit</span>(<span class="hljs-number">-1</span>);<br>    &#125;<br>    <br>    <span class="hljs-comment">// 步骤2：编译过滤条件为BPF伪代码</span><br>    pcap_compile(handle, &amp;fp, filter_exp, <span class="hljs-number">0</span>, net);<br>    <span class="hljs-keyword">if</span> (pcap_setfilter(handle, &amp;fp) != <span class="hljs-number">0</span>) &#123;<br>        pcap_perror(handle, <span class="hljs-string">&quot;Error:&quot;</span>);<br>        <span class="hljs-built_in">exit</span>(EXIT_FAILURE);<br>    &#125;<br>    <br>    <span class="hljs-comment">// 步骤3：捕获数据包并调用got_packet函数进行处理</span><br>    pcap_loop(handle, <span class="hljs-number">-1</span>, got_packet, <span class="hljs-literal">NULL</span>);<br>    <br>    <span class="hljs-comment">// 关闭pcap句柄</span><br>    pcap_close(handle);<br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure></li>
 <li><p>运行结果</p>
 <figure>
 <img
@@ -529,13 +773,21 @@ alt="image-20231115165342178" />
 </figure></li>
 </ol>
 <h2 id="task-2.2-spoofing">4.2 Task 2.2: Spoofing</h2>
-<p>套接字编程：</p>
-<ul>
-<li>创建原始套接字</li>
-<li>设置套接字选项</li>
-<li>构建数据包</li>
-<li>通过原始套接字发送数据包。</li>
-</ul>
+<p>普通用户发送数据包时，操作系统通常不允许用户设置协议头（如 TCP、UDP
+和 IP
+头）中的所有字段。操作系统会设置大部分字段，只允许用户设置少数字段，如目标
+IP 地址、目标端口号等。但是，如果用户拥有 root
+权限，就可以在数据包报头中设置任意字段。这就是所谓的数据包欺骗，可以通过原始套接字完成。</p>
+<p>原始套接字可让程序员绝对控制数据包的构建，允许程序员构建任意数据包，包括设置报头字段和有效载荷。使用原始套接字非常简单，包括四个步骤：(1)
+创建原始套接字，(2) 设置套接字选项，(3) 构建数据包，(4)
+通过原始套接字发送数据包。有许多在线教程可以教你如何在 C
+语言编程中使用原始套接字。我们已将一些教程链接到实验室的网页上。请阅读它们，学习如何编写数据包欺骗程序。我们展示了这样一个程序的简单骨架。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312131722793.png" srcset="/img/loading.gif" lazyload
+alt="image-20231213170749896" />
+<figcaption aria-hidden="true">image-20231213170749896</figcaption>
+</figure>
 <p>注意事项：</p>
 <p>你需要注意网络字节序和主机字节序的问题。如果你使用的是 x86 架构的
 CPU，你的主机字节序是小端字节序，而网络字节序是大端字节序。无论你将什么样的数据放入数据包缓冲区中，都必须使用网络字节序；如果你不这样做，你的数据包将不正确。实际上，你不需要担心你的机器使用哪种字节序，而且如果你希望你的程序具有可移植性，实际上也不应该担心。</p>
@@ -549,17 +801,20 @@ short、int、long
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">//spoof.c</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unistd.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;sys/socket.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;netinet/ip.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;arpa/inet.h&gt;</span></span><br><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;myheader.h&quot;</span></span><br><br><span class="hljs-comment">/*************************************************************</span><br><span class="hljs-comment"> 给定一个 IP 数据包，使用原始套接字将其发送出去。</span><br><span class="hljs-comment">**************************************************************/</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">send_raw_ip_packet</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> ipheader* ip)</span><br>&#123;<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">sockaddr_in</span> <span class="hljs-title">dest_info</span>;</span><br>    <span class="hljs-type">int</span> enable = <span class="hljs-number">1</span>;<br><br>    <span class="hljs-comment">// Step 1: Create a raw network socket.</span><br>    <span class="hljs-type">int</span> sock = socket(AF_INET, SOCK_RAW, IPPROTO_RAW);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;sock: %d\n&quot;</span>, sock);<br><br>    <span class="hljs-comment">// Step 2: Set socket option.</span><br>    setsockopt(sock, IPPROTO_IP, IP_HDRINCL,<br>                     &amp;enable, <span class="hljs-keyword">sizeof</span>(enable));<br><br>    <span class="hljs-comment">// Step 3: Provide needed information about destination.</span><br>    dest_info.sin_family = AF_INET;<br>    dest_info.sin_addr = ip-&gt;iph_destip;<br><br>    <span class="hljs-comment">// Step 4: Send the packet out.</span><br>    <span class="hljs-comment">// ntohs 是一个网络编程中常用的函数，它的作用是将一个16位无符号短整型数从网络字节序转换为主机字节序。</span><br>    sendto(sock, ip, ntohs(ip-&gt;iph_len), <span class="hljs-number">0</span>,<br>           (<span class="hljs-keyword">struct</span> sockaddr *)&amp;dest_info, <span class="hljs-keyword">sizeof</span>(dest_info));<br>    close(sock);<br>&#125;<br><br></code></pre></td></tr></table></figure>
 <h3 id="task-2.2a-write-a-spoofing-program">Task 2.2A: Write a spoofing
 program</h3>
+<p>请用 C 语言编写自己的数据包欺骗程序。您需要提供证据（如 Wireshark
+数据包跟踪）来证明您的程序成功发送了欺骗的 IP 数据包。</p>
+<p><strong>实验流程：</strong></p>
 <ol type="1">
 <li><p>代码实现：初始化缓冲区：
 创建一个大小为1500字节的缓冲区，并将其所有元素初始化为0。获取IP和UDP头指针：
 使用结构体指针将缓冲区划分成IP头和UDP头的部分。填充UDP数据部分：
 在缓冲区中留出空间存储UDP数据，并将消息 "Hello Server!"
 复制到这个位置。填充UDP头部：
-设置UDP头的源端口、目标端口、UDP长度和校验和填充IP头部：
+设置UDP头的源端口、目标端口、UDP长度和校验和；填充IP头部：
 设置IP头的版本、首部长度、TTL、源IP地址、目标IP地址、协议（UDP协议的值为17）和总长度。发送伪造的IP数据包：
 调用 send_raw_ip_packet 函数发送伪造的IP数据包。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unistd.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;sys/socket.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;netinet/ip.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;arpa/inet.h&gt;</span></span><br><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;myheader.h&quot;</span></span><br><br><span class="hljs-type">void</span>   <span class="hljs-title function_">send_raw_ip_packet</span> <span class="hljs-params">(<span class="hljs-keyword">struct</span> ipheader* ip)</span>;<br><br><span class="hljs-comment">/******************************************************************</span><br><span class="hljs-comment">  Spoof a UDP packet using an arbitrary source IP Address and port</span><br><span class="hljs-comment">*******************************************************************/</span><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span> &#123;<br>   <span class="hljs-type">char</span> buffer[<span class="hljs-number">1500</span>];<br><br>   <span class="hljs-built_in">memset</span>(buffer, <span class="hljs-number">0</span>, <span class="hljs-number">1500</span>);<br>   <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ipheader</span> *<span class="hljs-title">ip</span> =</span> (<span class="hljs-keyword">struct</span> ipheader *) buffer;<br>   <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">udpheader</span> *<span class="hljs-title">udp</span> =</span> (<span class="hljs-keyword">struct</span> udpheader *) (buffer +<br>                                          <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">struct</span> ipheader));<br><br>   <span class="hljs-comment">/*********************************************************</span><br><span class="hljs-comment">      Step 1: Fill in the UDP data field.</span><br><span class="hljs-comment">    ********************************************************/</span><br>   <span class="hljs-type">char</span> *data = buffer + <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">struct</span> ipheader) +<br>                         <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">struct</span> udpheader);<br>   <span class="hljs-type">const</span> <span class="hljs-type">char</span> *msg = <span class="hljs-string">&quot;Hello Server!\n&quot;</span>;<br>   <span class="hljs-type">int</span> data_len = <span class="hljs-built_in">strlen</span>(msg);<br>   <span class="hljs-built_in">strncpy</span> (data, msg, data_len);<br><br>   <span class="hljs-comment">/*********************************************************</span><br><span class="hljs-comment">      Step 2: Fill in the UDP header.</span><br><span class="hljs-comment">    ********************************************************/</span><br>   <span class="hljs-comment">// 将一个16位无符号短整型数从主机字节序转换为网络字节序。</span><br>   udp-&gt;udp_sport = htons(<span class="hljs-number">12345</span>);<br>   udp-&gt;udp_dport = htons(<span class="hljs-number">9090</span>);<br>   udp-&gt;udp_ulen = htons(<span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">struct</span> udpheader) + data_len);<br>   udp-&gt;udp_sum =  <span class="hljs-number">0</span>; <span class="hljs-comment">/* Many OSes ignore this field, so we do not</span><br><span class="hljs-comment">                         calculate it. */</span><br><br>   <span class="hljs-comment">/*********************************************************</span><br><span class="hljs-comment">      Step 3: Fill in the IP header.</span><br><span class="hljs-comment">    ********************************************************/</span><br>   ip-&gt;iph_ver = <span class="hljs-number">4</span>;<br>   ip-&gt;iph_ihl = <span class="hljs-number">5</span>;<br>   ip-&gt;iph_ttl = <span class="hljs-number">20</span>;<br>    <span class="hljs-comment">// 将点分十进制形式的 IPv4 地址转换为网络字节序的 32 位整数表示的函数</span><br>   ip-&gt;iph_sourceip.s_addr = inet_addr(<span class="hljs-string">&quot;1.1.1.1&quot;</span>);  <span class="hljs-comment">//伪造的源IP</span><br>   ip-&gt;iph_destip.s_addr = inet_addr(<span class="hljs-string">&quot;8.8.8.8&quot;</span>);    <span class="hljs-comment">//伪造的目的IP</span><br>   ip-&gt;iph_protocol = IPPROTO_UDP; <span class="hljs-comment">// The value is 17.</span><br>   ip-&gt;iph_len = htons(<span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">struct</span> ipheader) +<br>                       <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">struct</span> udpheader) + data_len);<br><br>   <span class="hljs-comment">/*********************************************************</span><br><span class="hljs-comment">      Step 4: Finally, send the spoofed packet</span><br><span class="hljs-comment">    ********************************************************/</span><br>   send_raw_ip_packet (ip);<br><br>   <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure></li>
-<li><p>运行结果<code>gcc -o task22A task22A.c spoof.c -lpcap</code></p>
+<li><p>运行结果（编译命令：<code>gcc -o task22A task22A.c spoof.c -lpcap</code>）</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311151813805.png" srcset="/img/loading.gif" lazyload
@@ -569,6 +824,11 @@ alt="image-20231115171321466" />
 </ol>
 <h3 id="task-2.2b-spoof-an-icmp-echo-request">Task 2.2B: Spoof an ICMP
 Echo Request</h3>
+<p>代表另一台机器欺骗一个 ICMP echo 请求数据包（即使用另一台机器的 IP
+地址作为源 IP
+地址）。该数据包应发送到互联网上的一台远程机器（该机器必须正常运行）。您应该打开
+Wireshark，这样如果欺骗成功，您就可以看到远程机器返回的 echo 回应。</p>
+<p><strong>实验流程：</strong></p>
 <ol type="1">
 <li><p>代码实现：伪造ICMP Echo请求。创建一个大小为 1500
 字节的缓冲区（buffer），并将其清零。填充 ICMP 头部：在缓冲区中找到 ICMP
@@ -580,39 +840,49 @@ Echo Request</h3>
 数据包的总长度。调用send_raw_ip_packet 函数，将伪造的 IP
 数据包发送出去。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unistd.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;sys/socket.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;netinet/ip.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;arpa/inet.h&gt;</span></span><br><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;myheader.h&quot;</span></span><br><br><span class="hljs-type">unsigned</span> <span class="hljs-type">short</span> <span class="hljs-title function_">in_cksum</span> <span class="hljs-params">(<span class="hljs-type">unsigned</span> <span class="hljs-type">short</span> *buf, <span class="hljs-type">int</span> length)</span>;<br><span class="hljs-type">void</span> <span class="hljs-title function_">send_raw_ip_packet</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> ipheader* ip)</span>;<br><br><span class="hljs-comment">/******************************************************************</span><br><span class="hljs-comment">  Spoof an ICMP echo request using an arbitrary source IP Address</span><br><span class="hljs-comment">*******************************************************************/</span><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span> &#123;<br>   <span class="hljs-type">char</span> buffer[<span class="hljs-number">1500</span>];<br><br>   <span class="hljs-built_in">memset</span>(buffer, <span class="hljs-number">0</span>, <span class="hljs-number">1500</span>);<br><br>   <span class="hljs-comment">/*********************************************************</span><br><span class="hljs-comment">      Step 1: Fill in the ICMP header.</span><br><span class="hljs-comment">    ********************************************************/</span><br>   <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">icmpheader</span> *<span class="hljs-title">icmp</span> =</span> (<span class="hljs-keyword">struct</span> icmpheader *)<br>                             (buffer + <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">struct</span> ipheader));<br>   icmp-&gt;icmp_type = <span class="hljs-number">8</span>; <span class="hljs-comment">//ICMP Type: 8 is request, 0 is reply.</span><br><br>   <span class="hljs-comment">// Calculate the checksum for integrity</span><br>   icmp-&gt;icmp_chksum = <span class="hljs-number">0</span>;<br>   icmp-&gt;icmp_chksum = in_cksum((<span class="hljs-type">unsigned</span> <span class="hljs-type">short</span> *)icmp,<br>                                 <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">struct</span> icmpheader));<br><br>   <span class="hljs-comment">/*********************************************************</span><br><span class="hljs-comment">      Step 2: Fill in the IP header.</span><br><span class="hljs-comment">    ********************************************************/</span><br>   <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ipheader</span> *<span class="hljs-title">ip</span> =</span> (<span class="hljs-keyword">struct</span> ipheader *) buffer;<br>   ip-&gt;iph_ver = <span class="hljs-number">4</span>;<br>   ip-&gt;iph_ihl = <span class="hljs-number">5</span>;<br>   ip-&gt;iph_ttl = <span class="hljs-number">20</span>;<br>   ip-&gt;iph_sourceip.s_addr = inet_addr(<span class="hljs-string">&quot;10.9.0.5&quot;</span>);<br>   ip-&gt;iph_destip.s_addr = inet_addr(<span class="hljs-string">&quot;39.156.66.14&quot;</span>);<br>   ip-&gt;iph_protocol = IPPROTO_ICMP;<br>   ip-&gt;iph_len = htons(<span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">struct</span> ipheader) +<br>                       <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">struct</span> icmpheader));<br><br>   <span class="hljs-comment">/*********************************************************</span><br><span class="hljs-comment">      Step 3: Finally, send the spoofed packet</span><br><span class="hljs-comment">    ********************************************************/</span><br>   send_raw_ip_packet (ip);<br><br>   <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure></li>
-<li><p>运行结果<code>gcc -o task22B task22B.c spoof.c checksum.c -lpcap</code></p>
+<li><p>运行结果（编译命令：<code>gcc -o task22B task22B.c spoof.c checksum.c -lpcap</code>）</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311151813806.png" srcset="/img/loading.gif" lazyload
 alt="image-20231115171925752" />
 <figcaption aria-hidden="true">image-20231115171925752</figcaption>
 </figure></li>
-<li><p><strong>Question
-4.</strong>能把IP包的长度字段设置为任意数值，而不管实际的包的大小吗?在理论上，你可以设置IP头部中的长度字段为任何16位整数值。然而，在实际应用中，这个字段通常应该反映IP数据包的实际长度，以便接收方可以正确解析和处理数据包。</p></li>
-<li><p><strong>Question 5.</strong>使用 raw socket 编程，
-我们要计算IP头部的checksum吗？在使用 raw socket 编程发送 IP
+</ol>
+<h3 id="questions.-please-answer-the-following-questions.">Questions.
+Please answer the following questions.</h3>
+<ul>
+<li>问题 4.能否将 IP
+数据包长度字段设置为任意值，而不管实际数据包有多大？</li>
+<li>问题 5.使用原始套接字编程时，需要计算 IP 头的校验和吗？</li>
+<li>问题 6.为什么运行使用原始套接字的程序需要 root 权限？如果在没有 root
+权限的情况下执行程序，程序会在哪些地方失败？</li>
+</ul>
+<ol type="1">
+<li><strong>Question
+4.</strong>在理论上，你可以设置IP头部中的长度字段为任何16位整数值。然而，在实际应用中，这个字段通常应该反映IP数据包的实际长度，以便接收方可以正确解析和处理数据包。</li>
+<li><strong>Question 5.</strong>在使用 raw socket 编程发送 IP
 数据包时，通常并不需要手动计算 IP 头部的
 checksum。原因是操作系统会负责计算和填充 IP 头部中的 checksum
-字段。操作系统的网络协议栈会在数据包离开主机之前自动完成这个过程。</p></li>
-<li><p><strong>Question 6.</strong>为什么使用raw socket
-编程需要root权限？没有root权限执行时程序会在哪里报错？使用 raw socket
-编程通常需要 root 权限的主要原因是出于网络安全和防止滥用的考虑。Raw
-sockets
-提供对网络协议栈的直接访问，允许用户构造和发送任意的网络数据包。这种能力可能被滥用，导致网络攻击或其他不当行为。在创建套接字<code>socket(AF_INET, SOCK_RAW, IPPROTO_RAW)</code>步骤便会报错。</p></li>
+字段。操作系统的网络协议栈会在数据包离开主机之前自动完成这个过程。</li>
+<li><strong>Question 6.</strong>使用 raw socket 编程通常需要 root
+权限的主要原因是出于网络安全和防止滥用的考虑。Raw sockets
+提供对网络协议栈的直接访问，允许用户构造和发送任意的网络数据包。这种能力可能被滥用，导致网络攻击或其他不当行为。在创建套接字<code>socket(AF_INET, SOCK_RAW, IPPROTO_RAW)</code>步骤便会报错。</li>
 </ol>
 <h2 id="task-2.3-sniff-and-then-spoof">4.3 Task 2.3: Sniff and then
 Spoof</h2>
-<ol type="1">
-<li><p>你的嗅探和欺骗程序在虚拟机上运行，通过数据包嗅探监控局域网。每当它看到<code>ICMP echo</code>请求时，无论目标
-IP
-地址是什么，你的程序都应立即使用数据包欺骗技术发送<code>ICMP reply</code>。</p></li>
-<li><p>代码实现：<code>got_packet()</code>首先，解析以太网帧，判断是否为
-IP 类型。如果是 IP 类型，再解析 IP
-数据报，打印源地址、目的地址和协议类型（ICMP 或其他）。如果是 ICMP
-数据报，再解析 ICMP 报文，打印 ICMP 报文的 ID
+<p>在本任务中，您将结合嗅探和欺骗技术来实现以下嗅探和欺骗程序。您需要同一局域网中的两台机器。从机器
+A 开始 ping IP X。如果 X 是存活的，ping 程序将收到一个 echo
+回应，并打印出该回应。你的嗅探和欺骗程序在攻击者机器上运行，它通过数据包嗅探监控局域网。因此，无论机器
+X 是否存活，ping 程序都会收到一个回复，表明 X 是存活的。您需要用 C
+语言编写这样一个程序，并在报告中附上截图，以证明您的程序能够运行。还请在报告中附上代码（附带足够的注释）。</p>
+<p><strong>实验流程：</strong></p>
+<ol start="2" type="1">
+<li><p>代码实现：首先，解析以太网帧，判断是否为 IP 类型。如果是 IP
+类型，再解析 IP 数据报，打印源地址、目的地址和协议类型（ICMP
+或其他）。如果是 ICMP 数据报，再解析 ICMP 报文，打印 ICMP 报文的 ID
 和序列号。最后，构造一个伪造的 ICMP 报文，并发送出去。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;pcap.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;arpa/inet.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;myheader.h&quot;</span></span><br><br><span class="hljs-comment">//捕获包之后进行响应</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">got_packet</span><span class="hljs-params">(u_char *args, <span class="hljs-type">const</span> <span class="hljs-keyword">struct</span> pcap_pkthdr *header,</span><br><span class="hljs-params">                              <span class="hljs-type">const</span> u_char *packet)</span><br>&#123;<br>  <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ethheader</span> *<span class="hljs-title">eth</span> =</span> (<span class="hljs-keyword">struct</span> ethheader *)packet;<br><br>  <span class="hljs-keyword">if</span> (ntohs(eth-&gt;ether_type) == <span class="hljs-number">0x0800</span>) &#123; <span class="hljs-comment">// 0x0800 is IP type</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ipheader</span> * <span class="hljs-title">ip</span> =</span> (<span class="hljs-keyword">struct</span> ipheader *)<br>                           (packet + <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">struct</span> ethheader));<br><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;From: %s &quot;</span>, inet_ntoa(ip-&gt;iph_sourceip));   <br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;To: %s &quot;</span>, inet_ntoa(ip-&gt;iph_destip));<br>    <span class="hljs-keyword">if</span> (ip-&gt;iph_protocol == IPPROTO_ICMP)<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;protocal: ICMP\n&quot;</span>);<br>    <span class="hljs-keyword">else</span><br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;protocal: Others\n&quot;</span>);<br>    <br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">icmpheader</span> *<span class="hljs-title">icmp_pkt</span> =</span> (<span class="hljs-keyword">struct</span> icmpheader *)(packet + <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">struct</span> ethheader) + <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">struct</span> ipheader));                                                <br><br>    <span class="hljs-keyword">if</span> (ip-&gt;iph_protocol == IPPROTO_ICMP) &#123;<br><br>        <span class="hljs-type">char</span> buffer[<span class="hljs-number">1500</span>];<br>        <span class="hljs-built_in">memset</span>(buffer, <span class="hljs-number">0</span>, <span class="hljs-number">1500</span>);<br><br>        <span class="hljs-comment">/*********************************************************</span><br><span class="hljs-comment">             Step 1: Fill in the ICMP header.</span><br><span class="hljs-comment">            ********************************************************/</span><br>        <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">icmpheader</span> *<span class="hljs-title">icmp</span> =</span> (<span class="hljs-keyword">struct</span> icmpheader *)<br>                                    (buffer + <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">struct</span> ipheader));<br>        icmp-&gt;icmp_type = <span class="hljs-number">0</span>; <span class="hljs-comment">//ICMP Type: 8 is request, 0 is reply.</span><br>        icmp-&gt;icmp_code = <span class="hljs-number">0</span>;<br>        icmp-&gt;icmp_id   = icmp_pkt-&gt;icmp_id;<br>        icmp-&gt;icmp_seq  = icmp_pkt-&gt;icmp_seq;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;icmp id: %d, seq: %d\n&quot;</span>, ntohs(icmp_pkt-&gt;icmp_id), ntohs(icmp_pkt-&gt;icmp_seq));<br><br>        <span class="hljs-comment">// Calculate the checksum for integrity</span><br>        icmp-&gt;icmp_chksum = <span class="hljs-number">0</span>;<br>        icmp-&gt;icmp_chksum = in_cksum((<span class="hljs-type">unsigned</span> <span class="hljs-type">short</span> *)icmp,<br>                                        <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">struct</span> icmpheader));<br><br>        <span class="hljs-comment">/*********************************************************</span><br><span class="hljs-comment">             Step 2: Fill in the IP header.</span><br><span class="hljs-comment">            ********************************************************/</span><br>        <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ipheader</span> *<span class="hljs-title">ipp</span> =</span> (<span class="hljs-keyword">struct</span> ipheader *) buffer;<br>        ipp-&gt;iph_ver = <span class="hljs-number">4</span>;<br>        ipp-&gt;iph_ihl = <span class="hljs-number">5</span>;<br>        ipp-&gt;iph_ttl = <span class="hljs-number">64</span>;<br>        ipp-&gt;iph_sourceip.s_addr = ip-&gt;iph_destip.s_addr;<br>        ipp-&gt;iph_destip.s_addr = ip-&gt;iph_sourceip.s_addr;<br>        ipp-&gt;iph_protocol = IPPROTO_ICMP;<br>        ipp-&gt;iph_len = htons(<span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">struct</span> ipheader) +<br>                            <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">struct</span> icmpheader));<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;send tt source :%s\n&quot;</span>, inet_ntoa(ipp-&gt;iph_sourceip));<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;send tt dest: %s\n&quot;</span>, inet_ntoa(ipp-&gt;iph_destip));<br><br>        <span class="hljs-comment">/*********************************************************</span><br><span class="hljs-comment">             Step 3: Finally, send the spoofed packet</span><br><span class="hljs-comment">           ********************************************************/</span><br>        send_raw_ip_packet (ipp);<br><br>    &#125;<br>  &#125;<br>&#125;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span><br>&#123;<br>  <span class="hljs-type">pcap_t</span> *handle;<br>  <span class="hljs-type">char</span> errbuf[PCAP_ERRBUF_SIZE];<br>  <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">bpf_program</span> <span class="hljs-title">fp</span>;</span><br>  <span class="hljs-type">char</span> filter_exp[] = <span class="hljs-string">&quot;icmp[icmptype]==icmp-echo&quot;</span>;<br>  bpf_u_int32 net;<br><br>  <span class="hljs-comment">// Step 1: Open live pcap session on NIC with name enp0s3</span><br>  <span class="hljs-comment">// 根据实际进行修改</span><br>  handle = pcap_open_live(<span class="hljs-string">&quot;enp0s3&quot;</span>, BUFSIZ, <span class="hljs-number">1</span>, <span class="hljs-number">1000</span>, errbuf);<br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;listening on network card, ret: %p...\n&quot;</span>, handle);<br><br>  <span class="hljs-comment">// Step 2: Compile filter_exp into BPF psuedo-code</span><br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;try to compile filter...\n&quot;</span>);<br>  pcap_compile(handle, &amp;fp, filter_exp, <span class="hljs-number">0</span>, net);<br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;try to set filter...\n&quot;</span>);<br>  pcap_setfilter(handle, &amp;fp);<br><br>  <span class="hljs-comment">// Step 3: Capture packets</span><br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;start to sniff...\n&quot;</span>);<br>  pcap_loop(handle, <span class="hljs-number">-1</span>, got_packet, <span class="hljs-literal">NULL</span>);<br><br>  pcap_close(handle);   <span class="hljs-comment">//Close the handle</span><br>  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure></li>
-<li><p>运行结果<code>gcc -o task23 task23.c checksum.c spoof.c -lpcap</code>结果与task1.4相似。</p>
+<li><p>运行结果（编译命令：<code>gcc -o task23 task23.c checksum.c spoof.c -lpcap</code>），结果与task1.4相似。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202311151813807.png" srcset="/img/loading.gif" lazyload
@@ -626,6 +896,43 @@ alt="image-20231115181321870" />
 <figcaption aria-hidden="true">image-20231115181321870</figcaption>
 </figure></li>
 </ol>
+<h1 id="guidelines">5. Guidelines</h1>
+<h2 id="filling-in-data-in-raw-packets">5.1 Filling in Data in Raw
+Packets</h2>
+<p>使用原始套接字发送数据包时，基本上是在缓冲区内构建数据包，因此需要发送数据包时，只需向操作系统提供缓冲区和数据包的大小即可。直接在缓冲区上工作并不容易，因此常用的方法是将缓冲区（或缓冲区的一部分）类型化为结构，如
+IP
+头结构，这样就可以使用这些结构的字段来引用缓冲区中的元素。你可以在程序中定义
+IP、ICMP、TCP、UDP 和其他头结构。下面的示例展示了如何构建 UDP
+数据包：</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312131722794.png" srcset="/img/loading.gif" lazyload
+alt="image-20231213172105815" />
+<figcaption aria-hidden="true">image-20231213172105815</figcaption>
+</figure>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312131722795.png" srcset="/img/loading.gif" lazyload
+alt="image-20231213172113029" />
+<figcaption aria-hidden="true">image-20231213172113029</figcaption>
+</figure>
+<h2 id="networkhost-byte-order-and-the-conversions">5.2 Network/Host
+Byte Order and the Conversions</h2>
+<p>您需要注意网络和主机的字节顺序。如果使用 x86 CPU，主机字节序使用
+Little Endian，而网络字节序使用 Big
+Endian。无论您将什么数据放入数据包缓冲区，都必须使用网络字节序；如果不这样做，您的数据包就不会正确。实际上，您不必担心您的机器使用的是哪种字节序，如果您希望您的程序具有可移植性，也不必担心这个问题。</p>
+<p>您需要做的是，在将数据放入缓冲区时，始终记住将数据转换为网络字节顺序，而在将数据从缓冲区复制到计算机上的数据结构时，则将数据转换为主机字节顺序。如果数据是单字节的，则不需要担心顺序问题，但如果数据是
+short、int、long
+或由多个字节组成的数据类型，则需要调用以下函数之一来转换数据：</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312131722796.png" srcset="/img/loading.gif" lazyload
+alt="image-20231213172224557" />
+<figcaption aria-hidden="true">image-20231213172224557</figcaption>
+</figure>
+<p>您可能还需要使用 inet addr()、inet network()、inet ntoa()、inet
+aton()，将 IP 地址从点十进制形式（字符串）转换为网络/主机字节顺序的 32
+位整数。 您可以从互联网上获取它们的使用手册。</p>
 <p>参考资料：</p>
 <ol type="1">
 <li><a
