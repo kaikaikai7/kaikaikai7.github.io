@@ -1241,7 +1241,7 @@
   
   
   <entry>
-    <title>中间件</title>
+    <title>Scrapy中间件</title>
     <link href="/2023/10/02/Python/Spider/Scrapy/Scrapy%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
     <url>/2023/10/02/Python/Spider/Scrapy/Scrapy%E4%B8%AD%E9%97%B4%E4%BB%B6/</url>
     
@@ -1287,7 +1287,7 @@
   
   
   <entry>
-    <title>请求传参</title>
+    <title>Scrapy请求传参</title>
     <link href="/2023/10/01/Python/Spider/Scrapy/Scrapy%E8%AF%B7%E6%B1%82%E4%BC%A0%E5%8F%82/"/>
     <url>/2023/10/01/Python/Spider/Scrapy/Scrapy%E8%AF%B7%E6%B1%82%E4%BC%A0%E5%8F%82/</url>
     
