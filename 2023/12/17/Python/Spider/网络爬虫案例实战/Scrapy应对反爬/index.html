@@ -1,0 +1,750 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="kaikaikai">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="0. 引言 本章主要讲解Scrapy的中间件技术，以及如何通过Scrapy应对一些反爬机制。例如，通过Scrapy结合IP代理应对IP反爬机制，通过Scrapy结合Selenium库应对动态渲染反爬机制。 1. 中间件技术概述 中间件是介入到Scrapy的爬虫处理机制的代码文件，用户可以通过添加代码来处理发送给爬虫的响应及爬虫产生的实体（Item）和请求。使用中间件可以在爬虫的请求发起之前或">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scrapy应对反爬">
+<meta property="og:url" content="http://example.com/2023/12/17/Python/Spider/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%E6%A1%88%E4%BE%8B%E5%AE%9E%E6%88%98/Scrapy%E5%BA%94%E5%AF%B9%E5%8F%8D%E7%88%AC/index.html">
+<meta property="og:site_name" content="kaikaikai&#39;s blog">
+<meta property="og:description" content="0. 引言 本章主要讲解Scrapy的中间件技术，以及如何通过Scrapy应对一些反爬机制。例如，通过Scrapy结合IP代理应对IP反爬机制，通过Scrapy结合Selenium库应对动态渲染反爬机制。 1. 中间件技术概述 中间件是介入到Scrapy的爬虫处理机制的代码文件，用户可以通过添加代码来处理发送给爬虫的响应及爬虫产生的实体（Item）和请求。使用中间件可以在爬虫的请求发起之前或">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-12-17T02:15:31.000Z">
+<meta property="article:modified_time" content="2023-12-17T06:57:27.117Z">
+<meta property="article:author" content="kaikaikai">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Scrapy应对反爬 - kaikaikai&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>kaikaikai&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Scrapy应对反爬"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-12-17 10:15" pubdate>
+          2023年12月17日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          53 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Scrapy应对反爬</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="引言">0. 引言</h1>
+<p>本章主要讲解Scrapy的中间件技术，以及如何通过Scrapy应对一些反爬机制。例如，通过Scrapy结合IP代理应对IP反爬机制，通过Scrapy结合Selenium库应对动态渲染反爬机制。</p>
+<h1 id="中间件技术概述">1. 中间件技术概述</h1>
+<p>中间件是介入到Scrapy的爬虫处理机制的代码文件，用户可以通过添加代码来处理发送给爬虫的响应及爬虫产生的实体（Item）和请求。使用中间件可以在爬虫的请求发起之前或者请求返回之后对数据进行定制化修改，从而开发出适应不同情况的爬虫。代码位于<code>middlewares.py</code></p>
+<ul>
+<li>下载器中间件（常用）</li>
+<li>爬虫中间件</li>
+</ul>
+<h2 id="下载器中间件">1.1 下载器中间件</h2>
+<p>下载器中间件是用于全局修改Scrapy的请求和响应的一个轻量、底层的系统。通俗来讲，通过下载器中间件可以设置IP代理、设置Cookie、设置Selenium库爬虫模式等。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Enable or disable downloader middlewares</span><br><span class="hljs-comment"># See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html</span><br><span class="hljs-comment"># 数字越小，优先级越高</span><br>DOWNLOADER_MIDDLEWARES = &#123;<br>   <span class="hljs-string">&quot;xinlang.middlewares.XinlangDownloaderMiddleware&quot;</span>: <span class="hljs-number">543</span>,<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="爬虫中间件">1.2 爬虫中间件</h2>
+<p>主要处理网址和文件夹<code>spiders</code>中的爬虫文件，通常用来处理异常报错。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Enable or disable spider middlewares</span><br><span class="hljs-comment"># See https://docs.scrapy.org/en/latest/topics/spider-middleware.html</span><br>SPIDER_MIDDLEWARES = &#123;<br>   <span class="hljs-string">&quot;xinlang.middlewares.XinlangSpiderMiddleware&quot;</span>: <span class="hljs-number">543</span>,<br>&#125;<br></code></pre></td></tr></table></figure>
+<h1 id="爬取搜狗图片ip代理">2. 爬取搜狗图片（IP代理）</h1>
+<p><strong>使用Requests库批量下载图片：</strong></p>
+<ul>
+<li>分析Ajax动态请求找到真正的网址</li>
+<li>解析JSON格式数据</li>
+<li>批量下载图片</li>
+<li>添加IP代理爬取图片</li>
+<li>批量爬取多页图片</li>
+</ul>
+<p><strong>使用Scrapy框架批量下载图片：</strong></p>
+<ul>
+<li><p>创建爬虫项目</p></li>
+<li><p>添加IP代理</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># middlewares.py</span><br><span class="hljs-comment"># 下载器中间件</span><br><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">process_request</span>(<span class="hljs-params">self, request, spider</span>):<br>        proxy = requests.get(<span class="hljs-string">&#x27;讯代理API链接&#x27;</span>).text<br>        proxy = proxy.strip()  <span class="hljs-comment"># 重要，因为要把看不见的换行符等空格给清除掉</span><br>        proxies = <span class="hljs-string">&quot;http://&quot;</span> + proxy  <span class="hljs-comment"># 这里和直接使用requests库的写法不太一样</span><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;提取ip为&#x27;</span> + proxy)<br>        request.meta[<span class="hljs-string">&quot;proxy&quot;</span>] = proxies  <span class="hljs-comment"># 核心代码</span><br>        time.sleep(<span class="hljs-number">5</span>)  <span class="hljs-comment"># 休息5秒，防止提取IP过快，超过频率限制</span><br></code></pre></td></tr></table></figure></li>
+<li><p>编写爬虫文件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> scrapy<br><span class="hljs-keyword">import</span> time<br><br>headers=&#123;<span class="hljs-string">&#x27;User-Agent&#x27;</span>:<span class="hljs-string">&#x27;Mozilla/5.0 (Windows NT 6.1; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0&#x27;</span>&#125;<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">SougouSpider</span>(scrapy.Spider):<br>    name = <span class="hljs-string">&quot;sougou&quot;</span><br>    allowed_domains = [<span class="hljs-string">&quot;sogou.com&quot;</span>]<br>    start_urls = [<span class="hljs-string">&quot;https://pic.sogou.com/napi/pc/searchList?mode=13&amp;dm=4&amp;cwidth=1536&amp;cheight=864&amp;start=0&amp;xml_len=48&quot;</span><br>                  <span class="hljs-string">&quot;&amp;query=%E5%A3%81%E7%BA%B8&quot;</span>]<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">parse</span>(<span class="hljs-params">self, response</span>):<br>        js=response.json()<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> js[<span class="hljs-string">&quot;data&quot;</span>][<span class="hljs-string">&#x27;items&#x27;</span>]:<br>            title=i[<span class="hljs-string">&quot;title&quot;</span>]<br>            title=title.replace(<span class="hljs-string">&#x27; &#x27;</span>,<span class="hljs-string">&#x27;&#x27;</span>).replace(<span class="hljs-string">&#x27;|&#x27;</span>,<span class="hljs-string">&#x27;&#x27;</span>)<br>            img_url=i[<span class="hljs-string">&quot;picUrl&quot;</span>]<br>            <span class="hljs-comment"># 可以使用ImagePipeline进行下载</span><br>            path=<span class="hljs-string">&#x27;images\\&#x27;</span>+title+<span class="hljs-string">&#x27;.png&#x27;</span><br>            res=requests.get(img_url,headers=headers)<br>            file=<span class="hljs-built_in">open</span>(path,<span class="hljs-string">&#x27;wb&#x27;</span>)<br>            file.write(res.content)<br>            file.close()<br><br>            <span class="hljs-built_in">print</span>(title+<span class="hljs-string">&#x27;下载成功！&#x27;</span>)<br>            time.sleep(<span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure></li>
+<li><p>修改设置文件</p></li>
+<li><p>运行项目</p></li>
+</ul>
+<h1 id="模拟登录淘宝cookie">3. 模拟登录淘宝（Cookie）</h1>
+<p>注：由于淘宝升级了反爬机制，该代码在测试时已失效。</p>
+<ul>
+<li><p>创建爬虫项目</p></li>
+<li><p>中间件文件中添加Cookie</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> selenium <span class="hljs-keyword">import</span> webdriver<br><span class="hljs-keyword">import</span> time<br><br><span class="hljs-comment"># 获取cookie值，写在中间件文件开头部分，就只会在启动爬虫项目时执行一次</span><br>browser = webdriver.Edge(<span class="hljs-string">r&#x27;F:\Anaconda\install\envs\spider\MicrosoftWebDriver.exe&#x27;</span>)<br>browser.get(<span class="hljs-string">&#x27;https://login.taobao.com/member/login.jhtml&#x27;</span>)<br>browser.find_element_by_xpath(<span class="hljs-string">&#x27;//*[@id=&quot;login&quot;]/div[1]/i&#x27;</span>).click()  <span class="hljs-comment"># 切换成二维码模式</span><br>time.sleep(<span class="hljs-number">15</span>)  <span class="hljs-comment"># 休息15秒，留够时间进行扫码登录</span><br>cookies = browser.get_cookies()  <span class="hljs-comment"># 获取cookie</span><br>browser.quit()  <span class="hljs-comment"># 获取到cookie后退出模拟浏览器，可能会稍微要等一会</span><br><br><span class="hljs-comment"># 下载器中间件</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">process_request</span>(<span class="hljs-params">self, request, spider</span>):<br>        <span class="hljs-comment"># Called for each request that goes through the downloader</span><br>        <span class="hljs-comment"># middleware.</span><br><br>        <span class="hljs-comment"># Must either:</span><br>        <span class="hljs-comment"># - return None: continue processing this request</span><br>        <span class="hljs-comment"># - or return a Response object</span><br>        <span class="hljs-comment"># - or return a Request object</span><br>        <span class="hljs-comment"># - or raise IgnoreRequest: process_exception() methods of</span><br>        <span class="hljs-comment">#   installed downloader middleware will be called</span><br>        request.cookies=cookies<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span><br></code></pre></td></tr></table></figure></li>
+<li><p>编写爬虫文件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> scrapy<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">TbSpider</span>(scrapy.Spider):<br>    name = <span class="hljs-string">&quot;tb&quot;</span><br>    allowed_domains = [<span class="hljs-string">&quot;taobao&quot;</span>]<br>    start_urls = [<span class="hljs-string">&quot;https://s.taobao.com/search?q=%E5%8D%8E%E4%B8%BA&quot;</span>]<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">parse</span>(<span class="hljs-params">self, response</span>):<br>        <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;index.html&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>,encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>            f.write(response.text)<br>        data_list = response.xpath(<span class="hljs-string">&#x27;//*[@class=&quot;Content--contentInner--QVTcU0M&quot;]/div&#x27;</span>)<br>        <span class="hljs-built_in">print</span>(data_list)<br>        <span class="hljs-keyword">for</span> data <span class="hljs-keyword">in</span> data_list:<br>            title = data.xpath(<span class="hljs-string">&#x27;./a/div/div[1]/div[2]/div/span/text()&#x27;</span>).extract_first()<br>            price = data.xpath(<span class="hljs-string">&#x27;./a/div/div[1]/div[3]/span[2]/text()&#x27;</span>).extract_first()<br>            <span class="hljs-built_in">print</span>(title, price)<br></code></pre></td></tr></table></figure></li>
+<li><p>修改设置文件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Obey robots.txt rules</span><br>ROBOTSTXT_OBEY = <span class="hljs-literal">False</span><br><br><span class="hljs-comment"># Disable cookies (enabled by default)</span><br>COOKIES_ENABLED = <span class="hljs-literal">True</span><br><br><span class="hljs-comment"># Enable or disable downloader middlewares</span><br><span class="hljs-comment"># See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html</span><br>DOWNLOADER_MIDDLEWARES = &#123;<br>   <span class="hljs-string">&quot;taobao.middlewares.TaobaoDownloaderMiddleware&quot;</span>: <span class="hljs-number">543</span>,<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>运行爬虫项目</p></li>
+</ul>
+<h1 id="爬取第一财经新闻selenium">4. 爬取第一财经新闻（Selenium）</h1>
+<ul>
+<li><p>创建爬虫项目</p></li>
+<li><p>中间件文件中添加Selenium库</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 下载器中间件</span><br>	<span class="hljs-comment"># 类的初始化方法，用于激活模拟浏览器 </span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        self.browser = webdriver.Edge(<span class="hljs-string">r&#x27;F:\Anaconda\install\envs\spider\MicrosoftWebDriver.exe&#x27;</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">process_request</span>(<span class="hljs-params">self, request, spider</span>):<br>        <span class="hljs-comment"># Called for each request that goes through the downloader</span><br>        <span class="hljs-comment"># middleware.</span><br>        self.browser.get(request.url)<br>        time.sleep(<span class="hljs-number">3</span>)<br>        body = self.browser.page_source<br>        <span class="hljs-keyword">return</span> HtmlResponse(url=self.browser.current_url, body=body,encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>, request=request)<br></code></pre></td></tr></table></figure></li>
+<li><p>编写爬虫文件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> scrapy<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">YicaiSpider</span>(scrapy.Spider):<br>    name = <span class="hljs-string">&quot;yicai&quot;</span><br>    allowed_domains = [<span class="hljs-string">&quot;yicai.com&quot;</span>]<br>    start_urls = [<span class="hljs-string">&quot;https://www.yicai.com/search?keys=%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4&quot;</span>]<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">parse</span>(<span class="hljs-params">self, response</span>):<br>        data_list = response.xpath(<span class="hljs-string">&#x27;//*[@id=&quot;searchlist&quot;]/a&#x27;</span>)<br>        count = <span class="hljs-number">1</span><br>        <span class="hljs-keyword">for</span> data <span class="hljs-keyword">in</span> data_list:<br>            url = <span class="hljs-string">&#x27;https://www.yicai.com/&#x27;</span> + data.xpath(<span class="hljs-string">&#x27;./@href&#x27;</span>).extract_first()<br>            title = data.xpath(<span class="hljs-string">&#x27;./div/div/h2/text()&#x27;</span>).extract_first()<br>            <span class="hljs-built_in">print</span>(<span class="hljs-built_in">str</span>(count) + <span class="hljs-string">&quot;. &quot;</span> + title + <span class="hljs-string">&quot;:&quot;</span> + url)<br>            count=count+<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure></li>
+<li><p>修改设置文件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Obey robots.txt rules</span><br>ROBOTSTXT_OBEY = <span class="hljs-literal">False</span><br><br><span class="hljs-comment"># Enable or disable downloader middlewares</span><br><span class="hljs-comment"># See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html</span><br>DOWNLOADER_MIDDLEWARES = &#123;<br>   <span class="hljs-string">&quot;dycj.middlewares.DycjDownloaderMiddleware&quot;</span>: <span class="hljs-number">543</span>,<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>运行爬虫项目</p></li>
+</ul>
+<h1 id="附json格式数据">附：JSON格式数据</h1>
+<p>在Python中，你可以使用内置的 <code>json</code>
+模块来处理JSON数据。以下是一个简单的Python示例，演示如何将Python对象转换为JSON字符串（序列化）以及如何将JSON字符串转换为Python对象（反序列化）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> json<br><br><span class="hljs-comment"># 创建一个Python字典</span><br>person = &#123;<br>    <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;John Doe&quot;</span>,<br>    <span class="hljs-string">&quot;age&quot;</span>: <span class="hljs-number">30</span>,<br>    <span class="hljs-string">&quot;city&quot;</span>: <span class="hljs-string">&quot;New York&quot;</span>,<br>    <span class="hljs-string">&quot;isStudent&quot;</span>: <span class="hljs-literal">False</span>,<br>    <span class="hljs-string">&quot;grades&quot;</span>: [<span class="hljs-number">85</span>, <span class="hljs-number">90</span>, <span class="hljs-number">78</span>],<br>    <span class="hljs-string">&quot;address&quot;</span>: &#123;<br>        <span class="hljs-string">&quot;street&quot;</span>: <span class="hljs-string">&quot;123 Main St&quot;</span>,<br>        <span class="hljs-string">&quot;zipCode&quot;</span>: <span class="hljs-string">&quot;10001&quot;</span><br>    &#125;<br>&#125;<br><br><span class="hljs-comment"># 将Python字典序列化为JSON字符串</span><br>json_string = json.dumps(person, indent=<span class="hljs-number">2</span>)  <span class="hljs-comment"># indent参数用于指定缩进空格数，使得生成的JSON字符串更易读</span><br><br><span class="hljs-comment"># 打印JSON字符串</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Serialized JSON:&quot;</span>)<br><span class="hljs-built_in">print</span>(json_string)<br><br><span class="hljs-comment"># 将JSON字符串反序列化为Python对象</span><br>parsed_person = json.loads(json_string)<br><br><span class="hljs-comment"># 打印反序列化后的Python对象</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\nDeserialized Python object:&quot;</span>)<br><span class="hljs-built_in">print</span>(parsed_person)<br></code></pre></td></tr></table></figure>
+<p>在这个例子中：</p>
+<ul>
+<li><code>json.dumps()</code> 用于将Python对象转换为JSON字符串。</li>
+<li><code>json.loads()</code> 用于将JSON字符串转换为Python对象。</li>
+</ul>
+<p>你可以运行上述代码，观察序列化和反序列化后的结果。请注意，JSON字符串的输出已经格式化（缩进），以提高可读性。</p>
+<p>在实际应用中，你可能会使用JSON来与Web服务进行数据交换，例如从API获取数据或将数据发送到服务器。
+JSON在Python中是一个常见而强大的工具，能够轻松处理不同类型的数据。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Python/" class="category-chain-item">Python</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Python/Spider/" class="category-chain-item">Spider</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Python/Spider/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%E6%A1%88%E4%BE%8B%E5%AE%9E%E6%88%98/" class="category-chain-item">网络爬虫案例实战</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Scrapy应对反爬</div>
+      <div>http://example.com/2023/12/17/Python/Spider/网络爬虫案例实战/Scrapy应对反爬/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>kaikaikai</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年12月17日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/12/14/Python/Spider/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%E6%A1%88%E4%BE%8B%E5%AE%9E%E6%88%98/Scrapy%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6/" title="Scrapy爬虫框架">
+                        <span class="hidden-mobile">Scrapy爬虫框架</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
