@@ -24,7 +24,7 @@
 <meta property="og:description" content="1. Introduction 安全的单向散列函数需要满足两个属性：单向属性和抗碰撞属性。单向属性确保在给定哈希值 h 的情况下，要找到一个输入 M，使 hash(M) &#x3D; h，在计算上是不可行的；抗碰撞属性确保要找到两个不同的输入 M1 和 M2，使 hash(M1) &#x3D; hash(M2)，在计算上是不可行的。 几种广泛使用的单向散列函数都难以保持抗碰撞特性。在 CRYPTO 2004">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-09-27T11:37:23.000Z">
-<meta property="article:modified_time" content="2023-12-07T02:06:39.961Z">
+<meta property="article:modified_time" content="2023-12-25T07:09:58.578Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -266,7 +266,7 @@ h 的情况下，要找到一个输入 M，使 hash(M) =
 h，在计算上是不可行的；抗碰撞属性确保要找到两个不同的输入 M1 和 M2，使
 hash(M1) = hash(M2)，在计算上是不可行的。</p>
 <p>几种广泛使用的单向散列函数都难以保持抗碰撞特性。在 CRYPTO 2004
-的尾声会议上，Xiaoyun Wang 和合著者演示了针对 MD5 的碰撞攻击。2017 年 2
+的尾声会议上，王小云和合著者演示了针对 MD5 的碰撞攻击。2017 年 2
 月，阿姆斯特丹 CWI 和谷歌研究院公布了 SHAttered 攻击，它打破了 SHA-1
 的抗碰撞特性。虽然很多学生不难理解单向属性的重要性，但他们不容易理解为什么需要抗碰撞属性，以及这些攻击会造成什么影响。</p>
 <p>本实验的学习目标是让学生真正了解碰撞攻击的影响，并亲眼看到如果一个广泛使用的单向散列函数的抗碰撞特性被破坏，会造成什么样的损失。为了实现这一目标，学生需要对
@@ -305,9 +305,9 @@ alt="image-20231207091446950" />
 命令检查每个输出文件的 MD5 哈希值。请参阅以下命令。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ diff out1.bin out2.bin<br>$ <span class="hljs-built_in">md5sum</span> out1.bin<br>$ <span class="hljs-built_in">md5sum</span> out2.bin<br></code></pre></td></tr></table></figure>
 <p>由于 out1.bin 和 out2.bin
-是二进制文件，我们无法使用文本查看器程序（如 cat
-或更多）来查看它们；我们需要使用二进制编辑器来查看（和编辑）它们。我们已经在虚拟机中安装了一个名为
-bless
+是二进制文件，我们无法使用文本查看器程序（如 <code>cat</code> 或
+<code>more</code>）来查看它们；我们需要使用二进制编辑器来查看（和编辑）它们。我们已经在虚拟机中安装了一个名为
+<code>bless</code>
 的十六进制编辑器软件。请使用这种编辑器查看这两个输出文件，并描述你的观察结果。此外，您还应回答以下问题：</p>
 <ul>
 <li>问题 1.如果前缀文件的长度不是 64 的倍数，会发生什么情况？</li>
@@ -414,22 +414,24 @@ T 就会得到两个具有相同哈希值的输出。这一特性不仅适用于
 哈希算法，也适用于许多其他哈希算法。在本任务中，你的任务是设计一个实验来证明
 MD5 的这一特性。</p>
 <p>您可以使用 cat
-命令将两个文件（二进制文件或文本文件）连接成一个文件。下面的命令将文件 2
-的内容与文件 1 的内容连接起来，并将结果放到文件 3 中。</p>
+命令将两个文件（二进制文件或文本文件）连接成一个文件。下面的命令将文件 1
+的内容与文件 2 的内容连接起来，并将结果放到文件 3 中。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ <span class="hljs-built_in">cat</span> file1 file2 &gt; file3<br></code></pre></td></tr></table></figure>
 <p><strong>实验流程：</strong></p>
-<ol start="2" type="1">
-<li><p>步骤1：构造前缀文件；步骤2：指定前缀，生成两个具有相同 MD5
-哈希值的文件；步骤3：检查输出文件是否相同；步骤4：构造后缀文件；步骤5&amp;步骤6：分别使用cat命令对两个文件（生成的输出文件+后缀文件）进行拼接；步骤7：查看各个文件MD5哈希值。</p>
+<ol type="1">
+<li>步骤1：构造前缀文件；步骤2：指定前缀，生成两个具有相同 MD5
+哈希值的文件；步骤3：检查输出文件是否相同；步骤4：构造后缀文件；步骤5&amp;步骤6：分别使用cat命令对两个文件（生成的输出文件+后缀文件）进行拼接；步骤7：查看各个文件MD5哈希值。</li>
+</ol>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309272032648.png" srcset="/img/loading.gif" lazyload
 alt="image-20230927200103119" />
 <figcaption aria-hidden="true">image-20230927200103119</figcaption>
-</figure></li>
-<li><p>结论：观察得到两个具有不同内容，但MD5哈希值相同的文件，拼接上同一个后缀之后，它们的MD5哈希值仍然相同。因此，给定两个输入M，N，如果MD5(M)
+</figure>
+<ol start="2" type="1">
+<li>结论：观察得到两个具有不同内容，但MD5哈希值相同的文件，拼接上同一个后缀之后，它们的MD5哈希值仍然相同。因此，给定两个输入M，N，如果MD5(M)
 = MD5(N)，那么对于任何输入T，MD5(M || T) = MD5(N ||
-T)，该属性得证。<strong>注意：拼接后缀后的哈希值与原哈希值不同。</strong></p></li>
+T)，该属性得证。<strong>注意：拼接后缀后的哈希值与原哈希值不同。</strong></li>
 </ol>
 <h2
 id="task-3-generating-two-executable-files-with-the-same-md5-hash">2.3
@@ -446,7 +448,7 @@ xyz 数组的内容。</p>
 <p>要在二进制文件中找到数组内容的存储位置并不容易。不过，如果我们在数组中填入一些固定值，就可以很容易地在二进制中找到它们。例如，下面的代码在数组中填充了
 0x41，这是字母 A 的 ASCII 值。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> xyz[<span class="hljs-number">200</span>] = &#123;<br>	<span class="hljs-number">0x41</span>, <span class="hljs-number">0x41</span>, <span class="hljs-number">0x41</span>, <span class="hljs-number">0x41</span>, <span class="hljs-number">0x41</span>, <span class="hljs-number">0x41</span>, <span class="hljs-number">0x41</span>, <span class="hljs-number">0x41</span>, <span class="hljs-number">0x41</span>, <span class="hljs-number">0x41</span>,<br>	<span class="hljs-number">0x41</span>, <span class="hljs-number">0x41</span>, <span class="hljs-number">0x41</span>, <span class="hljs-number">0x41</span>, <span class="hljs-number">0x41</span>, <span class="hljs-number">0x41</span>, <span class="hljs-number">0x41</span>, <span class="hljs-number">0x41</span>, <span class="hljs-number">0x41</span>, <span class="hljs-number">0x41</span>,<br>	<span class="hljs-number">0x41</span>, <span class="hljs-number">0x41</span>, <span class="hljs-number">0x41</span>, <span class="hljs-number">0x41</span>, <span class="hljs-number">0x41</span>, <span class="hljs-number">0x41</span>, <span class="hljs-number">0x41</span>, <span class="hljs-number">0x41</span>, <span class="hljs-number">0x41</span>, <span class="hljs-number">0x41</span>,<br>	... (omitted) ...<br>	<span class="hljs-number">0x41</span>, <span class="hljs-number">0x41</span>, <span class="hljs-number">0x41</span>, <span class="hljs-number">0x41</span>, <span class="hljs-number">0x41</span>, <span class="hljs-number">0x41</span>, <span class="hljs-number">0x41</span>, <span class="hljs-number">0x41</span>, <span class="hljs-number">0x41</span>, <span class="hljs-number">0x41</span>,<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>指导原则。在数组内部，我们可以找到两个位置，从这里可以将可执行文件分为三部分：前缀、128
+<p>指导原则：在数组内部，我们可以找到两个位置，从这里可以将可执行文件分为三部分：前缀、128
 字节区域和后缀。前缀的长度必须是 64 字节的倍数。文件划分示意图见图
 3。</p>
 <figure>
@@ -625,7 +627,7 @@ src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/20230927203
 alt="image-20230927202503922" />
 <figcaption aria-hidden="true">image-20230927202503922</figcaption>
 </figure></li>
-<li><p>把步骤4中生成的其中一个文件的后160个字节（32(字符A)+128(Padding)）截取出来，作为task4_middle文件(数组b部分内容)的输入。根据代码逻辑，该步骤选中的文件在拼接成为一个可执行文件后，将执行善意代码，此处我们选取task4_out1.bin。</p>
+<li><p>把步骤4中生成的其中一个文件的后160个字节（32(字符A)+128(Padding)）截取出来，作为task4_middle文件(数组b部分内容)的输入。根据代码逻辑，该步骤选中的文件在拼接成为一个可执行文件后，由于两个数组内容相同，将执行善意代码，此处我们选取task4_out1.bin。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202309272032667.png" srcset="/img/loading.gif" lazyload
