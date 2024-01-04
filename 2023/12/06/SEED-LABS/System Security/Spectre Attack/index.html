@@ -24,7 +24,7 @@
 <meta property="og:description" content="1. Introduction Spectre 攻击于 2017 年被发现，并于 2018 年 1 月公开披露，它利用了许多现代处理器（包括英特尔、AMD 和 ARM 的处理器）中存在的关键漏洞。这些漏洞允许程序打破进程间和进程内的隔离，因此恶意程序可以从其无法访问的区域读取数据。硬件保护机制（用于进程间隔离）或软件保护机制（用于进程内隔离）都不允许这样的访问，但 CPU 设计中存在的一">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-06T01:46:23.000Z">
-<meta property="article:modified_time" content="2023-12-06T02:18:56.268Z">
+<meta property="article:modified_time" content="2024-01-03T09:12:00.975Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -612,7 +612,7 @@ alt="image-20231206101222324" />
 </figure>
 <p>你的任务是编译并运行SpectreAttackImproved.c，并完成以下任务：</p>
 <ul>
-<li>，当运行以上代码时，得分最高的很可能是scores[0]。请找出原因，并修复以上代码，以便打印出实际的秘密值（而不是零）。</li>
+<li>你可能会观察到，当运行以上代码时，得分最高的很可能是scores[0]。请找出原因，并修复以上代码，以便打印出实际的秘密值（而不是零）。</li>
 <li>第1行似乎是无用的，但根据我们在SEED Ubuntu
 20.04上的经验，没有这一行，攻击将无法成功。在SEED Ubuntu
 16.04虚拟机上，这一行是不需要的。我们尚未找出确切的原因，所以如果你能找出原因，你的指导老师可能会给予额外的奖励分数。请分别运行程序，有和没有这一行，并描述你的观察结果。</li>
@@ -620,8 +620,7 @@ alt="image-20231206101222324" />
 </ul>
 <p><strong>实验流程：</strong></p>
 <ol type="1">
-<li><p>\1.
-修改CACHE_HIT_THRESHOLD为100，编译并多次运行代码。结果：得到的秘密值都是0。原因分析：在这段代码中，s是从restrictedAccess(index_beyond)返回的值。然后，这个值被用作array数组的索引来进行内存访问和修改。然而restrictedAccess函数在index_beyond超出合法范围时返回的是0。因此，实际上会访问array[DELTA]，即array数组赋值过的第一个元素。这就导致了array[DELTA]被频繁访问和修改，因为所有restrictedAccess返回0的情况都会导致对array[DELTA]的访问。所以，在reloadSideChannelImproved中，访问时间短的地方很可能是array[DELTA]，即scores[0]。修复：直接将score[0]设置为0。</p>
+<li><p>修改CACHE_HIT_THRESHOLD为100，编译并多次运行代码。结果：得到的秘密值都是0。原因分析：在这段代码中，s是从restrictedAccess(index_beyond)返回的值。然后，这个值被用作array数组的索引来进行内存访问和修改。然而restrictedAccess函数在index_beyond超出合法范围时返回的是0。因此，实际上会访问array[DELTA]，即array数组赋值过的第一个元素。这就导致了array[DELTA]被频繁访问和修改，因为所有restrictedAccess返回0的情况都会导致对array[DELTA]的访问。所以，在reloadSideChannelImproved中，访问时间短的地方很可能是array[DELTA]，即scores[0]。修复：直接将score[0]设置为0。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202312061018511.png" srcset="/img/loading.gif" lazyload
