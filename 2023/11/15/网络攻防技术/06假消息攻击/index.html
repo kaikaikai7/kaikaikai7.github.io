@@ -24,7 +24,7 @@
 <meta property="og:description" content="6.1 概述 6.1.1 TCP&#x2F;IP脆弱性 TCP&#x2F;IP协议在设计时缺乏有效的数据加密和身份鉴别机制，于是攻击者可通过伪造身份，实施假消息攻击来破坏正常的数据通信过程，以达到获取权限、窃取消息的目的。 6.1.2 假消息攻击概述 定义： 指攻击者利用网络协议的脆弱性或策略配置的缺陷，通过发送虚假的网络数据包，达到窃取敏感信息、欺骗认证过程，实施拒绝服务等目标的一种攻击方式。 模式：">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-11-15T01:33:07.000Z">
-<meta property="article:modified_time" content="2024-01-04T06:41:56.375Z">
+<meta property="article:modified_time" content="2024-01-04T08:20:25.667Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -523,7 +523,7 @@ alt="image-20231129093829973" />
 </ul>
 <p><strong>区域和域：</strong></p>
 <ul>
-<li><p>域和子域都是概念上的划分，区域是实际物理意义上的划分，也就是根据权限域名服务器划分。</p></li>
+<li><p>域和子域都是概念上的划分，区域是实际物理意义上的划分，也就是根据权威域名服务器划分。</p></li>
 <li><p>每个DNS区域至少有一个权威名称服务器，用于发布有关该区域的信息。它提供了DNS查询的原始和最终答案。权威名称服务器可以是主服务器（主服务器）或从服务器（辅助服务器）。主服务器存储所有区域记录的主副本，而从服务器使用自动更新机制来维护主记录的相同副本。</p></li>
 <li><p>DNS区域仅包含域的一部分DNS数据。如果域未划分为子域，则区域和域本质上是相同的，因为区域包含域的所有DNS数据。当一个域被划分为子域时，它们的DNS数据仍然可以放在同一个区域中，因此域和区域仍然是相同的。但是子域可以有自己的区域。usa.example.com是一个域名，其子域为波士顿、纽约和芝加哥。为usa.example.com创建了两个区域。第一个包含芝加哥和波士顿子域，第二个包含NYC子域。</p>
 <figure>

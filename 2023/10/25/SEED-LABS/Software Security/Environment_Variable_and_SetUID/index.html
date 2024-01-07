@@ -24,7 +24,7 @@
 <meta property="og:description" content="1. Overview  本实验的学习目标是让学生了解环境变量如何影响程序和系统行为。环境变量是一组动态的命名值，可以影响计算机上运行进程的行为方式。自 1979 年 Unix 引入环境变量以来，大多数操作系统都使用环境变量。尽管环境变量会影响程序的行为，但许多程序员并不十分了解它们是如何实现的。因此，如果程序使用了环境变量，但程序员并不知道使用了环境变量，程序就可能存在漏洞。 在本实验">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-10-25T01:40:23.000Z">
-<meta property="article:modified_time" content="2023-12-26T07:18:14.530Z">
+<meta property="article:modified_time" content="2024-01-05T11:22:48.847Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          9.1k 字
+          9.2k 字
         
       </span>
     
@@ -571,8 +571,8 @@ execve()。</strong></p></li>
 id="task-7-the-ld-preload-environment-variable-and-set-uid-programs">2.7
 Task 7: The LD PRELOAD Environment Variable and Set-UID Programs</h2>
 <p>在本任务中，我们将研究 Set-UID
-程序如何处理某些环境变量。一些环境变量（包括<code>LD PRELOAD</code>、<code>LD LIBRARY PATH</code>
-和其他<code>LD *</code>）会影响动态加载器/链接器的行为。动态加载器/链接器是操作系统（OS）的一部分，它在运行时加载（从持久存储到
+程序如何处理某些环境变量。一些环境变量（包括<code>LD_PRELOAD</code>、<code>LD_LIBRARY_PATH</code>
+和其他<code>LD_*</code>）会影响动态加载器/链接器的行为。动态加载器/链接器是操作系统（OS）的一部分，它在运行时加载（从持久存储到
 RAM）和链接可执行文件所需的共享库。</p>
 <p>在 Linux 中，<code>ld.so</code>或<code>ld-linux.so</code>
 是动态加载器/链接器（分别用于不同类型的二进制文件）。

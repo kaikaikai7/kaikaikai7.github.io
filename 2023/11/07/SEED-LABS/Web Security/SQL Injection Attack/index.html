@@ -24,7 +24,7 @@
 <meta property="og:description" content="1. Overview SQL注入是一种代码注入技术，它利用web应用程序和数据库服务器之间接口中的漏洞。当用户的输入在发送到后端数据库服务器之前未在web应用程序中正确检查时，就会出现此漏洞。 许多web应用程序从用户处获取输入，然后使用这些输入构造SQL查询，这样web应用程序就可以从数据库中获取信息。Web应用程序还使用SQL查询在数据库中存储信息。这些是web应用程序开发中的常见做法。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-11-07T10:17:23.000Z">
-<meta property="article:modified_time" content="2023-12-27T06:55:12.307Z">
+<meta property="article:modified_time" content="2024-01-07T06:47:24.336Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -604,7 +604,7 @@ src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/20231211151
 alt="image-20231211150736534" />
 <figcaption aria-hidden="true">image-20231211150736534</figcaption>
 </figure>
-<p>预处理语句出现在编译之后，执行之前。预编译语句将经过编译步骤，并变成一个预编译查询，其中的数据占位符为空。要运行这个预编译查询，需要提供数据，但这些数据不会经过编译步骤，而是直接插入预编译查询，然后发送到执行引擎。因此，即使数据中包含
+<p>准备语句出现在编译之后，执行之前。预编译语句将经过编译步骤，并变成一个预编译查询，其中的数据占位符为空。要运行这个预编译查询，需要提供数据，但这些数据不会经过编译步骤，而是直接插入预编译查询，然后发送到执行引擎。因此，即使数据中包含
 SQL
 代码，在不经过编译步骤的情况下，代码也会被简单地视为数据的一部分，没有任何特殊含义。这就是准备语句防止
 SQL 注入攻击的方法。</p>
