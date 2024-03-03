@@ -16,21 +16,21 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1. transforms基本操作 在PyTorch中，torchvision.transforms模块提供了一系列用于图像预处理和数据增强的工具，可以在数据加载过程中对图像进行各种转换操作。这些转换操作可以帮助模型更好地泛化，并提高模型的性能。以下是一些常用的图像转换操作：  常见转换操作：  ToTensor()：将PIL图像或numpy数组转换为张量。 ToPILImage()：">
+    <meta name="description" content="Python的特殊方法（有时也称为魔法方法）是一组预定义的方法，你可以在你的类中实现这些方法来提供特定的操作或者行为。这些方法都是以双下划线（__）开头和结尾的。它们允许你实现和自定义对象的一些内置行为，例如迭代、调用、属性访问、运算符重载等。 以下是一些常用的特殊方法，以及如何在你的代码中使用它们的例子： __init__(self, [...]) 这是类的构造器。当类被实例化时，这个方法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Transforms">
-<meta property="og:url" content="http://example.com/2024/03/03/Python/PyTorch/Transforms/index.html">
+<meta property="og:title" content="特殊方法">
+<meta property="og:url" content="http://example.com/2024/03/03/Python/%E5%9F%BA%E7%A1%80%E7%AF%87/%E7%89%B9%E6%AE%8A%E6%96%B9%E6%B3%95/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="1. transforms基本操作 在PyTorch中，torchvision.transforms模块提供了一系列用于图像预处理和数据增强的工具，可以在数据加载过程中对图像进行各种转换操作。这些转换操作可以帮助模型更好地泛化，并提高模型的性能。以下是一些常用的图像转换操作：  常见转换操作：  ToTensor()：将PIL图像或numpy数组转换为张量。 ToPILImage()：">
+<meta property="og:description" content="Python的特殊方法（有时也称为魔法方法）是一组预定义的方法，你可以在你的类中实现这些方法来提供特定的操作或者行为。这些方法都是以双下划线（__）开头和结尾的。它们允许你实现和自定义对象的一些内置行为，例如迭代、调用、属性访问、运算符重载等。 以下是一些常用的特殊方法，以及如何在你的代码中使用它们的例子： __init__(self, [...]) 这是类的构造器。当类被实例化时，这个方法">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-03-03T02:54:21.000Z">
-<meta property="article:modified_time" content="2024-03-03T06:27:56.633Z">
+<meta property="article:published_time" content="2024-03-03T05:50:21.000Z">
+<meta property="article:modified_time" content="2024-03-03T05:55:56.251Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>Transforms - kaikaikai&#39;s blog</title>
+  <title>特殊方法 - kaikaikai&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -184,7 +184,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Transforms"></span>
+            <span id="subtitle" data-typed-text="特殊方法"></span>
           
         </div>
 
@@ -195,8 +195,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-03-03 10:54" pubdate>
-          2024年3月3日 上午
+        <time datetime="2024-03-03 13:50" pubdate>
+          2024年3月3日 下午
         </time>
       </span>
     
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2k 字
+          1.4k 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          17 分钟
+          12 分钟
         
       </span>
     
@@ -255,52 +255,34 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Transforms</h1>
+            <h1 id="seo-header">特殊方法</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="transforms基本操作">1. transforms基本操作</h1>
-<p>在PyTorch中，<code>torchvision.transforms</code>模块提供了一系列用于图像预处理和数据增强的工具，可以在数据加载过程中对图像进行各种转换操作。这些转换操作可以帮助模型更好地泛化，并提高模型的性能。以下是一些常用的图像转换操作：</p>
-<ol type="1">
-<li><strong>常见转换操作</strong>：
-<ul>
-<li><code>ToTensor()</code>：将PIL图像或numpy数组转换为张量。</li>
-<li><code>ToPILImage()</code>：将张量转换为PIL图像。</li>
-<li><code>Normalize(mean, std)</code>：对图像进行标准化处理，减去均值并除以标准差。
-<ul>
-<li><code>input[channel] = (input[channel] - mean[channel]) / std[channel]</code></li>
-</ul></li>
-<li><code>Resize(size)</code>：调整图像尺寸。</li>
-<li><code>CenterCrop(size)</code>：对图像进行中心裁剪。</li>
-<li><code>RandomCrop(size)</code>：对图像进行随机裁剪。</li>
-<li><code>RandomHorizontalFlip()</code>：以给定的概率随机水平翻转图像。</li>
-<li><code>RandomVerticalFlip()</code>：以给定的概率随机垂直翻转图像。</li>
-</ul></li>
-<li><strong>高级转换操作</strong>：
-<ul>
-<li><code>ColorJitter(brightness=0, contrast=0, saturation=0, hue=0)</code>：随机调整图像的亮度、对比度、饱和度和色调。</li>
-<li><code>RandomRotation(degrees, resample=False, expand=False, center=None)</code>：随机旋转图像。</li>
-<li><code>RandomAffine(degrees, translate=None, scale=None, shear=None, resample=False, fillcolor=0)</code>：随机仿射变换。</li>
-<li><code>RandomPerspective(distortion_scale=0.5, p=0.5, interpolation=3)</code>：随机透视变换。</li>
-<li><code>RandomErasing(p=0.5, scale=(0.02, 0.33), ratio=(0.3, 3.3), value=0, inplace=False)</code>：随机擦除图像的一部分。</li>
-</ul></li>
-<li><strong>自定义转换</strong>：
-你也可以使用<code>transforms.Lambda</code>自定义转换操作，将一个自定义的函数应用到图像上。</li>
-</ol>
-<p>这些转换操作可以通过<code>transforms.Compose</code>组合在一起，以形成一个转换管道，然后在数据加载时应用于图像。以下是一个简单的示例：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torchvision.transforms <span class="hljs-keyword">as</span> transforms<br><br><span class="hljs-comment"># 定义转换操作</span><br>transform = transforms.Compose([<br>    transforms.Resize(<span class="hljs-number">256</span>),<br>    transforms.CenterCrop(<span class="hljs-number">224</span>),<br>    transforms.RandomHorizontalFlip(),<br>    transforms.ToTensor(),<br>    transforms.Normalize(mean=[<span class="hljs-number">0.485</span>, <span class="hljs-number">0.456</span>, <span class="hljs-number">0.406</span>],<br>                         std=[<span class="hljs-number">0.229</span>, <span class="hljs-number">0.224</span>, <span class="hljs-number">0.225</span>])<br>])<br><br><span class="hljs-comment"># 应用转换操作到数据集</span><br>transformed_dataset = YourDataset(transform=transform)<br></code></pre></td></tr></table></figure>
-<p>在这个示例中，图像将首先被调整大小为256x256像素，然后进行中心裁剪为224x224像素，接着以0.5的概率进行水平翻转，最后被转换为张量并进行标准化处理。</p>
-<h1 id="tensor数据类型">2. Tensor数据类型</h1>
-<p>Tensor数据类型在深度学习中非常重要，因为它们提供了一种高效的数据表示形式，可以在GPU上进行并行计算，加速模型训练和推理过程。以下是一些使用Tensor数据类型的主要原因：</p>
-<ol type="1">
-<li><p><strong>高效的数值计算</strong>：Tensor数据类型是针对数值计算优化的，可以利用底层的高性能数值计算库（如CUDA或BLAS）来加速数值操作。这使得在GPU上进行并行计算成为可能，大大加快了模型训练和推理速度。</p></li>
-<li><p><strong>自动求导</strong>：PyTorch的Tensor支持自动求导功能，可以自动计算张量上的梯度。这对于训练神经网络和其他需要梯度信息的优化算法非常重要，如梯度下降法、反向传播等。</p></li>
-<li><p><strong>灵活的形状和维度</strong>：Tensor数据类型支持灵活的形状和维度，可以轻松处理不同大小和形状的数据，适用于各种类型的神经网络架构和数据集。</p></li>
-<li><p><strong>与深度学习框架集成</strong>：Tensor数据类型是PyTorch和其他深度学习框架的核心数据类型，因此在使用这些框架时，使用Tensor数据类型能够与框架的其他功能（如模型定义、优化器、损失函数等）无缝集成。</p></li>
-<li><p><strong>GPU加速</strong>：Tensor数据类型可以在GPU上进行计算，利用GPU的并行计算能力来加速模型训练和推理。这对于处理大规模数据集和复杂模型非常重要。</p></li>
-</ol>
-<p>总之，Tensor数据类型是深度学习中不可或缺的一部分，它们提供了一个高效的数值计算和自动求导框架，使得深度学习模型的开发和训练变得更加简单、灵活和高效。</p>
+                <p>Python的特殊方法（有时也称为魔法方法）是一组预定义的方法，你可以在你的类中实现这些方法来提供特定的操作或者行为。这些方法都是以双下划线（<code>__</code>）开头和结尾的。它们允许你实现和自定义对象的一些内置行为，例如迭代、调用、属性访问、运算符重载等。</p>
+<p>以下是一些常用的特殊方法，以及如何在你的代码中使用它们的例子：</p>
+<p><code>__init__(self, [...])</code></p>
+<p>这是类的构造器。当类被实例化时，这个方法会被自动调用。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Example</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, value</span>):<br>        self.value = value<br></code></pre></td></tr></table></figure>
+<p><code>__str__(self)</code></p>
+<p>当需要将对象转换为字符串时（比如打印），这个方法会被调用。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Example</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, value</span>):<br>        self.value = value<br>        <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__str__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">f&quot;Example with value <span class="hljs-subst">&#123;self.value&#125;</span>&quot;</span><br></code></pre></td></tr></table></figure>
+<p><code>__repr__(self)</code></p>
+<p>这个方法用于官方的字符串表示，通常用于调试。它的目标是明确，不是可读性。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Example</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, value</span>):<br>        self.value = value<br>        <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__repr__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">f&quot;Example(<span class="hljs-subst">&#123;self.value&#125;</span>)&quot;</span><br></code></pre></td></tr></table></figure>
+<p><code>__add__(self, other)</code></p>
+<p>允许两个对象使用 <code>+</code> 运算符进行加法操作。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Example</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, value</span>):<br>        self.value = value<br>        <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__add__</span>(<span class="hljs-params">self, other</span>):<br>        <span class="hljs-keyword">return</span> Example(self.value + other.value)<br></code></pre></td></tr></table></figure>
+<p><code>__iter__(self)</code> 和 <code>__next__(self)</code></p>
+<p>这两个方法使对象成为迭代器。<code>__iter__</code>
+返回迭代器对象本身，<code>__next__</code> 返回迭代器的下一个值。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Counter</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, low, high</span>):<br>        self.current = low<br>        self.high = high<br>        <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__iter__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">return</span> self<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__next__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">if</span> self.current &gt; self.high:<br>            <span class="hljs-keyword">raise</span> StopIteration<br>        <span class="hljs-keyword">else</span>:<br>            self.current += <span class="hljs-number">1</span><br>            <span class="hljs-keyword">return</span> self.current - <span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+<p><code>__getitem__(self, key)</code> 和
+<code>__setitem__(self, key, value)</code></p>
+<p>这两个方法允许对象使用下标操作，如列表或字典。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Indexer</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        self.data = &#123;&#125;<br>        <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__getitem__</span>(<span class="hljs-params">self, key</span>):<br>        <span class="hljs-keyword">return</span> self.data.get(key, <span class="hljs-string">&quot;Not Found&quot;</span>)<br>        <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__setitem__</span>(<span class="hljs-params">self, key, value</span>):<br>        self.data[key] = value<br></code></pre></td></tr></table></figure>
+<p>通过实现这些特殊方法，你可以自定义Python类的行为，使它们更加强大和灵活。</p>
 
                 
               </div>
@@ -324,7 +306,7 @@
   
     <span>></span>
     
-  <a href="/categories/Python/Pytorch/" class="category-chain-item">Pytorch</a>
+  <a href="/categories/Python/%E5%9F%BA%E7%A1%80%E7%AF%87/" class="category-chain-item">基础篇</a>
   
   
 
@@ -346,8 +328,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Transforms</div>
-      <div>http://example.com/2024/03/03/Python/PyTorch/Transforms/</div>
+      <div>特殊方法</div>
+      <div>http://example.com/2024/03/03/Python/基础篇/特殊方法/</div>
     </div>
     <div class="license-meta">
       
@@ -391,9 +373,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/03/03/Python/%E5%9F%BA%E7%A1%80%E7%AF%87/%E7%89%B9%E6%AE%8A%E6%96%B9%E6%B3%95/" title="特殊方法">
+                      <a href="/2024/03/03/Python/PyTorch/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" title="">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">特殊方法</span>
+                        <span class="hidden-mobile"></span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -401,8 +383,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/03/03/Python/PyTorch/TensorBoard/" title="TensorBoard">
-                        <span class="hidden-mobile">TensorBoard</span>
+                      <a href="/2024/03/03/Python/PyTorch/Transforms/" title="Transforms">
+                        <span class="hidden-mobile">Transforms</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
