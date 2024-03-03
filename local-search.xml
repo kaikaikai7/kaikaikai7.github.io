@@ -4,6 +4,90 @@
   
   
   <entry>
+    <title>Transforms</title>
+    <link href="/2024/03/03/Python/PyTorch/Transforms/"/>
+    <url>/2024/03/03/Python/PyTorch/Transforms/</url>
+    
+    <content type="html"><![CDATA[<h1 id="transforms基本操作">1. transforms基本操作</h1><p>在PyTorch中，<code>torchvision.transforms</code>模块提供了一系列用于图像预处理和数据增强的工具，可以在数据加载过程中对图像进行各种转换操作。这些转换操作可以帮助模型更好地泛化，并提高模型的性能。以下是一些常用的图像转换操作：</p><ol type="1"><li><strong>常见转换操作</strong>：<ul><li><code>ToTensor()</code>：将PIL图像或numpy数组转换为张量。</li><li><code>ToPILImage()</code>：将张量转换为PIL图像。</li><li><code>Normalize(mean, std)</code>：对图像进行标准化处理，减去均值并除以标准差。</li><li><code>Resize(size)</code>：调整图像尺寸。</li><li><code>CenterCrop(size)</code>：对图像进行中心裁剪。</li><li><code>RandomCrop(size)</code>：对图像进行随机裁剪。</li><li><code>RandomHorizontalFlip()</code>：以给定的概率随机水平翻转图像。</li><li><code>RandomVerticalFlip()</code>：以给定的概率随机垂直翻转图像。</li></ul></li><li><strong>高级转换操作</strong>：<ul><li><code>ColorJitter(brightness=0, contrast=0, saturation=0, hue=0)</code>：随机调整图像的亮度、对比度、饱和度和色调。</li><li><code>RandomRotation(degrees, resample=False, expand=False, center=None)</code>：随机旋转图像。</li><li><code>RandomAffine(degrees, translate=None, scale=None, shear=None, resample=False, fillcolor=0)</code>：随机仿射变换。</li><li><code>RandomPerspective(distortion_scale=0.5, p=0.5, interpolation=3)</code>：随机透视变换。</li><li><code>RandomErasing(p=0.5, scale=(0.02, 0.33), ratio=(0.3, 3.3), value=0, inplace=False)</code>：随机擦除图像的一部分。</li></ul></li><li><strong>自定义转换</strong>：你也可以使用<code>transforms.Lambda</code>自定义转换操作，将一个自定义的函数应用到图像上。</li></ol><p>这些转换操作可以通过<code>transforms.Compose</code>组合在一起，以形成一个转换管道，然后在数据加载时应用于图像。以下是一个简单的示例：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torchvision.transforms <span class="hljs-keyword">as</span> transforms<br><br><span class="hljs-comment"># 定义转换操作</span><br>transform = transforms.Compose([<br>    transforms.Resize(<span class="hljs-number">256</span>),<br>    transforms.CenterCrop(<span class="hljs-number">224</span>),<br>    transforms.RandomHorizontalFlip(),<br>    transforms.ToTensor(),<br>    transforms.Normalize(mean=[<span class="hljs-number">0.485</span>, <span class="hljs-number">0.456</span>, <span class="hljs-number">0.406</span>],<br>                         std=[<span class="hljs-number">0.229</span>, <span class="hljs-number">0.224</span>, <span class="hljs-number">0.225</span>])<br>])<br><br><span class="hljs-comment"># 应用转换操作到数据集</span><br>transformed_dataset = YourDataset(transform=transform)<br></code></pre></td></tr></table></figure><p>在这个示例中，图像将首先被调整大小为256x256像素，然后进行中心裁剪为224x224像素，接着以0.5的概率进行水平翻转，最后被转换为张量并进行标准化处理。</p><h1 id="tensor数据类型">2. Tensor数据类型</h1><p>Tensor数据类型在深度学习中非常重要，因为它们提供了一种高效的数据表示形式，可以在GPU上进行并行计算，加速模型训练和推理过程。以下是一些使用Tensor数据类型的主要原因：</p><ol type="1"><li><p><strong>高效的数值计算</strong>：Tensor数据类型是针对数值计算优化的，可以利用底层的高性能数值计算库（如CUDA或BLAS）来加速数值操作。这使得在GPU上进行并行计算成为可能，大大加快了模型训练和推理速度。</p></li><li><p><strong>自动求导</strong>：PyTorch的Tensor支持自动求导功能，可以自动计算张量上的梯度。这对于训练神经网络和其他需要梯度信息的优化算法非常重要，如梯度下降法、反向传播等。</p></li><li><p><strong>灵活的形状和维度</strong>：Tensor数据类型支持灵活的形状和维度，可以轻松处理不同大小和形状的数据，适用于各种类型的神经网络架构和数据集。</p></li><li><p><strong>与深度学习框架集成</strong>：Tensor数据类型是PyTorch和其他深度学习框架的核心数据类型，因此在使用这些框架时，使用Tensor数据类型能够与框架的其他功能（如模型定义、优化器、损失函数等）无缝集成。</p></li><li><p><strong>GPU加速</strong>：Tensor数据类型可以在GPU上进行计算，利用GPU的并行计算能力来加速模型训练和推理。这对于处理大规模数据集和复杂模型非常重要。</p></li></ol><p>总之，Tensor数据类型是深度学习中不可或缺的一部分，它们提供了一个高效的数值计算和自动求导框架，使得深度学习模型的开发和训练变得更加简单、灵活和高效。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Python</category>
+      
+      <category>Pytorch</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>TensorBoard</title>
+    <link href="/2024/03/03/Python/PyTorch/TensorBoard/"/>
+    <url>/2024/03/03/Python/PyTorch/TensorBoard/</url>
+    
+    <content type="html"><![CDATA[<p>TensorBoard 是一个由 TensorFlow提供的可视化工具，用于展示机器学习实验的结果和进展。它可以帮助你理解、调试和优化模型。虽然它最初是为TensorFlow 设计的，但你也可以在 PyTorch 中使用 TensorBoard来可视化模型训练和评估过程。</p><p>以下是 TensorBoard 主要功能的简要介绍：</p><ol type="1"><li><strong>可视化模型图</strong>：TensorBoard可以将神经网络模型的结构可视化为图形，使你能够清晰地理解模型的层次结构和连接方式。</li><li><strong>训练过程监控</strong>：你可以使用 TensorBoard记录和可视化训练过程中的指标，如损失值、准确率等。这有助于实时监控模型的性能并进行调整。</li><li><strong>可视化参数分布和梯度</strong>：TensorBoard可以帮助你观察模型参数和梯度的分布情况，以便更好地理解模型的训练过程和稳定性。</li><li><strong>图像、音频、文本数据可视化</strong>：除了数值数据外，TensorBoard还支持可视化图像、音频、文本等非数值数据，这对于图像分类、语音识别等任务非常有用。</li><li><strong>嵌入向量可视化</strong>：如果你在训练过程中使用了嵌入层（embedding），TensorBoard可以帮助你将嵌入向量在高维空间中可视化，从而更好地理解数据的分布和相似性。</li></ol><p>在 PyTorch 中使用 TensorBoard，你通常需要使用<code>torch.utils.tensorboard</code> 模块。以下是一个简单的示例：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python">torch.utils.tensorboard <span class="hljs-keyword">import</span> SummaryWriter<br><br><span class="hljs-comment"># 创建一个 TensorBoard 的记录器</span><br>writer = SummaryWriter()<br><br><span class="hljs-comment"># 在训练过程中记录损失值</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">100</span>):<br>    loss = train(...)<br>    writer.add_scalar(<span class="hljs-string">&#x27;Loss/train&#x27;</span>, loss, i)<br><br><span class="hljs-comment"># 记录模型的结构</span><br>model = ...<br>writer.add_graph(model, input_to_model=torch.randn(<span class="hljs-number">1</span>, input_size))<br><br><span class="hljs-comment"># 关闭记录器</span><br>writer.close()<br></code></pre></td></tr></table></figure><p>然后你可以使用 TensorBoard 命令来启动 TensorBoard服务器，并在浏览器中查看可视化结果：</p><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">tensorboard --logdir=logs<br></code></pre></td></tr></table></figure><p>这将启动一个 TensorBoard 服务器，默认监听端口为6006。你可以在浏览器中打开 <code>http://localhost:6006</code> 来查看TensorBoard 的界面，并浏览训练过程中的各种可视化结果。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Python</category>
+      
+      <category>Pytorch</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>加载数据</title>
+    <link href="/2024/03/01/Python/PyTorch/%E5%8A%A0%E8%BD%BD%E6%95%B0%E6%8D%AE/"/>
+    <url>/2024/03/01/Python/PyTorch/%E5%8A%A0%E8%BD%BD%E6%95%B0%E6%8D%AE/</url>
+    
+    <content type="html"><![CDATA[<h1 id="dataset">1. Dataset</h1><p>PyTorch的<code>Dataset</code>类是一个抽象类，用于表示数据集的一个非常灵活和强大的方式。在PyTorch中，<code>torch.utils.data.Dataset</code>是表示数据集的基类，需要用户继承并重写两个主要的方法来自定义数据加载方式：<code>__len__</code>和 <code>__getitem__</code>。</p><h2 id="len__-方法"><code>__len__</code> 方法</h2><p>这个方法需要返回数据集中的样本数。当你调用<code>len(dataset)</code>时，实际上是在调用这个方法。</p><h2 id="getitem__-方法"><code>__getitem__</code> 方法</h2><p>这个方法需要接收一个索引（<code>index</code>），然后返回数据集中对应索引的样本。这是数据加载的核心，允许数据集以任意的方式存储样本，只要你可以通过索引获取到样本。</p><h2 id="自定义数据集示例">自定义数据集示例</h2><p>下面是一个自定义数据集的简单示例，它简单地存储了一些数据和标签，然后通过索引返回它们。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> torch.utils.data <span class="hljs-keyword">import</span> Dataset<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">CustomDataset</span>(<span class="hljs-title class_ inherited__">Dataset</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, data, labels</span>):<br>        self.data = data<br>        self.labels = labels<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__len__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(self.data)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__getitem__</span>(<span class="hljs-params">self, index</span>):<br>        sample = self.data[index]<br>        label = self.labels[index]<br>        <span class="hljs-keyword">return</span> sample, label<br></code></pre></td></tr></table></figure><p>在这个例子中，<code>data</code> 和 <code>labels</code>应该是Python列表（或其他适合你的数据的容器），其中包含你的数据和标签。</p><h1 id="dataloader">2. Dataloader</h1><p>一旦你定义了自己的数据集，你可以使用<code>torch.utils.data.DataLoader</code>来实现对数据的批处理、打乱和多线程加载等操作。<code>DataLoader</code>接收一个<code>Dataset</code>实例作为输入，使数据加载变得非常高效和灵活。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> torch.utils.data <span class="hljs-keyword">import</span> DataLoader<br><br><span class="hljs-comment"># 假设我们已经创建了一个数据集实例</span><br>dataset = CustomDataset(data, labels)<br><br><span class="hljs-comment"># 使用DataLoader来加载数据</span><br>dataloader = DataLoader(dataset, batch_size=<span class="hljs-number">4</span>, shuffle=<span class="hljs-literal">True</span>)<br><br><span class="hljs-comment"># 然后你可以在训练循环中遍历dataloader来使用数据</span><br><span class="hljs-keyword">for</span> data, labels <span class="hljs-keyword">in</span> dataloader:<br>    <span class="hljs-comment"># 进行训练相关的操作</span><br>    <span class="hljs-keyword">pass</span><br></code></pre></td></tr></table></figure><p>通过使用<code>Dataset</code>和<code>DataLoader</code>，PyTorch提供了一种非常灵活和强大的方式来处理不同来源和格式的数据，同时优化了数据加载的效率。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Python</category>
+      
+      <category>Pytorch</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Pytorch安装</title>
+    <link href="/2024/03/01/Python/PyTorch/Pytorch%E5%AE%89%E8%A3%85/"/>
+    <url>/2024/03/01/Python/PyTorch/Pytorch%E5%AE%89%E8%A3%85/</url>
+    
+    <content type="html"><![CDATA[<h1 id="安装anaconda">1. 安装Anaconda</h1><p>官网地址：<a href="https://www.anaconda.com/download/">Free Download| Anaconda</a></p><h1 id="虚拟环境">2. 虚拟环境</h1><ul><li><p>图形界面</p></li><li><p>命令行</p><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cmd"># 新建环境<br>conda create –n 虚拟环境名字 python=版本<br># 查看存在的所有环境<br>conda env list<br></code></pre></td></tr></table></figure></li></ul><h1 id="安装显卡驱动">3. 安装显卡驱动</h1><ul><li><p>安装最新显卡驱动：<ahref="https://www.nvidia.cn/geforce/drivers/">NVIDIA GeForce 驱动程序 -N 卡驱动 | NVIDIA</a></p></li><li><p>查看驱动版本：<code>nvidia-smi</code></p><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202403011525805.png"alt="image-20240301143849279" /><figcaption aria-hidden="true">image-20240301143849279</figcaption></figure></li></ul><h1 id="安装pytorch">4. 安装pytorch</h1><p>官网地址：<ahref="https://pytorch.org/">PyTorch</a>（复制命令后在所需环境中进行安装）</p><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202403011525806.png"alt="image-20240301144648865" /><figcaption aria-hidden="true">image-20240301144648865</figcaption></figure><h1 id="验证">5. 验证</h1><figure><imgsrc="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202403011525807.png"alt="image-20240301152239138" /><figcaption aria-hidden="true">image-20240301152239138</figcaption></figure><p>参考教程：</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Python</category>
+      
+      <category>Pytorch</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Scrapy应对反爬</title>
     <link href="/2023/12/17/Python/Spider/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%E6%A1%88%E4%BE%8B%E5%AE%9E%E6%88%98/Scrapy%E5%BA%94%E5%AF%B9%E5%8F%8D%E7%88%AC/"/>
     <url>/2023/12/17/Python/Spider/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%E6%A1%88%E4%BE%8B%E5%AE%9E%E6%88%98/Scrapy%E5%BA%94%E5%AF%B9%E5%8F%8D%E7%88%AC/</url>
@@ -1188,27 +1272,6 @@
       <category>机器学习</category>
       
       <category>算法篇</category>
-      
-    </categories>
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>绪论</title>
-    <link href="/2023/10/05/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/%E7%BB%AA%E8%AE%BA/"/>
-    <url>/2023/10/05/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/%E7%BB%AA%E8%AE%BA/</url>
-    
-    <content type="html"><![CDATA[<h1 id="背景">1 背景</h1><ul><li>数据爆炸但知识贫乏</li><li>商业数据到商业智能的进化</li><li>科学发展范式（经验科学、理论科学、计算科学、数据科学）</li></ul><h1 id="基本概念">2 基本概念</h1><p>定义：从数据中得到信息和知识的过程</p><h1 id="主要内容">3 主要内容</h1><ul><li>关联规则挖掘（啤酒和尿布）</li><li>分类<code>Predictive</code>：根据特征和观测数据建立数学模型，对新的数例进行判断的过程（监督式机器学习）<ul><li>标签分类</li><li>数值预测</li></ul></li><li>聚类<code>Descriptive</code>：仅根据刚刚的特征对数据进行聚类划分（非监督式机器学习）</li><li>回归：建立多个变量之间的定量关系</li></ul><p>Q：数据分类和数据聚类的概念如何区别？</p><p>数据分类，分类的类别是已知的，训练某种学习机器（即得到某种目标函数），使它能够对未知类别的样本进行分类；数据聚类，分类的类别是未知的，通过聚类分析将数据聚合成几个群体。</p><p>Q：数据、信息、知识的概念如何区分？</p><ul><li>数据：数据是未经加工处理的原始信息。</li><li>信息：信息是对原始的数据信息进行观察得出的一些结论。</li><li>知识：知识是对信息进行总结归纳，逻辑分析，得到的理解和某些事物的规律。</li></ul>]]></content>
-    
-    
-    <categories>
-      
-      <category>机器学习</category>
-      
-      <category>数据挖掘</category>
       
     </categories>
     
