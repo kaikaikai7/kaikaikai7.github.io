@@ -16,21 +16,21 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="TensorBoard 是一个由 TensorFlow 提供的可视化工具，用于展示机器学习实验的结果和进展。它可以帮助你理解、调试和优化模型。虽然它最初是为 TensorFlow 设计的，但你也可以在 PyTorch 中使用 TensorBoard 来可视化模型训练和评估过程。 以下是 TensorBoard 主要功能的简要介绍：  可视化模型图：TensorBoard 可以将神经网">
+    <meta name="description" content="PyTorch 提供了一个名为 torchvision 的库，其中包含了许多预训练的网络模型，如 ResNet、VGG 和 AlexNet 等，可以用于图像分类、目标检测等任务。这些模型可以直接使用，也可以根据特定任务的需求进行修改。此外，PyTorch 提供了简单的 API 来保存和加载模型。下面是一个简单的例子，展示了如何使用、修改、保存和加载一个预训练的 ResNet 模型： 1">
 <meta property="og:type" content="article">
-<meta property="og:title" content="TensorBoard">
-<meta property="og:url" content="http://example.com/2024/03/03/Python/PyTorch/TensorBoard/index.html">
+<meta property="og:title" content="网络模型">
+<meta property="og:url" content="http://example.com/2024/03/05/Python/PyTorch/%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="TensorBoard 是一个由 TensorFlow 提供的可视化工具，用于展示机器学习实验的结果和进展。它可以帮助你理解、调试和优化模型。虽然它最初是为 TensorFlow 设计的，但你也可以在 PyTorch 中使用 TensorBoard 来可视化模型训练和评估过程。 以下是 TensorBoard 主要功能的简要介绍：  可视化模型图：TensorBoard 可以将神经网">
+<meta property="og:description" content="PyTorch 提供了一个名为 torchvision 的库，其中包含了许多预训练的网络模型，如 ResNet、VGG 和 AlexNet 等，可以用于图像分类、目标检测等任务。这些模型可以直接使用，也可以根据特定任务的需求进行修改。此外，PyTorch 提供了简单的 API 来保存和加载模型。下面是一个简单的例子，展示了如何使用、修改、保存和加载一个预训练的 ResNet 模型： 1">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-03-03T01:57:21.000Z">
-<meta property="article:modified_time" content="2024-03-03T02:30:59.341Z">
+<meta property="article:published_time" content="2024-03-05T02:14:21.000Z">
+<meta property="article:modified_time" content="2024-03-05T03:15:50.849Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>TensorBoard - kaikaikai&#39;s blog</title>
+  <title>网络模型 - kaikaikai&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -184,7 +184,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="TensorBoard"></span>
+            <span id="subtitle" data-typed-text="网络模型"></span>
           
         </div>
 
@@ -195,8 +195,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-03-03 09:57" pubdate>
-          2024年3月3日 上午
+        <time datetime="2024-03-05 10:14" pubdate>
+          2024年3月5日 上午
         </time>
       </span>
     
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1k 字
+          2.6k 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          9 分钟
+          22 分钟
         
       </span>
     
@@ -255,37 +255,56 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">TensorBoard</h1>
+            <h1 id="seo-header">网络模型</h1>
             
             
               <div class="markdown-body">
                 
-                <p>TensorBoard 是一个由 TensorFlow
-提供的可视化工具，用于展示机器学习实验的结果和进展。它可以帮助你理解、调试和优化模型。虽然它最初是为
-TensorFlow 设计的，但你也可以在 PyTorch 中使用 TensorBoard
-来可视化模型训练和评估过程。</p>
-<p>以下是 TensorBoard 主要功能的简要介绍：</p>
-<ol type="1">
-<li><strong>可视化模型图</strong>：TensorBoard
-可以将神经网络模型的结构可视化为图形，使你能够清晰地理解模型的层次结构和连接方式。</li>
-<li><strong>训练过程监控</strong>：你可以使用 TensorBoard
-记录和可视化训练过程中的指标，如损失值、准确率等。这有助于实时监控模型的性能并进行调整。</li>
-<li><strong>可视化参数分布和梯度</strong>：TensorBoard
-可以帮助你观察模型参数和梯度的分布情况，以便更好地理解模型的训练过程和稳定性。</li>
-<li><strong>图像、音频、文本数据可视化</strong>：除了数值数据外，TensorBoard
-还支持可视化图像、音频、文本等非数值数据，这对于图像分类、语音识别等任务非常有用。</li>
-<li><strong>嵌入向量可视化</strong>：如果你在训练过程中使用了嵌入层（embedding），TensorBoard
-可以帮助你将嵌入向量在高维空间中可视化，从而更好地理解数据的分布和相似性。</li>
-</ol>
-<p>在 PyTorch 中使用 TensorBoard，你通常需要使用
-<code>torch.utils.tensorboard</code> 模块。以下是一个简单的示例：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python">torch.utils.tensorboard <span class="hljs-keyword">import</span> SummaryWriter<br><br><span class="hljs-comment"># 创建一个 TensorBoard 的记录器</span><br>writer = SummaryWriter()<br><br><span class="hljs-comment"># 在训练过程中记录损失值</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">100</span>):<br>    loss = train(...)<br>    writer.add_scalar(<span class="hljs-string">&#x27;Loss/train&#x27;</span>, loss, i)<br><br><span class="hljs-comment"># 记录模型的结构</span><br>model = ...<br>writer.add_graph(model, input_to_model=torch.randn(<span class="hljs-number">1</span>, input_size))<br><br><span class="hljs-comment"># 关闭记录器</span><br>writer.close()<br></code></pre></td></tr></table></figure>
-<p>然后你可以使用 TensorBoard 命令来启动 TensorBoard
-服务器，并在浏览器中查看可视化结果：</p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">tensorboard --logdir=logs<br></code></pre></td></tr></table></figure>
-<p>这将启动一个 TensorBoard 服务器，默认监听端口为
-6006。你可以在浏览器中打开 <code>http://localhost:6006</code> 来查看
-TensorBoard 的界面，并浏览训练过程中的各种可视化结果。</p>
+                <p>PyTorch 提供了一个名为 torchvision
+的库，其中包含了许多预训练的网络模型，如 ResNet、VGG 和 AlexNet
+等，可以用于图像分类、目标检测等任务。这些模型可以直接使用，也可以根据特定任务的需求进行修改。此外，PyTorch
+提供了简单的 API
+来保存和加载模型。下面是一个简单的例子，展示了如何使用、修改、保存和加载一个预训练的
+ResNet 模型：</p>
+<h1 id="使用预训练模型">1. 使用预训练模型</h1>
+<p>首先，我们需要导入必要的库并加载一个预训练的模型：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torchvision.models <span class="hljs-keyword">as</span> models<br><br><span class="hljs-comment"># 加载预训练的 ResNet18 模型</span><br>model = models.resnet18(pretrained=<span class="hljs-literal">True</span>)<br></code></pre></td></tr></table></figure>
+<h1 id="修改模型">2. 修改模型</h1>
+<p>在深度学习中，修改预训练模型以适应特定任务是一种常见且有效的策略。PyTorch
+提供了灵活的方式来修改模型，以下是一些常见的方法和技巧：</p>
+<h2 id="替换模型中的特定层">2.1 替换模型中的特定层</h2>
+<p>你可以直接替换模型中的特定层，以适应新的数据集或任务。这通常用于修改模型的输出层，以匹配新任务的类别数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">num_ftrs = model.fc.in_features<br>model.fc = nn.Linear(num_ftrs, new_class_num)<br></code></pre></td></tr></table></figure>
+<h2 id="添加额外的层或模块">2.2 添加额外的层或模块</h2>
+<p>有时，你可能希望在现有模型的基础上添加额外的层或模块，以增强模型的能力或适应特定的数据处理需求。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">CustomResNet</span>(models.ResNet):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, *args, **kwargs</span>):<br>        <span class="hljs-built_in">super</span>(CustomResNet, self).__init__(*args, **kwargs)<br>        self.extra_layer = nn.Sequential(<br>            nn.ReLU(),<br>            nn.Dropout(<span class="hljs-number">0.5</span>),<br>            nn.Linear(in_features=self.fc.out_features, out_features=<span class="hljs-number">100</span>)<br>        )<br>        self.fc = nn.Linear(<span class="hljs-number">100</span>, new_class_num)  <span class="hljs-comment"># 假设新的类别数为 new_class_num</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):<br>        x = <span class="hljs-built_in">super</span>(CustomResNet, self).forward(x)<br>        x = self.extra_layer(x)<br>        x = self.fc(x)<br>        <span class="hljs-keyword">return</span> x<br><br><span class="hljs-comment"># 使用自定义的模型</span><br>model = CustomResNet(models.resnet50(pretrained=<span class="hljs-literal">True</span>))<br></code></pre></td></tr></table></figure>
+<h2 id="冻结部分层的权重">2.3 冻结部分层的权重</h2>
+<p>在迁移学习中，常常需要冻结模型的一部分，特别是在训练数据相对较少时，以防止过拟合。冻结权重意味着在训练过程中这些权重不会更新。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 冻结除最后全连接层之外的所有层的权重</span><br><span class="hljs-keyword">for</span> param <span class="hljs-keyword">in</span> model.parameters():<br>    param.requires_grad = <span class="hljs-literal">False</span><br><br><span class="hljs-comment"># 解冻最后的全连接层</span><br><span class="hljs-keyword">for</span> param <span class="hljs-keyword">in</span> model.fc.parameters():<br>    param.requires_grad = <span class="hljs-literal">True</span><br></code></pre></td></tr></table></figure>
+<h2 id="修改卷积层的步长或填充">2.4 修改卷积层的步长或填充</h2>
+<p>有时，为了适应特定大小的输入数据，你可能需要修改卷积层的步长(stride)或填充(padding)。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 修改模型第一层的步长和填充</span><br>model.conv1.stride = (<span class="hljs-number">2</span>, <span class="hljs-number">2</span>)<br>model.conv1.padding = (<span class="hljs-number">1</span>, <span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure>
+<h2 id="使用预训练模型作为特征提取器">2.5
+使用预训练模型作为特征提取器</h2>
+<p>你可以将预训练模型的某一部分作为特征提取器，而不需要对其进行训练。这通常涉及到移除模型的最后几层，并将其余部分用作固定的特征提取器。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 移除模型的最后一层</span><br>model = models.resnet18(pretrained=<span class="hljs-literal">True</span>)<br>model = nn.Sequential(*<span class="hljs-built_in">list</span>(model.children())[:-<span class="hljs-number">1</span>])<br><br><span class="hljs-comment"># 在此基础上添加自定义层</span><br>model.add_module(<span class="hljs-string">&#x27;custom_fc&#x27;</span>, nn.Linear(<span class="hljs-number">512</span>, new_class_num))<br>model.add_module(<span class="hljs-string">&#x27;softmax&#x27;</span>, nn.Softmax(dim=<span class="hljs-number">1</span>))<br></code></pre></td></tr></table></figure>
+<h1 id="训练模型">3. 训练模型</h1>
+<p>虽然这里不展开训练过程的详细代码，但训练模型通常涉及定义损失函数和优化器，然后在训练数据上迭代模型的前向和后向传播：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 定义损失函数和优化器</span><br>criterion = nn.CrossEntropyLoss()<br>optimizer = torch.optim.SGD(model.parameters(), lr=<span class="hljs-number">0.001</span>, momentum=<span class="hljs-number">0.9</span>)<br><br><span class="hljs-comment"># 训练代码（示意）</span><br><span class="hljs-comment"># for inputs, labels in dataloader:</span><br><span class="hljs-comment">#     optimizer.zero_grad()</span><br><span class="hljs-comment">#     outputs = model(inputs)</span><br><span class="hljs-comment">#     loss = criterion(outputs, labels)</span><br><span class="hljs-comment">#     loss.backward()</span><br><span class="hljs-comment">#     optimizer.step()</span><br></code></pre></td></tr></table></figure>
+<h1 id="保存模型">4. 保存模型</h1>
+<p>训练完成后，可以通过两种方式保存模型：仅保存模型参数或保存整个模型。</p>
+<p><strong>仅保存模型参数</strong>（推荐方式）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">torch.save(model.state_dict(), <span class="hljs-string">&#x27;model_weights.pth&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<p><strong>保存整个模型</strong>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">torch.save(model, <span class="hljs-string">&#x27;model_complete.pth&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<h1 id="加载模型">5. 加载模型</h1>
+<p>加载模型时，也需要区分是加载模型参数还是加载整个模型。</p>
+<p><strong>加载模型参数</strong>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">model = models.resnet18(pretrained=<span class="hljs-literal">False</span>)  <span class="hljs-comment"># 先实例化模型</span><br>model.fc = nn.Linear(num_ftrs, <span class="hljs-number">10</span>)  <span class="hljs-comment"># 重建最后的全连接层</span><br>model.load_state_dict(torch.load(<span class="hljs-string">&#x27;model_weights.pth&#x27;</span>))<br></code></pre></td></tr></table></figure>
+<p><strong>加载整个模型</strong>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">model = torch.load(<span class="hljs-string">&#x27;model_complete.pth&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<p>这个流程展示了如何在 PyTorch
+中使用、修改、保存和加载网络模型。这些操作在进行深度学习实验和项目时非常常见，特别是当需要调整预训练模型以适应新任务时。通过这种方式，可以利用已有的模型架构和权重，加速模型的训练和开发过程。</p>
 
                 
               </div>
@@ -331,8 +350,8 @@ TensorBoard 的界面，并浏览训练过程中的各种可视化结果。</p>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>TensorBoard</div>
-      <div>http://example.com/2024/03/03/Python/PyTorch/TensorBoard/</div>
+      <div>网络模型</div>
+      <div>http://example.com/2024/03/05/Python/PyTorch/网络模型/</div>
     </div>
     <div class="license-meta">
       
@@ -344,7 +363,7 @@ TensorBoard 的界面，并浏览训练过程中的各种可视化结果。</p>
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年3月3日</div>
+          <div>2024年3月5日</div>
         </div>
       
       
@@ -376,9 +395,9 @@ TensorBoard 的界面，并浏览训练过程中的各种可视化结果。</p>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/03/03/Python/PyTorch/Transforms/" title="Transforms">
+                      <a href="/2024/03/05/Python/PyTorch/%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/" title="模型训练">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Transforms</span>
+                        <span class="hidden-mobile">模型训练</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -386,8 +405,8 @@ TensorBoard 的界面，并浏览训练过程中的各种可视化结果。</p>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/03/01/Python/PyTorch/%E6%95%B0%E6%8D%AE%E5%8A%A0%E8%BD%BD/" title="数据加载">
-                        <span class="hidden-mobile">数据加载</span>
+                      <a href="/2024/03/04/Python/PyTorch/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" title="神经网络">
+                        <span class="hidden-mobile">神经网络</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

@@ -16,21 +16,21 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1. 基本骨架 PyTorch的神经网络基本骨架是通过构建torch.nn.Module子类来完成的。这个基本骨架定义了神经网络的结构以及它如何进行前向传播和反向传播。 以下是一个简单的PyTorch神经网络模型的基本骨架： 1234567891011121314151617181920import torchimport torch.nn as nnclass MyModel(nn.Mod">
+    <meta name="description" content="1. 容器 1.1 Module PyTorch的神经网络基本骨架是通过构建torch.nn.Module子类来完成的。这个基本骨架定义了神经网络的结构以及它如何进行前向传播和反向传播。 以下是一个简单的PyTorch神经网络模型的基本骨架： 1234567891011121314151617181920import torchimport torch.nn as nnclass MyMo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="kaikaikai&#39;s blog">
-<meta property="og:url" content="http://example.com/2024/03/03/Python/PyTorch/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/index.html">
+<meta property="og:title" content="神经网络">
+<meta property="og:url" content="http://example.com/2024/03/04/Python/PyTorch/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="1. 基本骨架 PyTorch的神经网络基本骨架是通过构建torch.nn.Module子类来完成的。这个基本骨架定义了神经网络的结构以及它如何进行前向传播和反向传播。 以下是一个简单的PyTorch神经网络模型的基本骨架： 1234567891011121314151617181920import torchimport torch.nn as nnclass MyModel(nn.Mod">
+<meta property="og:description" content="1. 容器 1.1 Module PyTorch的神经网络基本骨架是通过构建torch.nn.Module子类来完成的。这个基本骨架定义了神经网络的结构以及它如何进行前向传播和反向传播。 以下是一个简单的PyTorch神经网络模型的基本骨架： 1234567891011121314151617181920import torchimport torch.nn as nnclass MyMo">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-03-03T08:19:00.112Z">
-<meta property="article:modified_time" content="2024-03-04T02:51:16.612Z">
+<meta property="article:published_time" content="2024-03-04T00:54:21.000Z">
+<meta property="article:modified_time" content="2024-03-05T02:13:20.108Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>kaikaikai&#39;s blog</title>
+  <title>神经网络 - kaikaikai&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -184,7 +184,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text=""></span>
+            <span id="subtitle" data-typed-text="神经网络"></span>
           
         </div>
 
@@ -195,8 +195,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-03-03 16:19" pubdate>
-          2024年3月3日 下午
+        <time datetime="2024-03-04 08:54" pubdate>
+          2024年3月4日 早上
         </time>
       </span>
     
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.8k 字
+          12k 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          57 分钟
+          98 分钟
         
       </span>
     
@@ -255,12 +255,13 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header"></h1>
+            <h1 id="seo-header">神经网络</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="基本骨架">1. 基本骨架</h1>
+                <h1 id="容器">1. 容器</h1>
+<h2 id="module">1.1 Module</h2>
 <p>PyTorch的神经网络基本骨架是通过构建<code>torch.nn.Module</code>子类来完成的。这个基本骨架定义了神经网络的结构以及它如何进行前向传播和反向传播。</p>
 <p>以下是一个简单的PyTorch神经网络模型的基本骨架：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyModel</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">super</span>(MyModel, self).__init__()<br>        <span class="hljs-comment"># 在这里定义网络的各个层</span><br>        <br>        self.layer1 = nn.Linear(input_size, hidden_size)<br>        self.activation = nn.ReLU()<br>        self.layer2 = nn.Linear(hidden_size, output_size)<br>        <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):<br>        <span class="hljs-comment"># 前向传播逻辑</span><br>        <br>        x = self.layer1(x)<br>        x = self.activation(x)<br>        x = self.layer2(x)<br>        <br>        <span class="hljs-keyword">return</span> x<br></code></pre></td></tr></table></figure>
@@ -270,6 +271,24 @@
 <li><code>nn.ReLU</code>是激活函数，可以用于增加网络的非线性特性。</li>
 </ul>
 <p>你可以根据你的具体任务和网络结构需求来添加更多的层和操作。</p>
+<h2 id="sequential">1.2 Sequential</h2>
+<p><code>torch.nn.Sequential</code> 是 PyTorch
+中的一个容器模块，用于构建神经网络的序列模型。它可以按顺序组合多个神经网络层（如线性层、激活函数、池化层等），构建一个完整的神经网络模型。</p>
+<p>通过
+<code>torch.nn.Sequential</code>，可以简单地按顺序堆叠多个层，使得神经网络的构建更加简洁和易读。</p>
+<p>以下是一个简单的示例，演示了如何使用 <code>torch.nn.Sequential</code>
+来构建一个简单的神经网络模型：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><br><span class="hljs-comment"># 定义一个简单的神经网络模型</span><br>model = nn.Sequential(<br>    nn.Linear(<span class="hljs-number">784</span>, <span class="hljs-number">128</span>),  <span class="hljs-comment"># 输入特征数量为 784，输出特征数量为 128 的线性层</span><br>    nn.ReLU(),             <span class="hljs-comment"># ReLU 激活函数</span><br>    nn.Linear(<span class="hljs-number">128</span>, <span class="hljs-number">64</span>),    <span class="hljs-comment"># 输入特征数量为 128，输出特征数量为 64 的线性层</span><br>    nn.ReLU(),             <span class="hljs-comment"># ReLU 激活函数</span><br>    nn.Linear(<span class="hljs-number">64</span>, <span class="hljs-number">10</span>)      <span class="hljs-comment"># 输入特征数量为 64，输出特征数量为 10 的线性层</span><br>)<br><br><span class="hljs-comment"># 创建一个示例输入张量</span><br>input_tensor = torch.randn(<span class="hljs-number">1</span>, <span class="hljs-number">784</span>)  <span class="hljs-comment"># batch_size=1, input_features=784</span><br><br><span class="hljs-comment"># 将输入张量传递给模型进行前向传播</span><br>output_tensor = model(input_tensor)<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Output tensor shape:&quot;</span>, output_tensor.shape)<br></code></pre></td></tr></table></figure>
+<p>在这个示例中，我们使用 <code>torch.nn.Sequential</code>
+构建了一个简单的神经网络模型，它包含了三个线性层和两个 ReLU
+激活函数。每个线性层的输入特征数量和输出特征数量依次是 (784, 128)、(128,
+64) 和 (64, 10)。然后，我们创建了一个输入张量
+<code>input_tensor</code>，形状为
+<code>(1, 784)</code>，表示一个批量大小为 1，输入特征数量为 784
+的张量。最后，将输入张量传递给模型进行前向传播，得到输出张量
+<code>output_tensor</code>，其形状为
+<code>(1, 10)</code>，表示一个批量大小为 1，输出特征数量为 10
+的张量。</p>
 <h1 id="卷积层">2. 卷积层</h1>
 <p><code>torch.nn.Conv2d</code>是PyTorch中用于创建二维卷积层的类。二维卷积层通常用于处理图像数据，它可以通过滤波器（也称为卷积核）从输入图像中提取特征。这些特征可以用于各种任务，如图像分类、目标检测、图像分割等。</p>
 <p>下面是<code>torch.nn.Conv2d</code>的基本用法和参数解释：</p>
@@ -368,24 +387,58 @@ class="math inline">\((\text{out\_features})\)</span>。</p>
 的张量。接下来，将输入张量传递给线性层进行计算，得到输出张量
 <code>output_tensor</code>，形状为
 <code>(1, 2)</code>，表示一个批量大小为 1，输出特征数量为 2 的张量。</p>
-<h1 id="sequential">6. Sequential</h1>
-<p><code>torch.nn.Sequential</code> 是 PyTorch
-中的一个容器模块，用于构建神经网络的序列模型。它可以按顺序组合多个神经网络层（如线性层、激活函数、池化层等），构建一个完整的神经网络模型。</p>
-<p>通过
-<code>torch.nn.Sequential</code>，可以简单地按顺序堆叠多个层，使得神经网络的构建更加简洁和易读。</p>
-<p>以下是一个简单的示例，演示了如何使用 <code>torch.nn.Sequential</code>
-来构建一个简单的神经网络模型：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><br><span class="hljs-comment"># 定义一个简单的神经网络模型</span><br>model = nn.Sequential(<br>    nn.Linear(<span class="hljs-number">784</span>, <span class="hljs-number">128</span>),  <span class="hljs-comment"># 输入特征数量为 784，输出特征数量为 128 的线性层</span><br>    nn.ReLU(),             <span class="hljs-comment"># ReLU 激活函数</span><br>    nn.Linear(<span class="hljs-number">128</span>, <span class="hljs-number">64</span>),    <span class="hljs-comment"># 输入特征数量为 128，输出特征数量为 64 的线性层</span><br>    nn.ReLU(),             <span class="hljs-comment"># ReLU 激活函数</span><br>    nn.Linear(<span class="hljs-number">64</span>, <span class="hljs-number">10</span>)      <span class="hljs-comment"># 输入特征数量为 64，输出特征数量为 10 的线性层</span><br>)<br><br><span class="hljs-comment"># 创建一个示例输入张量</span><br>input_tensor = torch.randn(<span class="hljs-number">1</span>, <span class="hljs-number">784</span>)  <span class="hljs-comment"># batch_size=1, input_features=784</span><br><br><span class="hljs-comment"># 将输入张量传递给模型进行前向传播</span><br>output_tensor = model(input_tensor)<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Output tensor shape:&quot;</span>, output_tensor.shape)<br></code></pre></td></tr></table></figure>
-<p>在这个示例中，我们使用 <code>torch.nn.Sequential</code>
-构建了一个简单的神经网络模型，它包含了三个线性层和两个 ReLU
-激活函数。每个线性层的输入特征数量和输出特征数量依次是 (784, 128)、(128,
-64) 和 (64, 10)。然后，我们创建了一个输入张量
-<code>input_tensor</code>，形状为
-<code>(1, 784)</code>，表示一个批量大小为 1，输入特征数量为 784
-的张量。最后，将输入张量传递给模型进行前向传播，得到输出张量
-<code>output_tensor</code>，其形状为
-<code>(1, 10)</code>，表示一个批量大小为 1，输出特征数量为 10
-的张量。</p>
+<h1 id="损失函数">6. 损失函数</h1>
+<h2 id="l1loss">6.1 L1Loss</h2>
+<p><code>torch.nn.L1Loss</code>是PyTorch中的一个损失函数，也称为绝对误差损失函数。它计算预测值和目标值之间的平均绝对误差。</p>
+<p>下面是<code>torch.nn.L1Loss</code>的基本用法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><br><span class="hljs-comment"># 示例</span><br>criterion = nn.L1Loss(size_average=<span class="hljs-literal">None</span>, reduce=<span class="hljs-literal">None</span>, reduction=<span class="hljs-string">&#x27;mean&#x27;</span>)<br><br><span class="hljs-comment"># 参数：</span><br><span class="hljs-comment"># size_average: 已弃用参数，将在将来版本中删除。请使用reduction参数代替。</span><br><span class="hljs-comment"># reduce: 已弃用参数，将在将来版本中删除。请使用reduction参数代替。</span><br><span class="hljs-comment"># reduction: 指定如何计算损失，默认为&#x27;mean&#x27;。可选值有：</span><br><span class="hljs-comment">#   - &#x27;none&#x27;: 不进行任何降维，保持输出形状与输入形状相同。</span><br><span class="hljs-comment">#   - &#x27;mean&#x27;: 对所有损失值求平均。</span><br><span class="hljs-comment">#   - &#x27;sum&#x27;: 对所有损失值求和。</span><br><br><span class="hljs-comment"># 示例：</span><br><span class="hljs-comment"># 创建一个L1Loss实例</span><br>criterion = nn.L1Loss()<br></code></pre></td></tr></table></figure>
+<p>使用<code>L1Loss</code>的示例代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><br><span class="hljs-comment"># 创建损失函数实例</span><br>criterion = nn.L1Loss()<br><br><span class="hljs-comment"># 创建预测值和目标值张量</span><br>predictions = torch.tensor([<span class="hljs-number">0.9</span>, <span class="hljs-number">1.2</span>, <span class="hljs-number">3.3</span>], requires_grad=<span class="hljs-literal">True</span>)<br>targets = torch.tensor([<span class="hljs-number">1.0</span>, <span class="hljs-number">1.0</span>, <span class="hljs-number">3.0</span>])<br><br><span class="hljs-comment"># 计算损失</span><br>loss = criterion(predictions, targets)<br><br><span class="hljs-comment"># 打印损失值</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;L1 Loss:&quot;</span>, loss.item())<br></code></pre></td></tr></table></figure>
+<p>在这个例子中，我们首先创建了一个<code>L1Loss</code>的实例。然后，我们创建了预测值张量<code>predictions</code>和目标值张量<code>targets</code>。接着，我们使用<code>criterion</code>计算了预测值和目标值之间的绝对误差损失，并通过<code>loss.item()</code>打印出损失值。</p>
+<h2 id="mseloss">6.2 MSELoss</h2>
+<p><code>torch.nn.MSELoss</code>是PyTorch中的均方误差损失函数，用于衡量预测值与目标值之间的平方误差的平均值。</p>
+<p>下面是<code>torch.nn.MSELoss</code>的基本用法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><br><span class="hljs-comment"># 示例</span><br>criterion = nn.MSELoss(size_average=<span class="hljs-literal">None</span>, reduce=<span class="hljs-literal">None</span>, reduction=<span class="hljs-string">&#x27;mean&#x27;</span>)<br><br><span class="hljs-comment"># 参数：</span><br><span class="hljs-comment"># size_average: 已弃用参数，将在将来版本中删除。请使用reduction参数代替。</span><br><span class="hljs-comment"># reduce: 已弃用参数，将在将来版本中删除。请使用reduction参数代替。</span><br><span class="hljs-comment"># reduction: 指定如何计算损失，默认为&#x27;mean&#x27;。可选值有：</span><br><span class="hljs-comment">#   - &#x27;none&#x27;: 不进行任何降维，保持输出形状与输入形状相同。</span><br><span class="hljs-comment">#   - &#x27;mean&#x27;: 对所有损失值求平均。</span><br><span class="hljs-comment">#   - &#x27;sum&#x27;: 对所有损失值求和。</span><br><br><span class="hljs-comment"># 示例：</span><br><span class="hljs-comment"># 创建一个MSELoss实例</span><br>criterion = nn.MSELoss()<br></code></pre></td></tr></table></figure>
+<p>使用<code>MSELoss</code>的示例代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><br><span class="hljs-comment"># 创建损失函数实例</span><br>criterion = nn.MSELoss()<br><br><span class="hljs-comment"># 创建预测值和目标值张量</span><br>predictions = torch.tensor([<span class="hljs-number">0.9</span>, <span class="hljs-number">1.2</span>, <span class="hljs-number">3.3</span>], requires_grad=<span class="hljs-literal">True</span>)<br>targets = torch.tensor([<span class="hljs-number">1.0</span>, <span class="hljs-number">1.0</span>, <span class="hljs-number">3.0</span>])<br><br><span class="hljs-comment"># 计算损失</span><br>loss = criterion(predictions, targets)<br><br><span class="hljs-comment"># 打印损失值</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;MSE Loss:&quot;</span>, loss.item())<br></code></pre></td></tr></table></figure>
+<p>在这个例子中，我们首先创建了一个<code>MSELoss</code>的实例。然后，我们创建了预测值张量<code>predictions</code>和目标值张量<code>targets</code>。接着，我们使用<code>criterion</code>计算了预测值和目标值之间的均方误差损失，并通过<code>loss.item()</code>打印出损失值。</p>
+<h2 id="crossentropyloss">6.3 CrossEntropyLoss</h2>
+<p><code>torch.nn.CrossEntropyLoss</code>是PyTorch中用于多类别分类任务的损失函数。它将网络输出的原始分数（logits）与真实类别标签进行比较，并计算交叉熵损失。</p>
+<p>下面是<code>torch.nn.CrossEntropyLoss</code>的基本用法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><br><span class="hljs-comment"># 示例</span><br>criterion = nn.CrossEntropyLoss(weight=<span class="hljs-literal">None</span>, size_average=<span class="hljs-literal">None</span>, ignore_index=-<span class="hljs-number">100</span>, reduce=<span class="hljs-literal">None</span>, reduction=<span class="hljs-string">&#x27;mean&#x27;</span>)<br><br><span class="hljs-comment"># 参数：</span><br><span class="hljs-comment"># weight: 各个类别的损失权重，默认为None。</span><br><span class="hljs-comment"># size_average: 已弃用参数，将在将来版本中删除。请使用reduction参数代替。</span><br><span class="hljs-comment"># ignore_index: 忽略的类别标签，默认为-100。</span><br><span class="hljs-comment"># reduce: 已弃用参数，将在将来版本中删除。请使用reduction参数代替。</span><br><span class="hljs-comment"># reduction: 指定如何计算损失，默认为&#x27;mean&#x27;。可选值有：</span><br><span class="hljs-comment">#   - &#x27;none&#x27;: 不进行任何降维，保持输出形状与输入形状相同。</span><br><span class="hljs-comment">#   - &#x27;mean&#x27;: 对所有损失值求平均。</span><br><span class="hljs-comment">#   - &#x27;sum&#x27;: 对所有损失值求和。</span><br><br><span class="hljs-comment"># 示例：</span><br><span class="hljs-comment"># 创建一个CrossEntropyLoss实例</span><br>criterion = nn.CrossEntropyLoss()<br></code></pre></td></tr></table></figure>
+<p>使用<code>CrossEntropyLoss</code>的示例代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><br><span class="hljs-comment"># 创建损失函数实例</span><br>criterion = nn.CrossEntropyLoss()<br><br><span class="hljs-comment"># 创建预测值张量和目标值张量</span><br>predictions = torch.tensor([[<span class="hljs-number">0.2</span>, <span class="hljs-number">0.8</span>], [<span class="hljs-number">0.9</span>, <span class="hljs-number">0.1</span>], [<span class="hljs-number">0.4</span>, <span class="hljs-number">0.6</span>]], requires_grad=<span class="hljs-literal">True</span>)  <span class="hljs-comment"># 预测值为logits</span><br>targets = torch.tensor([<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>])  <span class="hljs-comment"># 目标值为类别标签，从0开始</span><br><br><span class="hljs-comment"># 计算损失</span><br>loss = criterion(predictions, targets)<br><br><span class="hljs-comment"># 打印损失值</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;CrossEntropy Loss:&quot;</span>, loss.item())<br></code></pre></td></tr></table></figure>
+<p>在这个例子中，我们首先创建了一个<code>CrossEntropyLoss</code>的实例。然后，我们创建了预测值张量<code>predictions</code>和目标值张量<code>targets</code>。预测值是一个大小为(3,
+2)的张量，每一行代表一个样本的logits，目标值是一个大小为(3,)的张量，每个元素是一个类别标签。接着，我们使用<code>criterion</code>计算了预测值和目标值之间的交叉熵损失，并通过<code>loss.item()</code>打印出损失值。</p>
+<h2 id="作用">6.4 作用</h2>
+<p>神经网络的损失函数（也称为代价函数或误差函数）在神经网络的训练过程中起着至关重要的作用。损失函数衡量的是模型预测值与实际值之间的差异，其目的是通过优化过程（如梯度下降法）最小化这一差异，从而提高模型的预测准确性。损失函数的选择对于网络的性能有重要影响。下面是损失函数在神经网络中的几个主要作用：</p>
+<ol type="1">
+<li><p><strong>性能指标</strong>：损失函数提供了一个量化模型性能的指标，通过计算预测值与真实值之间的差距，我们可以了解模型的好坏。较低的损失值通常意味着模型有较好的性能。</p></li>
+<li><p><strong>训练指导</strong>：损失函数是神经网络训练过程中优化算法的指导。优化算法（例如梯度下降）使用损失函数的梯度来更新网络权重，目的是减少损失函数的值，即减少预测误差。</p></li>
+<li><p><strong>模型选择和比较</strong>：在模型选择或比较不同的神经网络架构时，损失函数提供了一个共同的基准。不同模型或架构的性能可以通过它们在相同损失函数下的表现来比较。</p></li>
+<li><p><strong>正则化和避免过拟合</strong>：某些损失函数包含正则化项，如L1或L2正则化，这有助于控制模型的复杂度，避免过拟合。通过在损失函数中加入这些项，可以促使模型在学习数据的同时保持权重的小或稀疏，提高模型的泛化能力。</p></li>
+<li><p><strong>特定任务适应性</strong>：不同类型的任务可能需要不同的损失函数。例如，回归问题常用均方误差（MSE）作为损失函数，而分类问题可能使用交叉熵损失函数。选择适合特定问题的损失函数是优化模型性能的关键。</p></li>
+</ol>
+<p>总之，损失函数在神经网络的设计和训练中扮演着核心角色，它不仅量化了模型的预测误差，还指导了模型的训练过程，帮助模型学习到数据中的模式，从而提高预测的准确性。</p>
+<h1 id="优化器">7. 优化器</h1>
+<p><code>torch.optim</code> 是 PyTorch
+中用于构建优化器的模块，它提供了多种优化算法来更新网络的权重和参数，从而最小化损失函数。这些优化算法包括但不限于
+SGD（随机梯度下降）、Adam、RMSprop 等。使用 <code>torch.optim</code>
+可以简化优化过程，使得模型训练更加高效和方便。</p>
+<p>以下是使用 <code>torch.optim</code>
+的一个基本示例，我们将通过一个简单的线性回归模型来演示如何定义模型、损失函数以及如何使用优化器来更新模型参数：</p>
+<ol type="1">
+<li><p><strong>导入必要的库</strong>： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><span class="hljs-keyword">import</span> torch.optim <span class="hljs-keyword">as</span> optim<br></code></pre></td></tr></table></figure></p></li>
+<li><p><strong>定义模型</strong>： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">LinearRegressionModel</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">super</span>(LinearRegressionModel, self).__init__()<br>        self.linear = nn.Linear(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>)  <span class="hljs-comment"># 输入特征维度为1，输出特征维度也为1</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):<br>        <span class="hljs-keyword">return</span> self.linear(x)<br></code></pre></td></tr></table></figure></p></li>
+<li><p><strong>初始化模型、损失函数和优化器</strong>：
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">model = LinearRegressionModel()<br>criterion = nn.MSELoss()  <span class="hljs-comment"># 使用均方误差作为损失函数</span><br>optimizer = optim.SGD(model.parameters(), lr=<span class="hljs-number">0.01</span>)  <span class="hljs-comment"># 使用SGD作为优化器，学习率设置为0.01</span><br></code></pre></td></tr></table></figure></p></li>
+<li><p><strong>训练模型</strong>： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 假设我们有一些训练数据 x_train 和 y_train</span><br>x_train = torch.tensor([[<span class="hljs-number">1.0</span>], [<span class="hljs-number">2.0</span>], [<span class="hljs-number">3.0</span>]])<br>y_train = torch.tensor([[<span class="hljs-number">2.0</span>], [<span class="hljs-number">4.0</span>], [<span class="hljs-number">6.0</span>]])<br><br><span class="hljs-comment"># 训练过程</span><br><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">100</span>):  <span class="hljs-comment"># 训练100轮</span><br>    <span class="hljs-comment"># 前向传播：计算预测值</span><br>    outputs = model(x_train)<br>    loss = criterion(outputs, y_train)<br>    <br>    <span class="hljs-comment"># 后向传播和优化</span><br>    optimizer.zero_grad()  <span class="hljs-comment"># 清零梯度</span><br>    loss.backward()  <span class="hljs-comment"># 反向传播计算梯度</span><br>    optimizer.step()  <span class="hljs-comment"># 更新模型参数</span><br><br>    <span class="hljs-comment"># 打印每轮的损失</span><br>    <span class="hljs-keyword">if</span> (epoch+<span class="hljs-number">1</span>) % <span class="hljs-number">10</span> == <span class="hljs-number">0</span>:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;Epoch [<span class="hljs-subst">&#123;epoch+<span class="hljs-number">1</span>&#125;</span>/100], Loss: <span class="hljs-subst">&#123;loss.item()&#125;</span>&#x27;</span>)<br></code></pre></td></tr></table></figure></p></li>
+</ol>
+<p>在这个示例中，我们首先定义了一个简单的线性回归模型，然后初始化模型、损失函数和优化器。训练过程包括前向传播、计算损失、后向传播以及通过优化器更新模型参数。我们使用
+<code>optimizer.zero_grad()</code>
+在每次迭代前清零梯度，以确保每次更新都是基于最新一轮的梯度计算；<code>loss.backward()</code>
+用于计算损失函数的梯度；<code>optimizer.step()</code>
+则根据这些梯度来更新模型的参数。</p>
 
                 
               </div>
@@ -393,6 +446,34 @@ class="math inline">\((\text{out\_features})\)</span>。</p>
             <hr/>
             <div>
               <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Python/" class="category-chain-item">Python</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Python/Pytorch/" class="category-chain-item">Pytorch</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
   
   
 </div>
@@ -403,8 +484,8 @@ class="math inline">\((\text{out\_features})\)</span>。</p>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div></div>
-      <div>http://example.com/2024/03/03/Python/PyTorch/神经网络/</div>
+      <div>神经网络</div>
+      <div>http://example.com/2024/03/04/Python/PyTorch/神经网络/</div>
     </div>
     <div class="license-meta">
       
@@ -416,7 +497,7 @@ class="math inline">\((\text{out\_features})\)</span>。</p>
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年3月3日</div>
+          <div>2024年3月4日</div>
         </div>
       
       
@@ -447,6 +528,12 @@ class="math inline">\((\text{out\_features})\)</span>。</p>
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2024/03/05/Python/PyTorch/%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B/" title="网络模型">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">网络模型</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
