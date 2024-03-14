@@ -16,21 +16,21 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1. 前期准备 1.1 安装Node.js 官网链接：https:&#x2F;&#x2F;nodejs.org&#x2F;en 安装教程：Node.js下载安装及环境配置教程【超详细】_nodejs下载-CSDN博客 npm运行报错解决方案：npm 运行时报错“因为在此系统上禁止运行脚本”解决办法_npm : 无法加载文件 c:files.ps1,因为在此系__cris的博客-CSDN博客 1.2 注册githu">
+    <meta name="description" content="使用PyTorch训练好的模型进行新数据的预测包括以下几个步骤： 1. 加载模型 首先，你需要加载训练好的模型。如果模型是使用PyTorch的torch.save()方法保存的，可以使用torch.load()来加载。 1234567import torch# 加载模型model &#x3D; torch.load(&amp;#x27;model_path.pth&amp;#x27;)# 确保在评估模式下运行模型，这">
 <meta property="og:type" content="article">
-<meta property="og:title" content="快速搭建hexo博客">
-<meta property="og:url" content="http://example.com/2023/09/23/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2/index.html">
+<meta property="og:title" content="模型测试">
+<meta property="og:url" content="http://example.com/2024/03/05/Python/PyTorch/%E6%A8%A1%E5%9E%8B%E6%B5%8B%E8%AF%95/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="1. 前期准备 1.1 安装Node.js 官网链接：https:&#x2F;&#x2F;nodejs.org&#x2F;en 安装教程：Node.js下载安装及环境配置教程【超详细】_nodejs下载-CSDN博客 npm运行报错解决方案：npm 运行时报错“因为在此系统上禁止运行脚本”解决办法_npm : 无法加载文件 c:files.ps1,因为在此系__cris的博客-CSDN博客 1.2 注册githu">
+<meta property="og:description" content="使用PyTorch训练好的模型进行新数据的预测包括以下几个步骤： 1. 加载模型 首先，你需要加载训练好的模型。如果模型是使用PyTorch的torch.save()方法保存的，可以使用torch.load()来加载。 1234567import torch# 加载模型model &#x3D; torch.load(&amp;#x27;model_path.pth&amp;#x27;)# 确保在评估模式下运行模型，这">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-09-23T02:04:00.000Z">
-<meta property="article:modified_time" content="2024-03-06T07:24:26.224Z">
+<meta property="article:published_time" content="2024-03-05T05:48:21.000Z">
+<meta property="article:modified_time" content="2024-03-05T06:20:43.202Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>快速搭建hexo博客 - kaikaikai&#39;s blog</title>
+  <title>模型测试 - kaikaikai&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -184,7 +184,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="快速搭建hexo博客"></span>
+            <span id="subtitle" data-typed-text="模型测试"></span>
           
         </div>
 
@@ -195,8 +195,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-09-23 10:04" pubdate>
-          2023年9月23日 上午
+        <time datetime="2024-03-05 13:48" pubdate>
+          2024年3月5日 下午
         </time>
       </span>
     
@@ -255,76 +255,31 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">快速搭建hexo博客</h1>
+            <h1 id="seo-header">模型测试</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="前期准备">1. 前期准备</h1>
-<h2 id="安装node.js">1.1 安装Node.js</h2>
-<p>官网链接：https://nodejs.org/en</p>
-<p>安装教程：<a
-target="_blank" rel="noopener" href="https://blog.csdn.net/WHF__/article/details/129362462?spm=1001.2014.3001.5506">Node.js下载安装及环境配置教程【超详细】_nodejs下载-CSDN博客</a></p>
-<p>npm运行报错解决方案：<a
-target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_37861326/article/details/104295379?spm=1001.2014.3001.5506">npm
-运行时报错“因为在此系统上禁止运行脚本”解决办法_npm : 无法加载文件
-c:files.ps1,因为在此系__cris的博客-CSDN博客</a></p>
-<h2 id="注册github账户">1.2 注册github账户</h2>
-<h2 id="安装hexo">1.3 安装hexo</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">cnpm install -g hexo-cli<br></code></pre></td></tr></table></figure>
-<h1 id="快速搭建">2. 快速搭建</h1>
-<h2 id="创建根目录">2.1 创建根目录</h2>
-<p>本地创建一个文件夹，作为博客部署的空间，后续操作均基于该根目录</p>
-<h2 id="初始化">2.2 初始化</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">hexo init<br></code></pre></td></tr></table></figure>
-<h2 id="启动本地服务">2.3 启动本地服务</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">hexo s<br></code></pre></td></tr></table></figure>
-<h2 id="新建文章">2.4 新建文章</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">hexo n <span class="hljs-string">&quot;My first blog&quot;</span><br></code></pre></td></tr></table></figure>
-<h2 id="清理缓存">2.5 清理缓存</h2>
-<p>注：每次无论 <code>hexo g</code> 或 <code>hexo s</code>，都最好先使用
-<code>hexo clean</code> 清除本地缓存</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">hexo clean<br></code></pre></td></tr></table></figure>
-<h2 id="生成静态文件">2.6 生成静态文件</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">hexo g<br></code></pre></td></tr></table></figure>
-<h1 id="部署到github">3. 部署到github</h1>
-<h2 id="新建仓库">3.1 新建仓库</h2>
-<p>注：命名格式为固定要求</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">账户名<span class="hljs-selector-class">.github</span><span class="hljs-selector-class">.io</span>(例：kaikaikai7<span class="hljs-selector-class">.github</span>.io)<br></code></pre></td></tr></table></figure>
-<h2 id="安装插件">3.2 安装插件</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">cnpm install --save hexo-deployer-git<br></code></pre></td></tr></table></figure>
-<h2 id="修改配置文件">3.3 修改配置文件</h2>
-<ol type="1">
-<li><p>进入根目录下_config.yml文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">vim _config.yml<br></code></pre></td></tr></table></figure></li>
-<li><p>修改Deployment部分内容</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment"># Deployment</span><br><span class="hljs-comment">## Docs: https://hexo.io/docs/one-command-deployment</span><br><span class="hljs-attr">deploy:</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">git</span><br>  <span class="hljs-attr">repo:</span> <span class="hljs-string">https://github.com/kaikaikai7/kaikaikai7.github.io.git</span><br>  <span class="hljs-attr">branch:</span> <span class="hljs-string">master</span><br></code></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="部署">3.4 部署</h2>
-<p>注：页面结果以本地 <code>hexo s</code>
-为准，部署后的异常大部分是线上缓存原因，在确认没有报错的情况下，等待若干时间后即可正常</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">hexo d<br></code></pre></td></tr></table></figure>
-<h2 id="访问">3.5 访问</h2>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">https:<span class="hljs-regexp">//</span>账户名.github.io/<br>（例：https:<span class="hljs-regexp">//</span>kaikaikai7.github.io/）<br></code></pre></td></tr></table></figure>
-<h1 id="更换主题">4. 更换主题</h1>
-<h2 id="主题官网">4.1 主题官网</h2>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">https:<span class="hljs-regexp">//</span>hexo.io<span class="hljs-regexp">/themes/</span><br></code></pre></td></tr></table></figure>
-<h2 id="下载主题">4.2 下载主题</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> 主题地址.git themes/目录<br>（例：git <span class="hljs-built_in">clone</span> https://github.com/litten/hexo-theme-yilia.git themes/yilia）<br></code></pre></td></tr></table></figure>
-<h2 id="修改配置文件-1">4.3 修改配置文件</h2>
-<ol type="1">
-<li><p>进入根目录下_config.yml文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">vim _config.yml<br></code></pre></td></tr></table></figure></li>
-<li><p>修改Extensions部分内容</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment"># Extensions</span><br><span class="hljs-comment">## Plugins: https://hexo.io/plugins/</span><br><span class="hljs-comment">## Themes: https://hexo.io/themes/</span><br><span class="hljs-attr">theme:</span> <span class="hljs-string">fluid</span><br></code></pre></td></tr></table></figure></li>
-</ol>
-<p>参考教程：</p>
-<ol type="1">
-<li>https://www.bilibili.com/video/BV1Yb411a7ty/</li>
-<li><a
-target="_blank" rel="noopener" href="https://cnhuazhu.top/butterfly/2021/01/21/Hexo快速搭建一个博客/">Hexo快速搭建一个博客
-| 花猪のBlog (cnhuazhu.top)</a></li>
-</ol>
+                <p>使用PyTorch训练好的模型进行新数据的预测包括以下几个步骤：</p>
+<h1 id="加载模型">1. 加载模型</h1>
+<p>首先，你需要加载训练好的模型。如果模型是使用PyTorch的<code>torch.save()</code>方法保存的，可以使用<code>torch.load()</code>来加载。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><br><span class="hljs-comment"># 加载模型</span><br>model = torch.load(<span class="hljs-string">&#x27;model_path.pth&#x27;</span>)<br><br><span class="hljs-comment"># 确保在评估模式下运行模型，这对于某些模型组件（如Dropout和BatchNorm）来说很重要</span><br>model.<span class="hljs-built_in">eval</span>()<br></code></pre></td></tr></table></figure>
+<p>如果模型是通过保存模型的状态字典（state_dict）来保存的，那么你需要先实例化模型，然后使用<code>load_state_dict()</code>方法加载状态字典。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">model = ModelClass(*args, **kwargs)  <span class="hljs-comment"># 使用与训练时相同的参数实例化模型</span><br>model.load_state_dict(torch.load(<span class="hljs-string">&#x27;model_state_dict.pth&#x27;</span>))<br>model.<span class="hljs-built_in">eval</span>()<br></code></pre></td></tr></table></figure>
+<h1 id="准备数据">2. 准备数据</h1>
+<p>接下来，你需要准备要预测的数据。这通常意味着你需要将数据处理成模型训练时相同的格式。这可能包括调整大小、归一化等。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> torchvision <span class="hljs-keyword">import</span> transforms<br><br><span class="hljs-comment"># 假设我们正在处理图像数据</span><br>transform = transforms.Compose([<br>    transforms.Resize((<span class="hljs-number">224</span>, <span class="hljs-number">224</span>)),<br>    transforms.ToTensor(),<br>    transforms.Normalize(mean=[<span class="hljs-number">0.485</span>, <span class="hljs-number">0.456</span>, <span class="hljs-number">0.406</span>], std=[<span class="hljs-number">0.229</span>, <span class="hljs-number">0.224</span>, <span class="hljs-number">0.225</span>]),<br>])<br><br><span class="hljs-comment"># 加载你的数据</span><br>data = Image.<span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;path_to_your_data.jpg&#x27;</span>)<br>data = transform(data)<br>data = data.unsqueeze(<span class="hljs-number">0</span>)  <span class="hljs-comment"># 增加批次维度</span><br></code></pre></td></tr></table></figure>
+<h1 id="进行预测">3. 进行预测</h1>
+<p>最后，你可以使用模型对准备好的数据进行预测。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">with</span> torch.no_grad():  <span class="hljs-comment"># 在这个block中，不计算梯度</span><br>    outputs = model(data)<br>    _, predicted = torch.<span class="hljs-built_in">max</span>(outputs, <span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure>
+<p>在上述代码中，<code>outputs</code>是模型的原始输出。如果是分类问题，<code>torch.max</code>可以帮助我们找到概率最高的类别。</p>
+<h1 id="注意事项">注意事项</h1>
+<ul>
+<li>确保在进行预测前将模型设置为评估模式（<code>model.eval()</code>），这对于某些类型的层（如Dropout和BatchNorm）是必要的，以确保它们在推理时表现正常。</li>
+<li>使用<code>torch.no_grad()</code>环境来进行预测，这样可以减少内存消耗并加速计算，因为它告诉PyTorch不需要进行梯度计算。</li>
+<li>根据你的具体任务（如分类、回归等），最后的处理步骤可能会有所不同。</li>
+</ul>
+<p>这就是使用PyTorch进行模型预测的基本流程。如果你有特定的模型或数据，还可能需要进行一些调整。</p>
 
                 
               </div>
@@ -343,8 +298,15 @@ target="_blank" rel="noopener" href="https://cnhuazhu.top/butterfly/2021/01/21/H
     
       <span class="category-chain">
         
-  <a href="/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" class="category-chain-item">博客搭建</a>
+  <a href="/categories/Python/" class="category-chain-item">Python</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/Python/Pytorch/" class="category-chain-item">Pytorch</a>
+  
+  
+
   
 
       </span>
@@ -363,8 +325,8 @@ target="_blank" rel="noopener" href="https://cnhuazhu.top/butterfly/2021/01/21/H
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>快速搭建hexo博客</div>
-      <div>http://example.com/2023/09/23/博客搭建/快速搭建hexo博客/</div>
+      <div>模型测试</div>
+      <div>http://example.com/2024/03/05/Python/PyTorch/模型测试/</div>
     </div>
     <div class="license-meta">
       
@@ -376,7 +338,7 @@ target="_blank" rel="noopener" href="https://cnhuazhu.top/butterfly/2021/01/21/H
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年9月23日</div>
+          <div>2024年3月5日</div>
         </div>
       
       
@@ -408,15 +370,21 @@ target="_blank" rel="noopener" href="https://cnhuazhu.top/butterfly/2021/01/21/H
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/09/23/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/Fluid%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97/" title="Fluid主题配置指南">
+                      <a href="/2024/03/11/LeetCode/%E6%95%B0%E7%BB%84%E7%AF%87/" title="数组篇">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Fluid主题配置指南</span>
+                        <span class="hidden-mobile">数组篇</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2024/03/05/Python/PyTorch/%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/" title="模型训练">
+                        <span class="hidden-mobile">模型训练</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>
