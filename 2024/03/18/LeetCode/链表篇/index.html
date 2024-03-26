@@ -24,7 +24,7 @@
 <meta property="og:description" content="1. 移除与插入链表元素 设计链表  单向链表：实现单向链表，即每个节点仅存储本身的值和后继节点。除此之外，还需要一个哨兵（sentinel）节点作为头节点，和一个 size 参数保存有效节点数。ListNode在&#x2F;leetcode&#x2F;precompiled&#x2F;ListNode.h中定义。  123456789101112131415161718192021222324252627282">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-18T00:00:46.000Z">
-<meta property="article:modified_time" content="2024-03-24T02:41:58.682Z">
+<meta property="article:modified_time" content="2024-03-26T04:45:17.953Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -94,7 +94,7 @@
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
-      <strong>kaikaikai&#39;s blog</strong>
+      <strong>blog</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -399,7 +399,7 @@ next。</p>
 </blockquote>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">struct</span> ListNode* <span class="hljs-title function_">mergeTwoLists</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> ListNode* list1, <span class="hljs-keyword">struct</span> ListNode* list2)</span> &#123;<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ListNode</span>* <span class="hljs-title">dummy</span> =</span> <span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">struct</span> ListNode));<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ListNode</span>* <span class="hljs-title">tail</span> =</span> dummy;<br>    <span class="hljs-keyword">while</span>(list1 &amp;&amp; list2)&#123;<br>        <span class="hljs-keyword">if</span>(list1-&gt;val &lt; list2-&gt;val)&#123;<br>            tail-&gt;next=list1;<br>            list1=list1-&gt;next;<br>        &#125;<span class="hljs-keyword">else</span>&#123;<br>            tail-&gt;next=list2;<br>            list2=list2-&gt;next;<br>        &#125;<br>        tail=tail-&gt;next;<br>    &#125;<br>    tail-&gt;next=list1?list1:list2;<br>    <span class="hljs-keyword">return</span> dummy-&gt;next;<br>&#125;<br><br><span class="hljs-keyword">struct</span> ListNode* <span class="hljs-title function_">mergeKLists</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> ListNode** lists, <span class="hljs-type">int</span> listsSize)</span> &#123;<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ListNode</span>* <span class="hljs-title">head</span>=</span><span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">struct</span> ListNode));<br>    head=<span class="hljs-literal">NULL</span>;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;listsSize;i++)&#123;<br>        head=mergeTwoLists(head,lists[i]);<br>    &#125;<br>    <span class="hljs-keyword">return</span> head;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h1 id="链表中的双指针技巧">6.链表中的双指针技巧</h1>
-<h2 id="分割链表">分割链表</h2>
+<h2 id="分隔链表">分隔链表</h2>
 <blockquote>
 <p>它创建了两个新的链表，一个用于存储小于 x
 的节点，另一个用于存储大于或等于 x
@@ -455,7 +455,7 @@ next。</p>
 必然位于中间。</p>
 </blockquote>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-keyword">struct</span> ListNode* <span class="hljs-title function_">middleNode</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> ListNode* head)</span> &#123;<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ListNode</span>* <span class="hljs-title">slow</span>=</span>head;<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ListNode</span>* <span class="hljs-title">fast</span>=</span>head;<br>    <span class="hljs-keyword">while</span>(fast!=<span class="hljs-literal">NULL</span> &amp;&amp; fast-&gt;next!=<span class="hljs-literal">NULL</span>)&#123;<br>        slow=slow-&gt;next;<br>        fast=fast-&gt;next-&gt;next;<br>    &#125;<br>    <span class="hljs-keyword">return</span> slow;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h2 id="重拍链表">重拍链表</h2>
+<h2 id="重排链表">重排链表</h2>
 <blockquote>
 <p>1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5 -&gt; 6
 第一步，将链表平均分成两半(此步骤代码与前面略有调整) 1 -&gt; 2 -&gt; 3 4

@@ -24,7 +24,7 @@
 <meta property="og:description" content="TCP&#x2F;IP 网络模型 对于同一台设备上的进程间通信，有很多种方式，比如有管道、消息队列、共享内存、信号等方式，而对于不同设备上的进程间通信，就需要网络通信，而设备是多样性的，所以要兼容多种多样的设备，就协商出了一套通用的网络协议。这个网络协议是分层的，每一层都有各自的作用和职责。 应用层 我们能直接接触到的就是应用层（Application Layer），我们电脑或手机使用的应用软件都是">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-19T03:18:18.000Z">
-<meta property="article:modified_time" content="2024-03-19T06:34:54.723Z">
+<meta property="article:modified_time" content="2024-03-24T05:42:40.896Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -94,7 +94,7 @@
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
-      <strong>kaikaikai&#39;s blog</strong>
+      <strong>blog</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -218,7 +218,7 @@
         
         
         
-          131 分钟
+          132 分钟
         
       </span>
     
@@ -429,7 +429,9 @@ alt="简单的网络模型" />
 </figure>
 <h2 id="http-孤单小弟">HTTP —— 孤单小弟</h2>
 <blockquote>
-<p>解析 URL</p>
+<ol type="1">
+<li>解析 URL</li>
+</ol>
 </blockquote>
 <p>首先浏览器做的第一步工作就是要对 <code>URL</code>
 进行解析，从而生成发送给 <code>Web</code> 服务器的请求信息。</p>
@@ -444,7 +446,7 @@ alt="URL 解析" />
 <code>/index.html</code> 或者 <code>/default.html</code>
 这些文件，这样就不会发生混乱。</p>
 <blockquote>
-<p>生成 HTTP 请求信息</p>
+<p>2.生成 HTTP 请求信息</p>
 </blockquote>
 <p>对 <code>URL</code> 进行解析之后，浏览器确定了 Web
 服务器和文件名，接下来就是根据这些信息来生成 HTTP 请求消息了。</p>
@@ -499,10 +501,15 @@ alt="image-20240319133130567" />
 <p>DNS
 域名解析的过程和我们日常生活中找人问路的过程类似，<strong>只指路不带路</strong>。</p>
 <blockquote>
-<p>是不是每次解析域名都要经过那么多的步骤呢？</p>
-</blockquote>
-<p>当然不是，还有缓存。浏览器会先看自身有没有对这个域名的缓存，如果有，就直接返回，如果没有，就去问操作系统，操作系统也会去看自己的缓存，如果有，就直接返回，如果没有，再去
+<p>是不是每次解析域名都要经过那么多的步骤呢？当然不是，还有缓存。浏览器会先看自身有没有对这个域名的缓存，如果有，就直接返回，如果没有，就去问操作系统，操作系统也会去看自己的缓存，如果有，就直接返回，如果没有，再去
 hosts 文件看，也没有，才会去问「本地 DNS 服务器」。</p>
+</blockquote>
+<ul>
+<li>浏览器缓存</li>
+<li>操作系统缓存</li>
+<li>hosts文件</li>
+<li>本地DNS服务器</li>
+</ul>
 <h2 id="协议栈指南好帮手">协议栈——指南好帮手</h2>
 <p>通过 DNS 获取到 IP 后，就可以把 HTTP
 的传输工作交给操作系统中的<strong>协议栈</strong>。协议栈的内部分为几个部分，分别承担不同的工作。上下关系是有一定的规则的，上面的部分会向下面的部分委托工作，下面的部分收到委托的工作并执行。</p>
@@ -540,14 +547,14 @@ alt="image-20240319133905641" />
 </figure>
 <ul>
 <li><strong>源端口号</strong>和<strong>目标端口</strong>号是不可少的，如果没有这两个端口号，数据就不知道应该发给哪个应用。</li>
-<li><strong>序</strong>号，这个是为了解决包乱序的问题。</li>
+<li><strong>序号</strong>，这个是为了解决包乱序的问题。</li>
 <li><strong>确认号</strong>，目的是确认发出去对方是否有收到。如果没有收到就应该重新发送，直到送达，这个是为了解决丢包的问题。</li>
 <li><strong>状态位</strong>：例如 <code>SYN</code>
 是发起一个连接，<code>ACK</code> 是回复，<code>RST</code>
 是重新连接，<code>FIN</code> 是结束连接等。TCP
 是面向连接的，因而双方要维护连接的状态，这些带状态位的包的发送，会引起双方的状态变更。</li>
 <li><strong>窗口大小</strong>。TCP
-要做<strong>流量控制</strong>，通信双方各声明一个窗口（缓存大小），标识自己当前能够的处理能力，别发送的太快，撑死我，也别发的太慢，饿死我。除了做流量控制以外，TCP还会做<strong>拥塞控制</strong>，对于真正的通路堵车不堵车，它无能为力，唯一能做的就是控制自己，也即控制发送的速度。不能改变世界，就改变自己嘛。</li>
+要做<strong>流量控制</strong>，通信双方各声明一个窗口（缓存大小），标识自己当前能够的处理能力，别发送的太快，撑死我，也别发的太慢，饿死我。（注：除了做流量控制以外，TCP还会做<strong>拥塞控制</strong>，对于真正的通路堵车不堵车，它无能为力，唯一能做的就是控制自己，也即控制发送的速度。不能改变世界，就改变自己嘛。）</li>
 </ul>
 <blockquote>
 <p>TCP 传输数据之前，要先三次握手建立连接</p>
@@ -1147,10 +1154,12 @@ Linux 网络协议栈主要构成部分。</p>
 接口发送数据包，数据包会被网络协议栈从上到下进行逐层处理后，才会被送到网卡队列中，随后由网卡将网络包发送出去。而在接收网络包时，同样也要先经过网络协议栈从下到上的逐层处理，最后才会被送到应用程序。</p>
 <p><strong>参考链接：</strong></p>
 <ol type="1">
-<li>https://xiaolincoding.com/network</li>
-<li>https://cloud.tencent.com/developer/article/1411976</li>
-<li>https://wulc.me/2015/12/08/%E4%BB%A5%E5%A4%AA%E7%BD%91%E4%B8%AD%E7%9A%84MTU%E4%B8%8EMSS/</li>
-<li>https://cloud.tencent.com/developer/article/1862661</li>
+<li>图解网络：https://xiaolincoding.com/network</li>
+<li>细说TCP的MSS选项(1)：https://cloud.tencent.com/developer/article/1411976</li>
+<li>以太网中的 MTU 与
+MSS：https://wulc.me/2015/12/08/%E4%BB%A5%E5%A4%AA%E7%BD%91%E4%B8%AD%E7%9A%84MTU%E4%B8%8EMSS/</li>
+<li>计网 - IPv4
+协议：路由和寻址的区别是什么？https://cloud.tencent.com/developer/article/1862661</li>
 </ol>
 
                 
