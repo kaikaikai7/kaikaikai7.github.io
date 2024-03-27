@@ -16,21 +16,23 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="网络的网络 网络（net）是把计算机连接在一起，其中的计算机是网络的节点；而互连网是把网络连接在一起，即网络的网络，其中的网络是互连网的节点，而互联网（Internet）是全球范围的互连网。 小写字母开头的internet（互连网）是个通用名词，泛指多个计算机网络互连而成的计算机网络，对网络间的协议没有要求。大写字母开头的Internet（互联网）是个专有名词，指全球范围的众多网络互连而成的特">
+    <meta name="description" content="通信方式 根据信息在传输线上的传送方向，分为以下三种通信方式：  单工通信：单向传输 半双工通信：双向交替传输 全双工通信：双向同时传输  带通调制 模拟信号是连续的信号，数字信号是离散的信号。带通调制把数字信号转换为模拟信号。   image-20240320192248758  参考链接：  计算机网络 - 物理层：https:&#x2F;&#x2F;github.com&#x2F;CyC2">
 <meta property="og:type" content="article">
-<meta property="og:title" content="概述">
-<meta property="og:url" content="http://example.com/2024/03/19/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%A0%B8%E5%BF%83%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/CS-Notes/%E6%A6%82%E8%BF%B0/index.html">
+<meta property="og:title" content="物理层">
+<meta property="og:url" content="http://example.com/2024/03/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%A0%B8%E5%BF%83%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95/%E7%89%A9%E7%90%86%E5%B1%82/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="网络的网络 网络（net）是把计算机连接在一起，其中的计算机是网络的节点；而互连网是把网络连接在一起，即网络的网络，其中的网络是互连网的节点，而互联网（Internet）是全球范围的互连网。 小写字母开头的internet（互连网）是个通用名词，泛指多个计算机网络互连而成的计算机网络，对网络间的协议没有要求。大写字母开头的Internet（互联网）是个专有名词，指全球范围的众多网络互连而成的特">
+<meta property="og:description" content="通信方式 根据信息在传输线上的传送方向，分为以下三种通信方式：  单工通信：单向传输 半双工通信：双向交替传输 全双工通信：双向同时传输  带通调制 模拟信号是连续的信号，数字信号是离散的信号。带通调制把数字信号转换为模拟信号。   image-20240320192248758  参考链接：  计算机网络 - 物理层：https:&#x2F;&#x2F;github.com&#x2F;CyC2">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-03-19T02:21:18.000Z">
-<meta property="article:modified_time" content="2024-03-24T02:47:12.743Z">
+<meta property="og:image" content="http://example.com/2024/03/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%A0%B8%E5%BF%83%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95/%E7%89%A9%E7%90%86%E5%B1%82/%E7%89%A9%E7%90%86%E5%B1%82.assets/image-20240320192248758.png">
+<meta property="article:published_time" content="2024-03-20T11:21:18.000Z">
+<meta property="article:modified_time" content="2024-03-24T02:49:56.404Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/2024/03/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%A0%B8%E5%BF%83%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95/%E7%89%A9%E7%90%86%E5%B1%82/%E7%89%A9%E7%90%86%E5%B1%82.assets/image-20240320192248758.png">
   
   
   
-  <title>概述 - kaikaikai&#39;s blog</title>
+  <title>物理层 - kaikaikai&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -184,7 +186,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="概述"></span>
+            <span id="subtitle" data-typed-text="物理层"></span>
           
         </div>
 
@@ -195,8 +197,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-03-19 10:21" pubdate>
-          2024年3月19日 上午
+        <time datetime="2024-03-20 19:21" pubdate>
+          2024年3月20日 晚上
         </time>
       </span>
     
@@ -207,7 +209,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.5k 字
+          280 字
         
       </span>
     
@@ -218,7 +220,7 @@
         
         
         
-          21 分钟
+          3 分钟
         
       </span>
     
@@ -255,169 +257,29 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">概述</h1>
+            <h1 id="seo-header">物理层</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="网络的网络">网络的网络</h1>
-<p>网络（net）是把计算机连接在一起，其中的计算机是网络的节点；而互连网是把网络连接在一起，即网络的网络，其中的网络是互连网的节点，而互联网（Internet）是全球范围的互连网。</p>
-<p>小写字母开头的internet（互连网）是个通用名词，泛指多个计算机网络互连而成的计算机网络，对网络间的协议没有要求。大写字母开头的Internet（互联网）是个专有名词，指全球范围的众多网络互连而成的特定的互连网，它采用TCP/IP协议族。</p>
-<figure>
-<img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202403191105208.gif" srcset="/img/loading.gif" lazyload
-alt="img" />
-<figcaption aria-hidden="true">img</figcaption>
-</figure>
-<h1 id="isp">ISP</h1>
-<p>互联网服务提供商(Internet Service
-Provider)可以从互联网管理机构获得许多 IP
-地址，同时拥有通信线路以及路由器等联网设备，个人或机构向 ISP
-缴纳一定的费用就可以接入互联网。</p>
-<figure>
-<img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202403191105209.png" srcset="/img/loading.gif" lazyload
-alt="img" />
-<figcaption aria-hidden="true">img</figcaption>
-</figure>
-<p>目前的互联网是一种多层次 ISP 结构，ISP 根据覆盖面积的大小分为第一层
-ISP、区域 ISP 和接入 ISP。互联网交换点 IXP 允许两个 ISP
-直接相连而不用经过第三个 ISP。</p>
-<figure>
-<img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202403191105210.png" srcset="/img/loading.gif" lazyload
-alt="img" />
-<figcaption aria-hidden="true">img</figcaption>
-</figure>
-<h1 id="网络架构">网络架构</h1>
+                <h1 id="通信方式">通信方式</h1>
+<p>根据信息在传输线上的传送方向，分为以下三种通信方式：</p>
 <ul>
-<li>CS（Client-Server）是<strong>客户端-服务器</strong>的网络连接模式，客户端向服务器请求服务并接收响应。服务器充当服务提供者的角色，负责处理客户端的请求并返回相应的数据。CS网络通常用于网站、邮件服务器、云计算等场景。</li>
+<li>单工通信：单向传输</li>
+<li>半双工通信：双向交替传输</li>
+<li>全双工通信：双向同时传输</li>
 </ul>
+<h1 id="带通调制">带通调制</h1>
+<p>模拟信号是<strong>连续</strong>的信号，数字信号是<strong>离散</strong>的信号。带通调制把数字信号转换为模拟信号。</p>
 <figure>
-<img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202403191105211.jpg" srcset="/img/loading.gif" lazyload
-alt="img" />
-<figcaption aria-hidden="true">img</figcaption>
-</figure>
-<ul>
-<li>P2P（Peer-to-Peer）是<strong>点对点</strong>的网络连接模式，每个节点（peer）都可以直接和其他节点通信，形成一个去中心化的网络结构。在P2P网络中，每个节点可以充当服务提供者和服务消费者的角色。P2P网络通常用于文件共享、视频聊天、在线游戏等场景。</li>
-</ul>
-<figure>
-<img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202403191105212.jpg" srcset="/img/loading.gif" lazyload
-alt="img" />
-<figcaption aria-hidden="true">img</figcaption>
-</figure>
-<ul>
-<li>P2P与CS的最大区别在于<strong>网络结构的中心化程度</strong>。P2P网络没有中央服务器，节点之间相互连接，每个节点可以充当服务提供者和服务消费者的角色，从而使整个网络更加去中心化，具有更高的可扩展性和抗攻击性。而CS网络则需要一台或多台服务器来提供服务，因此具有更高的稳定性和可控性，但也更容易成为攻击的目标。总的来说，P2P网络适用于小规模、去中心化的应用场景，而CS网络则适用于大规模、需要集中管理的应用场景。</li>
-</ul>
-<h1 id="电路交换与分组交换">电路交换与分组交换</h1>
-<h2 id="电路交换">1. 电路交换</h2>
-<ul>
-<li>电路交换用于电话通信系统，两个用户要通信之前需要建立一条专用的物理链路，并且在整个通信过程中始终占用该链路。由于通信的过程中不可能一直在使用传输线路，因此电路交换对线路的利用率很低，往往不到
-10%。</li>
-<li>电路连接的三个阶段：
-<ul>
-<li>建立连接</li>
-<li>数据传输</li>
-<li>释放连接</li>
-</ul></li>
-<li>优点：传输速度快、高效；实时。</li>
-<li>缺点：资源利用率低；新建连接需要占据一定的时间，甚至比通话的时间还长。</li>
-</ul>
-<h2 id="分组交换">2. 分组交换</h2>
-<ul>
-<li>数据包是分组成更小的数据包进行传输的，采取<strong>存储转发传输</strong>机制。</li>
-<li>优点：设计简单；资源利用率高。</li>
-<li>缺点：存在延时；可能造成通信阻塞；存在重复数据（分组头部）；会出现丢包的情况。</li>
-</ul>
-<h1 id="时延">时延</h1>
-<p>总时延 = 排队时延 + 处理时延 + 传输时延 + 传播时延</p>
-<figure>
-<img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202403191105213.jpg" srcset="/img/loading.gif" lazyload
-alt="img" />
-<figcaption aria-hidden="true">img</figcaption>
-</figure>
-<h2 id="排队时延">1. 排队时延</h2>
-<p>分组在路由器的输入队列和输出队列中排队等待的时间，取决于网络当前的通信量。</p>
-<h2 id="处理时延">2. 处理时延</h2>
-<p>主机或路由器收到分组时进行处理所需要的时间，例如分析首部、从分组中提取数据、进行差错检验或查找适当的路由等。</p>
-<h2 id="传输时延">3. 传输时延</h2>
-<p>主机或路由器传输数据帧所需要的时间。</p>
-<figure>
-<img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202403191105214.png" srcset="/img/loading.gif" lazyload
-alt="img" />
-<figcaption aria-hidden="true">img</figcaption>
-</figure>
-<p>其中 l 表示数据帧的长度，v 表示传输速率。</p>
-<h2 id="传播时延">4. 传播时延</h2>
-<p>电磁波在信道中传播所需要花费的时间，电磁波传播的速度接近光速。</p>
-<figure>
-<img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202403191105215.png" srcset="/img/loading.gif" lazyload
-alt="img" />
-<figcaption aria-hidden="true">img</figcaption>
-</figure>
-<p>其中 l 表示信道长度，v 表示电磁波在信道上的传播速度。</p>
-<h1 id="计算机网络体系结构">计算机网络体系结构</h1>
-<figure>
-<img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202403191105216.png" srcset="/img/loading.gif" lazyload
-alt="img" />
-<figcaption aria-hidden="true">img</figcaption>
-</figure>
-<h2 id="五层协议">1. 五层协议</h2>
-<ul>
-<li><p><strong>应用层(message)</strong>
-：为特定应用程序提供数据传输服务，例如 HTTP、DNS 等协议。</p></li>
-<li><p><strong>传输层(segment/datagram)</strong>
-：为<strong>进程</strong>提供通用数据传输服务。由于应用层协议很多，定义通用的传输层协议就可以支持不断增多的应用层协议。运输层包括两种协议：<strong>TCP</strong>(Transmission
-Control
-Protocol)，提供<strong>面向连接、可靠</strong>的数据传输服务，数据单位为报文段；<strong>UDP</strong>(User
-Datagram
-Protocol)，提供<strong>无连接、尽最大努力</strong>的数据传输服务，数据单位为用户数据报。TCP
-主要提供完整性服务，UDP 主要提供及时性服务。</p></li>
-<li><p><strong>网络层(packet)</strong>
-：为<strong>主机</strong>提供数据传输服务。而传输层协议是为主机中的进程提供数据传输服务。网络层把传输层传递下来的报文段或者用户数据报封装成分组。</p></li>
-<li><p><strong>数据链路层(frame)</strong>
-：网络层针对的还是主机之间的数据传输服务，而主机之间可以有很多链路，链路层协议就是为同一链路的主机提供数据传输服务。数据链路层把网络层传下来的分组封装成帧。</p></li>
-<li><p><strong>物理层(bit)</strong>
-：考虑的是怎样在传输媒体上传输数据比特流，而不是指具体的传输媒体。物理层的作用是尽可能屏蔽传输媒体和通信手段的差异，使数据链路层感觉不到这些差异。</p></li>
-</ul>
-<h2 id="osi">2. OSI</h2>
-<ul>
-<li><p><strong>表示层</strong>
-：数据压缩、加密以及数据描述，这使得应用程序不必关心在各台主机中数据内部格式不同的问题。</p></li>
-<li><p><strong>会话层</strong> ：建立及管理会话。</p></li>
-</ul>
-<p>五层协议没有表示层和会话层，而是将这些功能留给应用程序开发者处理。</p>
-<h2 id="tcpip">3. TCP/IP</h2>
-<p>它只有四层，相当于五层协议中数据链路层和物理层合并为网络接口层。TCP/IP
-体系结构不严格遵循 OSI 分层概念，应用层可能会直接使用 IP
-层或者网络接口层。</p>
-<figure>
-<img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202403191105217.png" srcset="/img/loading.gif" lazyload
-alt="img" />
-<figcaption aria-hidden="true">img</figcaption>
-</figure>
-<h2 id="数据转发过程">4. 数据转发过程</h2>
-<figure>
-<img
-src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202403191105218.awebp" srcset="/img/loading.gif" lazyload
-alt="img" />
-<figcaption aria-hidden="true">img</figcaption>
+<img src="物理层.assets/image-20240320192248758.png" srcset="/img/loading.gif" lazyload
+alt="image-20240320192248758" />
+<figcaption aria-hidden="true">image-20240320192248758</figcaption>
 </figure>
 <p><strong>参考链接：</strong></p>
 <ol type="1">
 <li>计算机网络 -
-概述：https://github.com/CyC2018/CS-Notes/blob/master/notes/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20-%20%E6%A6%82%E8%BF%B0.md</li>
-<li>互连网和互联网：https://zhuanlan.zhihu.com/p/57726649</li>
-<li>p2p和cs的区别：https://juejin.cn/s/p2p%E5%92%8Ccs%E7%9A%84%E5%8C%BA%E5%88%AB</li>
-<li>计算机网络系列--什么是电路交换和分组交换？https://zhuanlan.zhihu.com/p/44316491</li>
-<li>计网基础：https://juejin.cn/post/7198111440615456829</li>
+物理层：https://github.com/CyC2018/CS-Notes/blob/master/notes/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20-%20%E7%89%A9%E7%90%86%E5%B1%82.md</li>
 </ol>
 
                 
@@ -471,8 +333,8 @@ alt="img" />
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>概述</div>
-      <div>http://example.com/2024/03/19/计算机核心课程/计算机网络/CS-Notes/概述/</div>
+      <div>物理层</div>
+      <div>http://example.com/2024/03/20/计算机核心课程/计算机网络/计算机网络——自顶向下方法/物理层/</div>
     </div>
     <div class="license-meta">
       
@@ -484,7 +346,7 @@ alt="img" />
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年3月19日</div>
+          <div>2024年3月20日</div>
         </div>
       
       
@@ -516,9 +378,9 @@ alt="img" />
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/03/19/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%A0%B8%E5%BF%83%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3%E7%BD%91%E7%BB%9C/%E5%9F%BA%E7%A1%80%E7%AF%87/" title="基础篇">
+                      <a href="/2024/03/24/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%A0%B8%E5%BF%83%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95/%E9%93%BE%E8%B7%AF%E5%B1%82/" title="链路层">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">基础篇</span>
+                        <span class="hidden-mobile">链路层</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -526,8 +388,8 @@ alt="img" />
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/03/18/LeetCode/%E9%93%BE%E8%A1%A8%E7%AF%87/" title="链表篇">
-                        <span class="hidden-mobile">链表篇</span>
+                      <a href="/2024/03/19/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%A0%B8%E5%BF%83%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CS-Notes/%E6%A6%82%E8%BF%B0/" title="概述">
+                        <span class="hidden-mobile">概述</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
