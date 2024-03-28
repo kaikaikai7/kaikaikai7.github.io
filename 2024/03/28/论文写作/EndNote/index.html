@@ -1,0 +1,871 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="kaikaikai">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="0. 简介 EndNote是一款文献管理软件，与SCI&#x2F;SSCI等数据库兼容良好，于科研人员十分便利。  检索  建立个人文献图书馆 从数据库检索文献并快速导入至个人文献图书馆  管理  管理不同来源的中英文文献 创建组、去重、排序、分析、做阅读笔记等 帮助查找文献全文  写作 撰写论文时，快速引用相关文献  一键修改参考文献引用格式  准备投稿前，根据引文信">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EndNote">
+<meta property="og:url" content="http://example.com/2024/03/28/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C/EndNote/index.html">
+<meta property="og:site_name" content="kaikaikai&#39;s blog">
+<meta property="og:description" content="0. 简介 EndNote是一款文献管理软件，与SCI&#x2F;SSCI等数据库兼容良好，于科研人员十分便利。  检索  建立个人文献图书馆 从数据库检索文献并快速导入至个人文献图书馆  管理  管理不同来源的中英文文献 创建组、去重、排序、分析、做阅读笔记等 帮助查找文献全文  写作 撰写论文时，快速引用相关文献  一键修改参考文献引用格式  准备投稿前，根据引文信">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-03-28T06:24:15.000Z">
+<meta property="article:modified_time" content="2024-03-28T07:32:56.687Z">
+<meta property="article:author" content="kaikaikai">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>EndNote - kaikaikai&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="EndNote"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-03-28 14:24" pubdate>
+          2024年3月28日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          27 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">EndNote</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="简介">0. 简介</h1>
+<p>EndNote是一款<strong>文献管理</strong>软件，与SCI/SSCI等数据库兼容良好，于科研人员十分便利。</p>
+<ul>
+<li><p><strong>检索</strong></p>
+<ul>
+<li>建立个人文献图书馆</li>
+<li>从数据库检索文献并快速导入至个人文献图书馆</li>
+</ul></li>
+<li><p><strong>管理</strong></p>
+<ul>
+<li>管理不同来源的中英文文献</li>
+<li>创建组、去重、排序、分析、做阅读笔记等</li>
+<li>帮助查找文献全文</li>
+</ul></li>
+<li><p><strong>写作</strong></p></li>
+<li><p>撰写论文时，快速引用相关文献</p>
+<ul>
+<li>一键修改参考文献引用格式</li>
+</ul></li>
+<li><p>准备投稿前，根据引文信息推荐合适期刊</p></li>
+</ul>
+<h1 id="导入文献">1. 导入文献</h1>
+<p>使用EndNote之前，首先需要创建个人文献库（个人图书馆），创建成功后会产出两个文件。</p>
+<ul>
+<li>步骤1：<code>file→New</code></li>
+<li>步骤2：选择自定义存储位置</li>
+</ul>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202403281532824.png" srcset="/img/loading.gif" lazyload
+alt="image-20240328143928790" />
+<figcaption aria-hidden="true">image-20240328143928790</figcaption>
+</figure>
+<p>EndNote支持多种方式的文献导入，常用有以下几种：</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202403281532826.png" srcset="/img/loading.gif" lazyload
+alt="image-20240328144006860" />
+<figcaption aria-hidden="true">image-20240328144006860</figcaption>
+</figure>
+<h2 id="数据库导入">1.1 数据库导入</h2>
+<ol type="1">
+<li><p>在数据库中检索文献，得到检索文献列表。</p></li>
+<li><p>勾选所需文献，在检索结果页面找到<strong>“Export”</strong>或<strong>“Download
+Citations</strong>”选项，中文数据库为<strong>“导出”。</strong></p></li>
+<li><p>选择<strong>“Export to
+EndNote”</strong>，或在导出的题录格式中，选择与EndNote相匹配的格式。如未显示与EndNote匹配的格式，则可选择较通用的<strong>RIS格式</strong>，并将该题录格式文件下载下来，保存至本机。</p></li>
+<li><p>通常情况下，从外文数据库导出的题录格式为：<strong>enw格式、ris格式、ciw格式</strong>，直接双击该文件，即可直接导入EndNote。</p></li>
+<li><p>小贴士：对于中文数据库保存下来的题录格式，通常为txt格式。则需在EndNote中选择<code>File--Import File</code>，选择该txt文件，并在过滤器中选择<code>EndNote Import</code>选项导入。</p></li>
+</ol>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202403281532827.png" srcset="/img/loading.gif" lazyload
+alt="image-20240328144859404" />
+<figcaption aria-hidden="true">image-20240328144859404</figcaption>
+</figure>
+<h2 id="学术搜索引擎导入">1.2 学术搜索引擎导入</h2>
+<ol type="1">
+<li><p>在学术搜索引擎如百度学术、谷歌学术、南科学术搜索中检索文献，得到结果列表。</p></li>
+<li><p>以百度学术为例。检索完成，点击所需文献，在文献页面找到<strong>“引用”</strong>，导入链接选择所用文献管理软件<strong>“EndNote”。</strong></p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202403281532828.png" srcset="/img/loading.gif" lazyload
+alt="image-20240328145125631" />
+<figcaption aria-hidden="true">image-20240328145125631</figcaption>
+</figure></li>
+<li><p>将该文献的题录信息保存至本机，为<strong>enw格式。</strong></p></li>
+<li><p>双击该文件，即可直接导入EndNote。</p></li>
+</ol>
+<h2 id="本地pdf导入">1.3 本地PDF导入</h2>
+<ol type="1">
+<li><p>保存在本地的PDF文档可快速导入至EndNote，既可以单篇导入，也可以批量导入。</p></li>
+<li><p>单篇导入：在EndNote中选择<code>File-- Import File</code>，选择需要导入的PDF文档，并在<code>Import Options</code>中选择相应的过滤器：<code>PDF</code>，即可完成单篇PDF导入。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202403281532829.png" srcset="/img/loading.gif" lazyload
+alt="image-20240328145657812" />
+<figcaption aria-hidden="true">image-20240328145657812</figcaption>
+</figure></li>
+<li><p>批量导入：在EndNote中选择<code>File-- Import Folder</code>，可选择为该文件夹新建一个分组，或者连同子文件夹一起导入。EndNote通常可保留至文件夹的二级目录。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202403281532830.png" srcset="/img/loading.gif" lazyload
+alt="image-20240328145726931" />
+<figcaption aria-hidden="true">image-20240328145726931</figcaption>
+</figure></li>
+<li><p>小贴士：导入至EndNote的PDF文档是通过DOI号来识别的，因此，如果文档里DOI号缺失，或PDF为非矢量文档，会导致EndNote无法识别，从而在软件中显示不全。</p></li>
+</ol>
+<h2 id="在线检索导入">1.4 在线检索导入</h2>
+<ol type="1">
+<li><p>EndNote有三种模式：本地模式、联机在线模式、本地和在线的混合模式。（新版20版本仅为混合模式）</p></li>
+<li><p>EndNote内嵌了许多数据库，如果需要用其联机在线检索功能的话，首先需切换至在线模式，然后在左侧方的<code>Online Search</code>中选择需要检索的数据库。可点击<code>More</code>查看更多数据库。</p></li>
+<li><p>输入检索条件，点击<code>Search</code>，进行检索。</p></li>
+<li><p>检索完成，即可直接在EndNote中查看文献题录信息。</p></li>
+<li><p>小贴士：EndNote支持在线检索的数据库有限，并不是所有图书馆订购的数据库都可以；检索完成后，只显示满足检索条件的结果条数，无法预览文献进行导入，因此，该方法更适用于精确检索。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202403281532831.png" srcset="/img/loading.gif" lazyload
+alt="image-20240328150214036" />
+<figcaption aria-hidden="true">image-20240328150214036</figcaption>
+</figure></li>
+</ol>
+<h2 id="手动输入">1.5 手动输入</h2>
+<ol type="1">
+<li><p>手动输入适用于少量文献或特殊文献，无法直接通过以上方式导入的文献。</p></li>
+<li><p>在EndNote工具栏中找到<code>New Reference</code>，创建一条新的文献。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202403281532832.png" srcset="/img/loading.gif" lazyload
+alt="image-20240328150632379" />
+<figcaption aria-hidden="true">image-20240328150632379</figcaption>
+</figure></li>
+<li><p>在<code>Reference Type</code>选项中，可选择该文献类型，如标准、报告、专利、政府文件、多媒体等。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202403281532833.png" srcset="/img/loading.gif" lazyload
+alt="image-20240328150657500" />
+<figcaption aria-hidden="true">image-20240328150657500</figcaption>
+</figure></li>
+<li><p>输入作者时，需注意一名一行，便于EndNote识别。且通常名在前姓在后，如姓在前名在后，则需要加逗号。如：John
+Smith / Smith, John</p></li>
+<li><p>输入关键词时，需一词一行，便于EndNote识别。</p></li>
+</ol>
+<h1 id="管理文献">2. 管理文献</h1>
+<h2 id="文献分组">2.1 文献分组</h2>
+<p><strong>一、普通组</strong>：在EndNote界面左侧的管理区，在My
+Groups中可以新建一个普通组，对文献进行划分。鼠标右键点击<code>Create Group</code>，输入名称，即可完成普通组的创建。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202403281532834.png" srcset="/img/loading.gif" lazyload
+alt="image-20240328151100415" />
+<figcaption aria-hidden="true">image-20240328151100415</figcaption>
+</figure>
+<p><strong>二、智能组：</strong>除了普通组以外，EndNote还支持创建智能组。通过智能组，可以对分组条件进行设置。智能组是虚拟组，其分组方式是动态的，在后续导入的文献中，EndNote会将符合该设置条件的文献自动分配至该组。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202403281532835.png" srcset="/img/loading.gif" lazyload
+alt="image-20240328151217959" />
+<figcaption aria-hidden="true">image-20240328151217959</figcaption>
+</figure>
+<h2 id="排序添加显示字段">2.2 排序、添加显示字段</h2>
+<p>在EndNote主界面中，默认显示<code>Author</code>
+,<code>Year</code>,<code>Title</code>,<code>Journal</code>等字段，鼠标点击某一字段，可将文献列表进行升序或降序排列。鼠标右键点击字段，则可看到更多字段，如<code>Key Words</code>,<code>DOI</code>,
+<code>Research Notes</code>,<code>URL</code>等，勾选后即可在EndNote主界面中显示。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202403281532836.png" srcset="/img/loading.gif" lazyload
+alt="image-20240328151545992" />
+<figcaption aria-hidden="true">image-20240328151545992</figcaption>
+</figure>
+<h2 id="利用endnote下载全文">2.3 利用EndNote下载全文</h2>
+<p>如果图书馆订购了该文献，则在校园网IP范围内可以通过EndNote来下载文献全文。选中需要下载的文献，鼠标右键点击<strong>“Find
+Full Text”</strong>，即可下载PDF全文。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202403281532837.png" srcset="/img/loading.gif" lazyload
+alt="image-20240328151736870" />
+<figcaption aria-hidden="true">image-20240328151736870</figcaption>
+</figure>
+<h1 id="引用文献">3. 引用文献</h1>
+<h2 id="插入文献">3.1 插入文献</h2>
+<p>安装EndNote后，MS
+Office工具栏中会自动生成EndNote选项卡，可将EndNote与MS
+Word连接起来，从而快速插入参考文献。</p>
+<p><strong>方式一</strong>：鼠标光标放在Word中需要插入文献的位置，在EndNote中选择文献，点击<code>Insert Citation</code>，即可在Word中插入文献。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202403281532838.png" srcset="/img/loading.gif" lazyload
+alt="image-20240328152352008" />
+<figcaption aria-hidden="true">image-20240328152352008</figcaption>
+</figure>
+<p><strong>方式二</strong>：鼠标光标放在Word中需要插入文献的位置，在Word中EndNote选项卡里，选择<code>Insert Citation</code>，查找EndNote中的文献信息。查找完成，选中文献，点击<code>Insert</code>即可。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202403281532839.png" srcset="/img/loading.gif" lazyload
+alt="image-20240328152622122" />
+<figcaption aria-hidden="true">image-20240328152622122</figcaption>
+</figure>
+<h2 id="批量修改文献格式">3.2 批量修改文献格式</h2>
+<ol type="1">
+<li>EndNote中内置了大量引文格式可供选择，在Office
+Word中选择<code>Style</code>，可点击<code>Select another style</code>看更多引文格式。选择所需引文格式，则所有文献格式会一键式更新。</li>
+<li>如果在内置的引文格式无法满足需求，则可到<a
+target="_blank" rel="noopener" href="http://endnote.com/downloads/styles">EndNote官网</a>搜索并下载所需文献格式。下载完成，双击该文件即可在EndNote中打开，点击<code>File--Save as</code>保存该引文格式。重新打开Word，即可通过<code>Style--Select another style</code>找到该文献格式并使用。</li>
+</ol>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202403281532840.png" srcset="/img/loading.gif" lazyload
+alt="image-20240328152815032" />
+<figcaption aria-hidden="true">image-20240328152815032</figcaption>
+</figure>
+<h2 id="消除域代码">3.3 消除域代码</h2>
+<p>通过EndNote向Word插入参考文献，是通过域代码格式连接的，因此方可批量修改文献格式。如文档全部编辑完成，为避免出错，需要消除域代码，将原文档转换为纯文本文档。选择<code>Convert Citations and Bibliography</code>--<code>Conver to Plain Text</code>，点击确定，转换完成，即可进行下一步投稿工作。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202403281532841.png" srcset="/img/loading.gif" lazyload
+alt="image-20240328152940525" />
+<figcaption aria-hidden="true">image-20240328152940525</figcaption>
+</figure>
+<p><strong>参考资料：</strong></p>
+<ol type="1">
+<li>南方科技大学图书馆：https://sustech.libguides.com/c.php?g=929626&amp;p=6717027</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C/" class="category-chain-item">论文写作</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>EndNote</div>
+      <div>http://example.com/2024/03/28/论文写作/EndNote/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>kaikaikai</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年3月28日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/03/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%A0%B8%E5%BF%83%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95/%E7%BD%91%E7%BB%9C%E5%B1%82/" title="网络层">
+                        <span class="hidden-mobile">网络层</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
