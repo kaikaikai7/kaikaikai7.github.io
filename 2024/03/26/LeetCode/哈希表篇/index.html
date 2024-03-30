@@ -24,7 +24,7 @@
 <meta property="og:description" content="1. 哈希表的查找、插入及删除 设计哈希集合  实现了一个基于链表的哈希集合数据结构，并提供了添加、删除、查询和释放内存的功能。注：链表中使用了虚拟头节点。  1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-26T04:56:46.000Z">
-<meta property="article:modified_time" content="2024-03-28T01:44:33.317Z">
+<meta property="article:modified_time" content="2024-03-30T04:31:51.008Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          21k 字
+          24k 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          177 分钟
+          202 分钟
         
       </span>
     
@@ -425,24 +425,77 @@ s[index]）时说明两个字符串无法构成同构，返回 false。</p>
 </ol>
 </blockquote>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">hashTable</span>&#123;</span><br>    <span class="hljs-type">char</span>* key;<br>    <span class="hljs-type">int</span> val;<br>    UT_hash_handle hh;<br>&#125;;<br><br><span class="hljs-type">char</span>** <span class="hljs-title function_">findRestaurant</span><span class="hljs-params">(<span class="hljs-type">char</span>** list1, <span class="hljs-type">int</span> list1Size, <span class="hljs-type">char</span>** list2, <span class="hljs-type">int</span> list2Size, <span class="hljs-type">int</span>* returnSize)</span> &#123;<br>    *returnSize = <span class="hljs-number">0</span>;<br>    <span class="hljs-type">char</span>** ret = <span class="hljs-literal">NULL</span>;<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">hashTable</span>* <span class="hljs-title">set</span> =</span> <span class="hljs-literal">NULL</span>;<br>    <br><br>    <span class="hljs-comment">// 将list1中的餐厅添加到哈希表中</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; list1Size; i++) &#123;<br>        <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">hashTable</span>* <span class="hljs-title">entry</span> =</span> (<span class="hljs-keyword">struct</span> hashTable*)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">struct</span> hashTable));<br>        entry-&gt;key = strdup(list1[i]);<br>        entry-&gt;val = i;<br>        HASH_ADD_KEYPTR(hh, <span class="hljs-built_in">set</span>, entry-&gt;key, <span class="hljs-built_in">strlen</span>(entry-&gt;key), entry);<br>    &#125;<br><br>    <span class="hljs-type">int</span> minIndexSum = INT_MAX;<br><br>    <span class="hljs-comment">// 遍历list2，查找共同喜爱的餐厅</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; list2Size; i++) &#123;<br>        <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">hashTable</span>* <span class="hljs-title">found</span>;</span><br>        HASH_FIND_STR(<span class="hljs-built_in">set</span>, list2[i], found);<br>        <span class="hljs-keyword">if</span> (found != <span class="hljs-literal">NULL</span>) &#123;<br>            <span class="hljs-comment">// 如果找到相同的餐厅</span><br>            <span class="hljs-type">int</span> indexSum = i + found-&gt;val;<br>            <span class="hljs-keyword">if</span> (indexSum &lt; minIndexSum) &#123;<br>                <span class="hljs-comment">// 更新最小索引和</span><br>                minIndexSum = indexSum;<br>                <span class="hljs-comment">// 释放之前的返回数组</span><br>                <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; *returnSize; j++) &#123;<br>                    <span class="hljs-built_in">free</span>(ret[j]);<br>                &#125;<br>                <span class="hljs-built_in">free</span>(ret);<br>                <span class="hljs-comment">// 创建新的返回数组</span><br>                ret = (<span class="hljs-type">char</span>**)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">char</span>*));<br>                ret[<span class="hljs-number">0</span>] = strdup(list2[i]);<br>                *returnSize = <span class="hljs-number">1</span>;<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (indexSum == minIndexSum) &#123;<br>                <span class="hljs-comment">// 如果索引和相等，添加到返回数组中</span><br>                ret = (<span class="hljs-type">char</span>**)<span class="hljs-built_in">realloc</span>(ret, (*returnSize + <span class="hljs-number">1</span>) * <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">char</span>*));<br>                ret[*returnSize] = strdup(list2[i]);<br>                (*returnSize)++;<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">// 释放哈希表</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">hashTable</span> *<span class="hljs-title">current</span>, *<span class="hljs-title">next</span>;</span><br>    HASH_ITER(hh, <span class="hljs-built_in">set</span>, current,next) &#123;<br>        HASH_DEL(<span class="hljs-built_in">set</span>, current);<br>        <span class="hljs-built_in">free</span>(current-&gt;key);<br>        <span class="hljs-built_in">free</span>(current);<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> ret;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h1 id="附">附：</h1>
+<h2 id="存在重复元素ii">存在重复元素II</h2>
+<blockquote>
+<ol type="1">
+<li>使用哈希表来存储数组中的元素值以及其对应的索引。</li>
+<li>遍历数组，对于每个元素：</li>
+</ol>
+<ul>
+<li>检查当前元素是否已经存在于哈希表中，如果存在，则说明已经找到了两个相同值的元素，计算它们的索引差是否不超过
+<code>k</code>，若满足条件则返回 <code>true</code>，否则继续。</li>
+<li>否则，将当前元素的值和索引加入(更新)到哈希表中。</li>
+</ul>
+<ol start="3" type="1">
+<li>若遍历完整个数组后仍未找到满足条件的元素，则返回
+<code>false</code>。</li>
+</ol>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs c"><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">hashTable</span> &#123;</span><br>    <span class="hljs-type">int</span> key; <span class="hljs-comment">// 值</span><br>    <span class="hljs-type">int</span> val; <span class="hljs-comment">// 索引</span><br>    UT_hash_handle hh;<br>&#125;;<br><span class="hljs-type">bool</span> <span class="hljs-title function_">containsNearbyDuplicate</span><span class="hljs-params">(<span class="hljs-type">int</span>* nums, <span class="hljs-type">int</span> numsSize, <span class="hljs-type">int</span> k)</span> &#123;<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">hashTable</span>* <span class="hljs-title">set</span> =</span> <span class="hljs-literal">NULL</span>;<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; numsSize; i++) &#123;<br>        <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">hashTable</span>* <span class="hljs-title">tmp</span>;</span><br>        <span class="hljs-comment">// 查找当前元素在哈希表中的位置</span><br>        HASH_FIND_INT(<span class="hljs-built_in">set</span>, &amp;nums[i], tmp);<br>        <span class="hljs-keyword">if</span> (tmp != <span class="hljs-literal">NULL</span> &amp;&amp; <span class="hljs-built_in">abs</span>(i - tmp-&gt;val) &lt;= k) &#123;<br>            <span class="hljs-comment">// 如果存在且索引差满足条件，则返回 true</span><br>            <span class="hljs-comment">// 释放哈希表内存</span><br>            <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">hashTable</span> *<span class="hljs-title">current</span>, *<span class="hljs-title">next</span>;</span><br>            HASH_ITER(hh, <span class="hljs-built_in">set</span>, current, next) &#123;<br>                HASH_DEL(<span class="hljs-built_in">set</span>, current);<br>                <span class="hljs-built_in">free</span>(current);<br>            &#125;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>        &#125;<br>        <span class="hljs-comment">// 添加当前元素到哈希表</span><br>        <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">hashTable</span>* <span class="hljs-title">newNode</span> =</span> <span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">struct</span> hashTable));<br>        newNode-&gt;key = nums[i];<br>        newNode-&gt;val = i;<br>        HASH_ADD_INT(<span class="hljs-built_in">set</span>, key, newNode);<br>    &#125;<br><br>    <span class="hljs-comment">// 释放哈希表内存</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">hashTable</span> *<span class="hljs-title">current</span>, *<span class="hljs-title">next</span>;</span><br>    HASH_ITER(hh, <span class="hljs-built_in">set</span>, current, next) &#123;<br>        HASH_DEL(<span class="hljs-built_in">set</span>, current);<br>        <span class="hljs-built_in">free</span>(current);<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h1 id="哈希表与统计">3. 哈希表与统计</h1>
+<h2 id="最长和谐子序列">最长和谐子序列</h2>
+<blockquote>
+<ol type="1">
+<li>遍历输入的整数数组 <code>nums</code>，对于每个元素：</li>
+</ol>
+<ul>
+<li>使用 <code>HASH_FIND_INT</code>
+函数在哈希表中查找该元素是否已经存在。</li>
+<li>如果存在，则将对应元素的计数值加一；如果不存在，则新建一个
+<code>hashTable</code> 结构体表示该元素，并将其插入哈希表中。</li>
+</ul>
+<ol start="2" type="1">
+<li>遍历哈希表中的每个元素，对于每个元素：</li>
+</ol>
+<ul>
+<li>计算当前元素的下一个可能值 <code>nextVal</code>，即当前元素的值加
+1。</li>
+<li>使用 <code>HASH_FIND_INT</code>
+函数查找哈希表中是否存在该下一个可能值。</li>
+<li>如果存在，则更新最长和谐子序列的长度
+<code>max</code>，取当前元素和下一个元素的计数值之和与 <code>max</code>
+的较大值。</li>
+</ul>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">hashTable</span>&#123;</span><br>    <span class="hljs-type">int</span> key;<br>    <span class="hljs-type">int</span> count;<br>    UT_hash_handle hh;<br>&#125;;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">findLHS</span><span class="hljs-params">(<span class="hljs-type">int</span>* nums, <span class="hljs-type">int</span> numsSize)</span>&#123;<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">hashTable</span>* <span class="hljs-title">set</span>=</span><span class="hljs-literal">NULL</span>;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;numsSize;i++)&#123;<br>        <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">hashTable</span>* <span class="hljs-title">tmp</span>;</span><br>        HASH_FIND_INT(<span class="hljs-built_in">set</span>,&amp;nums[i],tmp);<br>        <span class="hljs-keyword">if</span>(tmp)&#123;<br>            tmp-&gt;count++;<br>        &#125;<span class="hljs-keyword">else</span>&#123;<br>            tmp=<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">struct</span> hashTable));<br>            tmp-&gt;key=nums[i];<br>            tmp-&gt;count=<span class="hljs-number">1</span>;<br>            HASH_ADD_INT(<span class="hljs-built_in">set</span>, key, tmp);<br>        &#125;<br>    &#125;<br>    <span class="hljs-type">int</span> max=<span class="hljs-number">0</span>;<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">hashTable</span>* <span class="hljs-title">current</span>,* <span class="hljs-title">temp</span>;</span><br>    HASH_ITER(hh,<span class="hljs-built_in">set</span>,current,temp)&#123;<br>        <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">hashTable</span>* <span class="hljs-title">nextNode</span>;</span><br>        <span class="hljs-type">int</span> nextVal=current-&gt;key+<span class="hljs-number">1</span>;<br>        HASH_FIND_INT(<span class="hljs-built_in">set</span>,&amp;nextVal,nextNode);<br>        <span class="hljs-keyword">if</span>(nextNode)&#123;<br>            max=((current-&gt;count+nextNode-&gt;count) &gt; max)? (current-&gt;count+nextNode-&gt;count) :max;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> max;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="两个数组的交集ii">两个数组的交集II</h2>
+<blockquote>
+<ol type="1">
+<li>首先，遍历 <code>nums1</code>
+数组，将其中的元素及其出现次数存储在哈希表 <code>set</code> 中。</li>
+<li>然后，遍历 <code>nums2</code> 数组，同时在 <code>set</code>
+中查找元素是否存在，若存在，则将元素及其出现次数存储在哈希表
+<code>intersection</code> 中，并在 <code>set1</code>
+中将对应元素的出现次数减一。</li>
+<li>最后，遍历 <code>intersection</code>
+哈希表，根据其中元素的出现次数构建结果数组，返回结果。</li>
+</ol>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">hashTable</span>&#123;</span><br>    <span class="hljs-type">int</span> key;<br>    <span class="hljs-type">int</span> count;<br>    UT_hash_handle hh;<br>&#125;;<br><br><span class="hljs-type">int</span>* <span class="hljs-title function_">intersect</span><span class="hljs-params">(<span class="hljs-type">int</span>* nums1, <span class="hljs-type">int</span> nums1Size, <span class="hljs-type">int</span>* nums2, <span class="hljs-type">int</span> nums2Size, <span class="hljs-type">int</span>* returnSize)</span> &#123;<br>     <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">hashTable</span>* <span class="hljs-title">set</span> =</span> <span class="hljs-literal">NULL</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; nums1Size; i++) &#123;<br>        <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">hashTable</span>* <span class="hljs-title">tmp</span>;</span><br>        HASH_FIND_INT(<span class="hljs-built_in">set</span>, &amp;nums1[i], tmp);<br>        <span class="hljs-keyword">if</span> (tmp) &#123;<br>            tmp-&gt;count++;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            tmp = (<span class="hljs-keyword">struct</span> hashTable*)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">struct</span> hashTable));<br>            tmp-&gt;key = nums1[i];<br>            tmp-&gt;count = <span class="hljs-number">1</span>;<br>            HASH_ADD_INT(<span class="hljs-built_in">set</span>, key, tmp);<br>        &#125;<br>    &#125;<br>    <br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">hashTable</span>* <span class="hljs-title">intersection</span> =</span> <span class="hljs-literal">NULL</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; nums2Size; i++) &#123;<br>        <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">hashTable</span>* <span class="hljs-title">tmp</span>;</span><br>        HASH_FIND_INT(<span class="hljs-built_in">set</span>, &amp;nums2[i], tmp);<br>        <span class="hljs-keyword">if</span> (tmp) &#123;<br>            <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">hashTable</span>* <span class="hljs-title">inter_tmp</span>;</span><br>            HASH_FIND_INT(intersection, &amp;nums2[i], inter_tmp);<br>            <span class="hljs-keyword">if</span> (inter_tmp) &#123;<br>                inter_tmp-&gt;count++;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                inter_tmp = (<span class="hljs-keyword">struct</span> hashTable*)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">struct</span> hashTable));<br>                inter_tmp-&gt;key = nums2[i];<br>                inter_tmp-&gt;count = <span class="hljs-number">1</span>;<br>                HASH_ADD_INT(intersection, key, inter_tmp);<br>            &#125;<br>            tmp-&gt;count--; <br>            <span class="hljs-keyword">if</span> (tmp-&gt;count == <span class="hljs-number">0</span>) &#123;<br>                HASH_DEL(<span class="hljs-built_in">set</span>, tmp);<br>                <span class="hljs-built_in">free</span>(tmp);<br>            &#125;<br>        &#125;<br>    &#125;<br>    <br>    <span class="hljs-type">int</span> size = <span class="hljs-number">0</span>;<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">hashTable</span>* <span class="hljs-title">tmp</span>;</span><br>    <span class="hljs-keyword">for</span> (tmp = intersection; tmp != <span class="hljs-literal">NULL</span>; tmp = tmp-&gt;hh.next) &#123;<br>        size += tmp-&gt;count;<br>    &#125;<br>    <br>    <span class="hljs-type">int</span>* result = (<span class="hljs-type">int</span>*)<span class="hljs-built_in">malloc</span>(size * <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>));<br>    <span class="hljs-type">int</span> idx = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (tmp = intersection; tmp != <span class="hljs-literal">NULL</span>; tmp = tmp-&gt;hh.next) &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; tmp-&gt;count; i++) &#123;<br>            result[idx++] = tmp-&gt;key;<br>        &#125;<br>    &#125;<br>    <br>    *returnSize = size;<br>    HASH_CLEAR(hh, intersection);<br>    HASH_CLEAR(hh, <span class="hljs-built_in">set</span>);<br>    <br>    <span class="hljs-keyword">return</span> result;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h1 id="附录">附录：</h1>
 <h2 id="uthash">1. uthash</h2>
 <p>uthash 是一个 C
 语言的哈希表函数库，支持哈希表的各种操作，包括添加，删除，查找，排序等。</p>
-<h3 id="数据结构">1.1 数据结构</h3>
+<h3 id="定义">1.1 定义</h3>
 <p>uthash
-的哈希表是由多个结构体组成的双向链表实现的，一个结构体就是一个键值对，例如：</p>
+的哈希表是由多个结构体组成的双向链表实现的，一个结构体就是一个键值对，例如：将id作为key，将name作为value。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;uthash.h&quot;</span></span><br><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">my_struct</span> &#123;</span><br>    <span class="hljs-type">int</span> id;                    <span class="hljs-comment">/* key */</span><br>    <span class="hljs-type">char</span> name[<span class="hljs-number">10</span>];<br>    UT_hash_handle hh;         <span class="hljs-comment">/* makes this structure hashable */</span><br>&#125;;<br></code></pre></td></tr></table></figure>
 <ul>
-<li>id 就是键（key），名称和数据类型没有限制；</li>
-<li>name 就是值（value），也可以是任何数据类型；</li>
-<li>hh 是内部使用的 hash 处理句柄，UT_hash_handle
-字段必须存在于你的结构中。它用于内部记录，使哈希表正常工作，它不需要初始化。可以被命名为任何标识符；</li>
+<li>键（key）：名称和数据类型没有限制；</li>
+<li>值（value）：名称和数据类型没有限制；</li>
+<li>UT_hash_handle 字段必须存在于结构体中，hh 是内部使用的 hash
+处理句柄。它用于内部记录，使哈希表正常工作，它不需要初始化。它可以命名为任何名称，但是我们一般都命名为hh。</li>
 </ul>
-<p>哈希句柄在 32 位系统中每个元素消耗约 32 个字节，在 64
-位系统中每个元素消耗 56
-个字节。其他的开销成本–桶和表–相比之下可以忽略不计。你可以使用
-<code>HASH_OVERHEAD</code> 来获取哈希表的开销大小，单位是字节。</p>
 <h3 id="基本操作">1.2 基本操作</h3>
 <h4 id="声明">声明</h4>
 <p>定义一个结构体类型的空指针，即声明了一个哈希表：</p>
@@ -487,41 +540,6 @@ key 的值，必须从哈希表中删除后，才能修改。</p>
 <p>获取哈希表中元素总数时，可以调用 <code>HASH_COUNT</code> ：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> num_users;<br>num_users = HASH_COUNT(users);<br><span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;there are %u users\n&quot;</span>, num_users);<br></code></pre></td></tr></table></figure>
 <p>如果哈希表是空的，会返回 0 。</p>
-<h2 id="字符串函数">2. 字符串函数</h2>
-<p><code>strcpy()</code>
-函数用于将一个字符串从一个位置复制到另一个位置。其函数声明如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">char</span> *<span class="hljs-title function_">strcpy</span><span class="hljs-params">(<span class="hljs-type">char</span> *dest, <span class="hljs-type">const</span> <span class="hljs-type">char</span> *src)</span><br></code></pre></td></tr></table></figure>
-<ul>
-<li><code>dest</code> ：指向用于存储复制内容的目标数组。</li>
-<li><code>src</code> ： 要复制的字符串。</li>
-</ul>
-<p><code>strncpy()</code>
-函数用于复制一个字符串的一部分到另一个字符串中。其函数声明如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">char</span> *<span class="hljs-title function_">strncpy</span><span class="hljs-params">(<span class="hljs-type">char</span> *dest, <span class="hljs-type">const</span> <span class="hljs-type">char</span> *src, <span class="hljs-type">size_t</span> n)</span>;<br></code></pre></td></tr></table></figure>
-<ul>
-<li><code>dest</code>：目标字符串的指针，即要将源字符串复制到的位置。</li>
-<li><code>src</code>：源字符串的指针，即要从中复制字符的字符串。</li>
-<li><code>n</code>：要复制的最大字符数。</li>
-</ul>
-<p><code>strcmp()</code> 是 C
-标准库中的一个字符串比较函数，用于比较两个字符串的大小。其函数声明如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">strcmp</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *str1, <span class="hljs-type">const</span> <span class="hljs-type">char</span> *str2)</span>;<br></code></pre></td></tr></table></figure>
-<ul>
-<li><code>str1</code>：要进行比较的第一个字符串。</li>
-<li><code>str2</code>：要进行比较的第二个字符串。</li>
-</ul>
-<p><code>strcmp()</code>
-函数会按照字典顺序比较两个字符串，并返回一个整数值，用于表示两个字符串的大小关系：</p>
-<ul>
-<li>如果 <code>str1</code> 按字典顺序小于
-<code>str2</code>，则返回一个负数（通常为 -1）。</li>
-<li>如果 <code>str1</code> 等于 <code>str2</code>，则返回 0。</li>
-<li>如果 <code>str1</code> 按字典顺序大于
-<code>str2</code>，则返回一个正数（通常为 1）。</li>
-</ul>
-<p><code>strdup</code> 接受一个指向以 null
-结尾的字符串的指针，并返回一个指向新分配的内存空间的指针，其中包含输入字符串的副本。函数的声明如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">char</span> *<span class="hljs-title function_">strdup</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *s)</span>;<br></code></pre></td></tr></table></figure>
 
                 
               </div>
