@@ -24,7 +24,7 @@
 <meta property="og:description" content="1. 字符串 1.1 strcpy() strcpy() 函数用于把 src 所指向的字符串复制到 dest。需要注意的是如果目标数组 dest 不够大，而源字符串的长度又太长，可能会造成缓冲溢出的情况。其函数声明如下： 1char *strcpy(char *dest, const char *src)  dest ：指向用于存储复制内容的目标数组。 src ： 要复制的字符串">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-10T00:00:46.000Z">
-<meta property="article:modified_time" content="2024-03-30T04:51:23.545Z">
+<meta property="article:modified_time" content="2024-03-30T06:26:10.886Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.8k 字
+          5.8k 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          32 分钟
+          49 分钟
         
       </span>
     
@@ -311,6 +311,43 @@ dest
 <p><strong>返回值：</strong></p>
 <p>返回一字符串指针，该指针指向复制后的新字符串地址。若返回NULL
 表示内存不足。</p>
+<h2 id="strtok">1.5 strtok()</h2>
+<p><code>strtok()</code>用于分解字符串 <strong>str</strong>
+为一组字符串，<strong>delim</strong> 为分隔符。函数的声明如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">char</span> *<span class="hljs-title function_">strtok</span><span class="hljs-params">(<span class="hljs-type">char</span> *str, <span class="hljs-type">const</span> <span class="hljs-type">char</span> *delim)</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>str</code> ：要被分解成一组小字符串的字符串。</li>
+<li><code>delim</code> ：包含分隔符的 C 字符串。</li>
+</ul>
+<p><strong>返回值：</strong></p>
+<p>该函数返回被分解的第一个子字符串，如果没有可检索的字符串，则返回一个空指针。</p>
+<p><strong>实例：</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string.h&gt;</span></span><br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-type">char</span> paths[] = <span class="hljs-string">&quot;path1 path2 path3&quot;</span>; <span class="hljs-comment">// 假设 paths[i] 中包含了三个路径字符串</span><br>    <span class="hljs-type">char</span>* path = strtok(paths, <span class="hljs-string">&quot; &quot;</span>); <span class="hljs-comment">// 使用空格作为分隔符，分割第一个路径字符串</span><br>    <span class="hljs-keyword">while</span> (path != <span class="hljs-literal">NULL</span>) &#123;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Path: %s\n&quot;</span>, path); <span class="hljs-comment">// 打印当前分割出的路径字符串</span><br>        path = strtok(<span class="hljs-literal">NULL</span>, <span class="hljs-string">&quot; &quot;</span>); <span class="hljs-comment">// 继续分割下一个路径字符串</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="strcat">1.6 strcat()</h2>
+<p><code>strcat()</code> 用于把 <strong>src</strong>
+所指向的字符串追加到 <strong>dest</strong>
+所指向的字符串的结尾。函数的声明如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">char</span> *<span class="hljs-title function_">strcat</span><span class="hljs-params">(<span class="hljs-type">char</span> *dest, <span class="hljs-type">const</span> <span class="hljs-type">char</span> *src)</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>dest</code> ： 指向目标数组，该数组包含了一个 C
+字符串，且足够容纳追加后的字符串。</li>
+<li><code>src</code> ：
+指向要追加的字符串，该字符串不会覆盖目标字符串。</li>
+</ul>
+<p><strong>返回值：</strong></p>
+<p>该函数返回一个指向最终的目标字符串 dest 的指针。</p>
+<h2 id="strstr">1.7 strstr()</h2>
+<p><code>strstr()</code> 在字符串 <strong>haystack</strong>
+中查找第一次出现字符串 <strong>needle</strong> 的位置，不包含终止符
+'\0'。函数的声明如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">char</span> *<span class="hljs-title function_">strstr</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *haystack, <span class="hljs-type">const</span> <span class="hljs-type">char</span> *needle)</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>haystack</code> ： 要被检索的 C 字符串。</li>
+<li><code>needle</code> ： 在 haystack 字符串内要搜索的小字符串。</li>
+</ul>
+<p><strong>返回值：</strong></p>
+<p>该函数返回在 haystack 中第一次出现 needle
+字符串的位置，如果未找到则返回 null。</p>
 <h1 id="哈希表">2. 哈希表</h1>
 <p><code>uthash</code> 是一个 C
 语言的哈希表函数库，支持哈希表的各种操作，包括添加，删除，查找，排序等。</p>
@@ -388,7 +425,64 @@ key 的值，必须从哈希表中删除后，才能修改。</p>
 <p>获取哈希表中元素总数时，可以调用 <code>HASH_COUNT</code> ：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> num_users;<br>num_users = HASH_COUNT(users);<br><span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;there are %u users\n&quot;</span>, num_users);<br></code></pre></td></tr></table></figure>
 <p>如果哈希表是空的，会返回 0 。</p>
+<h1 id="内存分配">3. 内存分配</h1>
+<h2 id="malloc">3.1 malloc()</h2>
+<p><code>malloc()</code>用于
+分配所需的内存空间，并返回一个指向它的指针。其函数声明如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> *<span class="hljs-title function_">malloc</span><span class="hljs-params">(<span class="hljs-type">size_t</span> size)</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>size</code> ：内存块的大小，以字节为单位。</li>
+</ul>
+<p><strong>返回值：</strong></p>
+<p>该函数返回一个指针 ，指向已分配大小的内存。如果请求失败，则返回
+NULL。</p>
+<h2 id="calloc">3.2 calloc()</h2>
+<p><code>calloc()</code>用于
+分配所需的内存空间，并返回一个指向它的指针。<strong>malloc</strong> 和
+<strong>calloc</strong> 之间的不同点是，malloc 不会设置内存为零，而
+calloc 会设置分配的内存为零。其函数声明如下：</p>
+<p><strong>注意：</strong>calloc()
+函数将分配的内存全部初始化为零。如果不需要初始化，可以使用 malloc()
+函数代替。另外，使用 calloc()
+函数时需要注意，如果分配的内存块过大，可能会导致内存不足的问题。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> *<span class="hljs-title function_">calloc</span><span class="hljs-params">(<span class="hljs-type">size_t</span> nitems, <span class="hljs-type">size_t</span> size)</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>nitems</code> ： 要被分配的元素个数。</li>
+<li><code>size</code> ： 元素的大小。</li>
+</ul>
+<p><strong>返回值：</strong></p>
+<p>该函数返回一个指针，指向已分配的内存。如果请求失败，则返回 NULL。</p>
+<h2 id="realloc">3.3 realloc()</h2>
+<p><code>realloc()</code>用于尝试重新调整之前调用
+<strong>malloc</strong> 或 <strong>calloc</strong> 所分配的
+<strong>ptr</strong> 所指向的内存块的大小。其函数声明如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> *<span class="hljs-title function_">realloc</span><span class="hljs-params">(<span class="hljs-type">void</span> *ptr, <span class="hljs-type">size_t</span> size)</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>ptr</code>
+：指针指向一个要重新分配内存的内存块，该内存块之前是通过调用
+malloc、calloc 或 realloc
+进行分配内存的。如果为空指针，则会分配一个新的内存块，且函数返回一个指向它的指针。</li>
+<li><code>size</code>* ： 内存块的新的大小，以字节为单位。如果大小为
+0，且 ptr 指向一个已存在的内存块，则 ptr
+所指向的内存块会被释放，并返回一个空指针。</li>
+</ul>
+<p><strong>返回值：</strong></p>
+<p>该函数返回一个指针 ，指向重新分配大小的内存。如果请求失败，则返回
+NULL。</p>
+<h2 id="sizeof">3.4 sizeof</h2>
+<p><strong>sizeof</strong>
+是一个关键字，它是一个编译时运算符，用于判断变量或数据类型的字节大小。sizeof
+运算符可用于获取类、结构、共用体和其他用户自定义数据类型的大小。使用
+sizeof 的语法如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">sizeof</span> (data type)<br></code></pre></td></tr></table></figure>
+<p>其中，data type
+是要计算大小的数据类型，包括类、结构、共用体和其他用户自定义数据类型。</p>
 <p><strong>参考资料：</strong></p>
+<ol type="1">
+<li>C语言哈希表uthash的使用方法详解（附下载链接）：https://cloud.tencent.com/developer/article/1826630</li>
+<li>uthash 学习笔记：https://shaocheng.li/posts/2020/08/29/</li>
+<li>uthash的使用：https://juejin.cn/post/7178716947503120421</li>
+</ol>
 
                 
               </div>
