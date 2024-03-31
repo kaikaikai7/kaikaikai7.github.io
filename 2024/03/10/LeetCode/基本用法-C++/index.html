@@ -16,21 +16,21 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="使用PyTorch训练好的模型进行新数据的预测包括以下几个步骤： 1. 加载模型 首先，你需要加载训练好的模型。如果模型是使用PyTorch的torch.save()方法保存的，可以使用torch.load()来加载。 1234567import torch# 加载模型model &#x3D; torch.load(&amp;#x27;model_path.pth&amp;#x27;)# 确保在评估模式下运行模型，这">
+    <meta name="description" content="1. 哈希表 std::unordered_map 是 C++ 标准库中的一个关联容器，用于存储键值对（key-value pairs）。它提供了基于哈希表的快速查找和插入操作，其时间复杂度为O(1)。unordered_map 中的元素不按照任何特定顺序排序，而是根据键的哈希值进行组织。  头文件引入： 1#include &lt;unordered_map&gt; 模板定义：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="模型测试">
-<meta property="og:url" content="http://example.com/2024/03/05/Python/PyTorch/%E6%A8%A1%E5%9E%8B%E6%B5%8B%E8%AF%95/index.html">
+<meta property="og:title" content="基本用法-C++">
+<meta property="og:url" content="http://example.com/2024/03/10/LeetCode/%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95-C++/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="使用PyTorch训练好的模型进行新数据的预测包括以下几个步骤： 1. 加载模型 首先，你需要加载训练好的模型。如果模型是使用PyTorch的torch.save()方法保存的，可以使用torch.load()来加载。 1234567import torch# 加载模型model &#x3D; torch.load(&amp;#x27;model_path.pth&amp;#x27;)# 确保在评估模式下运行模型，这">
+<meta property="og:description" content="1. 哈希表 std::unordered_map 是 C++ 标准库中的一个关联容器，用于存储键值对（key-value pairs）。它提供了基于哈希表的快速查找和插入操作，其时间复杂度为O(1)。unordered_map 中的元素不按照任何特定顺序排序，而是根据键的哈希值进行组织。  头文件引入： 1#include &lt;unordered_map&gt; 模板定义：">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-03-05T05:48:21.000Z">
-<meta property="article:modified_time" content="2024-03-05T06:20:43.202Z">
+<meta property="article:published_time" content="2024-03-10T00:05:46.000Z">
+<meta property="article:modified_time" content="2024-03-31T05:21:39.853Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>模型测试 - kaikaikai&#39;s blog</title>
+  <title>基本用法-C++ - kaikaikai&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -184,7 +184,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="模型测试"></span>
+            <span id="subtitle" data-typed-text="基本用法-C++"></span>
           
         </div>
 
@@ -195,8 +195,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-03-05 13:48" pubdate>
-          2024年3月5日 下午
+        <time datetime="2024-03-10 08:05" pubdate>
+          2024年3月10日 早上
         </time>
       </span>
     
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k 字
+          991 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          11 分钟
+          9 分钟
         
       </span>
     
@@ -255,31 +255,53 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">模型测试</h1>
+            <h1 id="seo-header">基本用法-C++</h1>
             
             
               <div class="markdown-body">
                 
-                <p>使用PyTorch训练好的模型进行新数据的预测包括以下几个步骤：</p>
-<h1 id="加载模型">1. 加载模型</h1>
-<p>首先，你需要加载训练好的模型。如果模型是使用PyTorch的<code>torch.save()</code>方法保存的，可以使用<code>torch.load()</code>来加载。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><br><span class="hljs-comment"># 加载模型</span><br>model = torch.load(<span class="hljs-string">&#x27;model_path.pth&#x27;</span>)<br><br><span class="hljs-comment"># 确保在评估模式下运行模型，这对于某些模型组件（如Dropout和BatchNorm）来说很重要</span><br>model.<span class="hljs-built_in">eval</span>()<br></code></pre></td></tr></table></figure>
-<p>如果模型是通过保存模型的状态字典（state_dict）来保存的，那么你需要先实例化模型，然后使用<code>load_state_dict()</code>方法加载状态字典。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">model = ModelClass(*args, **kwargs)  <span class="hljs-comment"># 使用与训练时相同的参数实例化模型</span><br>model.load_state_dict(torch.load(<span class="hljs-string">&#x27;model_state_dict.pth&#x27;</span>))<br>model.<span class="hljs-built_in">eval</span>()<br></code></pre></td></tr></table></figure>
-<h1 id="准备数据">2. 准备数据</h1>
-<p>接下来，你需要准备要预测的数据。这通常意味着你需要将数据处理成模型训练时相同的格式。这可能包括调整大小、归一化等。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> torchvision <span class="hljs-keyword">import</span> transforms<br><br><span class="hljs-comment"># 假设我们正在处理图像数据</span><br>transform = transforms.Compose([<br>    transforms.Resize((<span class="hljs-number">224</span>, <span class="hljs-number">224</span>)),<br>    transforms.ToTensor(),<br>    transforms.Normalize(mean=[<span class="hljs-number">0.485</span>, <span class="hljs-number">0.456</span>, <span class="hljs-number">0.406</span>], std=[<span class="hljs-number">0.229</span>, <span class="hljs-number">0.224</span>, <span class="hljs-number">0.225</span>]),<br>])<br><br><span class="hljs-comment"># 加载你的数据</span><br>data = Image.<span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;path_to_your_data.jpg&#x27;</span>)<br>data = transform(data)<br>data = data.unsqueeze(<span class="hljs-number">0</span>)  <span class="hljs-comment"># 增加批次维度</span><br></code></pre></td></tr></table></figure>
-<h1 id="进行预测">3. 进行预测</h1>
-<p>最后，你可以使用模型对准备好的数据进行预测。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">with</span> torch.no_grad():  <span class="hljs-comment"># 在这个block中，不计算梯度</span><br>    outputs = model(data)<br>    _, predicted = torch.<span class="hljs-built_in">max</span>(outputs, <span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure>
-<p>在上述代码中，<code>outputs</code>是模型的原始输出。如果是分类问题，<code>torch.max</code>可以帮助我们找到概率最高的类别。</p>
-<h1 id="注意事项">注意事项</h1>
-<ul>
-<li>确保在进行预测前将模型设置为评估模式（<code>model.eval()</code>），这对于某些类型的层（如Dropout和BatchNorm）是必要的，以确保它们在推理时表现正常。</li>
-<li>使用<code>torch.no_grad()</code>环境来进行预测，这样可以减少内存消耗并加速计算，因为它告诉PyTorch不需要进行梯度计算。</li>
-<li>根据你的具体任务（如分类、回归等），最后的处理步骤可能会有所不同。</li>
-</ul>
-<p>这就是使用PyTorch进行模型预测的基本流程。如果你有特定的模型或数据，还可能需要进行一些调整。</p>
+                <h1 id="哈希表">1. 哈希表</h1>
+<p><code>std::unordered_map</code> 是 C++
+标准库中的一个关联容器，用于<strong>存储键值对（key-value
+pairs）</strong>。它提供了<strong>基于哈希表的快速查找和插入</strong>操作，其时间复杂度为<strong>O(1)</strong>。unordered_map
+中的元素不按照任何特定顺序排序，而是根据键的哈希值进行组织。</p>
+<ol type="1">
+<li><p><strong>头文件引入</strong>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unordered_map&gt;</span></span><br></code></pre></td></tr></table></figure></li>
+<li><p><strong>模板定义</strong>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp">std::unordered_map&lt;Key, T&gt; myMap;<br></code></pre></td></tr></table></figure>
+<p>这里的 <code>Key</code> 是键的类型，<code>T</code>
+是值的类型。</p></li>
+<li><p><strong>插入元素</strong>：</p>
+<p>使用中括号<code>[]</code>的方式：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp">myMap[key] = value;<br></code></pre></td></tr></table></figure>
+<p>或者可以使用 <code>insert()</code> 函数：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp">myMap.<span class="hljs-built_in">insert</span>(std::<span class="hljs-built_in">make_pair</span>(key, value));<br></code></pre></td></tr></table></figure></li>
+<li><p><strong>查找元素：</strong></p>
+<p><code>mp.count()</code>
+返回一个整数，表示在映射中具有该键的元素的数量。如果该键存在，则返回
+1；否则返回 0。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">if</span> (mp.<span class="hljs-built_in">count</span>(counter)) &#123;<br>	<br>&#125; <span class="hljs-keyword">else</span> &#123;<br>	<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p><strong>访问元素</strong>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">auto</span> it = myMap.<span class="hljs-built_in">find</span>(key);<br><span class="hljs-keyword">if</span> (it != myMap.<span class="hljs-built_in">end</span>()) &#123;<br>    <span class="hljs-comment">// key 存在</span><br>    T value = it-&gt;second;<br>&#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-comment">// key 不存在</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>或者直接使用下标访问：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp">T value = myMap[key];<br></code></pre></td></tr></table></figure></li>
+<li><p><strong>删除元素</strong>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp">myMap.<span class="hljs-built_in">erase</span>(key);<br></code></pre></td></tr></table></figure>
+<p>或者清空整个 unordered_map：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp">myMap.<span class="hljs-built_in">clear</span>();<br></code></pre></td></tr></table></figure></li>
+<li><p><strong>大小和容量</strong>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-type">size_t</span> size = myMap.<span class="hljs-built_in">size</span>(); <span class="hljs-comment">// 返回元素个数</span><br><span class="hljs-type">size_t</span> bucketCount = myMap.<span class="hljs-built_in">bucket_count</span>(); <span class="hljs-comment">// 返回底层哈希表的桶数量</span><br></code></pre></td></tr></table></figure></li>
+<li><p><strong>遍历 unordered_map</strong>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">for</span> (<span class="hljs-type">const</span> <span class="hljs-keyword">auto</span>&amp; pair : myMap) &#123;<br>    Key key = pair.first;<br>    T value = pair.second;<br>    <span class="hljs-comment">// 处理 key 和 value</span><br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<p><strong>参考资料：</strong></p>
+<ol type="1">
+<li>C++STL :
+unordered_map详解：https://zhuanlan.zhihu.com/p/296360525</li>
+<li>C++ std::unordered_map
+最适合与示例：https://shengyu7697.github.io/std-unordered_map/</li>
+</ol>
 
                 
               </div>
@@ -298,15 +320,8 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Python/" class="category-chain-item">Python</a>
+  <a href="/categories/LeetCode/" class="category-chain-item">LeetCode</a>
   
-  
-    <span>></span>
-    
-  <a href="/categories/Python/Pytorch/" class="category-chain-item">Pytorch</a>
-  
-  
-
   
 
       </span>
@@ -325,8 +340,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>模型测试</div>
-      <div>http://example.com/2024/03/05/Python/PyTorch/模型测试/</div>
+      <div>基本用法-C++</div>
+      <div>http://example.com/2024/03/10/LeetCode/基本用法-C++/</div>
     </div>
     <div class="license-meta">
       
@@ -338,7 +353,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年3月5日</div>
+          <div>2024年3月10日</div>
         </div>
       
       
@@ -370,9 +385,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/03/10/LeetCode/%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95-C/" title="基本用法-C">
+                      <a href="/2024/03/11/LeetCode/%E6%95%B0%E7%BB%84%E7%AF%87/" title="数组篇">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">基本用法-C</span>
+                        <span class="hidden-mobile">数组篇</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -380,8 +395,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/03/05/Python/PyTorch/%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/" title="模型训练">
-                        <span class="hidden-mobile">模型训练</span>
+                      <a href="/2024/03/10/LeetCode/%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95-C/" title="基本用法-C">
+                        <span class="hidden-mobile">基本用法-C</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
