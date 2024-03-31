@@ -16,21 +16,21 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1. 数组 C++ 中的 vector 是一种序列容器，可以存储任意类型的对象。这意味着它可以存储整数、浮点数、字符串或任何其他类型的对象。vector 是一个模板类，属于标准模板库（STL）的一部分。 以下是一些关于 vector 的关键特性：  动态数组：vector 像数组一样工作，但其大小可以动态变化。你可以在运行时添加或删除元素，而不必在编译时指定其大小。 连续存储：ve">
+    <meta name="description" content="1. 栈的实现 用栈实现队列  将一个栈当作输入栈，用于压入 push 传入的数据；另一个栈当作输出栈，用于 pop 和 peek操作。每次 pop 或 peek 时，若输出栈为空则将输入栈的全部数据依次弹出并压入输出栈，这样输出栈从栈顶往栈底的顺序就是队列从队首往队尾的顺序。  1234567891011121314151617181920212223242526272829303">
 <meta property="og:type" content="article">
-<meta property="og:title" content="基本用法-C++">
-<meta property="og:url" content="http://example.com/2024/03/10/LeetCode/%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95-C++/index.html">
+<meta property="og:title" content="栈与队列篇">
+<meta property="og:url" content="http://example.com/2024/03/31/LeetCode/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97%E7%AF%87/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="1. 数组 C++ 中的 vector 是一种序列容器，可以存储任意类型的对象。这意味着它可以存储整数、浮点数、字符串或任何其他类型的对象。vector 是一个模板类，属于标准模板库（STL）的一部分。 以下是一些关于 vector 的关键特性：  动态数组：vector 像数组一样工作，但其大小可以动态变化。你可以在运行时添加或删除元素，而不必在编译时指定其大小。 连续存储：ve">
+<meta property="og:description" content="1. 栈的实现 用栈实现队列  将一个栈当作输入栈，用于压入 push 传入的数据；另一个栈当作输出栈，用于 pop 和 peek操作。每次 pop 或 peek 时，若输出栈为空则将输入栈的全部数据依次弹出并压入输出栈，这样输出栈从栈顶往栈底的顺序就是队列从队首往队尾的顺序。  1234567891011121314151617181920212223242526272829303">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-03-10T00:05:46.000Z">
-<meta property="article:modified_time" content="2024-03-31T09:38:26.366Z">
+<meta property="article:published_time" content="2024-03-31T08:34:46.000Z">
+<meta property="article:modified_time" content="2024-03-31T09:42:33.654Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>基本用法-C++ - kaikaikai&#39;s blog</title>
+  <title>栈与队列篇 - kaikaikai&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -184,7 +184,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="基本用法-C++"></span>
+            <span id="subtitle" data-typed-text="栈与队列篇"></span>
           
         </div>
 
@@ -195,8 +195,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-03-10 08:05" pubdate>
-          2024年3月10日 早上
+        <time datetime="2024-03-31 16:34" pubdate>
+          2024年3月31日 下午
         </time>
       </span>
     
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.4k 字
+          2.1k 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          21 分钟
+          18 分钟
         
       </span>
     
@@ -255,132 +255,31 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">基本用法-C++</h1>
+            <h1 id="seo-header">栈与队列篇</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="数组">1. 数组</h1>
-<p>C++ 中的 <code>vector</code>
-是一种序列容器，可以存储任意类型的对象。这意味着它可以存储整数、浮点数、字符串或任何其他类型的对象。<code>vector</code>
-是一个模板类，属于标准模板库（STL）的一部分。</p>
-<p>以下是一些关于 <code>vector</code> 的关键特性：</p>
-<ol type="1">
-<li><p><strong>动态数组</strong>：<code>vector</code>
-像数组一样工作，但其大小可以动态变化。你可以在运行时添加或删除元素，而不必在编译时指定其大小。</p></li>
-<li><p><strong>连续存储</strong>：<code>vector</code>
-在内存中连续存储其元素，这意味着你可以使用指针或数组索引来访问元素。</p></li>
-<li><p><strong>随机访问</strong>：<code>vector</code>
-支持随机访问，这意味着你可以直接通过索引访问任何元素，时间复杂度为
-O(1)。</p></li>
-<li><p><strong>自动管理内存</strong>：<code>vector</code>
-自动管理其元素的内存分配和释放。当 <code>vector</code>
-的容量不足以容纳更多元素时，它会自动扩展其容量。</p></li>
-<li><p><strong>灵活的大小调整</strong>：你可以使用 <code>resize()</code>
-方法来改变 <code>vector</code>
-的大小，增加或减少元素数量，并相应地分配或释放内存。</p></li>
-</ol>
-<p>常用函数：</p>
-<ul>
-<li><strong>push_back(element)</strong>: 向 <code>vector</code>
-的末尾添加一个元素。</li>
-<li><strong>pop_back()</strong>: 移除 <code>vector</code>
-末尾的元素。</li>
-<li><strong>size()</strong>: 返回 <code>vector</code>
-中元素的数量。</li>
-<li><strong>empty()</strong>: 检查 <code>vector</code>
-是否为空，即不包含任何元素。</li>
-<li><strong>clear()</strong>: 移除 <code>vector</code>
-中的所有元素，使其大小为 0。</li>
-<li><strong>at(index)</strong>: 访问指定位置的元素，与使用下标操作符
-<code>[]</code> 类似，但带有边界检查。</li>
-<li><strong>front()</strong>: 访问 <code>vector</code>
-中的第一个元素。</li>
-<li><strong>back()</strong>: 访问 <code>vector</code>
-中的最后一个元素。</li>
-<li><strong>insert(position, element)</strong>: 在 <code>vector</code>
-的指定位置之前插入一个元素。</li>
-<li><strong>erase(position)</strong>: 移除 <code>vector</code>
-中指定位置的元素。</li>
-<li><strong>resize(new_size)</strong>: 改变 <code>vector</code>
-的大小，如果新大小大于当前大小，会添加默认元素。</li>
-<li><strong>reserve(capacity)</strong>:
-分配至少能存储指定数量元素的内存空间，这可以提高 <code>vector</code>
-添加元素的效率。</li>
-</ul>
-<h1 id="哈希表">2. 哈希表</h1>
-<p><code>std::unordered_map</code> 是 C++
-标准库中的一个关联容器，用于<strong>存储键值对（key-value
-pairs）</strong>。它提供了<strong>基于哈希表的快速查找和插入</strong>操作，其时间复杂度为<strong>O(1)</strong>。unordered_map
-中的元素不按照任何特定顺序排序，而是根据键的哈希值进行组织。</p>
-<ol type="1">
-<li><p><strong>头文件引入</strong>：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unordered_map&gt;</span></span><br></code></pre></td></tr></table></figure></li>
-<li><p><strong>模板定义</strong>：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp">std::unordered_map&lt;Key, T&gt; myMap;<br></code></pre></td></tr></table></figure>
-<p>这里的 <code>Key</code> 是键的类型，<code>T</code>
-是值的类型。</p></li>
-<li><p><strong>插入元素</strong>：</p>
-<p>使用中括号<code>[]</code>的方式：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp">myMap[key] = value;<br></code></pre></td></tr></table></figure>
-<p>或者可以使用 <code>insert()</code> 函数：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp">myMap.<span class="hljs-built_in">insert</span>(std::<span class="hljs-built_in">make_pair</span>(key, value));<br></code></pre></td></tr></table></figure></li>
-<li><p><strong>查找元素：</strong></p>
-<p><code>mp.count()</code>
-返回一个整数，表示在映射中具有该键的元素的数量。如果该键存在，则返回
-1；否则返回 0。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">if</span> (mp.<span class="hljs-built_in">count</span>(counter)) &#123;<br>	<br>&#125; <span class="hljs-keyword">else</span> &#123;<br>	<br>&#125;<br></code></pre></td></tr></table></figure></li>
-<li><p><strong>访问元素</strong>：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">auto</span> it = myMap.<span class="hljs-built_in">find</span>(key);<br><span class="hljs-keyword">if</span> (it != myMap.<span class="hljs-built_in">end</span>()) &#123;<br>    <span class="hljs-comment">// key 存在</span><br>    T value = it-&gt;second;<br>&#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-comment">// key 不存在</span><br>&#125;<br></code></pre></td></tr></table></figure>
-<p>或者直接使用下标访问：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp">T value = myMap[key];<br></code></pre></td></tr></table></figure></li>
-<li><p><strong>删除元素</strong>：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp">myMap.<span class="hljs-built_in">erase</span>(key);<br></code></pre></td></tr></table></figure>
-<p>或者清空整个 unordered_map：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp">myMap.<span class="hljs-built_in">clear</span>();<br></code></pre></td></tr></table></figure></li>
-<li><p><strong>大小和容量</strong>：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-type">size_t</span> size = myMap.<span class="hljs-built_in">size</span>(); <span class="hljs-comment">// 返回元素个数</span><br><span class="hljs-type">size_t</span> bucketCount = myMap.<span class="hljs-built_in">bucket_count</span>(); <span class="hljs-comment">// 返回底层哈希表的桶数量</span><br></code></pre></td></tr></table></figure></li>
-<li><p><strong>遍历 unordered_map</strong>：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">for</span> (<span class="hljs-type">const</span> <span class="hljs-keyword">auto</span>&amp; pair : myMap) &#123;<br>    Key key = pair.first;<br>    T value = pair.second;<br>    <span class="hljs-comment">// 处理 key 和 value</span><br>&#125;<br></code></pre></td></tr></table></figure></li>
-</ol>
-<h1 id="栈">3. 栈</h1>
-<p>在 C++ 中，stack
-是一个标准模板库（STL）提供的容器，它提供了一种<strong>先进后出（Last In
-First Out, LIFO）</strong>的数据结构。</p>
-<ul>
-<li><code>empty()</code> ：如果栈为空返回true，否则返回false</li>
-<li><code>size()</code> ：返回栈中元素的个数</li>
-<li><code>pop()</code>：弹栈</li>
-<li><code>push()</code>：压栈</li>
-<li><code>peek()</code>/<code>top()</code>：预览栈顶元素:</li>
-</ul>
-<p>注意：peek() 在 C++ 的 stack 中是没有定义的方法，但是 top()
-方法可以实现类似的功能，返回 stack 中的顶部元素的值，而不移除它。</p>
-<h1 id="队列">4. 队列</h1>
-<p>在 C++ 中，queue
-是一个标准模板库（STL）提供的容器，它提供了一种<strong>先进先出（First
-In First Out, FIFO）</strong>的数据结构。</p>
-<ul>
-<li><code>empty()</code> ：如果队列为空返回true，否则返回false</li>
-<li><code>size()</code> ：返回队列中元素的个数</li>
-<li><code>pop()</code> ：删除队列首元素</li>
-<li><code>push()</code>：在队尾压入新元素</li>
-<li><code>front()</code> ：预览队列首元素</li>
-<li><code>back()</code>：预览队列尾元素</li>
-</ul>
-<p><strong>参考资料：</strong></p>
-<ol type="1">
-<li>C++STL :
-unordered_map详解：https://zhuanlan.zhihu.com/p/296360525</li>
-<li>C++ std::unordered_map
-最适合与示例：https://shengyu7697.github.io/std-unordered_map/</li>
-<li>C++
-栈和队列的介绍与使用：https://blog.csdn.net/tham_/article/details/44733101</li>
-<li>c++ stack pop peek
-使用：https://juejin.cn/s/c%2B%2B%20stack%20pop%20peek%20%E4%BD%BF%E7%94%A8</li>
-<li>C++ vector
-容器浅析：https://www.runoob.com/w3cnote/cpp-vector-container-analysis.html</li>
-</ol>
+                <h1 id="栈的实现">1. 栈的实现</h1>
+<h2 id="用栈实现队列">用栈实现队列</h2>
+<blockquote>
+<p>将一个栈当作输入栈，用于压入 push
+传入的数据；另一个栈当作输出栈，用于 pop 和 peek操作。每次 pop 或 peek
+时，若输出栈为空则将输入栈的全部数据依次弹出并压入输出栈，这样输出栈从栈顶往栈底的顺序就是队列从队首往队尾的顺序。</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyQueue</span> &#123;<br><span class="hljs-keyword">private</span>:<br>    std::stack&lt;<span class="hljs-type">int</span>&gt; inStack,outStack;<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">in2out</span><span class="hljs-params">()</span></span>&#123;<br>        <span class="hljs-keyword">while</span>(!inStack.<span class="hljs-built_in">empty</span>())&#123;<br>            outStack.<span class="hljs-built_in">push</span>(inStack.<span class="hljs-built_in">top</span>());<br>            inStack.<span class="hljs-built_in">pop</span>();<br>        &#125;<br>    &#125;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">MyQueue</span>() &#123;<br>        <br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">push</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span> </span>&#123;<br>        inStack.<span class="hljs-built_in">push</span>(x);<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">pop</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">if</span>(outStack.<span class="hljs-built_in">empty</span>())&#123;<br>            <span class="hljs-built_in">in2out</span>();<br>        &#125;<br>        <span class="hljs-type">int</span> x=outStack.<span class="hljs-built_in">top</span>();<br>        outStack.<span class="hljs-built_in">pop</span>();<br>        <span class="hljs-keyword">return</span> x;<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">peek</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">if</span>(outStack.<span class="hljs-built_in">empty</span>())&#123;<br>            <span class="hljs-built_in">in2out</span>();<br>        &#125;<br>        <span class="hljs-keyword">return</span> outStack.<span class="hljs-built_in">top</span>();<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">empty</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> inStack.<span class="hljs-built_in">empty</span>() &amp;&amp; outStack.<span class="hljs-built_in">empty</span>();<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<h2 id="用队列实现栈">用队列实现栈</h2>
+<blockquote>
+<p>使用一个队列。入栈操作时，首先获得入栈前的元素个数
+n，然后将元素入队到队列，再将队列中的前 n
+个元素（即除了新入栈的元素之外的全部元素）依次出队并入队到队列，此时队列的前端的元素即为新入栈的元素，且队列的前端和后端分别对应栈顶和栈底。</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyStack</span> &#123;<br><span class="hljs-keyword">private</span>:<br>    queue&lt;<span class="hljs-type">int</span>&gt; q;<br>   <br><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">MyStack</span>() &#123;<br><br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">push</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span> </span>&#123;<br>      <span class="hljs-type">int</span> n=q.<span class="hljs-built_in">size</span>();<br>      q.<span class="hljs-built_in">push</span>(x);<br>      <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)&#123;<br>        q.<span class="hljs-built_in">push</span>(q.<span class="hljs-built_in">front</span>());<br>        q.<span class="hljs-built_in">pop</span>();<br>      &#125;<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">pop</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-type">int</span> x=q.<span class="hljs-built_in">front</span>();<br>        q.<span class="hljs-built_in">pop</span>();<br>        <span class="hljs-keyword">return</span> x;<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">top</span><span class="hljs-params">()</span> </span>&#123;<br>       <span class="hljs-type">int</span> x=q.<span class="hljs-built_in">front</span>();<br>        <span class="hljs-keyword">return</span> x;<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">empty</span><span class="hljs-params">()</span> </span>&#123;<br>       <span class="hljs-keyword">return</span> q.<span class="hljs-built_in">empty</span>();<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<h2 id="三合一">三合一</h2>
+<blockquote>
+<p>在单个连续内存数组中有效地模拟三个独立的栈，通过计算索引来隔离每个栈的数据。</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">TripleInOne</span> &#123;<br><span class="hljs-keyword">private</span>:<br>    std::vector&lt;<span class="hljs-type">int</span>&gt; stack;<br>    <span class="hljs-type">int</span> stackSize;<br>    <span class="hljs-type">int</span> stackTops[<span class="hljs-number">3</span>]; <span class="hljs-comment">// 跟踪每个栈的顶部位置</span><br><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">TripleInOne</span>(<span class="hljs-type">int</span> stackSize) &#123;<br>        <span class="hljs-keyword">this</span>-&gt;stackSize = stackSize;<br>        stack.<span class="hljs-built_in">resize</span>(stackSize * <span class="hljs-number">3</span>);<br>        stackTops[<span class="hljs-number">0</span>] = stackTops[<span class="hljs-number">1</span>] = stackTops[<span class="hljs-number">2</span>] = <span class="hljs-number">0</span>; <span class="hljs-comment">// 初始化每个栈的栈顶位置为0</span><br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">push</span><span class="hljs-params">(<span class="hljs-type">int</span> stackNum, <span class="hljs-type">int</span> value)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (stackTops[stackNum] &lt; stackSize) &#123; <span class="hljs-comment">// 检查栈是否已满</span><br>            stack[stackNum * stackSize + stackTops[stackNum]] = value;<br>            stackTops[stackNum]++;<br>        &#125;<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">pop</span><span class="hljs-params">(<span class="hljs-type">int</span> stackNum)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">isEmpty</span>(stackNum)) &#123;<br>            stackTops[stackNum]--;<br>            <span class="hljs-keyword">return</span> stack[stackNum * stackSize + stackTops[stackNum]];<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>; <span class="hljs-comment">// 栈为空时返回-1</span><br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">peek</span><span class="hljs-params">(<span class="hljs-type">int</span> stackNum)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">isEmpty</span>(stackNum)) &#123;<br>            <span class="hljs-keyword">return</span> stack[stackNum * stackSize + stackTops[stackNum] - <span class="hljs-number">1</span>];<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>; <span class="hljs-comment">// 栈为空时返回-1</span><br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">isEmpty</span><span class="hljs-params">(<span class="hljs-type">int</span> stackNum)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> stackTops[stackNum] == <span class="hljs-number">0</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
 
                 
               </div>
@@ -419,8 +318,8 @@ unordered_map详解：https://zhuanlan.zhihu.com/p/296360525</li>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>基本用法-C++</div>
-      <div>http://example.com/2024/03/10/LeetCode/基本用法-C++/</div>
+      <div>栈与队列篇</div>
+      <div>http://example.com/2024/03/31/LeetCode/栈与队列篇/</div>
     </div>
     <div class="license-meta">
       
@@ -432,7 +331,7 @@ unordered_map详解：https://zhuanlan.zhihu.com/p/296360525</li>
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年3月10日</div>
+          <div>2024年3月31日</div>
         </div>
       
       
@@ -464,18 +363,12 @@ unordered_map详解：https://zhuanlan.zhihu.com/p/296360525</li>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/03/11/LeetCode/%E6%95%B0%E7%BB%84%E7%AF%87/" title="数组篇">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">数组篇</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/03/10/LeetCode/%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95-C/" title="基本用法-C">
-                        <span class="hidden-mobile">基本用法-C</span>
+                      <a href="/2024/03/30/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C/LaTeX/" title="LaTex">
+                        <span class="hidden-mobile">LaTex</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
