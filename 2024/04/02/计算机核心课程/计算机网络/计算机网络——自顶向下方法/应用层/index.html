@@ -1,0 +1,1410 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="kaikaikai">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1. 网络应用原理 1.1 创建网络应用  在不同终端系统上运行，通过网络通信； 无需为网络核心设备编写软件。  1.2 应用架构  client-server（CS）：客户机-服务器架构  传统应用，如E-mail、FTP、WWW  peer-to-peer (P2P) ：对等网络架构  新型流量密集型应用，如IM(Instant Message),IPTV, Int">
+<meta property="og:type" content="article">
+<meta property="og:title" content="应用层">
+<meta property="og:url" content="http://example.com/2024/04/02/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%A0%B8%E5%BF%83%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95/%E5%BA%94%E7%94%A8%E5%B1%82/index.html">
+<meta property="og:site_name" content="kaikaikai&#39;s blog">
+<meta property="og:description" content="1. 网络应用原理 1.1 创建网络应用  在不同终端系统上运行，通过网络通信； 无需为网络核心设备编写软件。  1.2 应用架构  client-server（CS）：客户机-服务器架构  传统应用，如E-mail、FTP、WWW  peer-to-peer (P2P) ：对等网络架构  新型流量密集型应用，如IM(Instant Message),IPTV, Int">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-02T04:55:18.000Z">
+<meta property="article:modified_time" content="2024-04-03T07:26:59.126Z">
+<meta property="article:author" content="kaikaikai">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>应用层 - kaikaikai&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="应用层"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-04-02 12:55" pubdate>
+          2024年4月2日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          69 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">应用层</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="网络应用原理">1. 网络应用原理</h1>
+<h2 id="创建网络应用">1.1 创建网络应用</h2>
+<ul>
+<li>在不同终端系统上运行，通过网络通信；</li>
+<li>无需为网络核心设备编写软件。</li>
+</ul>
+<h2 id="应用架构">1.2 应用架构</h2>
+<ul>
+<li>client-server（CS）：客户机-服务器架构
+<ul>
+<li>传统应用，如E-mail、FTP、WWW</li>
+</ul></li>
+<li>peer-to-peer (P2P) ：对等网络架构
+<ul>
+<li>新型流量密集型应用，如IM(Instant Message),IPTV, Internet Phone, Live
+Streaming</li>
+</ul></li>
+<li>hybrid of client-server and P2P：混合C/S和P2P架构</li>
+</ul>
+<h3 id="cs">1.2.1 CS</h3>
+<ul>
+<li>服务器：
+<ul>
+<li>永远在线的主机</li>
+<li>永久 IP 地址(固定 IP)</li>
+<li>Web、FTP、Telnet、电子邮件</li>
+<li>用于扩展的数据中心</li>
+</ul></li>
+<li>客户端：
+<ul>
+<li>与服务器通信</li>
+<li>可能是间断地连接</li>
+<li>可能有动态 IP 地址</li>
+<li><strong>不直接</strong>相互通信</li>
+</ul></li>
+</ul>
+<h3 id="p2p">1.2.2 P2P</h3>
+<ul>
+<li><strong>没有</strong>永远在线的服务器</li>
+<li>任意终端系统<strong>直接</strong>通信</li>
+<li>对等体向其他对等体请求服务，向其他对等体提供服务作为回报
+<ul>
+<li><strong>self-scalability（可收缩性）</strong>：新的对等体带来新的服务能力，以及新的服务需求</li>
+</ul></li>
+<li>对等体间断地连接，可能改变 IP 地址
+<ul>
+<li>复杂的管理<br />
+</li>
+<li>BitTorrent、eMule、Skpye、PPTV、Thunder</li>
+</ul></li>
+<li>成本低：通常不需要大量的服务器基础设施和服务器带宽</li>
+</ul>
+<h3 id="混合型">1.2.3 混合型</h3>
+<ul>
+<li>集中式服务：客户端存在检测/定位
+<ul>
+<li>用户上线时向中央服务器注册其 IP 地址</li>
+<li>用户联系中央服务器以查找好友的 IP 地址</li>
+</ul></li>
+<li>两个用户之间的聊天是 P2P 式的</li>
+<li>例子：Skype</li>
+</ul>
+<h2 id="进程通信">1.3 进程通信</h2>
+<p><strong>进程(process)</strong>：在主机内运行的程序。</p>
+<ul>
+<li>在同一主机内，两个进程使用<strong>进程间通信 (IPC)</strong>
+进行通信（由操作系统定义</li>
+<li>在不同主机内，进程通过<strong>交换信息</strong>进行通信
+<ul>
+<li>发起进程：创建并向网络发送信息</li>
+<li>接收进程：接收信息并进行响应</li>
+<li>定义：<strong>发起通信</strong>的进程被称为<strong>客户端</strong>，<strong>等待联系</strong>以开始会话的进程被称为<strong>服务器</strong></li>
+<li>在网络应用程序中，客户端浏览器进程与网络服务器进程交换信息</li>
+<li>采用 P2P
+架构的应用程序同时有客户端进程和服务器进程。在下面这个特定的通信会话中，A
+请求 B 发送文件，A 是客户端，B 是服务器。</li>
+</ul></li>
+</ul>
+<h2 id="套接字">1.4 套接字</h2>
+<ul>
+<li>进程通过一个称为<strong>套接字（socket）</strong>的软件接口向网络发送信息，并从网络接收信息。</li>
+<li>进程类似于房子，套接字类似于门
+<ul>
+<li>发起进程将信息推出门外</li>
+<li>发起进程依靠门另一侧的传输基础设施将信息传送到接收进程的套接字</li>
+<li>应用层方面的控制，但对套接字传输层方面的控制却很少</li>
+</ul></li>
+</ul>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404031526976.png" srcset="/img/loading.gif" lazyload
+alt="image-20240402132659911" />
+<figcaption aria-hidden="true">image-20240402132659911</figcaption>
+</figure>
+<h2 id="寻址过程">1.5 寻址过程</h2>
+<ul>
+<li>要接收信息，进程必须有<strong>标识符</strong></li>
+<li><strong>IP</strong>地址区分不同<strong>主机</strong>，<strong>端口</strong>号区分相同主机不同<strong>进程</strong></li>
+<li>标识符包括与主机上进程相关的 IP 地址和端口号</li>
+<li>端口号示例：
+<ul>
+<li>HTTP 服务器：80</li>
+<li>邮件服务器（SMTP）： 25</li>
+</ul></li>
+<li>向 gaia.cs.umass.edu 网络服务器发送 HTTP 信息：
+<ul>
+<li>P 地址：128.119.245.12</li>
+<li>端口号： 80</li>
+</ul></li>
+</ul>
+<h2 id="应用层协议">1.6 应用层协议</h2>
+<ul>
+<li>定义了运行在不同端系统上的应用程序进程如何相互传递报文
+<ul>
+<li>报文类型</li>
+<li>语法</li>
+<li>语义</li>
+<li>规则</li>
+</ul></li>
+<li>协议类型
+<ul>
+<li>open protocols (公开协议)：如HTTP, SMTP</li>
+<li>proprietary protocols (私有协议)：如Skype, QQ, Thunder</li>
+</ul></li>
+</ul>
+<h2 id="应用程序需要的传输服务">1.7 应用程序需要的传输服务</h2>
+<ul>
+<li><strong>data integrity(数据完整性)</strong>
+<ul>
+<li>某些应用程序（如文件传输、网络交易）需要 100% 可靠的数据传输</li>
+<li>其他应用程序（如音频、视频）可以容忍一定程度的数据丢失</li>
+</ul></li>
+<li><strong>Timing(及时性)</strong>
+<ul>
+<li>有些应用程序（如网络电话、互动游戏）需要低延迟才能有效运行</li>
+</ul></li>
+<li><strong>Throughput(吞吐量)</strong>
+<ul>
+<li>带宽敏感应用：有些应用程序（如多媒体）需要最低限度的吞吐量才能有效</li>
+<li>弹性应用：可以利用它们获得的任何吞吐量（如电子邮件、文件传输、网络）</li>
+</ul></li>
+<li><strong>Security(安全性)</strong>
+<ul>
+<li>加密、数据完整性</li>
+</ul></li>
+</ul>
+<h2 id="因特网传输协议服务">1.8 因特网传输协议服务</h2>
+<ul>
+<li><strong>TCP 服务</strong>
+<ul>
+<li>发送和接收方之间的<strong>可靠</strong>传输</li>
+<li><strong>流量控制</strong>：发送方不会淹没接收方（避免接收方处理不过来）</li>
+<li><strong>拥塞控制</strong>：当网络过载时对发送方进行节流（避免网络处理不过来）</li>
+<li><strong>不提供：</strong>定时、最小吞吐量保证、安全</li>
+<li><strong>面向连接</strong>：客户端和服务器进程之间需要进行连接设置</li>
+</ul></li>
+<li><strong>UDP 服务</strong>
+<ul>
+<li>发送和接收方之间<strong>不可靠</strong>传输</li>
+<li><strong>不提供：</strong>可靠性、流量控制、拥塞控制、定时、吞吐量保证、安全性或连接设置</li>
+</ul></li>
+<li>TCP 和 UDP
+<ul>
+<li>无加密 ；发送到套接字的信息以明文形式穿越因特网</li>
+<li><strong>SSL (Secure Sockets Layer, 安全套接层)</strong>
+<ul>
+<li>提供加密连接、数据完整性、端点验证，以增强 TCP</li>
+<li>不是第三种互联网传输协议，在<strong>应用层</strong>实施</li>
+</ul></li>
+<li>今天的因特网传输协议不提供吞吐量或及时性服务，但通常可以为时间敏感的应用提供令人满意的服务（不保证，但能基本满足）</li>
+</ul></li>
+</ul>
+<h1 id="web和http">2. Web和HTTP</h1>
+<h2 id="web概览">2.1 Web概览</h2>
+<ul>
+<li>网页(web) 由基本 HTML 文件和多个引用对象组成</li>
+<li>对象可以是 HTML 文件、JPEG 图像、Java applet、音频文件</li>
+<li>每个对象都可以通过 URL 进行寻址</li>
+</ul>
+<h2 id="http概览">2.2 HTTP概览</h2>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404031526977.png" srcset="/img/loading.gif" lazyload
+alt="image-20240402141407736" />
+<figcaption aria-hidden="true">image-20240402141407736</figcaption>
+</figure>
+<ul>
+<li>HTTP: hypertext transfer protocol(超文本传输协议)</li>
+<li>网络的应用层协议</li>
+<li>客户端/服务器模式
+<ul>
+<li>客户端：请求、接收（使用 HTTP 协议）和 "显示 "网络对象的浏览器</li>
+<li>服务器：网络服务器（使用 HTTP 协议）根据请求发送对象</li>
+</ul></li>
+<li>使用 TCP（底层传输协议）：
+<ul>
+<li>客户端启动与服务器的 TCP 连接（创建套接字），端口为 80</li>
+<li>服务器接受来自客户端的 TCP 连接</li>
+<li>浏览器（HTTP 客户端）和 Web 服务器（HTTP 服务器）之间交换 HTTP
+消息（应用层协议消息）</li>
+<li>关闭 TCP 连接</li>
+</ul></li>
+<li>HTTP 是 <strong>"无状态 "协议（stateless
+protocol）</strong>：服务器不保留任何有关过去客户端请求的信息</li>
+</ul>
+<h2 id="http连接">2.3 HTTP连接</h2>
+<ul>
+<li><p><strong>non-persistent connections
+(非持久连接)</strong>：每个请求/响应对通过单独的 TCP 连接发送</p></li>
+<li><p><strong>persistent connections
+(持久连接)</strong>：所有请求及其相应的响应都通过同一个 TCP
+连接发送</p></li>
+<li><p>HTTP 可以使用非持久连接和持久连接</p>
+<ul>
+<li><p>非持久 HTTP：</p>
+<ul>
+<li><p>通过一个 TCP
+连接最多发送一个对象，随后连接关闭；下载多个对象需要多个连接</p></li>
+<li><p>用户可以通过配置浏览器来控制并行程度，使用并行连接可缩短响应时间</p></li>
+<li><p><strong>Round-trip Time (RTT,
+往返时间)</strong>：一个<strong>小</strong>数据包（无传输延迟）从客户端到服务器再返回的时间，包括处理延迟、排队延迟和传播延迟</p></li>
+<li><p>HTTP 响应时间 =2RTT+ 文件传输时间</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404031526978.png" srcset="/img/loading.gif" lazyload
+alt="image-20240402141830612" />
+<figcaption aria-hidden="true">image-20240402141830612</figcaption>
+</figure>
+<ul>
+<li>缺点：必须为每个请求对象建立和维护全新连接，增加操作系统开销 ；
+每个对象的交付延迟超过两个 RTTs</li>
+</ul></li>
+</ul></li>
+<li><p>持久 HTTP：</p>
+<ul>
+<li>服务器在发送响应后保持连接打开</li>
+<li>同一客户端/服务器之间的后续 HTTP 消息通过同一连接发送 
+客户端在遇到引用对象时立即发送请求</li>
+<li>所有引用对象的 RTT 均为1</li>
+</ul></li>
+</ul></li>
+<li><p>HTTP 的默认模式使用带有
+<strong>pipelinling（流水线）</strong>的<strong>持久连接</strong></p>
+<ul>
+<li>Pipelinling：不等待已发送消息的应答，连续发送后面的消息。</li>
+</ul></li>
+</ul>
+<h2 id="http消息">2.4 HTTP消息</h2>
+<p>HTTP 消息由采用 <strong>ASCII
+编码</strong>的多行文本构成，是服务器和客户端之间交换数据的方式。有两种类型的消息：<em>请求</em>（request）——由客户端发送用来触发一个服务器上的动作；<em>响应</em>（response）——来自服务器的应答。HTTP
+请求和响应具有相似的结构，由以下部分组成：</p>
+<ol type="1">
+<li>一行起始行用于描述要执行的请求，或者是对应的状态，成功或失败。这个起始行总是单行的。</li>
+<li>一个可选的 HTTP 标头集合指明请求或描述消息主体（body）。</li>
+<li>一个空行指示所有关于请求的元数据已经发送完毕。</li>
+<li>一个可选的包含请求相关数据的<em>主体</em>（比如 HTML
+表单内容），或者响应相关的文档。</li>
+</ol>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404031526979.png" srcset="/img/loading.gif" lazyload
+alt="image-20240402143958252" />
+<figcaption aria-hidden="true">image-20240402143958252</figcaption>
+</figure>
+<h3 id="请求报文">2.4.1 请求报文</h3>
+<p>一般格式：</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404031526980.png" srcset="/img/loading.gif" lazyload
+alt="image-20240402142610659" />
+<figcaption aria-hidden="true">image-20240402142610659</figcaption>
+</figure>
+<p>实例：</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404031526981.png" srcset="/img/loading.gif" lazyload
+alt="image-20240402143212724" />
+<figcaption aria-hidden="true">image-20240402143212724</figcaption>
+</figure>
+<h3 id="响应报文">2.4.2 响应报文</h3>
+<p>一般格式：</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404031526982.png" srcset="/img/loading.gif" lazyload
+alt="image-20240402142843784" />
+<figcaption aria-hidden="true">image-20240402142843784</figcaption>
+</figure>
+<p>实例：</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404031526983.png" srcset="/img/loading.gif" lazyload
+alt="image-20240402143005850" />
+<figcaption aria-hidden="true">image-20240402143005850</figcaption>
+</figure>
+<h3 id="响应状态码">2.4.3 响应状态码</h3>
+<ul>
+<li>200 OK：请求成功</li>
+<li>301 Moved Permanently
+(永久)：请求对象已移动位置，新位置稍后在本信息中指定（Location：）</li>
+<li>400 Bad Request：服务器无法理解请求信息</li>
+<li>404 Not Found：在此服务器上未找到所请求的文件</li>
+<li>505 HTTP Version Not Supported</li>
+</ul>
+<h3 id="上传表单输入">2.4.4 上传表单输入</h3>
+<ul>
+<li>POST method：表单输入信息在body字段</li>
+<li>URL method：输入信息在URL中</li>
+</ul>
+<h3 id="方法类型">2.4.5 方法类型</h3>
+<ul>
+<li>HTTP/1.0：GET、POST、HEAD（要求服务器在响应中不包含请求对象）</li>
+<li>HTTP/1.1：GET、POST、HEAD、PUT（将实体正文中的文件上传到 URL
+字段中指定的路径）、DELETE（删除 URL 字段中指定的文件）</li>
+</ul>
+<h2 id="cookie">2.6 Cookie</h2>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404031526984.png" srcset="/img/loading.gif" lazyload
+alt="image-20240402145421890" />
+<figcaption aria-hidden="true">image-20240402145421890</figcaption>
+</figure>
+<ul>
+<li>为识别用户，许多网站使用 cookie</li>
+<li>组成部分：
+<ul>
+<li>HTTP 响应信息中的 cookie 标头行</li>
+<li>下一个 HTTP 请求信息中的 cookie 标头行</li>
+<li>保存在用户主机上的 cookie 文件，由用户的浏览器管理</li>
+<li>网站的后端数据库</li>
+</ul></li>
+<li>用途：授权、购物车、推荐</li>
+<li>保存状态
+<ul>
+<li>协议端点：在多个事务中保持发送方/接收方的状态</li>
+<li>cookie：使 http 消息携带状态，在无状态 http 上创建用户会话层</li>
+</ul></li>
+</ul>
+<h2 id="web-caches">2.7 Web caches</h2>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404031526985.png" srcset="/img/loading.gif" lazyload
+alt="image-20240402145736599" />
+<figcaption aria-hidden="true">image-20240402145736599</figcaption>
+</figure>
+<ul>
+<li>目标：满足客户端请求，而不涉及源服务器</li>
+<li>用户设置浏览器：通过代理服务器访问 Web</li>
+<li>浏览器向代理服务器发送所有 HTTP 请求
+<ul>
+<li>缓存中已有对象：缓存返回对象</li>
+<li>否则缓存向源服务器请求对象，然后将对象返回给客户端</li>
+</ul></li>
+<li>代理服务器同时充当客户端和服务器</li>
+<li>使用原因：
+<ul>
+<li>减少客户端请求的响应时间（如在线游戏）</li>
+<li>减少机构接入链路到因特网的流量（如 html 文件缓存）</li>
+</ul></li>
+</ul>
+<h2 id="内容分发网络">2.8 内容分发网络</h2>
+<ul>
+<li><p>Content Distribution Networks (CDNs)</p></li>
+<li><p>网络缓存在互联网上发挥着越来越重要的作用</p></li>
+<li><p>在整个互联网上安装了许多地理位置分散的缓存，从而将大部分流量本地化。</p></li>
+</ul>
+<h2 id="条件get">2.9 条件GET</h2>
+<p>在网络缓存中的对象副本可能是陈旧的，条件获取（Conditional
+GET）允许网络缓存检查对象是否是最新的。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404031526987.png" srcset="/img/loading.gif" lazyload
+alt="image-20240402150824408" />
+<figcaption aria-hidden="true">image-20240402150824408</figcaption>
+</figure>
+<h1 id="文件传输协议">3. 文件传输协议</h1>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404031526988.png" srcset="/img/loading.gif" lazyload
+alt="image-20240402151557780" />
+<figcaption aria-hidden="true">image-20240402151557780</figcaption>
+</figure>
+<ul>
+<li><p><strong>FTP</strong>: File Transfer Protocol
+（文件传输协议）</p></li>
+<li><p>客户机/服务器模式</p>
+<ul>
+<li>客户机：发起传输的一方</li>
+<li>服务器：远程主机</li>
+</ul></li>
+<li><p>使用 <strong>TCP</strong>协议作为底层传输协议</p></li>
+<li><p>客户端通过<strong>控制连接</strong>进行授权，发送命令</p></li>
+<li><p>服务器收到文件传输命令后，向客户端打开第二个 TCP
+<strong>数据连接</strong></p></li>
+<li><p><strong>控制连接</strong>在用户会话期间<strong>保持打开</strong>，传输一个文件后，服务器关闭数据连接，打开另一个
+TCP 数据连接以传输另一个文件</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404031526989.png" srcset="/img/loading.gif" lazyload
+alt="image-20240402152146470" />
+<figcaption aria-hidden="true">image-20240402152146470</figcaption>
+</figure></li>
+<li><p>“out of band”
+带外：有两个通道同时进行交互（http,smtp:”in-band”）</p></li>
+<li><p><strong>有状态协议：</strong>如当前目录，更早的验证</p></li>
+</ul>
+<h1 id="电子邮件">4. 电子邮件</h1>
+<h2 id="组成部分">4.1 组成部分</h2>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404031526990.png" srcset="/img/loading.gif" lazyload
+alt="image-20240402153021617" />
+<figcaption aria-hidden="true">image-20240402153021617</figcaption>
+</figure>
+<ul>
+<li><p><strong>用户代理</strong></p>
+<ul>
+<li>又称 "邮件阅读器"</li>
+<li>撰写、编辑、阅读、回复、转发、保存邮件</li>
+<li>如 Outlook、Thunderbird、iPhone 邮件客户端</li>
+<li>发送、接收的邮件存储在服务器上</li>
+</ul></li>
+<li><p><strong>邮件服务器</strong></p>
+<ul>
+<li>邮箱包含用户接收的邮件</li>
+<li>发送（待发）邮件信息的信息队列</li>
+<li>邮件服务器之间发送邮件信息的 SMTP 协议
+<ul>
+<li>客户端：发送邮件的服务器</li>
+<li>服务器：接收邮件的服务器</li>
+</ul></li>
+</ul></li>
+<li><p><strong>简单邮件传输协议（SMTP）</strong></p>
+<ul>
+<li>使用 <strong>TCP</strong> 协议，
+<strong>25</strong>号端口（服务器），<strong>持久连接</strong>，<strong>有状态协议</strong></li>
+<li>直接传输：发送服务器（SMTP 客户端）到接收服务器（SMTP 服务器）</li>
+<li>命令/响应交互（如 HTTP、FTP）
+<ul>
+<li>命令：ASCII 文本</li>
+<li>响应：状态代码和短语</li>
+</ul></li>
+<li>SMTP 服务器使用 <code>CRLF.CRLF</code> 确定信息结束</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th>SMTP</th>
+<th>HTTP</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>推的协议（发送信息）</td>
+<td>拉的协议（获取信息）</td>
+</tr>
+<tr class="even">
+<td>报文必须是 7 位 ASCII 码</td>
+<td>无限制</td>
+</tr>
+<tr class="odd">
+<td>所有对象放在一个消息中</td>
+<td>每个对象对应一个响应消息</td>
+</tr>
+</tbody>
+</table></li>
+</ul>
+<h2 id="邮件报文格式">4.2 邮件报文格式</h2>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404031526991.png" srcset="/img/loading.gif" lazyload
+alt="image-20240402154718947" />
+<figcaption aria-hidden="true">image-20240402154718947</figcaption>
+</figure>
+<h2 id="邮件访问协议">4.3 邮件访问协议</h2>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404031526992.png" srcset="/img/loading.gif" lazyload
+alt="image-20240402154838522" />
+<figcaption aria-hidden="true">image-20240402154838522</figcaption>
+</figure>
+<ul>
+<li>SMTP：向接收方服务器发送/存储（推送）</li>
+<li>邮件访问协议：从服务器检索（拉取）
+<ul>
+<li>POP3</li>
+<li>IMAP</li>
+<li>HTTP</li>
+</ul></li>
+</ul>
+<h3 id="pop3">4.3.1 POP3</h3>
+<ul>
+<li>POP3: Post Office Protocol –version3(邮局协议版本3)</li>
+<li>工作流程：认证；事务处理；更新</li>
+<li>模式：
+<ul>
+<li>下载并删除：如果更换客户端，则无法重新阅读电子邮件</li>
+<li>下载并保留：不同客户端的信息副本</li>
+</ul></li>
+<li>端口：110</li>
+<li><strong>无状态协议</strong></li>
+</ul>
+<h3 id="imap">4.3.2 IMAP</h3>
+<ul>
+<li>IMAP: Internet Mail Access Protocol (Internet邮件访问协议)</li>
+<li>管理服务器中的文件</li>
+<li>可将所有邮件集中在一个地方：在服务器上</li>
+<li>用户可将邮件整理到文件夹中</li>
+<li><strong>有状态协议</strong></li>
+</ul>
+<h1 id="dns">5. DNS</h1>
+<ul>
+<li>Domain Name System：域名系统</li>
+<li>一个由分层的DNS服务器实现的<strong>分布式数据库</strong></li>
+<li>一个使主机能查询分布式数据库的<strong>应用层协议</strong></li>
+<li>下层协议：<strong>UDP</strong></li>
+<li>端口：<strong>53</strong></li>
+</ul>
+<h2 id="dns服务">5.1 DNS服务</h2>
+<p>通常由其他应用层协议（包括 HTTP、SMTP 和 FTP）使用</p>
+<ul>
+<li><strong>域名到IP地址转换</strong></li>
+<li><strong>主机别名</strong>：获取主机别名对应的规范主机名及主机IP地址</li>
+<li><strong>邮件服务器别名</strong>：获取邮件服务器别名对应的规范主机名及主机IP地址</li>
+<li><strong>负载分配</strong></li>
+</ul>
+<h2 id="分布式层次数据库">5.2 分布式层次数据库</h2>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404031526993.png" srcset="/img/loading.gif" lazyload
+alt="image-20240402161242414" />
+<figcaption aria-hidden="true">image-20240402161242414</figcaption>
+</figure>
+<h2 id="本地dns服务器">5.3 本地DNS服务器</h2>
+<ul>
+<li>不属于（以上）层次结构</li>
+<li>每个 ISP都有一个，也称为 "默认名称服务器"</li>
+<li>当主机连接到 ISP 时提供一个或多个本地 DNS 服务器的 IP 地址</li>
+<li>当主机进行 DNS 查询时，查询会被发送到其本地 DNS 服务器：
+<ul>
+<li>本地缓存有最近的名称到地址转换对（但可能已经过期！）</li>
+<li>充当代理，将查询转发到层次结构中</li>
+</ul></li>
+<li>一旦DNS服务器获得映射，它就会缓存映射；缓存可能过时</li>
+<li>TLD 服务器通常缓存在本地DNS服务器中</li>
+</ul>
+<h2 id="dns查询">5.4 DNS查询</h2>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404031526994.png" srcset="/img/loading.gif" lazyload
+alt="image-20240402161953265" />
+<figcaption aria-hidden="true">image-20240402161953265</figcaption>
+</figure>
+<p><strong>迭代查询：</strong>被联系的服务器回复要联系的服务器名称（常用的模式）</p>
+<p><strong>递归查询：</strong>将名称解析的重任交给联系的名称服务器；层次结构中上层负担重</p>
+<h2 id="dns记录">5.5 DNS记录</h2>
+<p>DNS：存储<strong>资源记录 (RR)</strong> 的分布式数据库</p>
+<ul>
+<li>Type=A ：标准的主机名到IP映射（www.bar.foo.com, 145.37.93.126,
+A）</li>
+<li>Type=NS：域的权威DNS服务器（foo.com, dns.foo.com, NS）</li>
+<li>Type=CNAME：别名对应的规范主机名（foo.com, relay1.bar.foo.com,
+CNAME）</li>
+<li>Type=MX：别名对应的邮件服务器的规范主机名（foo.com,
+mail.bar.foo.com, MX）</li>
+</ul>
+<h2 id="dns报文">5.6 DNS报文</h2>
+<p>DNS 报文分为 <strong>请求</strong> 和 <strong>应答</strong>
+两种，结构是类似的，大致分为五部分：</p>
+<ul>
+<li>头部（ <em>header</em> ），描述报文类型，以及其下 4
+个小节的情况；</li>
+<li>问题节（ <em>question</em> ），保存查询问题；</li>
+<li>答案节（ <em>answer</em> ），保存问题答案，也就是查询结果；</li>
+<li>授权信息节（ <em>authority</em> ），保存授权信息；</li>
+<li>附加信息节（ <em>additional</em> ），保存附加信息；</li>
+</ul>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404031526995.png" srcset="/img/loading.gif" lazyload
+alt="image-20240403143024635" />
+<figcaption aria-hidden="true">image-20240403143024635</figcaption>
+</figure>
+<p>头部分为 6 个字段：</p>
+<ul>
+<li><strong>标识</strong>（ <em>identifier</em> ），一个 16 位的 ID
+，在应答中原样返回，以此匹配请求和应答；</li>
+<li><strong>标志</strong>（ <em>flags</em> ），一些标志位，共 16
+位；</li>
+<li><strong>问题记录数</strong>（ <em>question count</em> ），一个 16
+位整数，表示问题节中的记录个数；</li>
+<li><strong>答案记录数</strong>（ <em>answer count</em> ），一个 16
+位整数，表示答案节中的记录个数；</li>
+<li><strong>授权信息记录数</strong>（ <em>authority record count</em>
+），一个 16 位整数，表示授权信息节中的记录个数；</li>
+<li><strong>附加信息记录数</strong>（ <em>additional record count</em>
+），一个 16 位整数，表示附加信息节中的记录个数；</li>
+</ul>
+<p>标志字段中的各个标志位：</p>
+<ul>
+<li>QR 位标记报文是一个查询请求，还是查询应答；
+<ul>
+<li>0 表示查询<strong>请求</strong>；</li>
+<li>1 表示查询<strong>应答</strong>；</li>
+</ul></li>
+<li>操作码（opcode）占 4 位，表示操作类型：
+<ul>
+<li>0 代表标准查询；</li>
+<li>1 代表反向查询；</li>
+<li>2 代表服务器状态请求；</li>
+</ul></li>
+<li>AA 位表示 <strong>权威回答</strong>（ <em>authoritative answer</em>
+），意味着当前查询结果是由域名的权威服务器给出的；</li>
+<li>TC 位表示 <strong>截短</strong>（ <em>truncated</em> ），使用 UDP
+时，如果应答超过 512 字节，只返回前 512 个字节；</li>
+<li>RD 位表示<strong>期望递归</strong>（recursion
+desired），在请求中设置，并在应答中返回；
+<ul>
+<li>该位为 1
+时，服务器必须处理这个请求：如果服务器没有授权回答，它必须替客户端请求其他
+DNS 服务器，这也是所谓的 <strong>递归查询</strong> ；</li>
+<li>该位为 0
+时，如果服务器没有授权回答，它就返回一个能够处理该查询的服务器列表给客户端，由客户端自己进行
+<strong>迭代查询</strong> ；</li>
+</ul></li>
+<li>RA 位表示<strong>可递归</strong>（ <em>recursion available</em>
+），如果服务器支持递归查询，就会在应答中设置该位，以告知客户端；</li>
+<li>保留位，这 3 位目前未用，留作未来扩展；</li>
+<li>响应码（response code）占 4 位，表示请求结果，常见的值包括：
+<ul>
+<li>0 表示没有差错；</li>
+<li>3
+表示名字差错，该差错由权威服务器返回，表示待查询的域名不存在；</li>
+</ul></li>
+</ul>
+<h2 id="dns攻击">5.7 DNS攻击</h2>
+<ul>
+<li>DDoS攻击</li>
+<li>重定向攻击：中间人、DNS投毒</li>
+<li>利用DNS进行DDoS</li>
+</ul>
+<h1 id="p2p应用">6. P2P应用</h1>
+<h2 id="文件分发">6.1 文件分发</h2>
+<ul>
+<li><p>客户机-服务器架构：服务器必须按顺序上传<strong>N
+份</strong>文件副本，每个客户端必须下载文件副本。 <span
+class="math display">\[
+D_{c-s} \geq max\{\frac{NF}{u_s},\frac{F}{d_{min}}\}
+\]</span></p></li>
+<li><p>对等网络架构：服务器必须上传<strong>至少一份</strong>副本，每个客户端必须下载文件副本，总计必须上传<strong>N
+份</strong>文件副本。 <span class="math display">\[
+D_{p2p} \geq
+max\{\frac{F}{u_s},\frac{F}{d_{min}},\frac{NF}{u_s+\sum_{i=1}^N u_i}\}
+\]</span></p></li>
+</ul>
+<h2 id="bittorrent">6.2 BitTorrent</h2>
+<p>BitTorrent 协议是架构于 TCP/IP 协议之上的一个 <strong>P2P
+文件传输协议</strong>，处于 TCP/IP
+结构的<strong>应用层</strong>。如果有多个下载者并发的下载同一个文件，则每个下载者也同时为其它下载者上传文件，这样，文件源可以支持大量的用户进行下载，而只带来适当的负载的增长。BitTorrent
+协议把提供下载的文件虚拟分成大小相等的块，块大小必须为 2k
+的整数次方（由于是虚拟分块，硬盘上并不产生各个块文件），并把每个块的索引信息和
+Hash 验证码写入 .torrent
+文件（即种子文件，也简称为“种子”）中，作为被下载文件的“索引”。
+下载者要下载文件内容，需要先得到相应的 .torrent 文件，然后使用 BT
+客户端软件进行下载。</p>
+<ul>
+<li>请求块：稀少资源优先</li>
+<li>发送块： tit-for-tat（以牙还牙）
+<ul>
+<li>向当前向其发送信息块速率最高的 4 个对等节点发送信息块
+，其他对等节点被阻塞，每 10 秒重新评估前 4 个对等节点</li>
+<li>每过 30 秒，随机选择另一个对等点，开始发送数据块</li>
+</ul></li>
+</ul>
+<h1 id="套接字编程">7. 套接字编程</h1>
+<ul>
+<li>套接字：应用过程（房屋）和终端传输协议之间的门</li>
+<li>针对两种传输服务的两种套接字类型：
+<ul>
+<li>UDP：无连接、不可靠数据报、不保证交付</li>
+<li>TCP：面向连接、可靠、面向字节流</li>
+</ul></li>
+</ul>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404031526996.png" srcset="/img/loading.gif" lazyload
+alt="image-20240403151756256" />
+<figcaption aria-hidden="true">image-20240403151756256</figcaption>
+</figure>
+<h2 id="udp">7.1 UDP</h2>
+<ul>
+<li>发送数据前不握手</li>
+<li>发送方明确地为每个数据包附加 IP 目标地址和端口</li>
+<li>接收方从收到的数据包中提取发送方 IP 地址和端口</li>
+</ul>
+<h2 id="tcp">7.2 TCP</h2>
+<ul>
+<li><p>服务器必须准备就绪</p>
+<ul>
+<li>服务器进程必须首先运行</li>
+<li>服务器必须创建了欢迎客户联系的套接字（门）</li>
+</ul></li>
+<li><p>客户端通过以下方式联系服务器</p>
+<ul>
+<li><p>创建 TCP 套接字，指定服务器进程的 IP 地址和端口号</p></li>
+<li><p>当客户端创建套接字时，客户端 TCP 与服务器 TCP 建立连接</p></li>
+<li><p>当客户端联系服务器时，服务器 TCP
+为服务器进程创建新的套接字，以便与特定客户端通信</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404031526997.png" srcset="/img/loading.gif" lazyload
+alt="image-20240403152445097" />
+<figcaption aria-hidden="true">image-20240403152445097</figcaption>
+</figure></li>
+</ul></li>
+</ul>
+<p><strong>参考资料：</strong></p>
+<ol type="1">
+<li>计算机网络——自顶向下方法（第七版）</li>
+<li>HTTP
+消息：https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Messages</li>
+<li>DNS云学堂 |
+递归、迭代查询如何在具体场景下灵活使用？http://m.zdns.cn/news/199.html</li>
+<li>DNS报文格式：https://fasionchan.com/network/dns/packet-format/</li>
+<li>BitTorrent
+原理简介：https://jaminzhang.github.io/p2p/BitTorrent-Principle-Introduction/</li>
+<li>BitTorrent 协议规范：https://medium.com/<span class="citation"
+data-cites="imfile.io/bittorrent">@imfile.io/bittorrent</span>-%E5%8D%8F%E8%AE%AE%E8%A7%84%E8%8C%83-771a80a3cab8</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%A0%B8%E5%BF%83%E8%AF%BE%E7%A8%8B/" class="category-chain-item">计算机核心课程</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%A0%B8%E5%BF%83%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="category-chain-item">计算机网络</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%A0%B8%E5%BF%83%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95/" class="category-chain-item">计算机网络——自顶向下方法</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>应用层</div>
+      <div>http://example.com/2024/04/02/计算机核心课程/计算机网络/计算机网络——自顶向下方法/应用层/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>kaikaikai</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年4月2日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/03/31/LeetCode/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97%E7%AF%87/" title="栈与队列篇">
+                        <span class="hidden-mobile">栈与队列篇</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -16,15 +16,15 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1. 数组 C++ 中的 vector 是一种序列容器，可以存储任意类型的对象。这意味着它可以存储整数、浮点数、字符串或任何其他类型的对象。vector 是一个模板类，属于标准模板库（STL）的一部分。 以下是一些关于 vector 的关键特性：  动态数组：vector 像数组一样工作，但其大小可以动态变化。你可以在运行时添加或删除元素，而不必在编译时指定其大小。 连续存储：ve">
+    <meta name="description" content="1. 数组 C++ 中的 vector 是一种序列容器，可以存储任意类型的对象。这意味着它可以存储整数、浮点数、字符串或任何其他类型的对象。vector 是一个模板类，属于标准模板库（STL）的一部分。 关键特性：  动态数组：vector 像数组一样工作，但其大小可以动态变化。你可以在运行时添加或删除元素，而不必在编译时指定其大小。 连续存储：vector 在内存中连续存储其元">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基本用法-C++">
 <meta property="og:url" content="http://example.com/2024/03/10/LeetCode/%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95-C++/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="1. 数组 C++ 中的 vector 是一种序列容器，可以存储任意类型的对象。这意味着它可以存储整数、浮点数、字符串或任何其他类型的对象。vector 是一个模板类，属于标准模板库（STL）的一部分。 以下是一些关于 vector 的关键特性：  动态数组：vector 像数组一样工作，但其大小可以动态变化。你可以在运行时添加或删除元素，而不必在编译时指定其大小。 连续存储：ve">
+<meta property="og:description" content="1. 数组 C++ 中的 vector 是一种序列容器，可以存储任意类型的对象。这意味着它可以存储整数、浮点数、字符串或任何其他类型的对象。vector 是一个模板类，属于标准模板库（STL）的一部分。 关键特性：  动态数组：vector 像数组一样工作，但其大小可以动态变化。你可以在运行时添加或删除元素，而不必在编译时指定其大小。 连续存储：vector 在内存中连续存储其元">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-10T00:05:46.000Z">
-<meta property="article:modified_time" content="2024-03-31T09:38:26.366Z">
+<meta property="article:modified_time" content="2024-04-03T06:05:11.284Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.4k 字
+          3.3k 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          21 分钟
+          28 分钟
         
       </span>
     
@@ -264,7 +264,7 @@
 <p>C++ 中的 <code>vector</code>
 是一种序列容器，可以存储任意类型的对象。这意味着它可以存储整数、浮点数、字符串或任何其他类型的对象。<code>vector</code>
 是一个模板类，属于标准模板库（STL）的一部分。</p>
-<p>以下是一些关于 <code>vector</code> 的关键特性：</p>
+<p>关键特性：</p>
 <ol type="1">
 <li><p><strong>动态数组</strong>：<code>vector</code>
 像数组一样工作，但其大小可以动态变化。你可以在运行时添加或删除元素，而不必在编译时指定其大小。</p></li>
@@ -368,6 +368,28 @@ In First Out, FIFO）</strong>的数据结构。</p>
 <li><code>front()</code> ：预览队列首元素</li>
 <li><code>back()</code>：预览队列尾元素</li>
 </ul>
+<h1 id="字符串">5. 字符串</h1>
+<h2 id="基本操作">5.1 基本操作</h2>
+<p>C++中的<code>string</code>是标准库中的一个类，用于表示和操作字符串。它提供了一系列的成员函数来进行字符串的处理，使得字符串操作更加方便和高效。</p>
+<ul>
+<li><code>empty()</code>：测试字符串是否为空</li>
+<li><code>length()</code> /<code>size()</code>： 返回字符串的长度</li>
+<li><code>at(pos)</code>：返回对字符串中位置 pos 的字符的引用</li>
+<li><code>front()</code>：返回对字符串第一个字符的引用</li>
+<li><code>back()</code>：返回对字符串最后一个字符的引用</li>
+<li><code>push_back(c)</code>：将字符 c
+附加到字符串的末尾，将其长度增加一</li>
+<li><code>pop_back()</code>：擦除字符串的最后一个字符，从而有效地将其长度减少一个</li>
+<li><code>insert(pos,str)</code>：在 pos
+指示的字符之前将其他字符插入到字符串中</li>
+<li><code>erase(pos,len)</code>：删除字符串的一部分，从而减少其长度</li>
+<li><code>find(str)</code>：在字符串中搜索由其参数指定的序列的第一次出现</li>
+</ul>
+<h2 id="格式化">5.2 格式化</h2>
+<p>在C++中，<code>sscanf()</code>函数是C标准库中的一个函数，用于从一个字符串中按照指定的格式解析数据并将其存储到变量中。它的原型定义在<code>&lt;cstdio&gt;</code>（或<code>&lt;stdio.h&gt;</code>）头文件中。</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">sscanf</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span>* str, <span class="hljs-type">const</span> <span class="hljs-type">char</span>* format, ...)</span></span>;<br></code></pre></td></tr></table></figure>
+<p><code>sscanf()</code>函数的第一个参数是要解析的字符串，第二个参数是用来指定解析格式的字符串。格式字符串中可以包含普通字符（例如空格、逗号等），以及转换说明符（例如<code>%d</code>表示解析一个整数，<code>%f</code>表示解析一个浮点数，<code>%s</code>表示解析一个字符串等等）。</p>
+<p><code>sscanf()</code>函数可以解析的格式与<code>scanf()</code>函数相同，不同的是，<code>scanf()</code>函数从标准输入中读取数据，而<code>sscanf()</code>函数从字符串中读取数据。</p>
 <p><strong>参考资料：</strong></p>
 <ol type="1">
 <li>C++STL :
@@ -380,6 +402,10 @@ unordered_map详解：https://zhuanlan.zhihu.com/p/296360525</li>
 使用：https://juejin.cn/s/c%2B%2B%20stack%20pop%20peek%20%E4%BD%BF%E7%94%A8</li>
 <li>C++ vector
 容器浅析：https://www.runoob.com/w3cnote/cpp-vector-container-analysis.html</li>
+<li>入门看完这一篇就够了，让你融会贯通使用C++ 的std::string
+初级篇！https://tigercosmos.xyz/post/2023/06/c++/std-string-beginner/</li>
+<li>C++ 标准库 -
+<string>：https://www.w3ccoo.com/cpp_standard_library/string.html</li>
 </ol>
 
                 
