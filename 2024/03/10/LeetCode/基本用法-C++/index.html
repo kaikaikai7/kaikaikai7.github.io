@@ -24,7 +24,7 @@
 <meta property="og:description" content="1. 数组 C++ 中的 vector 是一种序列容器，可以存储任意类型的对象。这意味着它可以存储整数、浮点数、字符串或任何其他类型的对象。vector 是一个模板类，属于标准模板库（STL）的一部分。 关键特性：  动态数组：vector 像数组一样工作，但其大小可以动态变化。你可以在运行时添加或删除元素，而不必在编译时指定其大小。 连续存储：vector 在内存中连续存储其元">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-10T00:05:46.000Z">
-<meta property="article:modified_time" content="2024-04-03T06:05:11.284Z">
+<meta property="article:modified_time" content="2024-04-07T05:05:59.840Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -357,7 +357,7 @@ First Out, LIFO）</strong>的数据结构。</p>
 <p>注意：peek() 在 C++ 的 stack 中是没有定义的方法，但是 top()
 方法可以实现类似的功能，返回 stack 中的顶部元素的值，而不移除它。</p>
 <h1 id="队列">4. 队列</h1>
-<p>在 C++ 中，queue
+<p>在 C++ 中，<code>queue</code>
 是一个标准模板库（STL）提供的容器，它提供了一种<strong>先进先出（First
 In First Out, FIFO）</strong>的数据结构。</p>
 <ul>
@@ -367,6 +367,16 @@ In First Out, FIFO）</strong>的数据结构。</p>
 <li><code>push()</code>：在队尾压入新元素</li>
 <li><code>front()</code> ：预览队列首元素</li>
 <li><code>back()</code>：预览队列尾元素</li>
+</ul>
+<p><code>priority_queue</code> 是 C++
+标准库中提供的一个优先队列实现。它基于堆数据结构，并提供了一组方法来处理具有优先级的元素。</p>
+<ul>
+<li><code>empty()</code></li>
+<li><code>size()</code></li>
+<li><code>top()</code>：获取堆顶元素</li>
+<li><code>pop()</code>：删除堆顶元素</li>
+<li><code>push()</code>：压入新元素</li>
+<li><code>emplace()</code>： 原地构造一个元素并插入队列</li>
 </ul>
 <h1 id="字符串">5. 字符串</h1>
 <h2 id="基本操作">5.1 基本操作</h2>
@@ -383,13 +393,16 @@ In First Out, FIFO）</strong>的数据结构。</p>
 <li><code>insert(pos,str)</code>：在 pos
 指示的字符之前将其他字符插入到字符串中</li>
 <li><code>erase(pos,len)</code>：删除字符串的一部分，从而减少其长度</li>
-<li><code>find(str)</code>：在字符串中搜索由其参数指定的序列的第一次出现</li>
+<li><code>find(str,pos = 0)</code>：在字符串中搜索由其参数指定的序列的第一次出现。当
+<code>find()</code> 函数未找到指定子字符串或字符时，它将返回
+<code>string::npos</code>，表示搜索失败。</li>
+<li>`<code>substr(pos=0,len)</code>：返回一个新构造的字符串对象，其值初始化为该对象的子字符串的副本</li>
 </ul>
 <h2 id="格式化">5.2 格式化</h2>
-<p>在C++中，<code>sscanf()</code>函数是C标准库中的一个函数，用于从一个字符串中按照指定的格式解析数据并将其存储到变量中。它的原型定义在<code>&lt;cstdio&gt;</code>（或<code>&lt;stdio.h&gt;</code>）头文件中。</p>
-<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">sscanf</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span>* str, <span class="hljs-type">const</span> <span class="hljs-type">char</span>* format, ...)</span></span>;<br></code></pre></td></tr></table></figure>
-<p><code>sscanf()</code>函数的第一个参数是要解析的字符串，第二个参数是用来指定解析格式的字符串。格式字符串中可以包含普通字符（例如空格、逗号等），以及转换说明符（例如<code>%d</code>表示解析一个整数，<code>%f</code>表示解析一个浮点数，<code>%s</code>表示解析一个字符串等等）。</p>
-<p><code>sscanf()</code>函数可以解析的格式与<code>scanf()</code>函数相同，不同的是，<code>scanf()</code>函数从标准输入中读取数据，而<code>sscanf()</code>函数从字符串中读取数据。</p>
+<ul>
+<li><code>sscanf(const char* str, const char* format, ...)</code>：从一个字符串中按照指定的格式解析数据并将其存储到变量中</li>
+<li><code>stoi(str)</code>：将字符串转换为整数</li>
+</ul>
 <p><strong>参考资料：</strong></p>
 <ol type="1">
 <li>C++STL :
@@ -406,6 +419,8 @@ unordered_map详解：https://zhuanlan.zhihu.com/p/296360525</li>
 初级篇！https://tigercosmos.xyz/post/2023/06/c++/std-string-beginner/</li>
 <li>C++ 标准库 -
 <string>：https://www.w3ccoo.com/cpp_standard_library/string.html</li>
+<li>C++ 语言中 priority_queue
+的常见用法详解：https://zhuanlan.zhihu.com/p/478887055</li>
 </ol>
 
                 
