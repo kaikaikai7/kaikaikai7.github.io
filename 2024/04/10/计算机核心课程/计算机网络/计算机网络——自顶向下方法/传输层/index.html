@@ -1,0 +1,1549 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="kaikaikai">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1. 传输层服务和协议   image-20240410135802221   在不同主机上运行的应用程序进程之间提供逻辑通信 传输层协议运行在端系统上  发送方：将应用信息分解成段，并传递给网络层 接收方：将段重新组装成报文，并传递给应用层  两种传输层协议：TCP和UDP  1.1 传输层和网络层  传输层：进程之间的逻辑通信  网络层服务的依赖和增强">
+<meta property="og:type" content="article">
+<meta property="og:title" content="传输层">
+<meta property="og:url" content="http://example.com/2024/04/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%A0%B8%E5%BF%83%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95/%E4%BC%A0%E8%BE%93%E5%B1%82/index.html">
+<meta property="og:site_name" content="kaikaikai&#39;s blog">
+<meta property="og:description" content="1. 传输层服务和协议   image-20240410135802221   在不同主机上运行的应用程序进程之间提供逻辑通信 传输层协议运行在端系统上  发送方：将应用信息分解成段，并传递给网络层 接收方：将段重新组装成报文，并传递给应用层  两种传输层协议：TCP和UDP  1.1 传输层和网络层  传输层：进程之间的逻辑通信  网络层服务的依赖和增强">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-10T05:55:18.000Z">
+<meta property="article:modified_time" content="2024-04-12T06:48:24.082Z">
+<meta property="article:author" content="kaikaikai">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>传输层 - kaikaikai&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="传输层"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-04-10 13:55" pubdate>
+          2024年4月10日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          76 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">传输层</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="传输层服务和协议">1. 传输层服务和协议</h1>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404121447925.png" srcset="/img/loading.gif" lazyload
+alt="image-20240410135802221" />
+<figcaption aria-hidden="true">image-20240410135802221</figcaption>
+</figure>
+<ul>
+<li>在不同主机上运行的应用程序<strong>进程</strong>之间提供<strong>逻辑通信</strong></li>
+<li>传输层协议运行在端系统上
+<ul>
+<li>发送方：将应用信息分解成<strong>段</strong>，并传递给网络层</li>
+<li>接收方：将段重新组装成报文，并传递给应用层</li>
+</ul></li>
+<li>两种传输层协议：TCP和UDP</li>
+</ul>
+<h2 id="传输层和网络层">1.1 传输层和网络层</h2>
+<ul>
+<li>传输层：<strong>进程</strong>之间的逻辑通信
+<ul>
+<li>网络层服务的依赖和增强</li>
+</ul></li>
+<li>网络层：<strong>主机</strong>之间的逻辑通信
+<ul>
+<li>传输协议提供的服务往往受到底层网络层协议服务模式（延迟或带宽）的限制。但有些服务不包括在内，如可靠的数据传输服务。</li>
+</ul></li>
+</ul>
+<h2 id="网络层">1.2 网络层</h2>
+<ul>
+<li>互联网的网络层协议叫作IP，即网际协议（Internet Protocol）</li>
+<li>IP 提供<strong>主机</strong>之间的<strong>逻辑通信</strong></li>
+<li>IP 服务模式是一种<strong>尽力而为</strong>的传送服务</li>
+<li>它<strong>不能</strong>保证段的<strong>有序传送</strong>，也<strong>不能</strong>保证段中数据的<strong>完整性</strong></li>
+<li>IP 被称为<strong>不可靠的服务</strong>（unreliable service）。</li>
+</ul>
+<h2 id="传输层">1.3 传输层</h2>
+<ul>
+<li>可靠、按顺序传输：TCP（Transmission Control Protocol）
+<ul>
+<li>数据传输和错误检查</li>
+<li>流量控制</li>
+<li>拥塞控制</li>
+<li>连接设置</li>
+</ul></li>
+<li>不可靠、无序传输：UDP（User Datagram Protocol）
+<ul>
+<li>数据传输和错误检查</li>
+<li>没有扩展“尽力而为”的IP</li>
+</ul></li>
+<li>两者都无法提供的服务
+<ul>
+<li>延迟保证</li>
+<li>带宽保证</li>
+</ul></li>
+</ul>
+<h1 id="多路复用和多路分解">2. 多路复用和多路分解</h1>
+<ul>
+<li>在发送端进行<strong>多路复用</strong>（multiplexing）：处理来自多个套接字的数据，添加传输头。</li>
+<li>在接收端进行<strong>多路分解</strong>（demultiplexing）：使用头信息将收到的段传递给正确的套接字。</li>
+</ul>
+<h2 id="多路分解工作流程">2.1 多路分解工作流程</h2>
+<ul>
+<li>主机接收IP数据报（datagram）
+<ul>
+<li>每个数据报有源IP地址、目的IP地址</li>
+<li>每个数据报携带一个传输层段（segment）</li>
+<li>每个段有源端口号、目的端口号</li>
+</ul></li>
+<li>主机使用<strong>IP地址和端口号</strong>引导段到合适的套接字
+<ul>
+<li>端口号：一个 16 位数字，从 0 到 65535</li>
+<li>0 至 1023：众所周知的端口号（HTTP:80, DNS: 53, IMAP:
+143,FTP:20,21,SMTP:25,POP3:110）</li>
+<li>1024 至 65535：动态/专用端口</li>
+</ul></li>
+</ul>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404121447926.png" srcset="/img/loading.gif" lazyload
+alt="image-20240410141758806" />
+<figcaption aria-hidden="true">image-20240410141758806</figcaption>
+</figure>
+<h2 id="无连接多路分解">2.2 无连接多路分解</h2>
+<ul>
+<li>UDP 套接字由二元组标识：<strong>目标 IP
+地址、目标端口号</strong></li>
+<li>目标端口号相同但源 IP 地址/源端口号不同的 IP
+数据报将定向到目标地址的同一套接字</li>
+</ul>
+<h2 id="有连接多路分解">2.3 有连接多路分解</h2>
+<ul>
+<li><p>TCP 套接字由四元组标识：<strong>源 IP 地址、源端口号、目的 IP
+地址、 目的端口号</strong></p></li>
+<li><p>源 IP 地址或源端口号不同将被导向两个不同的套接字</p></li>
+<li><p>携带原始连接建立请求的 TCP 段除外（欢迎套接字）</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404121447927.png" srcset="/img/loading.gif" lazyload
+alt="image-20240410142348918" />
+<figcaption aria-hidden="true">image-20240410142348918</figcaption>
+</figure></li>
+<li><p>服务器主机可同时支持多个 TCP 套接字：每个套接字都由自己的
+四元组标识</p></li>
+<li><p>网络服务器为每个连接的客户端设置不同的套接字</p>
+<ul>
+<li>持久性HTTP使用同一套接字</li>
+<li>非持久性HTTP将为每个请求设置不同的套接字，频繁创建和关闭</li>
+</ul></li>
+<li><p>如今的高性能网络服务器只使用一个进程，并为每个新的客户端连接创建一个带有新连接套接字的新线程</p></li>
+</ul>
+<h1 id="无连接传输udp">3. 无连接传输：UDP</h1>
+<h2 id="简介">3.1 简介</h2>
+<ul>
+<li>“尽力而为 "服务，UDP 段可能：<strong>丢失、无序交付</strong></li>
+<li>Connectionless（含义）：
+<ul>
+<li>UDP 发送方和接收方之间无握手</li>
+<li>每个 UDP 段都独立于其他段处理</li>
+</ul></li>
+<li>应用场景：
+<ul>
+<li>流媒体应用程序（丢失容忍，速率敏感）</li>
+<li>DNS</li>
+<li>SNMP （Simple Network Management Protocol）</li>
+<li>RIP（Routing Information Protocol）</li>
+</ul></li>
+<li>通过 UDP 进行可靠传输：
+<ul>
+<li>可能，但任务艰巨</li>
+<li>在应用层增加可靠性（增加确认和重传机制）</li>
+<li>特定应用程序的错误恢复</li>
+</ul></li>
+</ul>
+<h2 id="优点">3.2 优点</h2>
+<ul>
+<li>无拥塞控制：UDP 可以随心所欲地快速传输（非常适合实时应用）</li>
+<li>不建立连接（可减少延迟）</li>
+<li>简单：发送方和接收方无连接状态（支持更多活跃客户端）</li>
+<li>更小的头部（TCP：一般为 20 字节，UDP：8 字节）</li>
+</ul>
+<h2 id="段格式">3.3 段格式</h2>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404121447929.png" srcset="/img/loading.gif" lazyload
+alt="image-20240410143749822" />
+<figcaption aria-hidden="true">image-20240410143749822</figcaption>
+</figure>
+<h2 id="校验和">3.4 校验和</h2>
+<ul>
+<li>发送方：
+<ul>
+<li>将段内容（包括头部）视为 16 位整数序列</li>
+<li>校验和：段内容中所有 16 位字之和的反码（1’s complement）
+<ul>
+<li>先带<strong>循环进位累加</strong>，最高位溢出右移最低位，与最低位相加</li>
+<li>累加结果再求反码</li>
+</ul></li>
+<li>发送方将校验和值放入 UDP 校验和字段</li>
+</ul></li>
+<li>接收方：
+<ul>
+<li>将段中所有 16 位字相加，包括校验和</li>
+<li>检查总和是否等于 111111111111111111
+<ul>
+<li>NO：检测到错误</li>
+<li>YES：未检测到错误</li>
+</ul></li>
+</ul></li>
+<li>引入原因：
+<ul>
+<li>其中一条链路可能使用不提供错误检查的链路层协议</li>
+<li>在路由器中存储段时可能会引入位错误</li>
+<li>提供错误检查作为安全措施</li>
+<li>注：UDP 不会采取任何措施从错误中恢复；有些 UDP
+实现会直接丢弃损坏的数据段；有些则会将损坏的段交给应用程序并发出警告</li>
+</ul></li>
+</ul>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404121447930.png" srcset="/img/loading.gif" lazyload
+alt="image-20240410144233312" />
+<figcaption aria-hidden="true">image-20240410144233312</figcaption>
+</figure>
+<h1 id="可靠数据传输原理">4. 可靠数据传输原理</h1>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404121447931.png" srcset="/img/loading.gif" lazyload
+alt="image-20240410150339556" />
+<figcaption aria-hidden="true">image-20240410150339556</figcaption>
+</figure>
+<ul>
+<li><p>服务抽象：可靠数据传输协议（ reliable data transfer
+protocol，rdt）</p></li>
+<li><p>只考虑单向（unidirectional）数据传输，但控制信息将双向流动</p></li>
+<li><p>使用有限状态机（finite state
+machines，FSM）来指明发送方、接收方。状态：当处于该状态时，下一个状态由下一个事件唯一决定。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404121447932.png" srcset="/img/loading.gif" lazyload
+alt="image-20240410150837836" />
+<figcaption aria-hidden="true">image-20240410150837836</figcaption>
+</figure></li>
+</ul>
+<h2 id="rdt1.0">4.1 rdt1.0</h2>
+<ul>
+<li>底层信道完全可靠：
+<ul>
+<li>无比特错误<br />
+</li>
+<li>无数据包丢失</li>
+</ul></li>
+<li>发送器和接收器的独立 FSM：
+<ul>
+<li>发送方向底层通道发送数据</li>
+<li>接收方从底层通道读取数据</li>
+</ul></li>
+</ul>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404121447933.png" srcset="/img/loading.gif" lazyload
+alt="image-20240410151128034" />
+<figcaption aria-hidden="true">image-20240410151128034</figcaption>
+</figure>
+<h2 id="rdt2.0">4.2 rdt2.0</h2>
+<ul>
+<li><p>底层信道可能会翻转数据包中的位</p>
+<ul>
+<li>仍假定数据包按顺序到达接收器，不会丢失</li>
+<li>校验和以检测位错误</li>
+</ul></li>
+<li><p>如何从错误中恢复：</p>
+<ul>
+<li>（positive）acknowledgements（ACKs）：接收者明确告知发送方数据包</li>
+<li>negative
+acknowledgements（NAKs）：接收方明确告知发送方数据包有错误（需要重传）</li>
+<li>发送方收到 NAK 后重传数据包</li>
+</ul></li>
+<li><p>rdt2.0 中的新机制（对比 rdt1.0）</p>
+<ul>
+<li>错误检测<br />
+</li>
+<li>反馈：从接收方到发送方的控制消息（ACK、NAK）</li>
+<li>重传</li>
+</ul></li>
+<li><p>停等协议（stop and
+wait）：发送方发送一个数据包，然后等待接收方回应</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404121447934.png" srcset="/img/loading.gif" lazyload
+alt="image-20240410151850030" />
+<figcaption aria-hidden="true">image-20240410151850030</figcaption>
+</figure></li>
+<li><p>缺点：ACK/NAK受损。解决方案分为三类：</p>
+<ul>
+<li>引入一种新型的发送方对接收方数据包，类似于人类所说的
+”你说什么？“</li>
+<li>添加校验位，以便发送方检测和恢复（对损坏的数据包有效，但不能解决丢失）</li>
+<li>正确收到ACK则发下个新数据，正确收到NAK则重发老数据，无法确认ACK或NAK（错误数据）则重发老数据，避免漏发
+<ul>
+<li>由于接收方并不清楚刚刚发送的ACK或NAK是否被正确接受，因此接收方并不清楚收到的数据是重传（冗余）数据还是新数据</li>
+<li>解决：发送方为每个 pkt 添加序列号；对于简单的停止-等待协议，1
+位序列号。</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="rdt2.1">4.3 rdt2.1</h2>
+<p><strong>发送方：</strong></p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404121447935.png" srcset="/img/loading.gif" lazyload
+alt="image-20240410152833152" />
+<figcaption aria-hidden="true">image-20240410152833152</figcaption>
+</figure>
+<p><strong>接收方：</strong></p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404121447936.png" srcset="/img/loading.gif" lazyload
+alt="image-20240410153049966" />
+<figcaption aria-hidden="true">image-20240410153049966</figcaption>
+</figure>
+<h2 id="rdt2.2">4.4 rdt2.2</h2>
+<ul>
+<li>与 rdt2.1 功能相同，仅使用 ACK</li>
+<li>接收方为正确接收的最后一个数据包发送 ACK，而不是 NAK
+<ul>
+<li>接收方必须明确包含被 ACK 的数据包的序列号</li>
+<li>发送方必须通过接收到的 ACK（发送方 FSM 中的
+isACK()）检查数据包的序列号</li>
+</ul></li>
+<li>当发送方收到接收方反馈的ACK中出现冗余情况（即接收方并未收到预期编号的正确数据包），发送方认为刚才发送的数据存在错误，则重发该数据。</li>
+</ul>
+<p><strong>发送方：</strong></p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404121447937.png" srcset="/img/loading.gif" lazyload
+alt="image-20240410153653927" />
+<figcaption aria-hidden="true">image-20240410153653927</figcaption>
+</figure>
+<p><strong>接收方：</strong></p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404121447938.png" srcset="/img/loading.gif" lazyload
+alt="image-20240410153810537" />
+<figcaption aria-hidden="true">image-20240410153810537</figcaption>
+</figure>
+<h2 id="rdt3.0">4.5 rdt3.0</h2>
+<ul>
+<li><p>底层信道可能出现位错误、数据包丢失</p></li>
+<li><p>需要倒数定时器（countdown timer）：设置ACK
+超时时间，如果在此时间内未收到 ACK 则重传，可能出现冗余数据包</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404121447939.png" srcset="/img/loading.gif" lazyload
+alt="image-20240410154433590" />
+<figcaption aria-hidden="true">image-20240410154433590</figcaption>
+</figure></li>
+<li><p>比特交替协议（alternating-bit protocol）</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404121447940.png" srcset="/img/loading.gif" lazyload
+alt="image-20240410155008380" />
+<figcaption aria-hidden="true">image-20240410155008380</figcaption>
+</figure>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404121447941.png" srcset="/img/loading.gif" lazyload
+alt="image-20240410155125372" />
+<figcaption aria-hidden="true">image-20240410155125372</figcaption>
+</figure></li>
+<li><p>rdt3.0 性能不佳：停等协议限制了物理资源的使用</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404121447942.png" srcset="/img/loading.gif" lazyload
+alt="image-20240410155504256" />
+<figcaption aria-hidden="true">image-20240410155504256</figcaption>
+</figure></li>
+</ul>
+<h3 id="流水线协议">4.5.1 流水线协议</h3>
+<ul>
+<li>流水线协议：发送方允许多个传输中、尚未确认的数据包</li>
+<li>必须增加序列号的范围</li>
+<li>已发送但未被确认的数据需要在发送方或接收方缓存</li>
+<li>两种实现：
+<ul>
+<li>Go-Back-N（GBN,回退N步）</li>
+<li>selective repeat（SR, 选择重传）</li>
+</ul></li>
+</ul>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404121447943.png" srcset="/img/loading.gif" lazyload
+alt="image-20240410155853750" />
+<figcaption aria-hidden="true">image-20240410155853750</figcaption>
+</figure>
+<h3 id="gbn">4.5.2 GBN</h3>
+<ul>
+<li>发送方允许流水线中存在N个未被确认的数据包</li>
+<li>接收方仅发送<strong>累计确认</strong>：如果有间隙，则不ACK该数据包</li>
+<li>发送方为最早未被确认数据维护一个定时器，一旦超时，重传所有数据包</li>
+</ul>
+<p><strong>发送方：</strong></p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404121447944.png" srcset="/img/loading.gif" lazyload
+alt="image-20240410160225910" />
+<figcaption aria-hidden="true">image-20240410160225910</figcaption>
+</figure>
+<ul>
+<li><strong>window size
+N</strong>：管道中连续未确认数据包的最大允许数量</li>
+<li><strong>send_base</strong>：最旧的未确认数据包的序列号</li>
+<li><strong>nextseqnum</strong>：最小未使用序列号</li>
+<li>N 被称为窗口大小，GBN
+协议又被称为<strong>滑动窗口协议（sliding-window
+protocol）</strong></li>
+<li>为什么不允许数据报的数量是无限的？流量控制和拥塞控制</li>
+<li>数据包头中的 k 位序列号，范围 [0,2<sup>k</sup>-1]，TCP 有一个 32
+位序列号字段（计算字节流中的字节，而不是数据包）</li>
+<li>GBN 发送方必须对三类事件做出响应：
+<ul>
+<li>上层调用：发送方首先检查窗口是否已满，未满--&gt;创建并发送一个数据包，已满--&gt;发送方直接将数据返回上层</li>
+<li>收到一个 ACK(n)：序列号n及其之前的所有报文被接收</li>
+<li>超时事件timeout(n)：重新传输窗口中所有序号大于等于n的数据包<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404121447945.png" srcset="/img/loading.gif" lazyload
+alt="image-20240410160838283" /></li>
+</ul></li>
+</ul>
+<p><strong>接收方：</strong></p>
+<ul>
+<li>总是为正确接收到的具有最高顺序序列的数据包发送 ACK</li>
+<li>丢弃所有乱序数据包</li>
+</ul>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404121447946.png" srcset="/img/loading.gif" lazyload
+alt="image-20240410161533892" />
+<figcaption aria-hidden="true">image-20240410161533892</figcaption>
+</figure>
+<h3 id="sr">4.5.3 SR</h3>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404121447947.png" srcset="/img/loading.gif" lazyload
+alt="image-20240410162015392" />
+<figcaption aria-hidden="true">image-20240410162015392</figcaption>
+</figure>
+<ul>
+<li>发送方允许流水线中存在N个未被确认的数据包</li>
+<li>接收方为每个数据包发送独立ACK</li>
+<li>发送方为每个未确认数据包均维护一个定时器，一旦超时，仅重
+传未被确认数据包</li>
+<li>根据需要缓存乱序数据包，以便最终按顺序传送到上层</li>
+<li>seq&gt;=2*window</li>
+</ul>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404121447948.png" srcset="/img/loading.gif" lazyload
+alt="image-20240410162512635" />
+<figcaption aria-hidden="true">image-20240410162512635</figcaption>
+</figure>
+<h2 id="小结">4.6 小结</h2>
+<ul>
+<li>校验和 [first rdt 2.0]：用于检测传输数据包中的比特错误。</li>
+<li>ACK [first rdt 2.0]
+：接收方用于告知发送方已正确收到一个或一组数据包。根据协议的不同，确认可以是单独的，也可以是累积的。</li>
+<li>NAK [first rdt 2.0]：
+接收方用来告知发送方没有正确接收到数据包。带有未正确接收的数据包的序列号。</li>
+<li>序列号 [first rdt 2.1]：
+用于对从发送方流向接收方的数据包进行顺序编号。接收到的数据包序列号中的间隙和重复，用于检测数据包的丢失和重复副本。</li>
+<li>定时器 [first rdt 3.0]：用于超时/重传数据包，原因可能是数据包（或其
+ACK）在信道中丢失。接收方可能会收到数据包的重复副本。</li>
+<li>窗口、流水线 [first rdt
+3.0+]：允许传输多个数据包但尚未确认，与停止和等待操作模式相比，可以提高发送方的利用率。
+窗口大小可根据接收方接收和缓冲信息的能力或网络拥塞程度来设定，或两者兼而有之。</li>
+</ul>
+<h1 id="面向连接传输tcp">5. 面向连接传输：TCP</h1>
+<h2 id="简介-1">5.1 简介</h2>
+<ul>
+<li>点对点（point-to-point）：
+<ul>
+<li>一个发送方，一个接收方</li>
+<li>不支持一个发送方对多个接收方（多播）</li>
+</ul></li>
+<li>可靠、有序的字节流：没有 "信息边界"</li>
+<li>流水线：TCP 拥塞和流量控制设置窗口大小</li>
+<li>全双工数据（full duplex data）：
+<ul>
+<li>同一连接中的双向数据流</li>
+<li>MSS: maximum segment size 最大报文段长度
+（传输层能承载的应用层最大数据长度，不包括传输层的头部）</li>
+</ul></li>
+<li>面向连接</li>
+<li>流量控制：发送方不会淹没接收方</li>
+</ul>
+<h2 id="段格式-1">5.2 段格式</h2>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404121447949.png" srcset="/img/loading.gif" lazyload
+alt="image-20240410164839277" />
+<figcaption aria-hidden="true">image-20240410164839277</figcaption>
+</figure>
+<ul>
+<li><p>序列号：首个字节数据的编号</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404121447950.png" srcset="/img/loading.gif" lazyload
+alt="image-20240410164920939" />
+<figcaption aria-hidden="true">image-20240410164920939</figcaption>
+</figure></li>
+<li><p>确认号：接收方<strong>期待收到</strong>的字节数据的序列号（累计确认）。如：R
+已收到 0-535、900-1000，R 的下一数据段 ACK字段包含 536。</p></li>
+</ul>
+<p><strong>处理乱序段：</strong>保留不按顺序排列的字节，并等待缺失的字节填补空白。</p>
+<p><strong>RTT与超时间隔</strong>：</p>
+<ul>
+<li><code>SampleRTT</code>：从段发送到收到 ACK 的时间</li>
+<li><code>EstimatedRTT = (1- a)*EstimatedRTT + a*SampleRTT</code>
+<ul>
+<li>指数加权移动平均值(EWMA)</li>
+<li>过去样本的影响呈指数级下降</li>
+<li>a=0.125（通常情况）</li>
+</ul></li>
+<li><code>DevRTT = (1-a)*DevRTT + a*|SampleRTT-EstimatedRTT|</code>
+<ul>
+<li>用于估算：采样RTT偏离估计RTT的程度</li>
+<li>如果采样RTT值波动较小，那么DevRTT值也越小，反之亦然</li>
+<li>a=0.25（通常情况）</li>
+</ul></li>
+<li><code>TimeoutInterval = EstimatedRTT + 4*DevRTT</code></li>
+</ul>
+<h2 id="可靠数据传输">5.3 可靠数据传输</h2>
+<ul>
+<li>流水线报文段</li>
+<li>累计确认</li>
+<li>单个重传定时器</li>
+<li>触发重传：超时事件、冗余ACK</li>
+</ul>
+<h3 id="发送方三个重要事件">5.3.1 发送方三个重要事件</h3>
+<ul>
+<li>收到APP发送的数据
+<ul>
+<li>用 seq # 创建段</li>
+<li>seq段中第一个数据字节的字节流编号</li>
+<li>如果定时器尚未运行，则启动定时器
+<ul>
+<li>定时器为最旧的未确认段</li>
+<li>超时间隔： TimeOutInterval</li>
+</ul></li>
+<li><code>TimeoutInterval = EstimatedRTT + 4*DevRTT</code></li>
+</ul></li>
+<li>超时：重传导致超时事件的报文
+<ul>
+<li>TimeoutInterval 加倍，如果超时再次发生，TimeoutInterval 为 4
+倍，除非收到段并更新了 EstimatedRTT。</li>
+</ul></li>
+<li>收到到ACK：如果 ACK先前没有ACK的段，更新已 ACK
+的内容（累计确认）；如果仍有未ACK的段，则启动定时器。
+<ul>
+<li><code>TimeoutInterval = EstimatedRTT + 4*DevRTT</code></li>
+</ul></li>
+</ul>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404121447951.png" srcset="/img/loading.gif" lazyload
+alt="image-20240410171002277" />
+<figcaption aria-hidden="true">image-20240410171002277</figcaption>
+</figure>
+<h3 id="快速重传">5.3.2 快速重传</h3>
+<ul>
+<li>超时时间往往相对较长：重发丢失数据包前的延迟较长，增加端到端延迟。</li>
+<li>通过重复 ACK 检测丢失的段：
+发送方经常发送许多连续数据段，如果数据段丢失，很可能会有许多重复的
+ACK。</li>
+<li><strong>快速重传</strong>：如果发送方收到对相同数据的3个冗余ACK，则发送序列号最小的未确认报文段。</li>
+</ul>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404121447952.png" srcset="/img/loading.gif" lazyload
+alt="image-20240410171511769" />
+<figcaption aria-hidden="true">image-20240410171511769</figcaption>
+</figure>
+<h2 id="流量控制">5.4 流量控制</h2>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404121447953.png" srcset="/img/loading.gif" lazyload
+alt="image-20240410171703854" />
+<figcaption aria-hidden="true">image-20240410171703854</figcaption>
+</figure>
+<ul>
+<li><strong>流量控制</strong>：接收方控制发送方，因此发送方不会因传输过多、过快而溢出接收方的缓冲区</li>
+<li><code>LastByteRead</code>：应用层从缓存中读取的最新一个字节的编号</li>
+<li><code>LastByteRcvd</code>：到达接收缓存最新字节数据的编号</li>
+<li>不允许溢出分配的缓冲区<code>LastByteRcvd – LastByteRead &lt;= RcvBuffer</code></li>
+<li>接收缓存中空闲空间：<code>rwnd = RcvBuffer – [LastByteRcvd – LastByteRead]</code></li>
+<li>接收方通过在接收方至发送方段的 TCP 标头中加入 rwnd
+值来说明可用缓冲空间，发送方根据接收方的 rwnd
+值限制未确认数据的数量。</li>
+</ul>
+<h2 id="连接管理">5.5 连接管理</h2>
+<h3 id="三次握手">5.5.1 三次握手</h3>
+<ul>
+<li>第 1 步：客户端主机向服务器发送 TCP SYN 段
+<ul>
+<li>指定客户端初始序列号（随机）</li>
+<li>无数据</li>
+</ul></li>
+<li>第 2 步：服务器主机接收 SYN，回复 SYNACK 段
+<ul>
+<li>服务器分配缓冲区和变量</li>
+<li>指定服务器初始序列号</li>
+<li>无数据</li>
+</ul></li>
+<li>第 3 步：客户端收到 SYNACK，用 ACK 段回复
+<ul>
+<li>客户端分配缓冲区和变量</li>
+<li>可能包含数据（例如 HTTP）</li>
+</ul></li>
+</ul>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404121447954.png" srcset="/img/loading.gif" lazyload
+alt="image-20240410172312055" />
+<figcaption aria-hidden="true">image-20240410172312055</figcaption>
+</figure>
+<h3 id="四次挥手">5.5.2 四次挥手</h3>
+<ul>
+<li>第 1 步：客户端系统向服务器发送 TCP FIN 控制段（FIN=1）</li>
+<li>第 2 步：服务器收到 FIN，回复 ACK。关闭连接，发送 FIN。(FIN=1)</li>
+<li>第 3 步：客户端收到 FIN，回复 ACK。 进入 "定时等待 "状态 - 将以 ACK
+回应收到的 FIN。</li>
+<li>第 4 步：服务器收到 ACK。 连接关闭。</li>
+<li>注：S如果在Timeout内未收到C的ACK，则将重新发送FIN。C在Timed
+wait里面若再次收到来自S的FIN，将重发ACK并重新进入到Timed
+wait状态，确保S能进入到关闭</li>
+</ul>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404121447955.png" srcset="/img/loading.gif" lazyload
+alt="image-20240410172553443" />
+<figcaption aria-hidden="true">image-20240410172553443</figcaption>
+</figure>
+<p><strong>客户端：</strong></p>
+<ul>
+<li>FIN_WAIT_1：等待来自服务器的 ACK。</li>
+<li>FIN_WAIT_2：等待来自服务器的 FIN 段。</li>
+<li>TIME_WAIT：等待可能到达的 FIN，以防客户端的最终 ACK 丢失。</li>
+</ul>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404121447956.png" srcset="/img/loading.gif" lazyload
+alt="image-20240410172757494" />
+<figcaption aria-hidden="true">image-20240410172757494</figcaption>
+</figure>
+<p><strong>服务端：</strong></p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404121447957.png" srcset="/img/loading.gif" lazyload
+alt="image-20240410172841490" />
+<figcaption aria-hidden="true">image-20240410172841490</figcaption>
+</figure>
+<h3 id="rst">5.5.3 RST</h3>
+<p>当接收到端口号或源 IP 地址与任何正在进行的套接字（接收方）不匹配的
+TCP 段时：</p>
+<ul>
+<li>TCP：主机向源发送一个特殊的 RST 段</li>
+<li>UDP：主机发送特殊的 ICMP 数据报</li>
+</ul>
+<h1 id="拥塞控制原理">6. 拥塞控制原理</h1>
+<ul>
+<li>拥塞：
+<ul>
+<li>发送数据的来源太多、太快，<strong>网络无法处理</strong></li>
+<li>与流量控制不同：接收方控制发送方，因此发送方不会溢出接收方的缓冲区</li>
+</ul></li>
+<li>表现：
+<ul>
+<li>长时间延迟（路由器缓冲区排队）</li>
+<li>丢失数据包（路由器缓冲区溢出）</li>
+</ul></li>
+</ul>
+<h2 id="解决方法">6.1 解决方法</h2>
+<ul>
+<li>end-end congestion control （端到端拥塞控制）
+<ul>
+<li>没有来自网络的明确反馈</li>
+<li>根据终端系统观察到的丢失、延迟推测拥塞情况</li>
+<li><strong>TCP 采用此方法</strong></li>
+</ul></li>
+<li>network-assisted congestion control（网络辅助的拥塞控制）
+<ul>
+<li>路由器向终端系统提供反馈
+<ul>
+<li>用一个bit指示链路中的拥塞情况（SNA、DECbit、TCP/IP
+ECN、ATM、XCP）</li>
+<li>路由器为发送方提供明确的速率信息（ATM ABR）</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="atm-abr">6.2 ATM ABR</h2>
+<ul>
+<li><p>ATM (Asynchronous Transfer Mode)：异步传输模式，面向
+虚电路的方式处理包交换</p></li>
+<li><p>ABR: available bit rate</p>
+<ul>
+<li>弹性服务</li>
+<li>如果发送方路径轻负载：发送方应充分利用可用带宽</li>
+<li>如果发送方路径拥塞：发送方应抑制发送速率到最小保障的传输速率</li>
+</ul></li>
+<li><p>RM (resource management) cells资源管理信元</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404121447958.png" srcset="/img/loading.gif" lazyload
+alt="image-20240412134926052" />
+<figcaption aria-hidden="true">image-20240412134926052</figcaption>
+</figure>
+<ul>
+<li>由发送方发送，中间夹杂数据信元（不是数据包）</li>
+<li>传送拥塞相关信息</li>
+<li>两种方式：
+<ul>
+<li>直接网络反馈，即交换机直接反馈拥塞信息给发送方</li>
+<li>经由接收方的网络反馈，即RM抵达接收方后被修改指示信息然后反馈给发送方</li>
+</ul></li>
+<li>RM 信元（不是数据包）中的两个比特由交换机（不是路由器）设置
+<ul>
+<li>NI：轻度拥塞</li>
+<li>CI：严重拥塞</li>
+<li>接收方退回发送方的 RM
+单元（CI/NI数据通常保持不变，下面特殊情况除外）</li>
+</ul></li>
+<li>RM 单元中两个字节的 ER（显示速率）字段
+<ul>
+<li>拥塞的交换机可能会降低小信元的 ER 值</li>
+<li>发送者的发送速率以及路径上可支持的最大速率</li>
+</ul></li>
+<li>每个数据单元中的一位
+EFCI（显式转发拥塞指示）：拥塞的交换机设为<code>1</code>
+<ul>
+<li>在接收到RM之前，若收到数据信元EFCI为1，则在收到RM后对其CI值进行修改</li>
+</ul></li>
+</ul></li>
+</ul>
+<h1 id="tcp拥塞控制">7. TCP拥塞控制</h1>
+<ul>
+<li>TCP 必须使用端到端拥塞控制，而不是网络辅助拥塞控制。IP
+层不向终端系统提供明确反馈。</li>
+<li>限制发送速率作为感知网络拥塞的函数
+<ul>
+<li>提高发送速率，感知到很少的拥塞</li>
+<li>降低发送速率，感知拥塞</li>
+</ul></li>
+</ul>
+<h2 id="如何限制发送速率">7.1 如何限制发送速率</h2>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404121447959.png" srcset="/img/loading.gif" lazyload
+alt="image-20240412140610778" />
+<figcaption aria-hidden="true">image-20240412140610778</figcaption>
+</figure>
+<ul>
+<li>congestion window （cwnd,拥塞窗口）：
+<ul>
+<li>对发送者在网络中发送流量的速率施加约束</li>
+<li><code>LastBytesSent – LastByteAcked &lt;= min&#123;cwnd, rwnd&#125;</code></li>
+</ul></li>
+<li>方便分析拥塞机制，假设接收缓冲区非常大，可以忽略 rwnd
+<ul>
+<li><code>LastBytesSent – LastByteAcked &lt;= cwnd</code></li>
+</ul></li>
+<li>限制发送方中未被确认的数据量，间接限制发送速率</li>
+<li>cwnd 是动态的，是感知网络拥塞的函数</li>
+<li>TCP 发送速率：
+<ul>
+<li>考虑丢失和数据包传输延迟可忽略不计</li>
+<li>大致为：发送一次 cwnd 字节，等待一个 RTT 收到
+ACKS，然后发送更多字节</li>
+<li>调整 cwnd 以控制发送速率</li>
+<li><span
+class="math inline">\(rate≈\frac{cwnd}{RTT}bytes/sec\)</span></li>
+</ul></li>
+</ul>
+<h2 id="如何感知拥塞">7.2 如何感知拥塞</h2>
+<ul>
+<li>出现拥塞：丢包事件（超时或收到三个重复 ACK ）</li>
+<li>未出现拥塞：发送方收到ACK信息，意味着网络状态良好，增加拥塞窗口的大小</li>
+<li>TCP 是自计时的（self-clocking）</li>
+</ul>
+<h2 id="拥塞控制算法">7.3 拥塞控制算法</h2>
+<ul>
+<li>slow start (慢启动)</li>
+<li>congestion avoidance (拥塞避免)</li>
+<li>fast recovery (快速恢复)</li>
+</ul>
+<h3 id="慢启动">7.3.1 慢启动</h3>
+<ul>
+<li>cwnd初始值=1MSS，发送速率≈MSS/RTT</li>
+<li>慢启动：当连接开始时，速率以指数方式增加，直到发生第一次丢失事件。
+<ul>
+<li>一轮RTT，cwnd增加为原来的两倍</li>
+<li>发送方每收到一个ACK，cwnd增加1个MSS，一轮增加1个cwnd</li>
+</ul></li>
+<li>慢启动指数增长何时结束？
+<ul>
+<li>超时事件
+<ul>
+<li>ssthresh=cwnd/2（ssthresh 是状态变量阈值）</li>
+<li>cwnd=1MSS</li>
+<li>回到慢启动状态</li>
+</ul></li>
+<li>cwnd &gt;= ssthresh：进入拥塞避免状态</li>
+<li>3个冗余ACK
+<ul>
+<li>ssthresh=cwnd/2</li>
+<li>cwnd=ssthresh+3*MSS</li>
+<li>执行快速重传，进入快速恢复状态</li>
+</ul></li>
+</ul></li>
+</ul>
+<h3 id="拥塞避免">7.3.2 拥塞避免</h3>
+<ul>
+<li>保守的方法：一轮RTT增加1个MSS，即发送方每收到一个ACK，cwnd增加1个MSS*(MSS/cwnd)</li>
+<li>拥塞避免的线性增长何时结束？
+<ul>
+<li>超时事件
+<ul>
+<li>ssthresh=cwnd/2</li>
+<li>cwnd=1MSS</li>
+<li>进入慢启动状态</li>
+</ul></li>
+<li>3个冗余ACK
+<ul>
+<li>ssthresh=cwnd/2</li>
+<li>cwnd=ssthresh+3*MSS</li>
+<li>执行快速重传，进入快速恢复状态</li>
+</ul></li>
+</ul></li>
+</ul>
+<h3 id="快速恢复">7.3.3 快速恢复</h3>
+<ul>
+<li>对于导致 TCP 进入快速恢复状态的丢失网段，每收到一个重复的 ACK，cwnd
+的值就会增加 1 MSS（cwnd = cwnd +MSS）。</li>
+<li>超时事件
+<ul>
+<li>ssthresh=cwnd/2</li>
+<li>cwnd=1MSS</li>
+<li>进入慢启动状态</li>
+</ul></li>
+<li>新的ACK
+<ul>
+<li>cwnd=ssthresh</li>
+<li>在清空 cwnd 之后进入避免拥塞状态</li>
+</ul></li>
+<li>建议但不强制要求快速恢复
+<ul>
+<li>[TCP Tahoe] (old version)：无快速恢复
+<ul>
+<li>总是将 cwnd 设置为 1（超时或 3 个冗余ACK）</li>
+<li>已不再使用</li>
+</ul></li>
+<li>[TCP Reno] (new version)：有快速恢复（3 个冗余ACK）</li>
+<li>ssthresh = cwnd /2</li>
+<li>cwnd = ssthresh +3*MSS
+(很可能网络未出现严重拥塞，因此可不从1开始。有些快速重传版本并未加3个MSS)</li>
+</ul></li>
+</ul>
+<h3 id="小结-1">7.3.4 小结</h3>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404121447960.png" srcset="/img/loading.gif" lazyload
+alt="image-20240412143139945" />
+<figcaption aria-hidden="true">image-20240412143139945</figcaption>
+</figure>
+<ul>
+<li><p>检测到所有超时事件，下一轮执行如下操作：</p>
+<ul>
+<li>ssthresh=cwnd/2</li>
+<li>cwnd=1MSS（网络拥塞很严重）</li>
+<li>进入慢启动状态</li>
+</ul></li>
+<li><p>检测到所有3次冗余ACK事件，下一轮执行如下操作：</p>
+<ul>
+<li>ssthresh = cwnd /2（网络拥塞不严重）</li>
+<li>cwnd = ssthresh +3*MSS</li>
+<li>进入快速恢复状态</li>
+</ul></li>
+<li><p>注意：如果当前cwnd不为偶数，计算新的ssthresh时一</p>
+<p>般向下取整。</p></li>
+</ul>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404121447961.png" srcset="/img/loading.gif" lazyload
+alt="image-20240412143701610" />
+<figcaption aria-hidden="true">image-20240412143701610</figcaption>
+</figure>
+<h2 id="tcp吞吐量">7.4 TCP吞吐量</h2>
+<ul>
+<li>W：发生丢失的窗口大小（以字节为单位）</li>
+<li>平均窗口大小： <span
+class="math inline">\(\frac{3}{4}W\)</span></li>
+<li>平均吞吐量： <span
+class="math inline">\(\frac{3}{4}\frac{W}{RTT}bytes/sec\)</span></li>
+</ul>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404121447962.png" srcset="/img/loading.gif" lazyload
+alt="image-20240412144504396" />
+<figcaption aria-hidden="true">image-20240412144504396</figcaption>
+</figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%A0%B8%E5%BF%83%E8%AF%BE%E7%A8%8B/" class="category-chain-item">计算机核心课程</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%A0%B8%E5%BF%83%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="category-chain-item">计算机网络</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%A0%B8%E5%BF%83%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95/" class="category-chain-item">计算机网络——自顶向下方法</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>传输层</div>
+      <div>http://example.com/2024/04/10/计算机核心课程/计算机网络/计算机网络——自顶向下方法/传输层/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>kaikaikai</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年4月10日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/04/08/LeetCode/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%AF%87/" title="字符串篇">
+                        <span class="hidden-mobile">字符串篇</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
