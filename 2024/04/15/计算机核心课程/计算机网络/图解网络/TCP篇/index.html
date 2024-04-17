@@ -1,0 +1,1594 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="kaikaikai">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1. 基础知识 1.1 TCP 定义 TCP 是面向连接的、可靠的、基于字节流的传输层通信协议。  面向连接：通信前需要进行三次握手； 可靠的：无论网络链路中出现了怎样的链路变化，TCP 都可以保证报文一定能够到达接收端； 字节流：用户消息通过 TCP 协议传输时，消息可能会被操作系统「分组」成多个的 TCP 报文，如果接收方的程序如果不知道「消息的边界」，是无法读出一个有效的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TCP篇">
+<meta property="og:url" content="http://example.com/2024/04/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%A0%B8%E5%BF%83%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3%E7%BD%91%E7%BB%9C/TCP%E7%AF%87/index.html">
+<meta property="og:site_name" content="kaikaikai&#39;s blog">
+<meta property="og:description" content="1. 基础知识 1.1 TCP 定义 TCP 是面向连接的、可靠的、基于字节流的传输层通信协议。  面向连接：通信前需要进行三次握手； 可靠的：无论网络链路中出现了怎样的链路变化，TCP 都可以保证报文一定能够到达接收端； 字节流：用户消息通过 TCP 协议传输时，消息可能会被操作系统「分组」成多个的 TCP 报文，如果接收方的程序如果不知道「消息的边界」，是无法读出一个有效的">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-15T03:14:18.000Z">
+<meta property="article:modified_time" content="2024-04-17T07:19:46.272Z">
+<meta property="article:author" content="kaikaikai">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>TCP篇 - kaikaikai&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="TCP篇"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-04-15 11:14" pubdate>
+          2024年4月15日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          16k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          138 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">TCP篇</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="基础知识">1. 基础知识</h1>
+<h2 id="tcp-定义">1.1 TCP 定义</h2>
+<p>TCP
+是<strong>面向连接的、可靠的、基于字节流</strong>的传输层通信协议。</p>
+<ul>
+<li><strong>面向连接</strong>：通信前需要进行三次握手；</li>
+<li><strong>可靠的</strong>：无论网络链路中出现了怎样的链路变化，TCP
+都可以保证报文一定能够到达接收端；</li>
+<li><strong>字节流</strong>：用户消息通过 TCP
+协议传输时，消息可能会被操作系统「分组」成多个的 TCP
+报文，如果接收方的程序如果不知道「消息的边界」，是无法读出一个有效的用户消息的。并且
+TCP 报文是「有序的」，当「前一个」TCP
+报文没有收到的时候，即使它先收到了后面的 TCP
+报文，那么也不能交给应用层去处理，同时对「重复」的 TCP
+报文会自动丢弃。</li>
+</ul>
+<h2 id="tcp-工作层次">1.2 TCP 工作层次</h2>
+<p><code>IP</code>
+层是<strong>不可靠</strong>的，它不保证网络包的交付、不保证网络包的按序交付、也不保证网络包中的数据的完整性。如果需要保障网络数据包的可靠性，那么就需要由上层（传输层）的
+<code>TCP</code> 协议来负责。TCP
+是一个工作在<strong>传输层</strong>的<strong>可靠数据传输协议</strong>，它能确保接收端接收的网络包是<strong>无损坏、无间隔、非冗余和按序的。</strong>（为什么需要
+TCP 协议？ TCP 工作在哪一层？）</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404171518175.png" srcset="/img/loading.gif" lazyload
+alt="image-20240415112403826" />
+<figcaption aria-hidden="true">image-20240415112403826</figcaption>
+</figure>
+<h2 id="tcp-头部格式">1.2 TCP 头部格式</h2>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404171518176.png" srcset="/img/loading.gif" lazyload
+alt="image-20240415111742052" />
+<figcaption aria-hidden="true">image-20240415111742052</figcaption>
+</figure>
+<ul>
+<li><strong>序列号</strong>：在建立连接时由计算机生成的随机数作为其初始值，通过
+SYN
+包传给接收端主机，每发送一次数据，就累加一次该<strong>数据字节数</strong>的大小。用来解决<strong>网络包乱序</strong>问题。</li>
+<li><strong>确认应答号</strong>：指下一次<strong>期望收到</strong>的数据序列号，发送端收到这个确认应答以后可以认为在这个序号以前的数据都已经被正常接收。用来解决<strong>丢包</strong>的问题。</li>
+<li><strong>控制位：</strong>
+<ul>
+<li><em>ACK</em>：该位为 <code>1</code>
+时，表示「确认应答号」字段有效，TCP 规定除了最初建立连接时的
+<code>SYN</code> 包之外该位必须设置为 <code>1</code> 。</li>
+<li><em>RST</em>：该位为 <code>1</code> 时，表示 TCP
+连接中出现异常必须强制断开连接。</li>
+<li><em>SYN</em>：该位为 <code>1</code>
+时，表示希望建立连接，并在「序列号」字段进行序列号初始值的设定。</li>
+<li><em>FIN</em>： 该位为 <code>1</code>
+时，表示希望断开连接。当通信结束希望断开连接时，通信双方的主机之间就可以相互交换
+<code>FIN</code> 位为 1 的 TCP 段。</li>
+</ul></li>
+</ul>
+<h2 id="tcp-连接">1.4 TCP 连接</h2>
+<ul>
+<li>连接（RFC 793）：可靠性和流量控制机制要求 TCP
+初始化并维护每个数据流的某些状态信息。这些信息（包括<strong>套接字、序列号和窗口大小</strong>）的组合称为连接。</li>
+<li>建立一个 TCP 连接是需要客户端与服务端达成上述三个信息的共识：
+<ul>
+<li><strong>Socket</strong>：由 IP 地址和端口号组成</li>
+<li><strong>序列号</strong>：用来解决乱序问题等</li>
+<li><strong>窗口大小</strong>：用来做流量控制</li>
+</ul></li>
+</ul>
+<h2 id="tcp-四元组">1.5 TCP 四元组</h2>
+<ul>
+<li>TCP 四元组可以<strong>唯一确定一个连接</strong>，四元组包括如下：
+<ul>
+<li>源IP地址</li>
+<li>源端口</li>
+<li>目的IP地址</li>
+<li>目的端口</li>
+</ul></li>
+<li>源IP地址和目的IP地址字段（32 位）是在 IP 头部中，作用是通过 IP
+协议发送报文给对方主机；源端口和目的端口字段（16 位）是在 TCP
+头部中，作用是告诉 TCP 协议应该把报文发给哪个进程。</li>
+</ul>
+<blockquote>
+<p>Q：服务端（IP唯一）监听了一个端口，它的 TCP 的最大连接数是多少？</p>
+<p>A：服务端通常固定在某个本地端口上监听，等待客户端的连接请求。客户端
+IP
+和端口是可变的，其理论值计算公式如下：<code>最大TCP连接数=客户端IP数*客户端端口数</code>。对
+IPv4，客户端的 IP 数最多为 <code>2</code> 的 <code>32</code>
+次方，客户端的端口数最多为 <code>2</code> 的 <code>16</code>
+次方，也就是说服务端单机最大 TCP 连接数约为 <code>2</code> 的
+<code>48</code> 次方。当然，服务端最大并发 TCP
+连接数远不能达到理论上限，会受以下因素影响：</p>
+<ul>
+<li><strong>文件描述符限制</strong>：每个 TCP
+连接都是一个文件，如果文件描述符被占满了，会发生 Too many open
+files。Linux 对可打开的文件描述符的数量分别作了三个方面的限制：</li>
+<li><strong>系统级</strong>：当前系统可打开的最大数量，通过
+<code>cat /proc/sys/fs/file-max</code> 查看；</li>
+<li><strong>用户级</strong>：指定用户可打开的最大数量，通过
+<code>cat /etc/security/limits.conf</code> 查看；</li>
+<li><strong>进程级</strong>：单个进程可打开的最大数量，通过
+<code>cat /proc/sys/fs/nr_open</code> 查看；</li>
+<li><strong>内存限制</strong>，每个 TCP
+连接都要占用一定内存，操作系统的内存是有限的，如果内存资源被占满后，会发生
+OOM（Out Of Memory）。</li>
+</ul>
+</blockquote>
+<h2 id="tcp-和-udp">1.6 TCP 和 UDP</h2>
+<h3 id="udp-头部格式">1.6.1 UDP 头部格式</h3>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404171518177.png" srcset="/img/loading.gif" lazyload
+alt="image-20240415113638580" />
+<figcaption aria-hidden="true">image-20240415113638580</figcaption>
+</figure>
+<ul>
+<li>端口：主要是告诉 UDP 协议应该把报文发给哪个进程</li>
+<li>包长度：该字段保存了 UDP
+<strong>首部长度和数据长度</strong>之和</li>
+<li>校验和：校验和是为了提供可靠的 UDP
+首部和数据而设计，防止收到在网络传输中受损的 UDP 包</li>
+</ul>
+<blockquote>
+<p>Q：为什么 UDP 头部没有「首部长度」字段，而 TCP
+头部有「首部长度」字段呢？</p>
+<p>A：TCP 有<strong>可变长</strong>的「选项」字段，而 UDP
+头部长度则是<strong>不会变化</strong>的，无需多一个字段去记录 UDP
+的首部长度。</p>
+</blockquote>
+<h3 id="区别">1.6.2 区别</h3>
+<table>
+
+<thead>
+<tr class="header">
+<th></th>
+<th>TCP</th>
+<th>UDP</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>连接</td>
+<td>面向连接</td>
+<td>无连接</td>
+</tr>
+<tr class="even">
+<td>服务对象</td>
+<td>一对一</td>
+<td>一对一、一对多、多对多</td>
+</tr>
+<tr class="odd">
+<td>可靠性</td>
+<td>可靠交付</td>
+<td>尽最大努力交付</td>
+</tr>
+<tr class="even">
+<td>拥塞控制、流量控制</td>
+<td>有</td>
+<td>无</td>
+</tr>
+<tr class="odd">
+<td>首部开销</td>
+<td>20字节，可能改变（选项字段）</td>
+<td>8 个字节，固定不变</td>
+</tr>
+<tr class="even">
+<td>传输方式</td>
+<td>流式传输，没有边界</td>
+<td>按包发送，具有边界</td>
+</tr>
+<tr class="odd">
+<td>分片</td>
+<td>如果大于 MSS 大小，则会在传输层进行分片</td>
+<td>如果大于 MTU 大小，则会在 IP 层进行分片</td>
+</tr>
+</tbody>
+</table>
+<h3 id="应用场景">1.6.3 应用场景</h3>
+<ul>
+<li>TCP 是面向连接，能保证数据的可靠性交付，因此经常用于：</li>
+<li><code>FTP</code> 文件传输；</li>
+<li>HTTP / HTTPS；</li>
+<li>UDP 是面向无连接，它可以随时发送数据，再加上 UDP
+本身的处理既简单又高效，因此经常用于：
+<ul>
+<li>包总量较少的通信，如 <code>DNS</code> 、<code>SNMP</code> 等；</li>
+<li>视频、音频等多媒体通信；</li>
+<li>广播通信；</li>
+</ul></li>
+</ul>
+<h3 id="端口">1.6.4 端口</h3>
+<p><strong>可以使用相同端口。</strong>在数据链路层中，通过 MAC
+地址来寻找局域网中的主机。在网际层中，通过 IP
+地址来寻找网络中互连的主机或路由器。在传输层中，需要通过端口进行寻址，来识别同一计算机中同时通信的不同应用程序。即传输层的「端口号」的作用，是为了区分同一个主机上不同应用程序的数据包。传输层有两个传输协议分别是
+TCP 和 UDP，在内核中是两个完全独立的软件模块。当主机收到数据包后，可以在
+IP 包头的「协议号」字段知道该数据包是
+TCP/UDP，所以可以根据这个信息确定送给哪个模块（TCP/UDP）处理，送给
+TCP/UDP 模块的报文根据「端口号」确定送给哪个应用程序处理。因此，TCP/UDP
+各自的端口号也相互独立，如 TCP 有一个 80 号端口，UDP 也可以有一个 80
+号端口，二者并不冲突。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404171518178.png" srcset="/img/loading.gif" lazyload
+alt="image-20240415114454749" />
+<figcaption aria-hidden="true">image-20240415114454749</figcaption>
+</figure>
+<h1 id="连接建立">2. 连接建立</h1>
+<h2 id="三次握手过程">2.1 三次握手过程</h2>
+<p>TCP 是面向连接的协议，所以使用 TCP
+前必须先建立连接，而建立连接是通过<strong>三次握手</strong>来进行的。三次握手的过程如下图：</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404171518179.png" srcset="/img/loading.gif" lazyload
+alt="image-20240416141144833" />
+<figcaption aria-hidden="true">image-20240416141144833</figcaption>
+</figure>
+<ul>
+<li><p>一开始，客户端和服务端都处于 <code>CLOSE</code>
+状态。先是服务端主动监听某个端口，处于 <code>LISTEN</code>
+状态。</p></li>
+<li><p>客户端会随机初始化序号（<code>client_isn</code>），将此序号置于
+TCP 首部的「序号」字段中，同时把 <code>SYN</code> 标志位置为
+<code>1</code>，表示 <code>SYN</code> 报文。接着把第一个 SYN
+报文发送给服务端，表示向服务端发起连接，该报文不包含应用层数据，之后客户端处于
+<code>SYN-SENT</code> 状态。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404171518181.png" srcset="/img/loading.gif" lazyload
+alt="image-20240416141334845" />
+<figcaption aria-hidden="true">image-20240416141334845</figcaption>
+</figure></li>
+<li><p>服务端收到客户端的 <code>SYN</code>
+报文后，首先服务端也随机初始化自己的序号（<code>server_isn</code>），将此序号填入
+TCP 首部的「序号」字段中，其次把 TCP 首部的「确认应答号」字段填入
+<code>client_isn + 1</code>, 接着把 <code>SYN</code> 和 <code>ACK</code>
+标志位置为
+<code>1</code>。最后把该报文发给客户端，该报文也不包含应用层数据，之后服务端处于
+<code>SYN-RCVD</code> 状态。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404171518182.png" srcset="/img/loading.gif" lazyload
+alt="image-20240416141413290" />
+<figcaption aria-hidden="true">image-20240416141413290</figcaption>
+</figure></li>
+<li><p>客户端收到服务端报文后，还要向服务端回应最后一个应答报文，首先该应答报文
+TCP 首部 <code>ACK</code> 标志位置为 <code>1</code>
+，其次「确认应答号」字段填入 <code>server_isn + 1</code>
+，最后把报文发送给服务端，这次报文可以携带客户到服务端的数据，之后客户端处于
+<code>ESTABLISHED</code> 状态。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404171518183.png" srcset="/img/loading.gif" lazyload
+alt="image-20240416141505192" />
+<figcaption aria-hidden="true">image-20240416141505192</figcaption>
+</figure></li>
+<li><p>服务端收到客户端的应答报文后，也进入 <code>ESTABLISHED</code>
+状态。</p></li>
+<li><p>一旦完成三次握手，双方都处于 <code>ESTABLISHED</code>
+状态，此时连接就已建立完成，客户端和服务端就可以相互发送数据了。</p></li>
+<li><p><strong>第三次握手是可以携带数据的，前两次握手是不可以携带数据的。</strong></p></li>
+</ul>
+<h2 id="查看-tcp-状态linux">2.2 查看 TCP 状态（Linux）</h2>
+<p><code>netstat -napt</code>：显示所有当前活动的TCP连接，包括连接的地址和端口号，以及与之相关的进程和程序信息。</p>
+<ul>
+<li><code>netstat</code>：这是一个用于检查网络连接信息的命令。</li>
+<li><code>-n</code>：这个选项表示以数字形式显示地址和端口号，而不是尝试解析为主机名和服务名。使用此选项可以加快命令执行速度。</li>
+<li><code>-a</code>：此选项显示所有的连接和监听端口，包括正在侦听的连接。</li>
+<li><code>-p</code>：此选项显示建立相关链接的程序和进程ID。</li>
+<li><code>-t</code>：此选项只显示TCP协议的连接信息。</li>
+</ul>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404171518184.png" srcset="/img/loading.gif" lazyload
+alt="image-20240416141902265" />
+<figcaption aria-hidden="true">image-20240416141902265</figcaption>
+</figure>
+<h2 id="为什么需要三次握手">2.3 为什么需要三次握手？</h2>
+<p>为什么三次握手才可以初始化 Socket、序列号和窗口大小并建立 TCP
+连接：</p>
+<ul>
+<li>阻止重复历史连接的初始化（主要原因）</li>
+<li>同步双方的初始序列号</li>
+</ul>
+<h3 id="阻止重复历史连接的初始化">2.3.1 阻止重复历史连接的初始化</h3>
+<p>三次握手的<strong>首要原因</strong>是为了<strong>防止旧的重复连接初始化造成混乱</strong>。具体场景：客户端先发送了
+SYN（seq = 90）报文，然后客户端宕机了，而且这个 SYN
+报文还被网络阻塞了，服务端并没有收到，接着客户端重启后，又重新向服务端建立连接，发送了
+SYN（seq = 100）报文（<em>注意！不是重传 SYN，重传的 SYN
+的序列号是一样的</em>）。三次握手阻止历史连接过程如下图所示：</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404171518185.png" srcset="/img/loading.gif" lazyload
+alt="image-20240416142529089" />
+<figcaption aria-hidden="true">image-20240416142529089</figcaption>
+</figure>
+<blockquote>
+<p>Q：服务端在收到 RST 报文之前，先收到了新 SYN
+报文，此时会发生什么?</p>
+<p>A：当服务端第一次收到 SYN 报文，也就是收到旧 SYN 报文时，就会回复 SYN
++ ACK 报文给客户端，此报文中的确认号是 91（90+1）。然后这时再收到新 SYN
+报文时，就会回 Challenge ACk (opens new window)报文给客户端，这个 ACK
+报文并不是确认收到新 SYN 报文的，而是上一次的 ACK
+确认号，也就是91（90+1）。客户端收到此 ACK
+报文时，发现该报文没有确认它发送的任何内容，由于不同步，它发送一个 RST
+报文。</p>
+</blockquote>
+<p>为什么 TCP
+两次握手为什么无法阻止阻止重复历史连接的初始化呢？主要是因为<strong>在两次握手的情况下，服务端没有中间状态给客户端来阻止历史连接，导致服务端可能建立一个历史连接，造成资源浪费</strong>。如下图所示，如果采用两次握手建立
+TCP
+连接的场景下，服务端在向客户端发送数据前，并没有阻止掉历史连接，导致服务端建立了一个历史连接，又白白发送了数据，妥妥地浪费了服务端的资源。因此，要解决这种现象，最好就是在服务端发送数据前，也就是建立连接之前，要阻止掉历史连接，这样就不会造成资源浪费，而要实现这个功能，就需要三次握手。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404171518186.png" srcset="/img/loading.gif" lazyload
+alt="image-20240416144805284" />
+<figcaption aria-hidden="true">image-20240416144805284</figcaption>
+</figure>
+<h3 id="同步双方初始序列号">2.3.2 同步双方初始序列号</h3>
+<p>TCP 协议的通信双方， 都必须维护一个「序列号」，
+序列号是可靠传输的一个关键因素，它的作用：</p>
+<ul>
+<li>接收方可以去除重复的数据；</li>
+<li>接收方可以根据数据包的序列号按序接收；</li>
+<li>可以标识发送出去的数据包中， 哪些是已经被对方收到的（通过 ACK
+报文中的序列号知道）；</li>
+</ul>
+<p>序列号在 TCP
+连接中占据着非常重要的作用，当客户端发送携带「初始序列号」的
+<code>SYN</code> 报文的时候，需要服务端回一个 <code>ACK</code>
+应答报文，表示客户端的 SYN
+报文已被服务端成功接收，那当服务端发送「初始序列号」给客户端的时候，依然也要得到客户端的应答回应，这样<strong>一来一回</strong>，才能<strong>确保双方的初始序列号能被可靠的同步</strong>。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404171518187.png" srcset="/img/loading.gif" lazyload
+alt="image-20240416145542072" />
+<figcaption aria-hidden="true">image-20240416145542072</figcaption>
+</figure>
+<p>四次握手其实也能够可靠的同步双方的初始化序号，但由于第二步和第三步可以优化成一步，所以就成了「三次握手」。而两次握手只保证了一方的初始序列号能被对方成功接收，没办法保证双方的初始序列号都能被确认接收。</p>
+<h3 id="小结">2.3.3 小结</h3>
+<p>TCP
+建立连接时，通过三次握手<strong>能防止历史连接的建立，能减少双方不必要的资源开销，能帮助双方同步初始化序列号</strong>。</p>
+<p>不使用「两次握手」和「四次握手」的原因：</p>
+<ul>
+<li>「两次握手」：无法防止历史连接的建立，会造成双方资源的浪费，也无法可靠的同步双方序列号；</li>
+<li>「四次握手」：三次握手就已经理论上最少可靠连接建立，所以不需要使用更多的通信次数。</li>
+</ul>
+<h2 id="初始序列号">2.4 初始序列号</h2>
+<h3 id="随机化">2.4.1 随机化</h3>
+<p>为什么每次建立 TCP
+连接时，初始化的序列号都要求不一样，主要原因有两个方面：</p>
+<ul>
+<li>防止历史报文被下一个相同四元组的连接接收（主要方面）；</li>
+<li>防止黑客伪造的相同序列号的 TCP 报文；</li>
+</ul>
+<p>假设每次建立连接，客户端和服务端的初始化序列号都是从 0
+开始。过程如下：</p>
+<ul>
+<li>客户端和服务端建立一个 TCP
+连接，在客户端发送数据包被网络阻塞了，然后超时重传了这个数据包，而此时服务端设备断电重启了，之前与客户端建立的连接就消失了，于是在收到客户端的数据包的时候就会发送
+RST 报文。</li>
+<li>紧接着，客户端又与服务端建立了与上一个连接相同四元组的连接；</li>
+<li>在新连接建立完成后，上一个连接中被网络阻塞的数据包正好抵达了服务端，刚好该数据包的序列号正好是在服务端的接收窗口内，所以该数据包会被服务端正常接收，就会造成数据错乱。</li>
+</ul>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404171518188.png" srcset="/img/loading.gif" lazyload
+alt="image-20240416150751412" />
+<figcaption aria-hidden="true">image-20240416150751412</figcaption>
+</figure>
+<p>如果每次建立连接客户端和服务端的初始化序列号都不一样，就有很大概率因为历史报文的序列号不在对方接收窗口，从而很大程度上避免了解释历史报文，如下图所示：</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404171518189.png" srcset="/img/loading.gif" lazyload
+alt="image-20240416150901464" />
+<figcaption aria-hidden="true">image-20240416150901464</figcaption>
+</figure>
+<h3 id="产生算法">2.4.2 产生算法</h3>
+<p>RFC 793 提到初始化序列号 ISN
+随机生成算法：<code>ISN = M + F(localhost, localport, remotehost, remoteport)</code>。</p>
+<ul>
+<li><code>M</code> 是一个计时器，这个计时器每隔 4 微秒加 1。</li>
+<li><code>F</code> 是一个 Hash 算法，根据源 IP、目的
+IP、源端口、目的端口生成一个随机数值。要保证 Hash
+算法不能被外部轻易推算得出，用 MD5 算法是一个比较好的选择。</li>
+</ul>
+<p>可以看到，随机数是会基于时钟计时器递增的，基本不可能会随机成一样的初始化序列号。</p>
+<h2 id="既然-ip-层会分片为什么-tcp-层还需要-mss-呢">2.6 既然 IP
+层会分片，为什么 TCP 层还需要 MSS 呢？</h2>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404171518190.png" srcset="/img/loading.gif" lazyload
+alt="image-20240416151111857" />
+<figcaption aria-hidden="true">image-20240416151111857</figcaption>
+</figure>
+<ul>
+<li><code>MTU</code>：一个网络包的最大长度，以太网中一般为
+<code>1500</code> 字节；</li>
+<li><code>MSS</code>：除去 IP 和 TCP 头部之后，一个网络包所能容纳的 TCP
+数据的最大长度；</li>
+</ul>
+<p>假设有一份较大的数据，且在TCP层不分段，如果这份数据在发送的过程中出现<strong>丢包</strong>现象，TCP会发生重传，那么重传的就是这一大份数据（虽然IP层会把数据切分为MTU长度的N多个小包，但是TCP重传的单位却是那一大份数据）。如果TCP把这份数据，分段为N个小于等于MSS长度的数据包，到了IP层后加上IP头和TCP头，还是小于MTU，那么IP层也不会再进行分包。此时在传输路上发生了丢包，那么TCP重传的时候也只是重传那一小部分的MSS段。效率会比TCP不分段时更高。</p>
+<h2 id="第一次握手丢失了会发生什么">2.7
+第一次握手丢失了，会发生什么？</h2>
+<p>当客户端想和服务端建立 TCP 连接的时候，首先第一个发的就是 SYN
+报文，然后进入到 <code>SYN_SENT</code>
+状态。在这之后，如果客户端迟迟收不到服务端的 SYN-ACK
+报文（第二次握手），就会触发<strong>超时重传</strong>机制，重传 SYN
+报文，而且重传的 <strong>SYN
+报文的序列号</strong>都是<strong>一样</strong>的。不同版本的操作系统可能超时时间不同，有的
+1 秒的，也有 3
+秒的，这个超时时间是写死在内核里的，如果想要更改则需要重新编译内核，比较麻烦。当客户端在
+1 秒后没收到服务端的 SYN-ACK 报文后，客户端就会重发 SYN
+报文，那到底重发几次呢？在 Linux 里，客户端的 SYN 报文最大重传次数由
+<code>tcp_syn_retries</code>内核参数控制，这个参数是可以自定义的，默认值一般是
+5。</p>
+<p>通常，第一次超时重传是在 1 秒后，第二次超时重传是在 2
+秒，第三次超时重传是在 4 秒后，第四次超时重传是在 8
+秒后，第五次是在超时重传 16 秒后。<strong>每次超时的时间是上一次的 2
+倍</strong>。当第五次超时重传后，会继续等待 32
+秒，如果服务端仍然没有回应 ACK，客户端就不再发送 SYN 包，然后断开 TCP
+连接。所以，总耗时是 1+2+4+8+16+32=63 秒，大约 1
+分钟左右。举个例子，假设 <code>tcp_syn_retries</code> 参数值为
+3，那么当客户端的 SYN 报文一直在网络中丢失时，会发生下图的过程：</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404171518191.png" srcset="/img/loading.gif" lazyload
+alt="image-20240416152144803" />
+<figcaption aria-hidden="true">image-20240416152144803</figcaption>
+</figure>
+<p>注：RTO：retransmission timeout</p>
+<h2 id="第二次握手丢失了会发生什么">2.8
+第二次握手丢失了，会发生什么？</h2>
+<p>当服务端收到客户端的第一次握手后，就会回 SYN-ACK
+报文给客户端，这个就是第二次握手，此时服务端会进入 <code>SYN_RCVD</code>
+状态。第二次握手的 <code>SYN-ACK</code> 报文有两个作用 ：</p>
+<ul>
+<li>ACK：对第一次握手的确认报文；</li>
+<li>SYN：服务端发起建立 TCP 连接的报文；</li>
+</ul>
+<p>因为第二次握手报文里是包含对客户端的第一次握手的 ACK
+确认报文，所以，如果客户端迟迟没有收到第二次握手，那么客户端就觉得可能是自己的
+SYN
+报文（第一次握手）丢失了，于是<strong>客户端就会触发超时重传机制，重传
+SYN 报文</strong>。然后，因为第二次握手中包含服务端的 SYN
+报文，所以当客户端收到后，需要给服务端发送 ACK
+确认报文（第三次握手），服务端才会认为该 SYN
+报文被客户端收到了。那么，如果第二次握手丢失了，服务端就收不到第三次握手，于是<strong>服务端这边会触发超时重传机制，重传
+SYN-ACK 报文</strong>。在 Linux 下，SYN-ACK 报文的最大重传次数由
+<code>tcp_synack_retries</code>内核参数决定，默认值是
+5。因此，当第二次握手丢失了，客户端和服务端都会重传：</p>
+<ul>
+<li>客户端会重传 SYN 报文，也就是第一次握手，最大重传次数由
+<code>tcp_syn_retries</code>内核参数决定；</li>
+<li>服务端会重传 SYN-ACK 报文，也就是第二次握手，最大重传次数由
+<code>tcp_synack_retries</code> 内核参数决定。</li>
+</ul>
+<p>假设 <code>tcp_syn_retries</code> 参数值为
+1，<code>tcp_synack_retries</code> 参数值为
+2，那么当第二次握手一直丢失时，发生的过程如下图：</p>
+<ul>
+<li>当客户端超时重传 1 次 SYN 报文后，由于 tcp_syn_retries 为
+1，已达到最大重传次数，于是再等待一段时间（时间为上一次超时时间的 2
+倍），如果还是没能收到服务端的第二次握手（SYN-ACK
+报文），那么客户端就会断开连接。</li>
+<li>当服务端超时重传 2 次 SYN-ACK 报文后，由于 tcp_synack_retries 为
+2，已达到最大重传次数，于是再等待一段时间（时间为上一次超时时间的 2
+倍），如果还是没能收到客户端的第三次握手（ACK
+报文），那么服务端就会断开连接。</li>
+</ul>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404171518192.png" srcset="/img/loading.gif" lazyload
+alt="image-20240416152709699" />
+<figcaption aria-hidden="true">image-20240416152709699</figcaption>
+</figure>
+<h2 id="第三次握手丢失了会发生什么">2.9
+第三次握手丢失了，会发生什么？</h2>
+<p>客户端收到服务端的 SYN-ACK 报文后，就会给服务端回一个 ACK
+报文，也就是第三次握手，此时客户端状态进入到 <code>ESTABLISH</code>
+状态。因为这个第三次握手的 ACK 是对第二次握手的 SYN
+的确认报文，所以当第三次握手丢失了，如果服务端那一方迟迟收不到这个确认报文，就会触发超时重传机制，重传
+SYN-ACK 报文，直到收到第三次握手，或者达到最大重传次数。注：<strong>ACK
+报文没有重传机制，当 ACK 丢失了，就由对方重传对应的报文</strong>。</p>
+<p>举个例子，假设 tcp_synack_retries 参数值为
+2，那么当第三次握手一直丢失时，发生的过程如下图：</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404171518193.png" srcset="/img/loading.gif" lazyload
+alt="image-20240416153133870" />
+<figcaption aria-hidden="true">image-20240416153133870</figcaption>
+</figure>
+<h2 id="syn-攻击">2.10 SYN 攻击</h2>
+<h3 id="原理">2.10.1 原理</h3>
+<p>TCP 连接建立是需要三次握手，假设攻击者短时间伪造不同 IP 地址的
+<code>SYN</code> 报文，服务端每接收到一个 <code>SYN</code>
+报文，就进入<code>SYN_RCVD</code> 状态，但服务端发送出去的
+<code>ACK + SYN</code> 报文，无法得到未知 IP 主机的 <code>ACK</code>
+应答，久而久之就会<strong>占满服务端的半连接队列</strong>，使得服务端不能为正常用户服务。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404171518194.png" srcset="/img/loading.gif" lazyload
+alt="image-20240416153305481" />
+<figcaption aria-hidden="true">image-20240416153305481</figcaption>
+</figure>
+<p>在 TCP 三次握手的时候，Linux 内核会维护两个队列，分别是：</p>
+<ul>
+<li>半连接队列，也称 SYN 队列；</li>
+<li>全连接队列，也称 accept 队列；</li>
+</ul>
+<p>Linux 内核的 <code>SYN</code> 队列（半连接队列）与
+<code>Accpet</code> 队列（全连接队列）工作流程如下：</p>
+<ul>
+<li>当服务端接收到客户端的 SYN
+报文时，会创建一个半连接的对象，然后将其加入到内核的「 SYN 队列」；</li>
+<li>接着发送 SYN + ACK 给客户端，等待客户端回应 ACK 报文；</li>
+<li>服务端接收到 ACK 报文后，从「 SYN
+队列」取出一个半连接对象，然后创建一个新的连接对象放入到「 Accept
+队列」；</li>
+<li>应用通过调用 <code>accpet()</code> socket 接口，从「 Accept
+队列」取出连接对象。</li>
+</ul>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404171518195.png" srcset="/img/loading.gif" lazyload
+alt="image-20240416153359046" />
+<figcaption aria-hidden="true">image-20240416153359046</figcaption>
+</figure>
+<p>不管是半连接队列还是全连接队列，都有最大长度限制，超过限制时，默认情况都会丢弃报文。SYN
+攻击方式最直接的表现就会把 TCP 半连接队列占满，这样<strong>当 TCP
+半连接队列满了，后续再在收到 SYN
+报文就会丢弃</strong>，导致客户端无法和服务端建立连接。</p>
+<h3 id="应对措施">2.10.2 应对措施</h3>
+<p>避免 SYN 攻击方式，可以有以下四种方法：</p>
+<ul>
+<li>调大 netdev_max_backlog；</li>
+<li>增大 TCP 半连接队列；</li>
+<li>开启 tcp_syncookies；</li>
+<li>减少 SYN+ACK 重传次数</li>
+</ul>
+<h4 id="调大-netdev_max_backlog">2.10.2.1 调大 netdev_max_backlog</h4>
+<p>当网卡接收数据包的速度大于内核处理的速度时，会有一个队列保存这些数据包。控制该队列的最大值如下参数，默认值是
+1000，我们可以适当调大该参数的值，比如设置为 10000：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">net.core.netdev_max_backlog = 10000<br></code></pre></td></tr></table></figure>
+<h4 id="增大-tcp-半连接队列">2.10.2.2 增大 TCP 半连接队列</h4>
+<p>增大 TCP 半连接队列，要同时增大下面这三个参数：</p>
+<ul>
+<li>增大 net.ipv4.tcp_max_syn_backlog</li>
+<li>增大 listen() 函数中的 backlog</li>
+<li>增大 net.core.somaxconn</li>
+</ul>
+<h4 id="开启-net.ipv4.tcp_syncookies">2.10.2.3 开启
+net.ipv4.tcp_syncookies</h4>
+<p>开启 syncookies 功能就可以在不使用 SYN
+半连接队列的情况下成功建立连接，相当于绕过了 SYN
+半连接来建立连接。具体过程：</p>
+<ul>
+<li>当 「 SYN 队列」满之后，后续服务端收到 SYN
+包，不会丢弃，而是根据算法，计算出一个 <code>cookie</code> 值；</li>
+<li>将 cookie
+值放到第二次握手报文的「序列号」里，然后服务端回第二次握手给客户端；</li>
+<li>服务端接收到客户端的应答报文时，服务端会检查这个 ACK
+包的合法性。如果合法，将该连接对象放入到「 Accept 队列」。</li>
+<li>最后应用程序通过调用 <code>accpet()</code> 接口，从「 Accept
+队列」取出的连接。</li>
+</ul>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404171518196.png" srcset="/img/loading.gif" lazyload
+alt="image-20240416153729271" />
+<figcaption aria-hidden="true">image-20240416153729271</figcaption>
+</figure>
+<p>当开启了 tcp_syncookies 了，即使受到 SYN 攻击而导致 SYN
+队列满时，也能保证正常的连接成功建立。net.ipv4.tcp_syncookies
+参数主要有以下三个值：</p>
+<ul>
+<li>0：表示关闭该功能；</li>
+<li>1：表示仅当 SYN 半连接队列放不下时，再启用它；</li>
+<li>2 ：表示无条件开启功能；</li>
+</ul>
+<p>那么在应对 SYN 攻击时，只需要设置为 1 即可：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ <span class="hljs-built_in">echo</span> 1 &gt; /proc/sys/net/ipv4/tcp_syncookies<br></code></pre></td></tr></table></figure>
+<h4 id="减少-synack-重传次数">2.10.2.4 减少 SYN+ACK 重传次数</h4>
+<p>当服务端受到 SYN 攻击时，就会有大量处于 SYN_REVC 状态的 TCP
+连接，处于这个状态的 TCP 会重传 SYN+ACK
+，当重传超过次数达到上限后，就会断开连接。那么针对 SYN
+攻击的场景，我们可以减少 SYN-ACK 的重传次数，以加快处于 SYN_REVC 状态的
+TCP 连接断开。SYN-ACK 报文的最大重传次数由
+<code>tcp_synack_retries</code>内核参数决定（默认值是 5 次），比如将
+<code>tcp_synack_retries</code> 减少到 2 次：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">echo</span> 2 &gt; /proc/sys/net/ipv4/tcp_synack_retries</span><br></code></pre></td></tr></table></figure>
+<h1 id="连接断开">3. 连接断开</h1>
+<h2 id="四次挥手过程">3.1 四次挥手过程</h2>
+<p>双方都可以主动断开连接，断开连接后主机中的「资源」将被释放，四次挥手的过程如下图所示：</p>
+<ul>
+<li>客户端打算关闭连接，此时会发送一个 TCP 首部 <code>FIN</code>
+标志位被置为 <code>1</code> 的报文，也即 <code>FIN</code>
+报文，之后客户端进入 <code>FIN_WAIT_1</code> 状态。</li>
+<li>服务端收到该报文后，就向客户端发送 <code>ACK</code>
+应答报文，接着服务端进入 <code>CLOSE_WAIT</code> 状态。</li>
+<li>客户端收到服务端的 <code>ACK</code> 应答报文后，之后进入
+<code>FIN_WAIT_2</code> 状态。</li>
+<li>等待服务端处理完数据后，也向客户端发送 <code>FIN</code>
+报文，之后服务端进入 <code>LAST_ACK</code> 状态。</li>
+<li>客户端收到服务端的 <code>FIN</code> 报文后，回一个 <code>ACK</code>
+应答报文，之后进入 <code>TIME_WAIT</code> 状态</li>
+<li>服务端收到了 <code>ACK</code> 应答报文后，就进入了
+<code>CLOSE</code> 状态，至此服务端已经完成连接的关闭。</li>
+<li>客户端在经过 <code>2MSL(Maximum Segment Lifetime)</code>
+一段时间后，自动进入 <code>CLOSE</code>
+状态，至此客户端也完成连接的关闭。</li>
+</ul>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404171518197.png" srcset="/img/loading.gif" lazyload
+alt="image-20240417140509771" />
+<figcaption aria-hidden="true">image-20240417140509771</figcaption>
+</figure>
+<p>注意：<strong>主动关闭连接的，才有 TIME_WAIT 状态。</strong></p>
+<h2 id="为什么需要四次挥手">3.2 为什么需要四次挥手？</h2>
+<ul>
+<li>关闭连接时，客户端向服务端发送 <code>FIN</code>
+时，仅仅表示客户端不再发送数据了但是还能接收数据。</li>
+<li>服务端收到客户端的 <code>FIN</code> 报文时，先回一个
+<code>ACK</code>
+应答报文，而服务端可能还有数据需要处理和发送，等服务端不再发送数据时，才发送
+<code>FIN</code> 报文给客户端来表示同意现在关闭连接。</li>
+</ul>
+<p>注意：<strong>在特定情况下，四次挥手可以变成三次挥手。</strong></p>
+<h2 id="第一次挥手丢失了会发生什么">3.3
+第一次挥手丢失了，会发生什么？</h2>
+<p>当客户端（主动关闭方）调用 close 函数后，就会向服务端发送 FIN
+报文，试图与服务端断开连接，此时客户端的连接进入到
+<code>FIN_WAIT_1</code>
+状态。正常情况下，如果能及时收到服务端（被动关闭方）的 ACK，则会很快变为
+<code>FIN_WAIT2</code>状态。如果第一次挥手丢失了，那么客户端迟迟收不到被动方的
+ACK 的话，就会触发超时重传机制，重传 FIN 报文，重发次数由
+<code>tcp_orphan_retries</code> 参数控制。当客户端重传 FIN
+报文的次数超过 <code>tcp_orphan_retries</code> 后，就不再发送 FIN
+报文，则会在等待一段时间（时间为上一次超时时间的 2
+倍），如果还是没能收到第二次挥手，那么直接进入到 <code>close</code>
+状态。</p>
+<p>假设 <code>tcp_orphan_retries</code>参数值为
+3，当第一次挥手一直丢失时，发生的过程如下图：</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404171518198.png" srcset="/img/loading.gif" lazyload
+alt="image-20240417141535286" />
+<figcaption aria-hidden="true">image-20240417141535286</figcaption>
+</figure>
+<h2 id="第二次挥手丢失了会发生什么">3.4
+第二次挥手丢失了，会发生什么？</h2>
+<p>当服务端收到客户端的第一次挥手后，就会先回一个 ACK
+确认报文，此时服务端的连接进入到 <code>CLOSE_WAIT</code>
+状态。前面提到，ACK
+报文是不会重传的，所以如果服务端的第二次挥手丢失了，客户端就会触发超时重传机制，重传
+FIN 报文，直到收到服务端的第二次挥手，或者达到最大的重传次数。</p>
+<p>假设 tcp_orphan_retries 参数值为
+2，当第二次挥手一直丢失时，发生的过程如下图：</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404171518199.png" srcset="/img/loading.gif" lazyload
+alt="image-20240417141456300" />
+<figcaption aria-hidden="true">image-20240417141456300</figcaption>
+</figure>
+<p>当客户端收到第二次挥手，也就是收到服务端发送的 ACK
+报文后，客户端就会处于 <code>FIN_WAIT2</code>
+状态，在这个状态需要等服务端发送第三次挥手，也就是服务端的 FIN
+报文。对于 close
+函数关闭的连接，由于无法再发送和接收数据，所以<code>FIN_WAIT2</code>
+状态不可以持续太久，而 <code>tcp_fin_timeout</code>
+控制了这个状态下连接的持续时长，默认值是 60 秒。这意味着对于调用 close
+关闭的连接，如果在 60 秒后还没有收到 FIN
+报文，客户端（主动关闭方）的连接就会直接关闭，如下图：</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404171518200.png" srcset="/img/loading.gif" lazyload
+alt="image-20240417141916449" />
+<figcaption aria-hidden="true">image-20240417141916449</figcaption>
+</figure>
+<p>但是如果主动关闭方使用 shutdown
+函数关闭连接，指定了只关闭发送方向，而接收方向并没有关闭，那么意味着主动关闭方还是可以接收数据的。此时，如果主动关闭方一直没收到第三次挥手，那么主动关闭方的连接将会一直处于
+<code>FIN_WAIT2</code> 状态（<code>tcp_fin_timeout</code> 无法控制
+shutdown 关闭的连接）。如下图：</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404171518201.png" srcset="/img/loading.gif" lazyload
+alt="image-20240417142026112" />
+<figcaption aria-hidden="true">image-20240417142026112</figcaption>
+</figure>
+<h2 id="第三次挥手丢失了会发生什么">3.5
+第三次挥手丢失了，会发生什么？</h2>
+<p>当服务端（被动关闭方）收到客户端（主动关闭方）的 FIN
+报文后，内核会自动回复 ACK，同时连接处于 <code>CLOSE_WAIT</code>
+状态，顾名思义，它表示等待应用进程调用 close
+函数关闭连接。此时，内核没有权利替代进程关闭连接，必须由进程主动调用
+close 函数来触发服务端发送 FIN 报文。一旦调用了 close 函数，内核就会发出
+FIN 报文，同时连接进入 LAST_ACK 状态，等待客户端返回 ACK
+来确认连接关闭。如果迟迟收不到这个 ACK，服务端就会重发 FIN
+报文，重发次数仍然由 <code>tcp_orphan_retries</code>
+参数控制，这与客户端重发 FIN 报文的重传次数控制方式是一样的。</p>
+<p>假设 <code>tcp_orphan_retrie</code>s =
+3，当第三次挥手一直丢失时，发生的过程如下图：</p>
+<ul>
+<li>当服务端重传第三次挥手报文的次数达到了 3 次后，由于
+tcp_orphan_retries 为
+3，达到了重传最大次数，于是再等待一段时间（时间为上一次超时时间的 2
+倍），如果还是没能收到客户端的第四次挥手（ACK报文），那么服务端就会断开连接。</li>
+<li>客户端因为是通过 close 函数关闭连接的，处于 FIN_WAIT_2
+状态是有时长限制的，如果 tcp_fin_timeout
+时间内还是没能收到服务端的第三次挥手（FIN
+报文），那么客户端就会断开连接。</li>
+</ul>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404171518202.png" srcset="/img/loading.gif" lazyload
+alt="image-20240417142404245" />
+<figcaption aria-hidden="true">image-20240417142404245</figcaption>
+</figure>
+<h2 id="第四次挥手丢失了会发生什么">3.6
+第四次挥手丢失了，会发生什么？</h2>
+<p>当客户端收到服务端的第三次挥手的 FIN 报文后，就会回 ACK
+报文，也就是第四次挥手，此时客户端连接进入 <code>TIME_WAIT</code>
+状态。在 Linux 系统，TIME_WAIT 状态会持续 2MSL
+后才会进入关闭状态。然后，服务端（被动关闭方）没有收到 ACK
+报文前，还是处于 LAST_ACK 状态。如果第四次挥手的 ACK
+报文没有到达服务端，服务端就会重发 FIN 报文，重发次数仍然由前面介绍过的
+<code>tcp_orphan_retries</code> 参数控制。</p>
+<p>假设 tcp_orphan_retries 为
+2，当第四次挥手一直丢失时，发生的过程如下：</p>
+<ul>
+<li>当服务端重传第三次挥手报文达到 2 时，由于 tcp_orphan_retries 为 2，
+达到了最大重传次数，于是再等待一段时间（时间为上一次超时时间的 2
+倍），如果还是没能收到客户端的第四次挥手（ACK
+报文），那么服务端就会断开连接。</li>
+<li>客户端在收到第三次挥手后，就会进入 TIME_WAIT 状态，开启时长为 2MSL
+的定时器，如果途中再次收到第三次挥手（FIN
+报文）后，就会重置定时器，当等待 2MSL 时长后，客户端就会断开连接。</li>
+</ul>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404171518203.png" srcset="/img/loading.gif" lazyload
+alt="image-20240417142701360" />
+<figcaption aria-hidden="true">image-20240417142701360</figcaption>
+</figure>
+<h2 id="为什么-time_wait-等待的时间是-2msl">3.7 为什么 TIME_WAIT
+等待的时间是 2MSL？</h2>
+<p>MSL是Maximum Segment
+Lifetime英文的缩写，中文可以译为“报文最大生存时间”，它是任何报文在网络上存在的最长时间，超过这个时间报文将被丢弃。因为tcp报文（segment）是ip数据报（datagram）的数据部分，，而ip头中有一个TTL域，TTL是time
+to
+live的缩写，中文可以译为“生存时间”，这个生存时间是由源主机设置初始值但不是存活的具体时间，而是存储了一个ip数据报可以经过的最大路由数，每经过一个处理他的路由器此值就减1，当此值为0则数据报将被丢弃，同时发送ICMP报文通知源主机。RFC
+793中规定MSL为2分钟，实际应用中常用的是30秒，1分钟和2分钟等。</p>
+<p>MSL 与 TTL 的区别： MSL 的单位是时间，而 TTL 是经过路由跳数。 MSL
+应该要<strong>大于等于</strong> TTL 消耗为 0
+的时间，以确保报文已被自然消亡。</p>
+<p>2MSL即两倍的MSL，TCP的TIME_WAIT状态也称为2MSL等待状态，当TCP的一端发起主动关闭，在发出最后一个ACK包后，即第3次挥手完成后发送了第四次挥手的ACK包后就进入了TIME_WAIT状态，必须在此状态上停留两倍的MSL时间，等待2MSL时间主要目的是怕最后一个ACK包对方没收到，那么对方在超时后将重发第三次握手的FIN包，主动关闭端接到重发的FIN包后可以再发一个ACK应答包。此时对2MSL定时器进行重置。</p>
+<h2 id="为什么需要-time_wait-状态">3.8 为什么需要 TIME_WAIT 状态？</h2>
+<p>主动发起关闭连接的一方，才会有 <code>TIME-WAIT</code> 状态。需要
+TIME-WAIT 状态，主要是两个原因：</p>
+<ul>
+<li>防止历史连接中的数据，被后面相同四元组的连接错误的接收；</li>
+<li>保证「被动关闭连接」的一方，能被正确的关闭；</li>
+</ul>
+<h3 id="原因1">3.8.1 原因1</h3>
+<ul>
+<li><strong>序列号</strong>，是 TCP 一个头部字段，标识了 TCP 发送端到
+TCP 接收端的数据流的一个字节，因为 TCP
+是面向字节流的可靠协议，为了保证消息的顺序性和可靠性，TCP
+为每个传输方向上的每个字节都赋予了一个编号，以便于传输成功后确认、丢失后重传以及在接收端保证不会乱序。<strong>序列号是一个
+32 位的无符号数，因此在到达 4G 之后再循环回到 0</strong>。</li>
+<li><strong>初始序列号</strong>，在 TCP
+建立连接的时候，客户端和服务端都会各自生成一个初始序列号，它是基于时钟生成的一个随机数，来保证每个连接都拥有不同的初始序列号。<strong>初始化序列号可被视为一个
+32 位的计数器，该计数器的数值每 4 微秒加 1，循环一次需要 4.55
+小时</strong>。</li>
+</ul>
+<p>下图中的 Seq
+就是序列号，其中红色框住的分别是客户端和服务端各自生成的初始序列号。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404171518204.png" srcset="/img/loading.gif" lazyload
+alt="image-20240417145335933" />
+<figcaption aria-hidden="true">image-20240417145335933</figcaption>
+</figure>
+<p><strong>序列号和初始化序列号并不是无限递增的，会发生回绕为初始值的情况，这意味着无法根据序列号来判断新老数据</strong>。假设
+TIME-WAIT 没有等待时间或时间过短，被延迟的数据包抵达后会发生什么呢？</p>
+<ul>
+<li>服务端在关闭连接之前发送的 <code>SEQ = 301</code>
+报文，被网络延迟了。</li>
+<li>接着，服务端以相同的四元组重新打开了新连接，前面被延迟的
+<code>SEQ = 301</code>
+这时抵达了客户端，而且该数据报文的序列号刚好在客户端接收窗口内，因此客户端会正常接收这个数据报文，但是这个数据报文是上一个连接残留下来的，这样就产生数据错乱等严重的问题。</li>
+</ul>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404171518205.png" srcset="/img/loading.gif" lazyload
+alt="image-20240417145433035" />
+<figcaption aria-hidden="true">image-20240417145433035</figcaption>
+</figure>
+<p>为了防止历史连接中的数据，被后面相同四元组的连接错误的接收，因此 TCP
+设计了 TIME_WAIT 状态，状态会持续 <code>2MSL</code>
+时长，这个时间<strong>足以让两个方向上的数据包都被丢弃，使得原来连接的数据包在网络中都自然消失，再出现的数据包一定都是新建立连接所产生的。</strong></p>
+<h3 id="原因2">3.8.2 原因2</h3>
+<p>如果客户端（主动关闭方）最后一次 ACK
+报文（第四次挥手）在网络中丢失了，那么按照 TCP
+可靠性原则，服务端（被动关闭方）会重发 FIN 报文。假设客户端没有
+TIME_WAIT 状态，而是在发完最后一次回 ACK 报文就直接进入 CLOSE
+状态，如果该 ACK 报文丢失了，服务端则重传的 FIN
+报文，而这时客户端已经进入到关闭状态了，在收到服务端重传的 FIN
+报文后，就会回 RST 报文。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404171518206.png" srcset="/img/loading.gif" lazyload
+alt="image-20240417145730219" />
+<figcaption aria-hidden="true">image-20240417145730219</figcaption>
+</figure>
+<p>服务端收到这个 RST 并将其解释为一个错误（Connection reset by
+peer），这对于一个可靠的协议来说不是一个优雅的终止方式。为了防止这种情况出现，客户端必须等待足够长的时间，确保服务端能够收到
+ACK，如果服务端没有收到 ACK，那么就会触发 TCP
+重传机制，服务端会重新发送一个 FIN，这样一去一来刚好两个 MSL
+的时间。客户端在收到服务端重传的 FIN 报文时，TIME_WAIT
+状态的等待时间，会重置回 2MSL。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202404171518207.png" srcset="/img/loading.gif" lazyload
+alt="image-20240417145818621" />
+<figcaption aria-hidden="true">image-20240417145818621</figcaption>
+</figure>
+<h2 id="time_wait-过多有什么危害">3.9 TIME_WAIT 过多有什么危害？</h2>
+<p>过多的 TIME-WAIT 状态主要的危害有两种：</p>
+<ul>
+<li>第一是占用系统资源，比如文件描述符、内存资源、CPU
+资源、线程资源等；</li>
+<li>第二是占用端口资源，端口资源也是有限的，一般可以开启的端口为
+<code>32768～61000</code>，也可以通过
+<code>net.ipv4.ip_local_port_range</code>参数指定范围。</li>
+</ul>
+<p>客户端和服务端 TIME_WAIT 过多，造成的影响是不同的。</p>
+<p><strong>如果客户端（主动发起关闭连接方）的 TIME_WAIT
+状态过多</strong>，占满了所有端口资源，那么就无法对「目的 IP+ 目的
+PORT」都一样的服务端发起连接了，但是被使用的端口，还是可以继续对另外一个服务端发起连接的。</p>
+<p><strong>如果服务端（主动发起关闭连接方）的 TIME_WAIT
+状态过多</strong>，并不会导致端口资源受限，因为服务端只监听一个端口，而且由于一个四元组唯一确定一个
+TCP 连接，因此理论上服务端可以建立很多连接，但是 TCP
+连接过多，会占用系统资源，比如文件描述符、内存资源、CPU
+资源、线程资源等。</p>
+<h2 id="如何优化-time_wait">3.10 如何优化 TIME_WAIT？</h2>
+<ul>
+<li><code>net.ipv4.tcp_tw_reuse</code> 和
+<code>net.ipv4.tcp_timestamps</code>：复用处于 TIME_WAIT 的 socket
+为新的连接所用（只能对客户端使用）</li>
+<li><code>net.ipv4.tcp_max_tw_buckets</code>：当系统中处于 TIME_WAIT
+的连接一旦超过这个值时，系统就会将后面的 TIME_WAIT 连接状态重置</li>
+<li>程序中使用 SO_LINGER：如果<code>l_onoff</code>为非 0，
+且<code>l_linger</code>值为
+0，那么调用<code>close</code>后，会立该发送一个<code>RST</code>标志给对端，该
+TCP
+连接将跳过四次挥手，也就跳过了<code>TIME_WAIT</code>状态，直接关闭。</li>
+</ul>
+<h2 id="服务器出现大量-time_wait-状态的原因有哪些">3.11 服务器出现大量
+TIME_WAIT 状态的原因有哪些？</h2>
+<p>TIME_WAIT
+状态是主动关闭连接方才会出现的状态，所以如果服务器出现大量的 TIME_WAIT
+状态的 TCP 连接，就是说明服务器主动断开了很多 TCP 连接。</p>
+<ul>
+<li>HTTP 没有使用长连接：根据大多数 Web 服务的实现，不管哪一方禁用了
+HTTP Keep-Alive，都是由服务端主动关闭连接，那么此时服务端上就会出现
+TIME_WAIT 状态的连接。</li>
+<li>HTTP 长连接超时：假设设置了 HTTP 长连接的超时时间是 60 秒，nginx
+就会启动一个「定时器」，如果客户端在完后一个 HTTP 请求后，在 60
+秒内都没有再发起新的请求，定时器的时间一到，nginx
+就会触发回调函数来关闭该连接，那么此时服务端上就会出现 TIME_WAIT
+状态的连接。</li>
+<li>HTTP 长连接的请求数量达到上限：Web 服务端通常会有个参数，来定义一条
+HTTP
+长连接上最大能处理的请求数量，当超过最大限制时，就会主动关闭连接。</li>
+</ul>
+<h2 id="服务器出现大量-close_wait-状态的原因有哪些">3.12 服务器出现大量
+CLOSE_WAIT 状态的原因有哪些？</h2>
+<p>CLOSE_WAIT
+状态是「被动关闭方」才会有的状态，而且如果「被动关闭方」没有调用 close
+函数关闭连接，那么就无法发出 FIN 报文，从而无法使得 CLOSE_WAIT
+状态的连接转变为 LAST_ACK 状态。所以，当服务端出现大量 CLOSE_WAIT
+状态的连接的时候，说明<strong>服务端的程序没有调用 close
+函数关闭连接</strong>。</p>
+<h2 id="如果已经建立了连接但是客户端突然出现故障了怎么办">3.13
+如果已经建立了连接，但是客户端突然出现故障了怎么办？</h2>
+<p>客户端出现故障指的是客户端的主机发生了宕机，或者断电的场景。发生这种情况的时候，如果服务端一直不会发送数据给客户端，那么服务端是永远无法感知到客户端宕机这个事件的，也就是服务端的
+TCP 连接将一直处于 <code>ESTABLISH</code> 状态，占用着系统资源。</p>
+<p>为了避免这种情况，TCP设计了<strong>保活机制</strong>。这个机制的原理是这样的：定义一个时间段，在这个时间段内，如果没有任何连接相关的活动，TCP
+保活机制会开始作用，每隔一个时间间隔，发送一个探测报文，该探测报文包含的数据非常少，如果连续几个探测报文都没有得到响应，则认为当前的
+TCP 连接已经死亡，系统内核将错误信息通知给上层应用程序。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">net.ipv4.tcp_keepalive_time=7200<br>net.ipv4.tcp_keepalive_intvl=75  <br>net.ipv4.tcp_keepalive_probes=9<br></code></pre></td></tr></table></figure>
+<ul>
+<li>tcp_keepalive_time=7200：表示保活时间是 7200 秒（2小时），也就 2
+小时内如果没有任何连接相关的活动，则会启动保活机制</li>
+<li>tcp_keepalive_intvl=75：表示每次检测间隔 75 秒；</li>
+<li>tcp_keepalive_probes=9：表示检测 9
+次无响应，认为对方是不可达的，从而中断本次的连接。</li>
+</ul>
+<p>TCP
+保活机制检测的时间是有点长，我们可以自己在应用层实现一个心跳机制。比如，web
+服务软件一般都会提供 <code>keepalive_timeout</code> 参数，用来指定 HTTP
+长连接的超时时间。如果设置了 HTTP 长连接的超时时间是 60 秒，web
+服务软件就会启动一个定时器，如果客户端在完成一个 HTTP 请求后，在 60
+秒内都没有再发起新的请求，定时器的时间一到<strong>，</strong>就会触发回调函数来释放该连接。</p>
+<h2 id="如果已经建立了连接但是服务端的进程崩溃会发生什么">3.14
+如果已经建立了连接，但是服务端的进程崩溃会发生什么？</h2>
+<p>TCP
+的连接信息是由内核维护的，所以当服务端的进程崩溃后，内核需要回收该进程的所有
+TCP 连接资源，于是内核会发送第一次挥手 FIN
+报文，后续的挥手过程也都是在内核完成，并不需要进程的参与，所以即使服务端的进程退出了，还是能与客户端完成
+TCP 四次挥手的过程。</p>
+<p><strong>参考资料：</strong></p>
+<ol type="1">
+<li>图解网络：https://xiaolincoding.com/network</li>
+<li>动图图解！既然IP层会分片，为什么TCP层也还要分段？https://cloud.tencent.com/developer/article/1828823</li>
+<li>什么是2MSL：https://blog.csdn.net/xiaofei0859/article/details/6044694</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%A0%B8%E5%BF%83%E8%AF%BE%E7%A8%8B/" class="category-chain-item">计算机核心课程</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%A0%B8%E5%BF%83%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="category-chain-item">计算机网络</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%A0%B8%E5%BF%83%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3%E7%BD%91%E7%BB%9C/" class="category-chain-item">图解网络</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>TCP篇</div>
+      <div>http://example.com/2024/04/15/计算机核心课程/计算机网络/图解网络/TCP篇/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>kaikaikai</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年4月15日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/04/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%A0%B8%E5%BF%83%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95/%E4%BC%A0%E8%BE%93%E5%B1%82/" title="传输层">
+                        <span class="hidden-mobile">传输层</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
