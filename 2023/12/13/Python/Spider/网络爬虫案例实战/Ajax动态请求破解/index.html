@@ -24,7 +24,7 @@
 <meta property="og:description" content="0. 引言 通常情况下，如果要更新网页中的内容，需要重新加载整个网页。而Ajax动态请求则能在不重新加载整个网页的情况下，与服务器交换数据并更新网页中的部分内容。因此，严格来说，Ajax动态请求并不是一种反爬手段，而是一种网页展示手段。 1. Ajax简介 Ajax动态请求本质上就是把常规的翻页操作做成了动态刷新的效果。 1.1 不同翻页方式对比 网址中有翻页参数，网页中有翻页按钮">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-13T06:22:31.000Z">
-<meta property="article:modified_time" content="2023-12-13T08:11:53.249Z">
+<meta property="article:modified_time" content="2024-04-17T07:46:16.933Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -270,7 +270,7 @@
 <li>网址中变化翻页参数</li>
 <li>Selenium库模拟单击下一页</li>
 </ul>
-<p><strong>网址中有翻页参数，网页中有翻页按钮</strong></p>
+<p><strong>网址中无翻页参数，网页中有翻页按钮</strong></p>
 <ul>
 <li>Selenium库模拟单击下一页</li>
 </ul>
@@ -282,8 +282,7 @@
 </ul>
 <h2 id="ajax的基本概念与工作原理">1.2 Ajax的基本概念与工作原理</h2>
 <p>Ajax（Asynchronous JavaScript and
-XML）是一种用于创建动态网页的技术。它允许在不重新加载整个页面的情况下，通过异步方式从服务器获取数据并更新页面的部分内容。</p>
-<p>一个简单的Ajax请求示例可能如下所示（使用XMLHttpRequest）：</p>
+XML）是一种用于创建动态网页的技术。它允许在不重新加载整个页面的情况下，通过异步方式从服务器获取数据并更新页面的部分内容。一个简单的Ajax请求示例可能如下所示（使用XMLHttpRequest）：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javascript">javascriptCopy codevar xhttp = <span class="hljs-keyword">new</span> <span class="hljs-title class_">XMLHttpRequest</span>();<br>xhttp.<span class="hljs-property">onreadystatechange</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">readyState</span> == <span class="hljs-number">4</span> &amp;&amp; <span class="hljs-variable language_">this</span>.<span class="hljs-property">status</span> == <span class="hljs-number">200</span>) &#123;<br>    <span class="hljs-comment">// 处理服务器响应的数据</span><br>    <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;result&quot;</span>).<span class="hljs-property">innerHTML</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">responseText</span>;<br>  &#125;<br>&#125;;<br>xhttp.<span class="hljs-title function_">open</span>(<span class="hljs-string">&quot;GET&quot;</span>, <span class="hljs-string">&quot;example.php&quot;</span>, <span class="hljs-literal">true</span>);<br>xhttp.<span class="hljs-title function_">send</span>();<br></code></pre></td></tr></table></figure>
 <h1 id="案例1爬取开源中国博客频道">2. 案例1：爬取开源中国博客频道</h1>
 <p>难点：通过开发者工具分析出Ajax请求的真正URL</p>
