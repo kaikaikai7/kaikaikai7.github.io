@@ -24,7 +24,7 @@
 <meta property="og:description" content="0. 简介 EndNote是一款文献管理软件，与SCI&#x2F;SSCI等数据库兼容良好，于科研人员十分便利。  检索  建立个人文献图书馆 从数据库检索文献并快速导入至个人文献图书馆  管理  管理不同来源的中英文文献 创建组、去重、排序、分析、做阅读笔记等 帮助查找文献全文  写作  撰写论文时，快速引用相关文献 一键修改参考文献引用格式 准备投稿前，根据引文信息推">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-28T06:24:15.000Z">
-<meta property="article:modified_time" content="2024-03-28T07:35:15.233Z">
+<meta property="article:modified_time" content="2024-04-18T03:34:24.257Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -303,12 +303,10 @@ alt="image-20240328144006860" />
 <h2 id="数据库导入">1.1 数据库导入</h2>
 <ol type="1">
 <li><p>在数据库中检索文献，得到检索文献列表。</p></li>
-<li><p>勾选所需文献，在检索结果页面找到<strong>“Export”</strong>或<strong>“Download
-Citations</strong>”选项，中文数据库为<strong>“导出”。</strong></p></li>
-<li><p>选择<strong>“Export to
-EndNote”</strong>，或在导出的题录格式中，选择与EndNote相匹配的格式。如未显示与EndNote匹配的格式，则可选择较通用的<strong>RIS格式</strong>，并将该题录格式文件下载下来，保存至本机。</p></li>
+<li><p>勾选所需文献，在检索结果页面找到<code>Export</code>或<code>Download Citations</code>选项，中文数据库为<code>导出</code>。</p></li>
+<li><p>选择<code>Export to EndNote</code>，或在导出的题录格式中，选择与EndNote相匹配的格式。如未显示与EndNote匹配的格式，则可选择较通用的<strong>RIS格式</strong>，并将该题录格式文件下载下来，保存至本机。</p></li>
 <li><p>通常情况下，从外文数据库导出的题录格式为：<strong>enw格式、ris格式、ciw格式</strong>，直接双击该文件，即可直接导入EndNote。</p></li>
-<li><p>小贴士：对于中文数据库保存下来的题录格式，通常为txt格式。则需在EndNote中选择<code>File--Import File</code>，选择该txt文件，并在过滤器中选择<code>EndNote Import</code>选项导入。</p></li>
+<li><p>小贴士：对于中文数据库保存下来的题录格式，通常为txt格式。则需在EndNote中选择<code>File--Import File</code>，选择该txt文件，并在<code>Import Option</code>中选择<code>EndNote Import</code>选项导入。</p></li>
 </ol>
 <figure>
 <img
@@ -319,7 +317,7 @@ alt="image-20240328144859404" />
 <h2 id="学术搜索引擎导入">1.2 学术搜索引擎导入</h2>
 <ol type="1">
 <li><p>在学术搜索引擎如百度学术、谷歌学术、南科学术搜索中检索文献，得到结果列表。</p></li>
-<li><p>以百度学术为例。检索完成，点击所需文献，在文献页面找到<strong>“引用”</strong>，导入链接选择所用文献管理软件<strong>“EndNote”。</strong></p>
+<li><p>以百度学术为例。检索完成，点击所需文献，在文献页面找到<code>引用</code>，导入链接选择所用文献管理软件<code>EndNote</code>。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202403281532828.png" srcset="/img/loading.gif" lazyload
@@ -332,14 +330,14 @@ alt="image-20240328145125631" />
 <h2 id="本地pdf导入">1.3 本地PDF导入</h2>
 <ol type="1">
 <li><p>保存在本地的PDF文档可快速导入至EndNote，既可以单篇导入，也可以批量导入。</p></li>
-<li><p>单篇导入：在EndNote中选择<code>File-- Import File</code>，选择需要导入的PDF文档，并在<code>Import Options</code>中选择相应的过滤器：<code>PDF</code>，即可完成单篇PDF导入。</p>
+<li><p>单篇导入：在EndNote中选择<code>File-- Import File</code>，选择需要导入的PDF文档，并在<code>Import Options</code>中选择过滤器为<code>PDF</code>，即可完成单篇PDF导入。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202403281532829.png" srcset="/img/loading.gif" lazyload
 alt="image-20240328145657812" />
 <figcaption aria-hidden="true">image-20240328145657812</figcaption>
 </figure></li>
-<li><p>批量导入：在EndNote中选择<code>File-- Import Folder</code>，可选择为该文件夹新建一个分组，或者连同子文件夹一起导入。EndNote通常可保留至文件夹的二级目录。</p>
+<li><p>批量导入：在EndNote中选择<code>File-- Import Folder</code>，可选择连同子文件夹一起导入，或者为该文件夹新建一个分组。EndNote通常可保留至文件夹的二级目录。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202403281532830.png" srcset="/img/loading.gif" lazyload
@@ -380,7 +378,7 @@ alt="image-20240328150657500" />
 <figcaption aria-hidden="true">image-20240328150657500</figcaption>
 </figure></li>
 <li><p>输入作者时，需注意一名一行，便于EndNote识别。且通常名在前姓在后，如姓在前名在后，则需要加逗号。如：John
-Smith / Smith, John</p></li>
+Smith / Smith, John。</p></li>
 <li><p>输入关键词时，需一词一行，便于EndNote识别。</p></li>
 </ol>
 <h1 id="管理文献">2. 管理文献</h1>
@@ -411,8 +409,7 @@ alt="image-20240328151545992" />
 <figcaption aria-hidden="true">image-20240328151545992</figcaption>
 </figure>
 <h2 id="利用endnote下载全文">2.3 利用EndNote下载全文</h2>
-<p>如果图书馆订购了该文献，则在校园网IP范围内可以通过EndNote来下载文献全文。选中需要下载的文献，鼠标右键点击<strong>“Find
-Full Text”</strong>，即可下载PDF全文。</p>
+<p>如果图书馆订购了该文献，则在校园网IP范围内可以通过EndNote来下载文献全文。选中需要下载的文献，鼠标右键点击<code>Find Full Text</code>，即可下载PDF全文。</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202403281532837.png" srcset="/img/loading.gif" lazyload

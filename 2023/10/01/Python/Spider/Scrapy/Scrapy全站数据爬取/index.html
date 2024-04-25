@@ -24,7 +24,7 @@
 <meta property="og:description" content="1. 全站数据爬取 将某网站中某模块下全部页码对应的页面数据进行爬取 2. 基于Spider的全站数据爬取  将所有页面url添加到start_urls列表中 手动实现请求发送（推荐）  12345678910111213141516171819202122232425262728# 手动实现请求发送import scrapyclass XiaohuaSpider(scrapy.Sp">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-10-01T01:42:33.000Z">
-<meta property="article:modified_time" content="2023-12-16T04:59:22.602Z">
+<meta property="article:modified_time" content="2024-04-25T05:27:07.588Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.6k 字
+          3.7k 字
         
       </span>
     
@@ -275,10 +275,8 @@
 框架提供的一个高级爬虫类，它是基于规则的爬虫，用于处理常见的爬取场景，例如按照链接规则递归爬取页面。<code>CrawlSpider</code>
 继承自 <code>Spider</code> 类，但相较于基础的 <code>Spider</code>
 类，它提供了更多的功能，使得爬取规则的定义更加灵活和简便。</p>
-<h5 id="rules"><strong>Rules</strong></h5>
-<p>CrawlSpider使用rules来决定爬虫的爬取规则，并将匹配后的url请求提交给引擎。所以在正常情况下，CrawlSpider不需要单独手动返回请求了。</p>
-<p>在Rules中包含一个或多个Rule对象，每个Rule对爬取网站的动作定义了某种特定操作，比如提取当前相应内容里的特定链接，是否对提取的链接跟进爬取，对提交的请求设置回调函数等。</p>
-<p>如果多个Rule匹配了相同的链接，则根据规则在本集合中被定义的顺序，第一个会被使用。</p>
+<h3 id="rules">3.1.1 Rules</h3>
+<p>CrawlSpider使用rules来决定爬虫的爬取规则，并将匹配后的url请求提交给引擎。所以在正常情况下，CrawlSpider不需要单独手动返回请求了。在Rules中包含一个或多个Rule对象，每个Rule对爬取网站的动作定义了某种特定操作，比如提取当前相应内容里的特定链接，是否对提取的链接跟进爬取，对提交的请求设置回调函数等。如果多个Rule匹配了相同的链接，则根据规则在本集合中被定义的顺序，第一个会被使用。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">scrapy</span>.<span class="hljs-property">spiders</span>.<span class="hljs-title class_">Rule</span>(<br>        link_extractor,<br>        callback = <span class="hljs-title class_">None</span>,<br>        cb_kwargs = <span class="hljs-title class_">None</span>,<br>        follow = <span class="hljs-title class_">None</span>,<br>        process_links = <span class="hljs-title class_">None</span>,<br>        process_request = <span class="hljs-title class_">None</span><br>)<br></code></pre></td></tr></table></figure>
 <ul>
 <li>link_extractor：是一个Link
@@ -293,7 +291,7 @@ parse方法，crawl spider将会运行失败。</li>
 <li>process_request：指定该spider中哪个的函数将会被调用，
 该规则提取到每个request时都会调用该函数。(用来过滤request)</li>
 </ul>
-<h5 id="linkextractors"><strong>LinkExtractors</strong></h5>
+<h3 id="linkextractors">3.1.2 LinkExtractors</h3>
 <p>Link Extractors 的目的很简单：提取链接｡</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">scrapy</span>.<span class="hljs-property">linkextractors</span>.<span class="hljs-title class_">LinkExtractor</span>(<br>    allow = (),<br>    deny = (),<br>    allow_domains = (),<br>    deny_domains = (),<br>    deny_extensions = <span class="hljs-title class_">None</span>,<br>    restrict_xpaths = (),<br>    tags = (<span class="hljs-string">&#x27;a&#x27;</span>,<span class="hljs-string">&#x27;area&#x27;</span>),<br>    attrs = (<span class="hljs-string">&#x27;href&#x27;</span>),<br>    canonicalize = <span class="hljs-title class_">True</span>,<br>    unique = <span class="hljs-title class_">True</span>,<br>    process_value = <span class="hljs-title class_">None</span><br>)<br></code></pre></td></tr></table></figure>
 <ul>
