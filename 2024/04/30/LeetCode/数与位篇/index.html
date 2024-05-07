@@ -24,7 +24,7 @@
 <meta property="og:description" content="1. 进制转换 二进制求和  若两个数位数不同，先通过高位补零，使两个数位数相同。之后逐位相加即可，注意进位。  1234567891011121314151617181920212223242526272829class Solution &amp;#123;public:    string addBinary(string a, string b) &amp;#123;           if(">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-04-30T04:51:33.000Z">
-<meta property="article:modified_time" content="2024-05-06T05:11:07.534Z">
+<meta property="article:modified_time" content="2024-05-07T05:20:30.455Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.3k 字
+          5.5k 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          36 分钟
+          46 分钟
         
       </span>
     
@@ -358,6 +358,34 @@ num&gt;0，则在遍历每一组的值时，从第一个不是 0
 </ul>
 </blockquote>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">using</span> ULL = <span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> <span class="hljs-type">long</span>;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">vector&lt;ULL&gt; <span class="hljs-title">getCandidates</span><span class="hljs-params">(<span class="hljs-type">const</span> string&amp; n)</span> </span>&#123;<br>        <span class="hljs-type">int</span> len = n.<span class="hljs-built_in">length</span>();<br>        vector&lt;ULL&gt; candidates = &#123;<br>            (ULL)<span class="hljs-built_in">pow</span>(<span class="hljs-number">10</span>, len - <span class="hljs-number">1</span>) - <span class="hljs-number">1</span>,<br>            (ULL)<span class="hljs-built_in">pow</span>(<span class="hljs-number">10</span>, len) + <span class="hljs-number">1</span>,<br>        &#125;;<br>        ULL selfPrefix = <span class="hljs-built_in">stoull</span>(n.<span class="hljs-built_in">substr</span>(<span class="hljs-number">0</span>, (len + <span class="hljs-number">1</span>) / <span class="hljs-number">2</span>));<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i : &#123;selfPrefix - <span class="hljs-number">1</span>, selfPrefix, selfPrefix + <span class="hljs-number">1</span>&#125;) &#123;<br>            string prefix = <span class="hljs-built_in">to_string</span>(i);<br>            string candidate = prefix + <span class="hljs-built_in">string</span>(prefix.<span class="hljs-built_in">rbegin</span>() + (len &amp; <span class="hljs-number">1</span>), prefix.<span class="hljs-built_in">rend</span>());<br>            candidates.<span class="hljs-built_in">push_back</span>(<span class="hljs-built_in">stoull</span>(candidate));<br>        &#125;<br>        <span class="hljs-keyword">return</span> candidates;<br>    &#125;<br><br>    <span class="hljs-function">string <span class="hljs-title">nearestPalindromic</span><span class="hljs-params">(string n)</span> </span>&#123;<br>        ULL selfNumber = <span class="hljs-built_in">stoull</span>(n), ans = <span class="hljs-number">-1</span>;<br>        <span class="hljs-type">const</span> vector&lt;ULL&gt;&amp; candidates = <span class="hljs-built_in">getCandidates</span>(n);<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span>&amp; candidate : candidates) &#123;<br>            <span class="hljs-keyword">if</span> (candidate != selfNumber) &#123;<br>                <span class="hljs-keyword">if</span> (ans == <span class="hljs-number">-1</span> ||<br>                    <span class="hljs-built_in">llabs</span>(candidate - selfNumber) &lt; <span class="hljs-built_in">llabs</span>(ans - selfNumber) ||<br>                    <span class="hljs-built_in">llabs</span>(candidate - selfNumber) == <span class="hljs-built_in">llabs</span>(ans - selfNumber) &amp;&amp; candidate &lt; ans) &#123;<br>                    ans = candidate;<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">to_string</span>(ans);<br>    &#125;<br>&#125;;<br><br></code></pre></td></tr></table></figure>
+<h2 id="七进制数-1">七进制数</h2>
+<blockquote>
+<p>短除法</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">string <span class="hljs-title">convertToBase7</span><span class="hljs-params">(<span class="hljs-type">int</span> num)</span> </span>&#123;<br>        <span class="hljs-type">bool</span> negative = num &lt; <span class="hljs-number">0</span>;<br>        num = <span class="hljs-built_in">abs</span>(num);<br>        string res;<br>        <span class="hljs-keyword">while</span> (num &gt;= <span class="hljs-number">7</span>) &#123;<br>            res = <span class="hljs-built_in">to_string</span>(num % <span class="hljs-number">7</span>) + res;<br>            num = num / <span class="hljs-number">7</span>;<br>        &#125;<br>        res = <span class="hljs-built_in">to_string</span>(num) + res;<br>        <span class="hljs-keyword">if</span> (negative) &#123;<br>            res = <span class="hljs-string">&#x27;-&#x27;</span> + res;<br>        &#125;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<h2 id="整数反转">整数反转</h2>
+<blockquote>
+<p><span class="math display">\[
+-2^{31} \leq \mathrm{rev} \cdot 10+\text { digit } \leq 2^{31}-1
+\]</span> 等价于： <span class="math display">\[
+\left\lceil\frac{-2^{31}}{10}\right\rceil \leq \operatorname{rev}
+\leq\left\lfloor\frac{2^{31}-1}{10}\right\rfloor
+\]</span></p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">reverse</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span> </span>&#123;<br>        <span class="hljs-type">int</span> rev = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span> (x != <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-keyword">if</span> (rev &lt; INT_MIN / <span class="hljs-number">10</span> || rev &gt; INT_MAX / <span class="hljs-number">10</span>) &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>            &#125;<br>            <span class="hljs-type">int</span> digit = x % <span class="hljs-number">10</span>;<br>            x /= <span class="hljs-number">10</span>;<br>            rev = rev * <span class="hljs-number">10</span> + digit;<br>        &#125;<br>        <span class="hljs-keyword">return</span> rev;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<h2 id="交替位二进制数">交替位二进制数</h2>
+<blockquote>
+<p>法一：从最低位至最高位，我们用对 2 取模再除以 2
+的方法，依次求出输入的二进制表示的每一位，并与前一位进行比较。如果相同，则不符合条件；如果每次比较都不相同，则符合条件。</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">hasAlternatingBits</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> </span>&#123;<br>        <span class="hljs-type">int</span> prev = <span class="hljs-number">2</span>;<br>        <span class="hljs-keyword">while</span> (n != <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-type">int</span> cur = n % <span class="hljs-number">2</span>;<br>            <span class="hljs-keyword">if</span> (cur == prev) &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>            &#125;<br>            prev = cur;<br>            n /= <span class="hljs-number">2</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>法二：对输入 n 的二进制表示右移一位后，得到的数字再与 n 按位异或得到
+a。当且仅当输入 n 为交替位二进制数时，a 的二进制表示全为 1（不包括前导
+0）。将 a 与 a+1 按位与，当且仅当 a 的二进制表示全为 1 时，结果为
+0。</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">hasAlternatingBits</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> </span>&#123;<br>         <span class="hljs-type">long</span> a = n ^ (n &gt;&gt; <span class="hljs-number">1</span>);<br>        <span class="hljs-keyword">return</span> (a &amp; (a + <span class="hljs-number">1</span>)) == <span class="hljs-number">0</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
 
                 
               </div>
@@ -440,6 +468,12 @@ num&gt;0，则在遍历每一组的值时，从第一个不是 0
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2024/05/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%A0%B8%E5%BF%83%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95/%E7%BD%91%E7%BB%9C%E5%B1%82/" title="网络层">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">网络层</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
