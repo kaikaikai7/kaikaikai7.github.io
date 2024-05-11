@@ -1,0 +1,1297 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="kaikaikai">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1. IP 1.1 IP作用 IP 在 TCP&#x2F;IP 参考模型中处于第三层，也就是网络层。网络层的主要作用是：实现主机与主机之间的通信，也叫点对点（end to end）通信。IP的主要作用是：在复杂的网络环境中将数据包发送给最终目的主机。   image-20240511133540139  1.2 IP与MAC  IP ：没有直连的两个网络之间进行通信传输 MAC ：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IP篇">
+<meta property="og:url" content="http://example.com/2024/05/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%A0%B8%E5%BF%83%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3%E7%BD%91%E7%BB%9C/IP%E7%AF%87/index.html">
+<meta property="og:site_name" content="kaikaikai&#39;s blog">
+<meta property="og:description" content="1. IP 1.1 IP作用 IP 在 TCP&#x2F;IP 参考模型中处于第三层，也就是网络层。网络层的主要作用是：实现主机与主机之间的通信，也叫点对点（end to end）通信。IP的主要作用是：在复杂的网络环境中将数据包发送给最终目的主机。   image-20240511133540139  1.2 IP与MAC  IP ：没有直连的两个网络之间进行通信传输 MAC ：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2024/05/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%A0%B8%E5%BF%83%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3%E7%BD%91%E7%BB%9C/IP%E7%AF%87/IP%E7%AF%87.assets/image-20240511160414739.png">
+<meta property="article:published_time" content="2024-05-11T05:30:18.000Z">
+<meta property="article:modified_time" content="2024-05-11T08:05:41.568Z">
+<meta property="article:author" content="kaikaikai">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/2024/05/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%A0%B8%E5%BF%83%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3%E7%BD%91%E7%BB%9C/IP%E7%AF%87/IP%E7%AF%87.assets/image-20240511160414739.png">
+  
+  
+  
+  <title>IP篇 - kaikaikai&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="IP篇"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-05-11 13:30" pubdate>
+          2024年5月11日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          9.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          77 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">IP篇</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="ip">1. IP</h1>
+<h2 id="ip作用">1.1 IP作用</h2>
+<p>IP 在 TCP/IP
+参考模型中处于第三层，也就是<strong>网络层</strong>。网络层的主要作用是：<strong>实现主机与主机之间的通信，也叫点对点（end
+to
+end）通信。</strong>IP的主要作用是：在复杂的网络环境中将数据包发送给最终目的主机。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202405111604672.png" srcset="/img/loading.gif" lazyload
+alt="image-20240511133540139" />
+<figcaption aria-hidden="true">image-20240511133540139</figcaption>
+</figure>
+<h2 id="ip与mac">1.2 IP与MAC</h2>
+<ul>
+<li>IP ：没有直连的两个网络之间进行通信传输</li>
+<li>MAC ：直连的两个设备之间进行通信传输</li>
+</ul>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202405111604673.png" srcset="/img/loading.gif" lazyload
+alt="image-20240511134142714" />
+<figcaption aria-hidden="true">image-20240511134142714</figcaption>
+</figure>
+<p>在网络中数据包传输过程中，源IP地址和目标IP地址是不会变化的（前提：没有使用
+NAT 网络），只有源 MAC 地址和目标 MAC 一直在变化。</p>
+<h2 id="分片重组">1.3 分片重组</h2>
+<p>每种数据链路的最大传输单元 <code>MTU</code> 都是不相同的，如 FDDI
+数据链路 MTU 4352、以太网的 MTU 是 1500
+字节等。这是因为每个不同类型的数据链路的使用目的不同。当 IP
+数据包大小大于 MTU 时， IP 数据包就会被分片。经过分片之后的 IP
+数据报在被重组的时候，只能由目标主机进行，路由器是不会进行重组的。假设发送方发送一个
+4000 字节的大数据报，若要传输在以太网链路，则需要把数据报分片成 3
+个小数据报进行传输，再交由接收方重组成大数据报。在分片传输中，一旦某个分片丢失，则会造成整个
+IP 数据报作废，所以 TCP 引入了 <code>MSS</code> 也就是在 TCP
+层进行分片不由 IP 层分片，那么对于 UDP 我们尽量不要发送一个大于
+<code>MTU</code> 的数据报文。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202405111604674.png" srcset="/img/loading.gif" lazyload
+alt="image-20240511150735978" />
+<figcaption aria-hidden="true">image-20240511150735978</figcaption>
+</figure>
+<h1 id="ip地址">2. IP地址</h1>
+<h2 id="网卡">2.1 网卡</h2>
+<p><strong>网卡</strong>是一个专门负责网络通讯的<strong>硬件设备</strong>，而
+<strong>IP地址</strong>是设置在网卡上的<strong>地址信息</strong>。
+我们可以把电脑比作电话，网卡相当于SIM卡，IP地址相当于电话号码。</p>
+<h2 id="点分十进制">2.2 点分十进制</h2>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202405111604675.png" srcset="/img/loading.gif" lazyload
+alt="image-20240511134814785" />
+<figcaption aria-hidden="true">image-20240511134814785</figcaption>
+</figure>
+<h2 id="有类地址">2.3 有类地址</h2>
+<p>IP 地址有 5 种类型，分别是 A 类、B 类、C 类、D 类、E
+类。黄色部分为分类号，用以区分 IP 地址类别。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202405111604676.png" srcset="/img/loading.gif" lazyload
+alt="image-20240511135512402" />
+<figcaption aria-hidden="true">image-20240511135512402</figcaption>
+</figure>
+<h3 id="abc类地址">2.3.1 A、B、C类地址</h3>
+<p>A、B、C 类主要分为两个部分，分别是<strong>网络号和主机号</strong>。
+A、B、C 分类对应的地址范围、最大主机个数如下图所示。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202405111604677.png" srcset="/img/loading.gif" lazyload
+alt="image-20240511135757488" />
+<figcaption aria-hidden="true">image-20240511135757488</figcaption>
+</figure>
+<blockquote>
+<p>最大主机数计算公式：2<sup>^主机号位数</sup>-2（减去网络地址和广播地址）</p>
+<ul>
+<li><p>网络地址：主机号全为0</p></li>
+<li><p>广播地址：主机号全为1（用于在同一个链路中相互连接的主机之间发送数据包）</p></li>
+</ul>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202405111604678.png" srcset="/img/loading.gif" lazyload
+alt="image-20240511140207982" />
+<figcaption aria-hidden="true">image-20240511140207982</figcaption>
+</figure>
+</blockquote>
+<blockquote>
+<ul>
+<li>本地广播：在本网络内广播的叫做本地广播。例如网络地址为
+192.168.0.0/24 的情况下，广播地址是 192.168.0.255 。因为这个广播地址的
+IP 包会被路由器屏蔽，所以不会到达 192.168.0.0/24 以外的其他链路上。</li>
+<li>直接广播：在不同网络之间的广播叫做直接广播。例如网络地址为
+192.168.0.0/24 的主机向 192.168.1.255/24 的目标地址发送 IP
+包。收到这个包的路由器，将数据转发给 192.168.1.0/24，从而使得所有
+192.168.1.1~192.168.1.254
+的主机都能收到这个包（由于直接广播有一定的安全问题，多数情况下会在路由器上设置为不转发）
+。</li>
+</ul>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202405111604679.png" srcset="/img/loading.gif" lazyload
+alt="image-20240511140621257" />
+<figcaption aria-hidden="true">image-20240511140621257</figcaption>
+</figure>
+</blockquote>
+<h3 id="de类地址">2.3.2 D、E类地址</h3>
+<p>D 类和 E 类地址是没有主机号的，所以不可用于主机 IP。D
+类常被用于<strong>多播</strong>，E 类是预留的分类，暂时未使用。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202405111604680.png" srcset="/img/loading.gif" lazyload
+alt="image-20240511140825395" />
+<figcaption aria-hidden="true">image-20240511140825395</figcaption>
+</figure>
+<h4 id="多播定义">2.3.2.1 多播定义</h4>
+<p>多播：将包发送给特定组内的所有主机。老师说：“最后一排的同学，上来做这道数学题。”，老师指定的是最后一排的同学，这就是多播。</p>
+<h4 id="多播用途">2.3.2.2 多播用途</h4>
+<p>由于广播无法穿透路由，若想给其他网段发送同样的包，就可以使用可以穿透路由的多播。多播使用的
+D 类地址，其前四位是 <code>1110</code> 就表示是多播地址，而剩下的 28
+位是多播的组编号。从 224.0.0.0 ~ 239.255.255.255
+都是多播的可用范围，其划分为以下三类：</p>
+<ul>
+<li>224.0.0.0 ~ 224.0.0.255
+为预留的组播地址，只能在局域网中，路由器是不会进行转发的。</li>
+<li>224.0.1.0 ~ 238.255.255.255
+为用户可用的组播地址，可用于因特网上。</li>
+<li>239.0.0.0 ~ 239.255.255.255
+为本地管理组播地址，可供内部网在内部使用，仅在特定的本地范围内有效。</li>
+</ul>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202405111604681.png" srcset="/img/loading.gif" lazyload
+alt="image-20240511141628347" />
+<figcaption aria-hidden="true">image-20240511141628347</figcaption>
+</figure>
+<h3 id="优缺点">2.3.3 优缺点</h3>
+<h4 id="优点">2.3.3.1 优点</h4>
+<p>简单明了、选路（基于网络地址）简单。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202405111604682.png" srcset="/img/loading.gif" lazyload
+alt="image-20240511142120494" />
+<figcaption aria-hidden="true">image-20240511142120494</figcaption>
+</figure>
+<h4 id="缺点">2.3.3.2 缺点</h4>
+<ul>
+<li>网络设计局限性：比如一个公司里用了 B
+类地址，但是可能需要根据生产环境、测试环境、开发环境来划分地址层次，而这种
+IP 分类是没有地址层次划分的功能。</li>
+<li>IP地址不灵活：例如，拥有 300 台设备的组织无法使用 C 类 IP
+地址，该类只允许连接 254 台设备。因此，该组织不得不申请 B 类 IP
+地址，该类提供 65534 个唯一的主机地址。但是，只需要连接 300
+台设备，这就会剩下 65234 个未使用的 IP 地址空间。</li>
+</ul>
+<h2 id="无类地址">2.4 无类地址</h2>
+<ul>
+<li><strong>无类别域间路由 (CIDR)</strong> 是一种 <strong>IP
+地址分配方法</strong>，可提高互联网上的数据路由效率。每台连接到互联网的计算机、服务器和最终用户设备都有一个与之关联的唯一编号，称为
+IP 地址。设备通过使用这些 IP 地址相互查找和通信。组织使用 CIDR
+在其网络中灵活高效地分配 IP 地址。</li>
+<li><strong>无类别域间路由 (CIDR)</strong> 使用<strong>可变长度子网掩码
+(VLSM)</strong> 来改变 IP
+地址中网络地址位和主机地址位之间的比率。子网掩码是一组标识符，通过将主机地址变为零，从
+IP 地址返回网络地址的值（按位与运算）。 VLSM
+序列允许网络管理员<strong>将 IP
+地址空间分解为不同大小的子网</strong>。每个子网可以有灵活的主机数量和有限的
+IP 地址数量。CIDR IP 地址在普通 IP
+地址的基础上附加了一个后缀值，说明网络地址前缀位数。例如，10.100.122.2/24
+是一个 IPv4 CIDR 地址，其中前 24 位（即 10.100.122）是网络地址。</li>
+</ul>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202405111604683.png" srcset="/img/loading.gif" lazyload
+alt="image-20240511143244963" />
+<figcaption aria-hidden="true">image-20240511143244963</figcaption>
+</figure>
+<h2 id="公有ip和私有ip">2.5 公有IP和私有IP</h2>
+<p>在 A、B、C 分类地址中，IP地址包括公有 IP 地址和私有 IP 地址。私有 IP
+地址通常是内部的 IT 人员管理，公有 IP 地址是由
+<code>ICANN</code>（互联网名称与数字地址分配机构） 组织管理。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202405111604684.png" srcset="/img/loading.gif" lazyload
+alt="image-20240511144308103" />
+<figcaption aria-hidden="true">image-20240511144308103</figcaption>
+</figure>
+<h2 id="路由控制">2.6 路由控制</h2>
+<p>IP地址的<strong>网络地址部分</strong>用于进行路由控制。路由表中记录着网络地址与下一步应该发送的路由器地址。在主机和路由器上都会有各自的路由表。在发送
+IP 包时，首先要确定 IP
+包首部中的目标地址，再从路由表中找到与该地址具有相同网络地址的记录，根据该记录将
+IP
+包转发给相应的下一个路由器。如果路由表中存在多条相同网络地址的记录，就选择相同位数最多的网络地址，也就是最长前缀匹配。</p>
+<p>下面以下图的网络链路作为例子说明：</p>
+<ol type="1">
+<li>主机 A 要发送一个 IP 包，其源地址是 <code>10.1.1.30</code>
+和目标地址是 <code>10.1.2.10</code>，由于没有在主机 A
+的路由表找到与目标地址 <code>10.1.2.10</code>
+相同的网络地址，于是包被转发到默认路由（路由器 <code>1</code> ）；</li>
+<li>路由器 <code>1</code> 收到 IP 包后，也在路由器 <code>1</code>
+的路由表匹配与目标地址相同的网络地址记录，发现匹配到了，于是就把 IP
+数据包转发到了 <code>10.1.0.2</code> 这台路由器 <code>2</code>；</li>
+<li>路由器 <code>2</code>
+收到后，同样对比自身的路由表，发现匹配到了，于是把 IP 包从路由器
+<code>2</code> 的 <code>10.1.2.1</code> 这个接口出去，最终经过交换机把
+IP 数据包转发到了目标主机。</li>
+</ol>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202405111604685.png" srcset="/img/loading.gif" lazyload
+alt="image-20240511145038639" />
+<figcaption aria-hidden="true">image-20240511145038639</figcaption>
+</figure>
+<blockquote>
+<p>环回地址是在同一台计算机上的程序之间进行网络通信时所使用的一个默认地址。计算机使用一个特殊的
+IP 地址 <strong>127.0.0.1
+作为环回地址</strong>。与该地址具有相同意义的是一个叫做
+<code>localhost</code> 的主机名。使用这个 IP
+或主机名时，数据包不会流向网络。</p>
+</blockquote>
+<h2 id="ipv6">2.7 IPv6</h2>
+<h3 id="首部">2.7.1 首部</h3>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202405111604686.png" srcset="/img/loading.gif" lazyload
+alt="image-20240511150934771" />
+<figcaption aria-hidden="true">image-20240511150934771</figcaption>
+</figure>
+<p>IPv6 相比 IPv4 的首部改进：</p>
+<ul>
+<li><strong>取消了分片/重组相关字段。</strong>
+分片与重组是耗时的过程，IPv6
+不允许在中间路由器进行分片与重组，这种操作只能在源与目标主机进行，大大提高了路由器转发的速度。</li>
+<li><strong>取消了首部校验和字段。</strong>
+因为在数据链路层和传输层都会校验，因此 IPv6 直接取消了 IP 的校验。</li>
+<li><strong>取消选项字段。</strong> 选项字段不再是标准 IP
+首部的一部分了，但它并没有消失，而是可能出现在 IPv6
+首部中的「下一个首部」指出的位置上。删除该选项字段使的 IPv6
+的首部成为固定长度的 <code>40</code> 字节。</li>
+</ul>
+<h3 id="地址标识方式">2.7.2 地址标识方式</h3>
+<p>IPv4 地址长度共 32 位，是以每 8
+位作为一组，并用点分十进制的表示方式。IPv6 地址长度是 128 位，是以每 16
+位作为一组，每组用冒号<code>:</code> 隔开。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202405111604687.png" srcset="/img/loading.gif" lazyload
+alt="image-20240511151537768" />
+<figcaption aria-hidden="true">image-20240511151537768</figcaption>
+</figure>
+<p>如果出现连续的 0 时还可以将这些 0
+省略，并用两个冒号<code>::</code>隔开。但是，一个 IP
+地址中只允许出现一次两个连续的冒号。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202405111604688.png" srcset="/img/loading.gif" lazyload
+alt="image-20240511151613986" />
+<figcaption aria-hidden="true">image-20240511151613986</figcaption>
+</figure>
+<h3 id="地址结构">2.7.3 地址结构</h3>
+<ul>
+<li>单播地址，用于一对一的通信</li>
+<li>组播地址，用于一对多的通信</li>
+<li>任播地址，用于通信最近的节点，最近的节点是由路由协议决定</li>
+<li>没有广播地址</li>
+</ul>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202405111604689.png" srcset="/img/loading.gif" lazyload
+alt="image-20240511151924056" />
+<figcaption aria-hidden="true">image-20240511151924056</figcaption>
+</figure>
+<h3 id="单播地址类型">2.7.4 单播地址类型</h3>
+<p>对于一对一通信的 IPv6
+地址，主要划分了三类单播地址，每类地址的有效范围都不同。</p>
+<ul>
+<li>在同一链路单播通信，不经过路由器，可以使用<strong>链路本地单播地址</strong>，IPv4
+没有此类型</li>
+<li>在内网里单播通信，可以使用<strong>唯一本地地址</strong>，相当于 IPv4
+的私有 IP</li>
+<li>在互联网通信，可以使用<strong>全局单播地址</strong>，相当于 IPv4
+的公有 IP</li>
+</ul>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202405111604690.png" srcset="/img/loading.gif" lazyload
+alt="image-20240511152051274" />
+<figcaption aria-hidden="true">image-20240511152051274</figcaption>
+</figure>
+<h3 id="优点-1">2.7.5 优点</h3>
+<ul>
+<li><strong>即插即用</strong>：IPv6 可自动配置，没有 DHCP
+服务器也可以实现自动分配IP地址。</li>
+<li><strong>传输性能</strong>：IPv6 首部长度固定 <code>40</code>
+字节，删除首部校验和，简化首部结构，减轻了路由器负荷，提高了传输的性能。</li>
+<li><strong>安全性</strong>：IPv6 有应对伪造 IP
+地址的网络安全功能以及防止线路窃听的功能。</li>
+</ul>
+<h1 id="ip协议相关技术">3. IP协议相关技术</h1>
+<h2 id="dns">3.1 DNS</h2>
+<p><strong>DNS 域名解析</strong>：将域名网址自动转换为具体的 IP
+地址。</p>
+<h3 id="域名层级关系">3.1.1 域名层级关系</h3>
+<p>DNS 中的域名都是用<strong>句点</strong>来分隔的，比如
+<code>www.server.com</code>，这里的句点代表了不同层次之间的<strong>界限</strong>。在域名中，<strong>越靠右</strong>的位置表示其层级<strong>越高</strong>。域名的层级关系类似一个树状结构：</p>
+<ul>
+<li>根 DNS 服务器</li>
+<li>顶级域 DNS 服务器（com）</li>
+<li>权威 DNS 服务器（server.com）</li>
+</ul>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202405111604691.png" srcset="/img/loading.gif" lazyload
+alt="image-20240511152414167" />
+<figcaption aria-hidden="true">image-20240511152414167</figcaption>
+</figure>
+<p>根域的 DNS 服务器信息保存在互联网中所有的 DNS
+服务器中。客户端只要能够找到任意一台 DNS 服务器，就可以通过它找到根域
+DNS 服务器，然后再一路顺藤摸瓜找到位于下层的某台目标 DNS 服务器。</p>
+<h3 id="域名解析流程">3.1.2 域名解析流程</h3>
+<p>浏览器首先查看自己的缓存，如果没有再查看操作系统的缓存，还没有就查看本机域名解析文件
+<code>hosts</code>，如果还是没有，就会向 DNS
+服务器进行查询，查询的过程如下：</p>
+<ol type="1">
+<li>客户端首先会发出一个 DNS 请求，问 <code>www.server.com</code>的 IP
+是啥，并发给本地 DNS 服务器；</li>
+<li>本地域名服务器收到客户端的请求后，如果缓存里能找到
+<code>www.server.com</code>，则它直接返回 IP 地址；如果没有，本地 DNS
+会去问它的根域名服务器：“老大， 能告诉我 <code>www.server.com</code> 的
+IP 地址吗？”
+根域名服务器是最高层次的，它不直接用于域名解析，但能指明一条道路。</li>
+<li>根 DNS 收到来自本地 DNS 的请求后，发现后置是
+.com，说：“<code>www.server.com</code> 这个域名归 .com 区域管理”，我给你
+.com 顶级域名服务器地址给你，你去问问它吧。”</li>
+<li>本地 DNS 收到顶级域名服务器的地址后，发起请求问“老二， 你能告诉我
+<code>www.server.com</code> 的 IP 地址吗？”</li>
+<li>顶级域名服务器说：“我给你负责 <code>www.server.com</code> 区域的权威
+DNS 服务器的地址，你去问它应该能问到”。</li>
+<li>本地 DNS 于是转向问权威 DNS
+服务器：“老三，<code>www.server.com</code>对应的IP是啥呀？” server.com
+的权威 DNS
+服务器，它是域名解析结果的原出处。为啥叫权威呢？就是我的域名我做主。</li>
+<li>权威 DNS 服务器查询后将对应的 IP 地址 X.X.X.X 告诉本地 DNS。</li>
+<li>本地 DNS 再将 IP 地址返回客户端，客户端和目标建立连接。</li>
+</ol>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202405111604692.png" srcset="/img/loading.gif" lazyload
+alt="image-20240511152721334" />
+<figcaption aria-hidden="true">image-20240511152721334</figcaption>
+</figure>
+<h2 id="arp">3.2 ARP</h2>
+<p>在传输一个 IP 数据报的时候，确定了源 IP 地址和目标 IP
+地址后，就会通过主机「路由表」确定 IP
+数据包下一跳。网络层的下一层是数据链路层，所以我们还要知道「下一跳」的
+MAC 地址。由于主机的路由表中可以找到下一跳的 IP 地址，所以可以通过
+<strong>ARP 协议</strong>，求得下一跳的 MAC 地址。</p>
+<h3 id="工作流程">3.2.1 工作流程</h3>
+<p>ARP 是借助 <strong>ARP 请求与 ARP 响应</strong>两种类型的包确定 MAC
+地址的。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202405111604693.png" srcset="/img/loading.gif" lazyload
+alt="image-20240511153208897" />
+<figcaption aria-hidden="true">image-20240511153208897</figcaption>
+</figure>
+<ul>
+<li>主机会通过<strong>广播发送 ARP
+请求</strong>，这个包中包含了想要知道的 MAC 地址的主机 IP 地址。</li>
+<li>当同个链路中的所有设备收到 ARP 请求时，会去拆开 ARP
+请求包里的内容，如果 ARP 请求包中的目标 IP 地址与自己的 IP
+地址一致，那么这个设备就将自己的 MAC 地址置入<strong>ARP
+响应包</strong>返回给主机。</li>
+</ul>
+<p>操作系统通常会把第一次通过 ARP 获取的 MAC
+地址缓存起来，以便下次直接从缓存中找到对应 IP 地址的 MAC 地址。不过，MAC
+地址的缓存是有一定期限的，超过这个期限，缓存的内容将被清除。</p>
+<h3 id="rarp">3.2.2 RARP</h3>
+<p>RARP 协议：<strong>已知 MAC 地址求 IP
+地址</strong>。例如将打印机服务器等小型嵌入式设备接入到网络时就经常会用得到。通常这需要架设一台
+<code>RARP</code> 服务器，在这个服务器上注册设备的 MAC 地址及其 IP
+地址。然后再将这个设备接入到网络，接着：</p>
+<ul>
+<li>该设备会发送一条「我的 MAC
+地址是XXXX，请告诉我，我的IP地址应该是什么」的请求信息。</li>
+<li>RARP 服务器接到这个消息后返回「MAC地址为 XXXX 的设备，IP地址为
+XXXX」的信息给这个设备。</li>
+</ul>
+<p>最后，设备就根据从 RARP 服务器所收到的应答信息设置自己的 IP
+地址。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202405111604694.png" srcset="/img/loading.gif" lazyload
+alt="image-20240511153422319" />
+<figcaption aria-hidden="true">image-20240511153422319</figcaption>
+</figure>
+<h2 id="dhcp">3.3 DHCP</h2>
+<h3 id="工作流程-1">3.3.1 工作流程</h3>
+<p>说明：DHCP 客户端进程监听的是 68 端口号，DHCP 服务端进程监听的是 67
+端口号。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202405111604695.png" srcset="/img/loading.gif" lazyload
+alt="image-20240511153538741" />
+<figcaption aria-hidden="true">image-20240511153538741</figcaption>
+</figure>
+<ul>
+<li>客户端首先发起 <strong>DHCP 发现报文（DHCP DISCOVER）</strong> 的 IP
+数据报，由于客户端没有 IP 地址，也不知道 DHCP 服务器的地址，所以使用的是
+UDP <strong>广播</strong>通信，其使用的广播目的地址是
+255.255.255.255（端口 67） 并且使用 0.0.0.0（端口 68） 作为源 IP
+地址。DHCP 客户端将该 IP
+数据报传递给链路层，链路层然后将帧广播到所有的网络中设备。</li>
+<li>DHCP 服务器收到 DHCP 发现报文时，用 <strong>DHCP 提供报文（DHCP
+OFFER）</strong> 向客户端做出响应。该报文仍然使用 IP 广播地址
+255.255.255.255，该报文信息携带服务器提供可租约的 IP
+地址、子网掩码、默认网关、DNS 服务器以及 IP 地址租用期。</li>
+<li>客户端收到一个或多个服务器的 DHCP
+提供报文后，从中选择一个服务器，并向选中的服务器发送 <strong>DHCP
+请求报文（DHCP REQUEST</strong>进行响应，回显配置的参数。</li>
+<li>最后，服务端用 <strong>DHCP ACK 报文</strong>对 DHCP
+请求报文进行响应，应答所要求的参数。</li>
+</ul>
+<p>一旦客户端收到 DHCP ACK
+后，交互便完成了，并且客户端能够在租用期内使用 DHCP 服务器分配的 IP
+地址。如果租约的 DHCP IP 地址快期后，客户端会向服务器发送 DHCP
+请求报文：</p>
+<ul>
+<li>服务器如果同意继续租用，则用 DHCP ACK
+报文进行应答，客户端就会延长租期。</li>
+<li>服务器如果不同意继续租用，则用 DHCP NACK
+报文，客户端就要停止使用租约的 IP 地址。</li>
+</ul>
+<h3 id="中继代理">3.3.2 中继代理</h3>
+<p>DHCP 交互中，全程都是使用 <strong>UDP 广播</strong>通信。那么如果
+DHCP
+服务器和客户端不是在同一个局域网内，路由器又不会转发广播包，那不是每个网络都要配一个
+DHCP 服务器？为了解决这一问题，就出现了 <strong>DHCP
+中继代理</strong>。有了 DHCP 中继代理以后，对不同网段的 IP
+地址分配也可以由一个 DHCP 服务器统一进行管理。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202405111604696.png" srcset="/img/loading.gif" lazyload
+alt="image-20240511154200490" />
+<figcaption aria-hidden="true">image-20240511154200490</figcaption>
+</figure>
+<ul>
+<li>DHCP 客户端会向 DHCP 中继代理发送 DHCP 请求包，而 DHCP
+中继代理在收到这个广播包以后，再以<strong>单播</strong>的形式发给 DHCP
+服务器。</li>
+<li>服务器端收到该包以后再向 DHCP 中继代理返回应答，并由 DHCP
+中继代理将此包广播给 DHCP 客户端 。</li>
+</ul>
+<h2 id="nat">3.4 NAT</h2>
+<h3 id="工作流程-2">3.4.1 工作流程</h3>
+<p>NAT：网络地址转换。缓解了 IPv4 地址耗尽的问题。简单的来说 NAT
+就是公司、家庭、教室内的主机对外部通信时，把私有 IP 地址转换成公有 IP
+地址。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202405111604697.png" srcset="/img/loading.gif" lazyload
+alt="image-20240511154612220" />
+<figcaption aria-hidden="true">image-20240511154612220</figcaption>
+</figure>
+<h3 id="napt">3.4.2 NAPT</h3>
+<p>普通的 NAT 转换没什么意义。由于绝大多数的网络应用都是使用传输层协议
+TCP 或 UDP 来传输数据的。因此，可以把 IP 地址 +
+端口号一起进行转换。这样，就用一个全球 IP
+地址就可以了，这种转换技术就叫<strong>NAPT（网络地址与端口转换
+）</strong>。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202405111604698.png" srcset="/img/loading.gif" lazyload
+alt="image-20240511154824243" />
+<figcaption aria-hidden="true">image-20240511154824243</figcaption>
+</figure>
+<p>图中有两个客户端 192.168.1.10 和 192.168.1.11 同时与服务器
+183.232.231.172 进行通信，并且这两个客户端的本地端口都是
+1025。此时，<strong>两个私有 IP 地址都转换 IP 地址为公有地址
+120.229.175.121，但是以不同的端口号作为区分。</strong>于是，生成一个
+NAPT 路由器的转换表，就可以正确地转换地址跟端口的组合，令客户端 A、B
+能同时与服务器之间进行通信。这种转换表在 NAT 路由器上自动生成。例如，在
+TCP 的情况下，建立 TCP 连接首次握手时的 SYN
+包一经发出，就会生成这个表。而后又随着收到关闭连接时发出 FIN
+包的确认应答从表中被删除。</p>
+<h3 id="潜在问题">3.4.3 潜在问题</h3>
+<ul>
+<li>外部无法主动与 NAT 内部服务器建立连接，因为 NAPT
+转换表没有转换记录。</li>
+<li>转换表的生成与转换操作都会产生性能开销。</li>
+<li>通信过程中，如果 NAT 路由器重启了，所有的 TCP 连接都将被重置。</li>
+</ul>
+<h3 id="解决方案">3.4.4 解决方案</h3>
+<ul>
+<li>使用IPv6</li>
+<li>穿透技术：让网络应用程序主动发现自己位于 NAT
+设备之后，并且会主动获得 NAT 设备的公有
+IP，并为自己建立端口映射条目，注意这些都是
+NAT设备后的应用程序自动完成的。也就是说，在 NAT
+穿透技术中，NAT设备后的应用程序处于主动地位，它已经明确地知道 NAT
+设备要修改它外发的数据包，于是它主动配合 NAT
+设备的操作，主动地建立好映射，这样就不像以前由 NAT
+设备来建立映射了。</li>
+</ul>
+<h2 id="icmp">3.5 ICMP</h2>
+<p>ICMP 全称是 <strong>Internet Control Message
+Protocol</strong>，也就是<strong>互联网控制报文协议</strong>。当遇到问题的时候，需要传出消息，报告遇到了什么问题，这样才可以调整传输策略，以此来控制整个局面。</p>
+<h3 id="功能">3.5.1 功能</h3>
+<p>确认 IP 包是否成功送达目标地址、报告发送过程中 IP
+包被废弃的原因和改善网络设置等。在 IP 通信中如果某个 IP
+包因为某种原因未能达到目标地址，那么这个具体的原因将由 ICMP
+负责通知。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202405111604700.png" srcset="/img/loading.gif" lazyload
+alt="image-20240511155427661" />
+<figcaption aria-hidden="true">image-20240511155427661</figcaption>
+</figure>
+<p>如上图例子，主机 <code>A</code> 向主机 <code>B</code>
+发送了数据包，由于某种原因，途中的路由器 <code>2</code> 未能发现主机
+<code>B</code> 的存在，这时，路由器 <code>2</code> 就会向主机
+<code>A</code> 发送一个 <code>ICMP</code> 目标不可达数据包，说明发往主机
+<code>B</code> 的包未能成功。ICMP 的这种通知消息会使用 <code>IP</code>
+进行发送 。因此，从路由器 <code>2</code> 返回的 ICMP
+包会按照往常的路由控制先经过路由器 <code>1</code> 再转发给主机
+<code>A</code> 。收到该 ICMP 包的主机 <code>A</code> 则分解 ICMP
+的首部和数据域以后得知具体发生问题的原因。</p>
+<h3 id="类型">3.5.2 类型</h3>
+<ul>
+<li><strong>查询报文类型</strong>：用于诊断的查询消息</li>
+<li><strong>差错报文类型</strong>：通知出错原因的错误消息</li>
+</ul>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202405111604701.png" srcset="/img/loading.gif" lazyload
+alt="image-20240511155602370" />
+<figcaption aria-hidden="true">image-20240511155602370</figcaption>
+</figure>
+<h2 id="igmp">3.6 IGMP</h2>
+<p>组播中只有一组的主机能收到数据包，不在一组的主机不能收到数组包，怎么管理是否是在一组呢？那么，就需要
+<code>IGMP</code> 协议了。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202405111604702.png" srcset="/img/loading.gif" lazyload
+alt="image-20240511155755849" />
+<figcaption aria-hidden="true">image-20240511155755849</figcaption>
+</figure>
+<p>IGMP
+是因特网组管理协议，工作在主机（组播成员）和最后一跳路由之间，如上图中的蓝色部分。</p>
+<ul>
+<li>IGMP
+报文向路由器申请加入和退出组播组，默认情况下路由器是不会转发组播包到连接中的主机，除非主机通过
+IGMP 加入到组播组，主机申请加入到组播组时，路由器就会记录 IGMP
+路由器表，路由器后续就会转发组播包到对应的主机了。</li>
+<li>IGMP 报文采用 IP 封装，IP 头部的协议号为 2，而且 TTL 字段值通常为
+1，因为 IGMP 是工作在主机与连接的路由器之间。</li>
+</ul>
+<h3 id="常规查询与响应工作机制">3.6.1 常规查询与响应工作机制</h3>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202405111604703.png" srcset="/img/loading.gif" lazyload
+alt="image-20240511160025570" />
+<figcaption aria-hidden="true">image-20240511160025570</figcaption>
+</figure>
+<ol type="1">
+<li>路由器会周期性发送目的地址为
+<code>224.0.0.1</code>（表示同一网段内所有主机和路由器） <strong>IGMP
+常规查询报文</strong>。</li>
+<li>主机1 和 主机 3
+收到这个查询，随后会启动「报告延迟计时器」，计时器的时间是随机的，通常是
+0~10 秒，计时器超时后主机就会发送 <strong>IGMP
+成员关系报告报文</strong>（源 IP 地址为自己主机的 IP 地址，目的 IP
+地址为组播地址）。如果在定时器超时之前，收到同一个组内的其他主机发送的成员关系报告报文，则自己不再发送，这样可以减少网络中多余的
+IGMP 报文数量。</li>
+<li>路由器收到主机的成员关系报文后，就会在 IGMP
+路由表中加入该组播组，后续网络中一旦该组播地址的数据到达路由器，它会把数据包转发出去。</li>
+</ol>
+<h3 id="离开组播组工作机制">3.6.2 离开组播组工作机制</h3>
+<p>情况一，网段中仍有该组播组：</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202405111604704.png" srcset="/img/loading.gif" lazyload
+alt="image-20240511160302245" />
+<figcaption aria-hidden="true">image-20240511160302245</figcaption>
+</figure>
+<ol type="1">
+<li>主机 1 要离开组 224.1.1.1，发送 IGMPv2 离组报文，报文的目的地址是
+224.0.0.2（表示发向网段内的所有路由器）</li>
+<li>路由器 收到该报文后，以 1 秒为间隔连续发送 IGMP
+特定组查询报文（共计发送 2 个），以便确认该网络是否还有 224.1.1.1
+组的其他成员。</li>
+<li>主机 3 仍然是组 224.1.1.1
+的成员，因此它立即响应这个特定组查询。路由器知道该网络中仍然存在该组播组的成员，于是继续向该网络转发
+224.1.1.1 的组播数据包。</li>
+</ol>
+<p>情况二，网段中没有该组播组：</p>
+<figure>
+<img src="IP篇.assets/image-20240511160414739.png" srcset="/img/loading.gif" lazyload
+alt="image-20240511160414739" />
+<figcaption aria-hidden="true">image-20240511160414739</figcaption>
+</figure>
+<ol type="1">
+<li>主机 1 要离开组播组 224.1.1.1，发送 IGMP 离组报文。</li>
+<li>路由器收到该报文后，以 1 秒为间隔连续发送 IGMP
+特定组查询报文（共计发送 2 个）。此时在该网段内，组 224.1.1.1
+已经没有其他成员了，因此没有主机响应这个查询。</li>
+<li>一定时间后，路由器认为该网段中已经没有 224.1.1.1
+组播组成员了，将不会再向这个网段转发该组播地址的数据包。</li>
+</ol>
+<p><strong>参考资料：</strong></p>
+<ol type="1">
+<li>图解网络：https://xiaolincoding.com/network</li>
+<li>Linux系统(五)网卡、IP地址、以及SSH、Vncserver、SCP相关网络操作：https://blog.csdn.net/weixin_39059031/article/details/108174812</li>
+<li>什么是 CIDR？https://aws.amazon.com/cn/what-is/cidr/</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%A0%B8%E5%BF%83%E8%AF%BE%E7%A8%8B/" class="category-chain-item">计算机核心课程</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%A0%B8%E5%BF%83%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="category-chain-item">计算机网络</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%A0%B8%E5%BF%83%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3%E7%BD%91%E7%BB%9C/" class="category-chain-item">图解网络</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>IP篇</div>
+      <div>http://example.com/2024/05/11/计算机核心课程/计算机网络/图解网络/IP篇/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>kaikaikai</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年5月11日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/05/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%A0%B8%E5%BF%83%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95/%E7%BD%91%E7%BB%9C%E5%B1%82/" title="网络层">
+                        <span class="hidden-mobile">网络层</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
