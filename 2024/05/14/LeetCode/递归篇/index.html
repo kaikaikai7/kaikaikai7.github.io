@@ -24,7 +24,7 @@
 <meta property="og:description" content="1. 二叉树相关问题 相同的树  法一：深度优先搜索。如果两个二叉树都为空，则两个二叉树相同。如果两个二叉树中有且只有一个为空，则两个二叉树一定不相同。如果两个二叉树都不为空，那么首先判断它们的根节点的值是否相同，若不相同则两个二叉树一定不同，若相同，再分别判断两个二叉树的左子树是否相同以及右子树是否相同。这是一个递归的过程，因此可以使用深度优先搜索，递归地判断两个二叉树是否相同。  1">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-05-14T05:17:46.000Z">
-<meta property="article:modified_time" content="2024-05-25T08:05:41.765Z">
+<meta property="article:modified_time" content="2024-06-07T03:33:02.878Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          11k 字
+          12k 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          94 分钟
+          97 分钟
         
       </span>
     
@@ -369,7 +369,12 @@ Univalued 的。</p>
 <p>对于每个网格位置，我们尝试从该位置开始查找单词的第一个字符，然后递归地查找其相邻位置以匹配单词的后续字符。</p>
 </blockquote>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">exist</span><span class="hljs-params">(vector&lt;vector&lt;<span class="hljs-type">char</span>&gt;&gt;&amp; board, string word)</span> </span>&#123;<br>        <span class="hljs-type">int</span> rows = board.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-type">int</span> cols = board[<span class="hljs-number">0</span>].<span class="hljs-built_in">size</span>();<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; rows; i++) &#123;<br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; cols; j++) &#123;<br>                <span class="hljs-keyword">if</span> (<span class="hljs-built_in">dfs</span>(board, word, i, j, <span class="hljs-number">0</span>)) &#123;<br>                    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br><br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">dfs</span><span class="hljs-params">(vector&lt;vector&lt;<span class="hljs-type">char</span>&gt;&gt;&amp; board, <span class="hljs-type">const</span> string&amp; word, <span class="hljs-type">int</span> i, <span class="hljs-type">int</span> j,</span></span><br><span class="hljs-params"><span class="hljs-function">             <span class="hljs-type">int</span> index)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (index == word.<span class="hljs-built_in">length</span>()) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>        &#125;<br>        <span class="hljs-keyword">if</span> (i &lt; <span class="hljs-number">0</span> || i &gt;= board.<span class="hljs-built_in">size</span>() || j &lt; <span class="hljs-number">0</span> || j &gt;= board[<span class="hljs-number">0</span>].<span class="hljs-built_in">size</span>() ||<br>            board[i][j] != word[index]) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125;<br>        <span class="hljs-type">char</span> temp = board[i][j];<br>        board[i][j] = <span class="hljs-string">&#x27;#&#x27;</span>;<span class="hljs-comment">//标记</span><br>        <span class="hljs-type">bool</span> found = <span class="hljs-built_in">dfs</span>(board, word, i - <span class="hljs-number">1</span>, j, index + <span class="hljs-number">1</span>) ||<br>                     <span class="hljs-built_in">dfs</span>(board, word, i + <span class="hljs-number">1</span>, j, index + <span class="hljs-number">1</span>) ||<br>                     <span class="hljs-built_in">dfs</span>(board, word, i, j - <span class="hljs-number">1</span>, index + <span class="hljs-number">1</span>) ||<br>                     <span class="hljs-built_in">dfs</span>(board, word, i, j + <span class="hljs-number">1</span>, index + <span class="hljs-number">1</span>);<br>        board[i][j] = temp;<span class="hljs-comment">//回溯</span><br>        <span class="hljs-keyword">return</span> found;<br>        <br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-<h1 id="section">3.</h1>
+<h1 id="动态规划相关问题">3. 动态规划相关问题</h1>
+<h2 id="斐波那契数">斐波那契数</h2>
+<blockquote>
+<p>通过迭代的方式，从下往上计算斐波那契数列，避免了递归方法中重复计算的问题，从而提高了效率。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>public:<br>    <span class="hljs-built_in">int</span> fib(<span class="hljs-built_in">int</span> n) &#123;<br>        <span class="hljs-keyword">if</span> (n &lt; <span class="hljs-number">2</span>) &#123;<br>            <span class="hljs-keyword">return</span> n;<br>        &#125;<br>        <span class="hljs-comment"># 分别用于存储斐波那契数列中的前两项和当前计算的项。初始值分别是 0, 0, 和 1。</span><br>        <span class="hljs-built_in">int</span> p = <span class="hljs-number">0</span>, q = <span class="hljs-number">0</span>, r = <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">2</span>; i &lt;= n; i++) &#123;<br>            p = q; <br>            q = r; <br>            r = p + q;<br>        &#125;<br>        <span class="hljs-keyword">return</span> r;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
 
                 
               </div>
