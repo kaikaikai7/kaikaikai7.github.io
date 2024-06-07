@@ -16,21 +16,21 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Python的特殊方法（有时也称为魔法方法）是一组预定义的方法，你可以在你的类中实现这些方法来提供特定的操作或者行为。这些方法都是以双下划线（__）开头和结尾的。它们允许你实现和自定义对象的一些内置行为，例如迭代、调用、属性访问、运算符重载等。 以下是一些常用的特殊方法，以及如何在你的代码中使用它们的例子：  __init__(self, [...])：这是类的构造器。当类被实例化时，这个方">
+    <meta name="description" content="1. 简介 unittest 单元测试框架最初受到 JUnit 的启发，与其他语言的主要单元测试框架有相似之处。它支持测试自动化、共享测试的设置和关闭代码、将测试聚合成集合，以及测试与报告框架的独立性。 2. 重要概念  测试装置：测试装置表示执行一个或多个测试所需的准备工作，以及任何相关的清理操作。例如，这可能涉及创建临时或代理数据库、目录或启动服务器进程。 测试用例：测试用例是测试">
 <meta property="og:type" content="article">
-<meta property="og:title" content="特殊方法">
-<meta property="og:url" content="http://example.com/2024/03/03/Python/%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/%E7%89%B9%E6%AE%8A%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:title" content="单元测试">
+<meta property="og:url" content="http://example.com/2024/06/07/Python/%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="Python的特殊方法（有时也称为魔法方法）是一组预定义的方法，你可以在你的类中实现这些方法来提供特定的操作或者行为。这些方法都是以双下划线（__）开头和结尾的。它们允许你实现和自定义对象的一些内置行为，例如迭代、调用、属性访问、运算符重载等。 以下是一些常用的特殊方法，以及如何在你的代码中使用它们的例子：  __init__(self, [...])：这是类的构造器。当类被实例化时，这个方">
+<meta property="og:description" content="1. 简介 unittest 单元测试框架最初受到 JUnit 的启发，与其他语言的主要单元测试框架有相似之处。它支持测试自动化、共享测试的设置和关闭代码、将测试聚合成集合，以及测试与报告框架的独立性。 2. 重要概念  测试装置：测试装置表示执行一个或多个测试所需的准备工作，以及任何相关的清理操作。例如，这可能涉及创建临时或代理数据库、目录或启动服务器进程。 测试用例：测试用例是测试">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-03-03T05:50:21.000Z">
-<meta property="article:modified_time" content="2024-06-07T02:49:59.879Z">
+<meta property="article:published_time" content="2024-06-07T02:51:21.000Z">
+<meta property="article:modified_time" content="2024-06-07T02:58:55.694Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>特殊方法 - kaikaikai&#39;s blog</title>
+  <title>单元测试 - kaikaikai&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -184,7 +184,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="特殊方法"></span>
+            <span id="subtitle" data-typed-text="单元测试"></span>
           
         </div>
 
@@ -195,8 +195,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-03-03 13:50" pubdate>
-          2024年3月3日 下午
+        <time datetime="2024-06-07 10:51" pubdate>
+          2024年6月7日 上午
         </time>
       </span>
     
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k 字
+          1.1k 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          12 分钟
+          9 分钟
         
       </span>
     
@@ -255,41 +255,28 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">特殊方法</h1>
+            <h1 id="seo-header">单元测试</h1>
             
             
               <div class="markdown-body">
                 
-                <p>Python的特殊方法（有时也称为魔法方法）是一组预定义的方法，你可以在你的类中实现这些方法来提供特定的操作或者行为。这些方法都是以双下划线（<code>__</code>）开头和结尾的。它们允许你实现和自定义对象的一些内置行为，例如迭代、调用、属性访问、运算符重载等。</p>
-<p>以下是一些常用的特殊方法，以及如何在你的代码中使用它们的例子：</p>
-<ol type="1">
-<li><code>__init__(self, [...])</code>：这是类的构造器。当类被实例化时，这个方法会被自动调用。</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Example</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, value</span>):<br>        self.value = value<br></code></pre></td></tr></table></figure>
-<ol start="2" type="1">
-<li><code>__str__(self)</code>：当需要将对象转换为字符串时（比如打印），这个方法会被调用。</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Example</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, value</span>):<br>        self.value = value<br>        <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__str__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">f&quot;Example with value <span class="hljs-subst">&#123;self.value&#125;</span>&quot;</span><br></code></pre></td></tr></table></figure>
-<ol start="3" type="1">
-<li><code>__repr__(self)</code>：这个方法用于官方的字符串表示，通常用于调试。它的目标是明确，不是可读性。</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Example</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, value</span>):<br>        self.value = value<br>        <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__repr__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">f&quot;Example(<span class="hljs-subst">&#123;self.value&#125;</span>)&quot;</span><br></code></pre></td></tr></table></figure>
-<ol start="4" type="1">
-<li><code>__add__(self, other)</code>：允许两个对象使用 <code>+</code>
-运算符进行加法操作。</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Example</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, value</span>):<br>        self.value = value<br>        <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__add__</span>(<span class="hljs-params">self, other</span>):<br>        <span class="hljs-keyword">return</span> Example(self.value + other.value)<br></code></pre></td></tr></table></figure>
-<ol start="5" type="1">
-<li><code>__iter__(self)</code> 和
-<code>__next__(self)</code>：这两个方法使对象成为迭代器。<code>__iter__</code>
-返回迭代器对象本身，<code>__next__</code> 返回迭代器的下一个值。</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Counter</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, low, high</span>):<br>        self.current = low<br>        self.high = high<br>        <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__iter__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">return</span> self<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__next__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">if</span> self.current &gt; self.high:<br>            <span class="hljs-keyword">raise</span> StopIteration<br>        <span class="hljs-keyword">else</span>:<br>            self.current += <span class="hljs-number">1</span><br>            <span class="hljs-keyword">return</span> self.current - <span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
-<ol start="6" type="1">
-<li><code>__getitem__(self, key)</code> 和
-<code>__setitem__(self, key, value)</code>：这两个方法允许对象使用下标操作，如列表或字典。</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Indexer</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        self.data = &#123;&#125;<br>        <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__getitem__</span>(<span class="hljs-params">self, key</span>):<br>        <span class="hljs-keyword">return</span> self.data.get(key, <span class="hljs-string">&quot;Not Found&quot;</span>)<br>        <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__setitem__</span>(<span class="hljs-params">self, key, value</span>):<br>        self.data[key] = value<br></code></pre></td></tr></table></figure>
+                <h1 id="简介">1. 简介</h1>
+<p>unittest 单元测试框架最初受到 JUnit
+的启发，与其他语言的主要单元测试框架有相似之处。它支持测试自动化、共享测试的设置和关闭代码、将测试聚合成集合，以及测试与报告框架的独立性。</p>
+<h1 id="重要概念">2. 重要概念</h1>
+<ul>
+<li><strong>测试装置</strong>：测试装置表示执行一个或多个测试所需的准备工作，以及任何相关的清理操作。例如，这可能涉及创建临时或代理数据库、目录或启动服务器进程。</li>
+<li><strong>测试用例</strong>：测试用例是测试的单个单元。unittest
+提供了一个基类 TestCase，可用于创建新的测试用例。</li>
+<li><strong>测试套件</strong>：测试套件是测试用例、测试套件或两者的集合。它用于汇集应一起执行的测试。</li>
+<li><strong>测试运行器</strong>：测试运行器是一个组件，负责协调测试的执行，并将结果提供给用户。运行程序可以使用图形界面、文本界面，或返回一个特殊值来表示执行测试的结果。</li>
+</ul>
+<h1 id="基本示例">3. 基本示例</h1>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> unittest<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">TestStringMethods</span>(unittest.TestCase):<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">test_upper</span>(<span class="hljs-params">self</span>):<br>        self.assertEqual(<span class="hljs-string">&#x27;foo&#x27;</span>.upper(), <span class="hljs-string">&#x27;FOO&#x27;</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">test_isupper</span>(<span class="hljs-params">self</span>):<br>        self.assertTrue(<span class="hljs-string">&#x27;FOO&#x27;</span>.isupper())<br>        self.assertFalse(<span class="hljs-string">&#x27;Foo&#x27;</span>.isupper())<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">test_split</span>(<span class="hljs-params">self</span>):<br>        s = <span class="hljs-string">&#x27;hello world&#x27;</span><br>        self.assertEqual(s.split(), [<span class="hljs-string">&#x27;hello&#x27;</span>, <span class="hljs-string">&#x27;world&#x27;</span>])<br>        <span class="hljs-comment"># check that s.split fails when the separator is not a string</span><br>        <span class="hljs-keyword">with</span> self.assertRaises(TypeError):<br>            s.split(<span class="hljs-number">2</span>)<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    unittest.main()<br></code></pre></td></tr></table></figure>
+<p>测试用例通过子类化创建<code>unittest.TestCase</code>。三个单独的测试是用名称以
+<code>test</code>
+开头的方法定义的。这种命名约定可告知测试运行程序哪些方法代表测试。</p>
+<p>每个测试的关键是调用<code>assertEqual()</code>检查预期结果；<code>assertTrue()</code>或<code>assertFalse()</code>验证条件；或<code>assertRaises()</code>验证是否引发特定异常。使用这些方法代替<code>assert</code>语句，测试运行程序就能累计所有测试结果并生成报告。</p>
 
                 
               </div>
@@ -335,8 +322,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>特殊方法</div>
-      <div>http://example.com/2024/03/03/Python/基本语法/特殊方法/</div>
+      <div>单元测试</div>
+      <div>http://example.com/2024/06/07/Python/基本语法/单元测试/</div>
     </div>
     <div class="license-meta">
       
@@ -348,7 +335,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年3月3日</div>
+          <div>2024年6月7日</div>
         </div>
       
       
@@ -380,18 +367,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/03/04/Python/PyTorch/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" title="神经网络">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">神经网络</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/03/03/Python/PyTorch/Transforms/" title="Transforms">
-                        <span class="hidden-mobile">Transforms</span>
+                      <a href="/2024/06/06/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/Git%E5%92%8CGitflow/" title="Git和Gitflow">
+                        <span class="hidden-mobile">Git和Gitflow</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

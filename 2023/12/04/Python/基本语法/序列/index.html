@@ -16,15 +16,15 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1 序列 在 Python 中，序列是指包含一系列元素的数据结构。Python内置的五个常用序列结构：列表、元组、集合、字典、字符串。 1.1 索引 在 Python 中，序列（比如列表、元组、字符串等）中的元素可以通过索引访问。索引用于定位序列中特定位置的元素，索引值从 0 开始。 1.1.1 正向索引 正向索引从序列的开头（左侧）开始，使用整数值从 0 开始递增来访问元素。">
+    <meta name="description" content="1. 序列 在 Python 中，序列是指包含一系列元素的数据结构。Python内置的五个常用序列结构：列表、元组、集合、字典、字符串。 1.1 索引 在 Python 中，序列（比如列表、元组、字符串等）中的元素可以通过索引访问。索引用于定位序列中特定位置的元素，索引值从 0 开始。 1.1.1 正向索引 正向索引从序列的开头（左侧）开始，使用整数值从 0 开始递增来访问元素。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="序列">
 <meta property="og:url" content="http://example.com/2023/12/04/Python/%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/%E5%BA%8F%E5%88%97/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="1 序列 在 Python 中，序列是指包含一系列元素的数据结构。Python内置的五个常用序列结构：列表、元组、集合、字典、字符串。 1.1 索引 在 Python 中，序列（比如列表、元组、字符串等）中的元素可以通过索引访问。索引用于定位序列中特定位置的元素，索引值从 0 开始。 1.1.1 正向索引 正向索引从序列的开头（左侧）开始，使用整数值从 0 开始递增来访问元素。">
+<meta property="og:description" content="1. 序列 在 Python 中，序列是指包含一系列元素的数据结构。Python内置的五个常用序列结构：列表、元组、集合、字典、字符串。 1.1 索引 在 Python 中，序列（比如列表、元组、字符串等）中的元素可以通过索引访问。索引用于定位序列中特定位置的元素，索引值从 0 开始。 1.1.1 正向索引 正向索引从序列的开头（左侧）开始，使用整数值从 0 开始递增来访问元素。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-04T07:11:21.000Z">
-<meta property="article:modified_time" content="2024-04-17T07:23:03.487Z">
+<meta property="article:modified_time" content="2024-06-07T02:47:42.056Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -218,7 +218,7 @@
         
         
         
-          136 分钟
+          132 分钟
         
       </span>
     
@@ -260,7 +260,7 @@
             
               <div class="markdown-body">
                 
-                <h1 id="序列">1 序列</h1>
+                <h1 id="序列">1. 序列</h1>
 <p>在 Python
 中，序列是指包含一系列元素的数据结构。Python内置的五个常用序列结构：列表、元组、集合、字典、字符串。</p>
 <h2 id="索引">1.1 索引</h2>
@@ -279,8 +279,6 @@
 <p>切片操作允许你获取序列中的一部分。使用 <code>[start:stop:step]</code>
 的语法来执行切片操作。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">my_string = <span class="hljs-string">&quot;Hello, World!&quot;</span><br><span class="hljs-built_in">print</span>(my_string[<span class="hljs-number">7</span>:])  <span class="hljs-comment"># 输出：&quot;World!&quot;（从索引7开始到末尾的所有元素）</span><br><span class="hljs-built_in">print</span>(my_string[:<span class="hljs-number">5</span>])  <span class="hljs-comment"># 输出：&quot;Hello&quot;（从开头到索引5之前的所有元素）</span><br><span class="hljs-built_in">print</span>(my_string[::<span class="hljs-number">2</span>])  <span class="hljs-comment"># 输出：&quot;Hlo ol!&quot;（每隔一个元素进行切片）</span><br></code></pre></td></tr></table></figure>
-<p>索引和切片操作是 Python
-中操作序列的重要方式，能够灵活地访问序列中的特定元素或特定范围的元素。</p>
 <h2 id="序列相加">1.3 序列相加</h2>
 <p>在 Python 中，可以使用 <code>+</code>
 运算符将两个序列（比如列表、元组、字符串等）进行相加，从而生成一个新的序列，新序列包含了两个序列的所有元素。</p>
@@ -305,25 +303,24 @@
 来检查某个元素是否是序列（比如列表、元组、字符串等）的成员。</p>
 <p><strong>示例：</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python">my_list = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]<br>element = <span class="hljs-number">3</span><br><br><span class="hljs-keyword">if</span> element <span class="hljs-keyword">in</span> my_list:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;element&#125;</span> 是列表的成员&quot;</span>)<br><span class="hljs-keyword">else</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;element&#125;</span> 不是列表的成员&quot;</span>)<br></code></pre></td></tr></table></figure>
-<h1 id="列表">2 列表</h1>
+<h1 id="列表">2. 列表</h1>
 <p>Python 中的列表是一种数据结构，用于存储多个元素。列表使用方括号
 <code>[]</code>
 表示，可以包含任何类型的元素，甚至可以是不同类型的混合。</p>
 <h2 id="列表的创建和删除">2.1 列表的创建和删除</h2>
 <p>在 Python
 中创建列表非常简单，你可以直接在方括号内添加元素来定义列表。例如：</p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs makefile">pythonCopy codemy_list = [1, 2, 3, 4, 5]  <span class="hljs-comment"># 包含整数的列表</span><br>mixed_list = [1, <span class="hljs-string">&quot;hello&quot;</span>, 3.14, True]  <span class="hljs-comment"># 包含不同类型的元素</span><br>empty_list = []  <span class="hljs-comment"># 创建一个空列表</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">pythonCopy codemy_list = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]  <span class="hljs-comment"># 包含整数的列表</span><br>mixed_list = [<span class="hljs-number">1</span>, <span class="hljs-string">&quot;hello&quot;</span>, <span class="hljs-number">3.14</span>, <span class="hljs-literal">True</span>]  <span class="hljs-comment"># 包含不同类型的元素</span><br>empty_list = []  <span class="hljs-comment"># 创建一个空列表</span><br></code></pre></td></tr></table></figure>
 <p>要删除列表，可以使用 <code>del</code>
 关键字来删除整个列表变量。比如：</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">pythonCopy</span> codemy_list = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]  <span class="hljs-comment"># 创建一个列表</span><br>del my_list  <span class="hljs-comment"># 删除这个列表</span><br><span class="hljs-comment"># 现在尝试访问my_list将会引发 NameError，因为它已经被删除了</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">my_list = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]  <span class="hljs-comment"># 创建一个列表</span><br><span class="hljs-keyword">del</span> my_list  <span class="hljs-comment"># 删除这个列表</span><br><span class="hljs-comment"># 现在尝试访问my_list将会引发 NameError，因为它已经被删除了</span><br></code></pre></td></tr></table></figure>
 <p>此外，你也可以使用 <code>clear()</code>
 方法来清空列表中的所有元素，但是保留列表本身。例如：</p>
-<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs axapta">pythonCopy codemy_list = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]  <span class="hljs-meta"># 创建一个列表</span><br>my_list.clear()  <span class="hljs-meta"># 清空列表</span><br><span class="hljs-keyword">print</span>(my_list)  <span class="hljs-meta"># 输出：[]</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">my_list = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]  <span class="hljs-comment"># 创建一个列表</span><br>my_list.clear()  <span class="hljs-comment"># 清空列表</span><br><span class="hljs-built_in">print</span>(my_list)  <span class="hljs-comment"># 输出：[]</span><br></code></pre></td></tr></table></figure>
 <h2 id="访问列表元素">2.2 访问列表元素</h2>
 <p>要访问列表中的元素，你可以使用索引来获取特定位置的元素。Python
 中的列表使用从 0 开始的索引，这意味着第一个元素的索引是
-0，第二个元素的索引是 1，依此类推。</p>
-<p>示例：</p>
+0，第二个元素的索引是 1，依此类推。示例：</p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">pythonCopy</span> codemy_list =<span class="hljs-meta"> [10, 20, 30, 40, 50]</span><br><br><span class="hljs-attribute">print</span>(my_list[<span class="hljs-number">0</span>])  # 输出：<span class="hljs-number">10</span><br><span class="hljs-attribute">print</span>(my_list[<span class="hljs-number">2</span>])  # 输出：<span class="hljs-number">30</span><br><span class="hljs-attribute">print</span>(my_list[-<span class="hljs-number">1</span>])  # 输出：<span class="hljs-number">50</span><br></code></pre></td></tr></table></figure>
 <h2 id="遍历列表">2.3 遍历列表</h2>
 <p>遍历列表意味着逐个访问列表中的每个元素。在 Python
@@ -334,7 +331,6 @@
 循环来遍历列表中的每个元素。</li>
 </ol>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">my_list = [<span class="hljs-number">10</span>, <span class="hljs-number">20</span>, <span class="hljs-number">30</span>, <span class="hljs-number">40</span>, <span class="hljs-number">50</span>]<br><br><span class="hljs-keyword">for</span> element <span class="hljs-keyword">in</span> my_list:<br>    <span class="hljs-built_in">print</span>(element)<br></code></pre></td></tr></table></figure>
-<p>这将打印列表中的每个元素。</p>
 <ol start="2" type="1">
 <li><strong>使用索引和 range 函数：</strong>
 有时你可能需要访问列表中元素的索引。可以使用 <code>range()</code>
@@ -347,12 +343,8 @@
 函数可以在循环中同时获取元素和它们的索引。</li>
 </ol>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">my_list = [<span class="hljs-number">10</span>, <span class="hljs-number">20</span>, <span class="hljs-number">30</span>, <span class="hljs-number">40</span>, <span class="hljs-number">50</span>]<br><br><span class="hljs-keyword">for</span> index, element <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(my_list):<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Index:&quot;</span>, index, <span class="hljs-string">&quot;Element:&quot;</span>, element)<br></code></pre></td></tr></table></figure>
-<p>这样你就可以同时访问索引和元素值。</p>
-<p>在 Python 中，for
-循环通常用于遍历列表，但有时也可能使用其他迭代方法来完成相同的任务。选择哪种方法取决于你的需求和偏好。</p>
 <h2 id="添加删除和修改列表元素">2.4 添加、删除和修改列表元素</h2>
-<p>Python 列表提供了多种方法来添加、删除和修改其中的元素。</p>
-<h3 id="添加元素">2.4.1 添加元素：</h3>
+<h3 id="添加元素">2.4.1 添加元素</h3>
 <ol type="1">
 <li><strong>使用 <code>append()</code> 方法：</strong>
 将元素添加到列表的末尾。</li>
@@ -363,7 +355,7 @@
 在指定的位置插入元素。</li>
 </ol>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">my_list = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]<br>my_list.insert(<span class="hljs-number">1</span>, <span class="hljs-number">5</span>)  <span class="hljs-comment"># 在索引为 1 的位置插入元素 5</span><br><span class="hljs-comment"># 现在 my_list 是 [1, 5, 2, 3]</span><br></code></pre></td></tr></table></figure>
-<h3 id="删除元素">2.4.2 删除元素：</h3>
+<h3 id="删除元素">2.4.2 删除元素</h3>
 <ol type="1">
 <li><strong>使用 <code>remove()</code> 方法：</strong>
 删除列表中第一个匹配的元素。</li>
@@ -379,14 +371,12 @@
 删除指定索引位置的元素或删除整个切片。</li>
 </ol>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">my_list = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]<br><span class="hljs-keyword">del</span> my_list[<span class="hljs-number">2</span>]  <span class="hljs-comment"># 删除索引为 2 的元素</span><br><span class="hljs-comment"># 现在 my_list 是 [1, 2, 4, 5]</span><br><br><span class="hljs-keyword">del</span> my_list[<span class="hljs-number">1</span>:<span class="hljs-number">3</span>]  <span class="hljs-comment"># 删除索引为 1 到 2 的元素</span><br><span class="hljs-comment"># 现在 my_list 是 [1, 5]</span><br></code></pre></td></tr></table></figure>
-<h3 id="修改元素">2.4.3 修改元素：</h3>
+<h3 id="修改元素">2.4.3 修改元素</h3>
 <ol type="1">
 <li><strong>通过索引赋值：</strong>
 直接使用索引来修改列表中的元素。</li>
 </ol>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">my_list = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]<br>my_list[<span class="hljs-number">1</span>] = <span class="hljs-number">5</span><br><span class="hljs-comment"># 现在 my_list 是 [1, 5, 3]</span><br></code></pre></td></tr></table></figure>
-<p>这些方法可以帮助你对 Python
-列表进行元素的添加、删除和修改。根据具体需求选择适合的方法。</p>
 <h2 id="对列表进行统计计算">2.5 对列表进行统计计算</h2>
 <p>在 Python
 中，你可以对列表进行各种统计计算，比如求和、找到最大值、最小值、平均值等。这些操作可以通过内置的列表方法或者使用一些内置函数来完成。</p>
@@ -412,7 +402,7 @@
 <h2 id="对列表进行排序">2.6 对列表进行排序</h2>
 <p>在 Python
 中，对列表进行排序有多种方法，可以根据需要进行升序或降序排序。</p>
-<h3 id="使用-sort-方法">2.6.1 使用 <code>sort()</code> 方法：</h3>
+<h3 id="sort-方法">2.6.1 <code>sort()</code> 方法</h3>
 <ol type="1">
 <li><strong>升序排序：</strong></li>
 </ol>
@@ -421,7 +411,7 @@
 <li><strong>降序排序：</strong></li>
 </ol>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">my_list = [<span class="hljs-number">4</span>, <span class="hljs-number">2</span>, <span class="hljs-number">7</span>, <span class="hljs-number">1</span>, <span class="hljs-number">9</span>]<br>my_list.sort(reverse=<span class="hljs-literal">True</span>)  <span class="hljs-comment"># 降序排序</span><br><span class="hljs-comment"># 现在 my_list 是 [9, 7, 4, 2, 1]</span><br></code></pre></td></tr></table></figure>
-<h3 id="使用-sorted-函数">2.6.2 使用 <code>sorted()</code> 函数：</h3>
+<h3 id="sorted-函数">2.6.2 <code>sorted()</code> 函数</h3>
 <p>如果你不想修改原始列表，可以使用 <code>sorted()</code>
 函数创建一个新的排序后的列表。</p>
 <ol type="1">
@@ -432,15 +422,13 @@
 <li><strong>降序排序：</strong></li>
 </ol>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">my_list = [<span class="hljs-number">4</span>, <span class="hljs-number">2</span>, <span class="hljs-number">7</span>, <span class="hljs-number">1</span>, <span class="hljs-number">9</span>]<br>sorted_list = <span class="hljs-built_in">sorted</span>(my_list, reverse=<span class="hljs-literal">True</span>)  <span class="hljs-comment"># 降序排序</span><br><span class="hljs-comment"># sorted_list 是 [9, 7, 4, 2, 1]</span><br><span class="hljs-comment"># my_list 仍然是 [4, 2, 7, 1, 9]</span><br></code></pre></td></tr></table></figure>
-<h3 id="自定义排序规则">2.6.3 自定义排序规则：</h3>
+<h3 id="自定义排序规则">2.6.3 自定义排序规则</h3>
 <p>你也可以使用 <code>sort()</code> 方法或 <code>sorted()</code> 函数的
 <code>key</code> 参数来指定自定义排序规则。例如，按元素长度排序：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">my_list = [<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;orange&quot;</span>, <span class="hljs-string">&quot;banana&quot;</span>, <span class="hljs-string">&quot;kiwi&quot;</span>]<br>my_list.sort(key=<span class="hljs-built_in">len</span>)  <span class="hljs-comment"># 按元素长度升序排序</span><br><span class="hljs-comment"># 现在 my_list 是 [&quot;kiwi&quot;, &quot;apple&quot;, &quot;orange&quot;, &quot;banana&quot;]</span><br></code></pre></td></tr></table></figure>
-<p>这些方法可以帮助你对列表进行升序或降序排序，甚至可以根据特定规则进行自定义排序。</p>
 <h2 id="列表推导式">2.7 列表推导式</h2>
-<p>列表推导式是一种简洁且强大的方式，用于根据现有列表创建新的列表。它允许在一行代码中对列表进行转换、过滤和操作。</p>
-<p>基本的列表推导式结构是在一个方括号内部定义一个表达式，该表达式通常包含一个迭代操作，用来生成新的列表。</p>
-<h3 id="基本语法">2.7.1 基本语法：</h3>
+<p>列表推导式是一种简洁且强大的方式，用于根据现有列表创建新的列表。它允许在一行代码中对列表进行转换、过滤和操作。基本的列表推导式结构是在一个方括号内部定义一个表达式，该表达式通常包含一个迭代操作，用来生成新的列表。</p>
+<h3 id="基本语法">2.7.1 基本语法</h3>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">new_list = [expression <span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> iterable <span class="hljs-keyword">if</span> condition]<br></code></pre></td></tr></table></figure>
 <ul>
 <li><code>expression</code>：对 item 的操作或转换。</li>
@@ -448,7 +436,7 @@
 <li><code>iterable</code>：可迭代对象，比如列表、元组、字符串等。</li>
 <li><code>condition</code>（可选）：对 item 的过滤条件。</li>
 </ul>
-<h3 id="示例">2.7.2 示例：</h3>
+<h3 id="示例">2.7.2 示例</h3>
 <ol type="1">
 <li><strong>生成一个新列表，包含原列表中每个元素的平方：</strong></li>
 </ol>
@@ -461,23 +449,17 @@
 <li><strong>使用条件表达式修改元素：</strong></li>
 </ol>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">mixed_list = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-number">3</span>]<br>modified_list = [x <span class="hljs-keyword">if</span> <span class="hljs-built_in">isinstance</span>(x, <span class="hljs-built_in">int</span>) <span class="hljs-keyword">else</span> <span class="hljs-number">0</span> <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> mixed_list]<br><span class="hljs-comment"># modified_list 是 [1, 2, 0, 0, 3]</span><br><span class="hljs-comment"># 将非整数元素替换为 0</span><br></code></pre></td></tr></table></figure>
-<p>列表推导式是一种灵活且简洁的方法，能够在一行代码中对列表进行转换、过滤和操作，使得代码更加清晰和紧凑。</p>
 <h2 id="二维列表">2.8 二维列表</h2>
 <p>二维列表是指列表中的元素也是列表，创建起来就像是在列表中嵌套列表一样。这种嵌套的结构允许你在一个列表中存储列表。</p>
-<h3 id="创建二维列表">2.8.1 创建二维列表：</h3>
+<h3 id="创建二维列表">2.8.1 创建二维列表</h3>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 使用嵌套的方括号创建二维列表</span><br>two_dimensional_list = [<br>    [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],<br>    [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>],<br>    [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>]<br>]<br><br><span class="hljs-comment"># 另一个例子</span><br>matrix = [<br>    [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>],<br>    [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>],<br>    [<span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>]<br>]<br></code></pre></td></tr></table></figure>
-<p>这样你就创建了一个包含多个列表的列表。在这个例子中，<code>two_dimensional_list</code>
-包含了三个子列表，每个子列表都有三个元素。</p>
-<h3 id="访问二维列表元素">2.8.2 访问二维列表元素：</h3>
+<h3 id="访问二维列表元素">2.8.2 访问二维列表元素</h3>
 <p>要访问二维列表中的元素，可以使用双重索引。第一个索引选择嵌套列表的子列表，第二个索引选择子列表中的元素。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(two_dimensional_list[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>])  <span class="hljs-comment"># 访问第一个子列表的第一个元素，输出：1</span><br><span class="hljs-built_in">print</span>(matrix[<span class="hljs-number">1</span>][<span class="hljs-number">2</span>])  <span class="hljs-comment"># 访问第二个子列表的第三个元素，输出：5</span><br></code></pre></td></tr></table></figure>
-<h3 id="遍历二维列表">2.8.3 遍历二维列表：</h3>
+<h3 id="遍历二维列表">2.8.3 遍历二维列表</h3>
 <p>遍历二维列表需要嵌套循环，第一个循环用于迭代外层列表的子列表，第二个循环用于迭代每个子列表中的元素。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">for</span> row <span class="hljs-keyword">in</span> two_dimensional_list:<br>    <span class="hljs-keyword">for</span> element <span class="hljs-keyword">in</span> row:<br>        <span class="hljs-built_in">print</span>(element)<br></code></pre></td></tr></table></figure>
-<p>这种方法允许你逐个访问二维列表中的所有元素。</p>
-<p>二维列表常用于表示矩阵、网格等需要二维结构的数据，并且 Python
-的列表非常适合用于表示和操作这种结构。</p>
-<h1 id="元组">3 元组</h1>
+<h1 id="元组">3. 元组</h1>
 <p>元组（tuple）是 Python
 中的一种数据结构，类似于列表，但是元组是<strong>不可变</strong>的序列，意味着一旦创建，其内容不可更改。元组使用圆括号
 () 来表示，其中包含逗号分隔的元素。</p>
@@ -544,7 +526,7 @@
 <p>示例：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 元组示例</span><br>tuple_example = (<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>)<br><span class="hljs-comment"># 尝试修改元组内容会引发错误</span><br><span class="hljs-comment"># tuple_example[0] = 5  # 会引发 TypeError: &#x27;tuple&#x27; object does not support item assignment</span><br><br><span class="hljs-comment"># 列表示例</span><br>list_example = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]<br>list_example[<span class="hljs-number">0</span>] = <span class="hljs-number">5</span>  <span class="hljs-comment"># 可以修改列表中的元素</span><br><span class="hljs-built_in">print</span>(list_example)  <span class="hljs-comment"># 输出: [5, 2, 3]</span><br></code></pre></td></tr></table></figure>
 <p>总的来说，选择使用元组还是列表取决于你的需求。如果需要一个不可变的数据集合，可以选择使用元组。如果需要一个可以动态修改的数据集合，使用列表会更合适。</p>
-<h1 id="字典">4 字典</h1>
+<h1 id="字典">4. 字典</h1>
 <p>Python
 中的字典（Dictionary）是一种无序、可变、有键的集合类型，用于存储键-值对。字典中的<strong>键</strong>必须是<strong>不可变</strong>的类型（通常是字符串或数字），而<strong>值</strong>可以是<strong>任何数据类型</strong>（包括列表、元组、其他字典等）。字典用大括号
 <code>&#123;&#125;</code> 表示，键和值之间用冒号 <code>:</code>
@@ -616,51 +598,51 @@ Comprehension）是一种简洁而强大的方式，用于快速创建新的字�
 3：使用元组列表创建字典</h3>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 使用元组列表创建字典</span><br>pairs = [(<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-number">1</span>), (<span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-number">2</span>), (<span class="hljs-string">&#x27;c&#x27;</span>, <span class="hljs-number">3</span>)]<br>my_dict = &#123;key: value <span class="hljs-keyword">for</span> key, value <span class="hljs-keyword">in</span> pairs&#125;<br><span class="hljs-built_in">print</span>(my_dict)<br><span class="hljs-comment"># 输出：&#123;&#x27;a&#x27;: 1, &#x27;b&#x27;: 2, &#x27;c&#x27;: 3&#125;</span><br></code></pre></td></tr></table></figure>
 <p>字典推导式提供了一种简洁而功能强大的方式来快速构建字典，特别是在需要基于某些逻辑或筛选条件从可迭代对象中生成字典时非常有用。</p>
-<h1 id="集合">5 集合</h1>
+<h1 id="集合">5. 集合</h1>
 <p>Python中的集合（Set）是一种<strong>无序且不重复</strong>的数据集合。在
 Python 中，集合由花括号 <code>&#123;&#125;</code>
 来表示，其中包含一组唯一的元素。你可以使用集合来执行各种集合操作，比如并集、交集、差集等。</p>
 <h2 id="创建集合">5.1 创建集合</h2>
 <p>在Python中创建集合有几种方法，以下是其中的几种常用方式：</p>
 <h3 id="使用花括号-创建集合">5.1.1 使用花括号 <code>&#123;&#125;</code>
-创建集合：</h3>
+创建集合</h3>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 创建一个空集合</span><br>empty_set = <span class="hljs-built_in">set</span>()<br><br><span class="hljs-comment"># 创建具有初始值的集合</span><br>my_set = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>&#125;<br></code></pre></td></tr></table></figure>
 <p>请注意，如果你只是使用 <code>&#123;&#125;</code>
 创建一个空的集合，Python会将其视为一个空字典。因此，为了创建一个空集合，你需要使用
 <code>set()</code>。</p>
 <h3 id="使用-set-函数创建集合">5.1.2 使用 <code>set()</code>
-函数创建集合：</h3>
+函数创建集合</h3>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 使用 set() 函数创建具有初始值的集合</span><br>another_set = <span class="hljs-built_in">set</span>([<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>, <span class="hljs-number">8</span>, <span class="hljs-number">10</span>])<br></code></pre></td></tr></table></figure>
 <p>你可以使用 <code>set()</code>
 函数并传入一个列表、元组或其他可迭代对象来创建集合。</p>
-<h3 id="使用推导式创建集合">5.1.3 使用推导式创建集合：</h3>
+<h3 id="使用推导式创建集合">5.1.3 使用推导式创建集合</h3>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 使用集合推导式创建集合</span><br>my_set = &#123;x <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">if</span> x % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>&#125;<br></code></pre></td></tr></table></figure>
 <p>这种方式允许你根据特定的条件从一个可迭代的序列中创建集合。</p>
 <p>无论选择哪种方法，集合都可以存储不重复的元素，并且是无序的，意味着它们不会记住添加的顺序。</p>
 <h2 id="向集合中添加和删除元素">5.2 向集合中添加和删除元素</h2>
 <p>在Python中，你可以使用不同的方法向集合中添加和删除元素。</p>
 <h3 id="添加元素到集合">5.2.1 添加元素到集合：</h3>
-<h4 id="使用-add-方法">使用 <code>add()</code> 方法：</h4>
+<p><strong>使用 <code>add()</code> 方法：</strong></p>
 <p>使用 <code>add()</code> 方法将单个元素添加到集合中。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">my_set = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>&#125;<br><br>my_set.add(<span class="hljs-number">4</span>)  <span class="hljs-comment"># 添加元素4到集合中</span><br><span class="hljs-built_in">print</span>(my_set)  <span class="hljs-comment"># 输出: &#123;1, 2, 3, 4&#125;</span><br></code></pre></td></tr></table></figure>
-<h4 id="使用-update-方法">使用 <code>update()</code> 方法：</h4>
+<p><strong>使用 <code>update()</code> 方法：</strong></p>
 <p><code>update()</code>
 方法接受一个集合、列表、元组或其他可迭代对象，并将其中的元素添加到集合中。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">my_set = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>&#125;<br><br>my_set.update([<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>])  <span class="hljs-comment"># 添加多个元素到集合中</span><br><span class="hljs-built_in">print</span>(my_set)  <span class="hljs-comment"># 输出: &#123;1, 2, 3, 4, 5, 6&#125;</span><br></code></pre></td></tr></table></figure>
 <h3 id="从集合中移除元素">5.2.2 从集合中移除元素：</h3>
-<h4 id="使用-remove-方法">使用 <code>remove()</code> 方法：</h4>
+<p><strong>使用 <code>remove()</code> 方法：</strong></p>
 <p><code>remove()</code>
 方法删除集合中指定的元素。如果元素不存在，会引发 KeyError 异常。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python">my_set = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>&#125;<br><br>my_set.remove(<span class="hljs-number">3</span>)  <span class="hljs-comment"># 移除元素3</span><br><span class="hljs-built_in">print</span>(my_set)  <span class="hljs-comment"># 输出: &#123;1, 2, 4&#125;</span><br><br><span class="hljs-comment"># 尝试移除不存在的元素</span><br><span class="hljs-comment"># my_set.remove(5)  # 这会引发 KeyError: 5</span><br></code></pre></td></tr></table></figure>
-<h4 id="使用-discard-方法">使用 <code>discard()</code> 方法：</h4>
+<p><strong>使用 <code>discard()</code> 方法：</strong></p>
 <p><code>discard()</code>
 方法删除集合中指定的元素，如果元素不存在，不会引发任何异常。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python">my_set = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>&#125;<br><br>my_set.discard(<span class="hljs-number">2</span>)  <span class="hljs-comment"># 移除元素2</span><br><span class="hljs-built_in">print</span>(my_set)  <span class="hljs-comment"># 输出: &#123;1, 3, 4&#125;</span><br><br>my_set.discard(<span class="hljs-number">5</span>)  <span class="hljs-comment"># 尝试移除不存在的元素，不会引发异常</span><br><span class="hljs-built_in">print</span>(my_set)  <span class="hljs-comment"># 输出: &#123;1, 3, 4&#125;</span><br></code></pre></td></tr></table></figure>
-<h4 id="使用-pop-方法">使用 <code>pop()</code> 方法：</h4>
+<p><strong>使用 <code>pop()</code> 方法：</strong></p>
 <p><code>pop()</code> 方法移除并返回集合中的一个随机元素。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">my_set = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>&#125;<br><br>removed_element = my_set.pop()  <span class="hljs-comment"># 移除一个随机元素</span><br><span class="hljs-built_in">print</span>(removed_element)  <span class="hljs-comment"># 输出: 移除的元素值</span><br><span class="hljs-built_in">print</span>(my_set)  <span class="hljs-comment"># 输出: 移除一个元素后的集合</span><br></code></pre></td></tr></table></figure>
 <p>通过这些方法，你可以向集合中添加元素、从集合中删除特定元素，或者移除集合中的随机元素。选择合适的方法取决于你的需求和操作。</p>
-<h1 id="字符串">6 字符串</h1>
+<h1 id="字符串">6. 字符串</h1>
 <h2 id="字符串编码转换">6.1 字符串编码转换</h2>
 <p>在Python中，你可以使用内置的 <code>encode()</code> 和
 <code>decode()</code>
@@ -670,42 +652,40 @@ UTF-8、UTF-16、ASCII 等编码之间进行转换。</p>
 <h3 id="编码转换示例">6.1.1 编码转换示例</h3>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 定义一个字符串</span><br>original_string = <span class="hljs-string">&quot;你好世界&quot;</span>  <span class="hljs-comment"># 示例中的字符串是中文，UTF-8 编码下的字符串</span><br><br><span class="hljs-comment"># 将字符串从 UTF-8 编码转换为 UTF-16 编码</span><br>utf16_encoded = original_string.encode(<span class="hljs-string">&#x27;utf-16&#x27;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;UTF-16 编码:&quot;</span>, utf16_encoded)<br><br><span class="hljs-comment"># 将字符串从 UTF-8 编码转换为 ASCII 编码（如果包含非 ASCII 字符则会出现错误）</span><br><span class="hljs-keyword">try</span>:<br>    ascii_encoded = original_string.encode(<span class="hljs-string">&#x27;ascii&#x27;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;ASCII 编码:&quot;</span>, ascii_encoded)<br><span class="hljs-keyword">except</span> UnicodeEncodeError <span class="hljs-keyword">as</span> e:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;ASCII 编码错误:&quot;</span>, e)<br></code></pre></td></tr></table></figure>
 <h3 id="解码转换示例">6.1.2 解码转换示例</h3>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 定义一个经过编码的字符串</span><br>encoded_string = <span class="hljs-string">b&#x27;\xff\xfe\x1f\x4f\x60\x4e\x16\x4e\x00\x32\x00\x4e\x00\x17\x00&#x27;</span><br><br><span class="hljs-comment"># 将字符串从 UTF-16 编码解码为 UTF-8 编码</span><br>utf8_decoded = encoded_string.decode(<span class="hljs-string">&#x27;utf-16&#x27;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;UTF-8 解码:&quot;</span>, utf8_decoded)<br><br><span class="hljs-comment"># 将字符串从 ASCII 编码解码为 UTF-8 编码</span><br>ascii_string = <span class="hljs-string">b&quot;Hello, World!&quot;</span>  <span class="hljs-comment"># ASCII 编码下的字符串</span><br>utf8_decoded = ascii_string.decode(<span class="hljs-string">&#x27;utf-8&#x27;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;UTF-8 解码:&quot;</span>, utf8_decoded)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-number">8</span><span class="hljs-comment"># 定义一个经过编码的字符串</span><br>encoded_string = <span class="hljs-string">b&#x27;\xff\xfe\x1f\x4f\x60\x4e\x16\x4e\x00\x32\x00\x4e\x00\x17\x00&#x27;</span><br><br><span class="hljs-comment"># 将字符串从 UTF-16 编码解码为 UTF-8 编码</span><br>utf8_decoded = encoded_string.decode(<span class="hljs-string">&#x27;utf-16&#x27;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;UTF-8 解码:&quot;</span>, utf8_decoded)<br><br><span class="hljs-comment"># 将字符串从 ASCII 编码解码为 UTF-8 编码</span><br>ascii_string = <span class="hljs-string">b&quot;Hello, World!&quot;</span>  <span class="hljs-comment"># ASCII 编码下的字符串</span><br>utf8_decoded = ascii_string.decode(<span class="hljs-string">&#x27;utf-8&#x27;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;UTF-8 解码:&quot;</span>, utf8_decoded)<br></code></pre></td></tr></table></figure>
 <p>请注意，在进行编码转换时，如果字符串包含某个编码不支持的字符，可能会引发
 <code>UnicodeEncodeError</code> 或 <code>UnicodeDecodeError</code>
 异常。因此，在进行转换之前，最好先确认所选编码是否适合包含字符串的内容。</p>
-<p>要注意的是，这些示例中使用的字符串和编码仅供演示目的。在实际应用中，请根据你的情况和需求选择正确的编码方式进行转换。</p>
 <h2 id="字符串常用操作">6.2 字符串常用操作</h2>
 <p>当处理字符串时，Python提供了丰富的方法和函数来执行各种操作。以下是一些常用的字符串操作示例：</p>
 <p>当然，请看以下示例，它们包含了各种字符串操作及其输出：</p>
-<h3 id="字符串基本操作">6.2.1 字符串基本操作：</h3>
-<h4 id="a.-创建字符串">a. 创建字符串</h4>
+<h3 id="字符串基本操作">6.2.1 字符串基本操作</h3>
+<p><strong>a. 创建字符串</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">string1 = <span class="hljs-string">&#x27;Hello, World!&#x27;</span><br>string2 = <span class="hljs-string">&quot;Python Programming&quot;</span><br>string3 = <span class="hljs-string">&#x27;&#x27;&#x27;This is a </span><br><span class="hljs-string">multi-line string&#x27;&#x27;&#x27;</span><br></code></pre></td></tr></table></figure>
-<h4 id="b.-访问字符和子字符串">b. 访问字符和子字符串</h4>
+<p><strong>b. 访问字符和子字符串</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(string1[<span class="hljs-number">0</span>])  <span class="hljs-comment"># 输出：H</span><br><span class="hljs-built_in">print</span>(string2[<span class="hljs-number">7</span>:<span class="hljs-number">18</span>])  <span class="hljs-comment"># 输出：Programming</span><br></code></pre></td></tr></table></figure>
-<h4 id="c.-字符串拼接和重复">c. 字符串拼接和重复</h4>
+<p><strong>c. 字符串拼接和重复</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">concatenated_string = string1 + <span class="hljs-string">&#x27; &#x27;</span> + string2  <span class="hljs-comment"># 输出：Hello, World! Python Programming</span><br>repeated_string = string1 * <span class="hljs-number">3</span>  <span class="hljs-comment"># 输出：Hello, World!Hello, World!Hello, World!</span><br></code></pre></td></tr></table></figure>
-<h3 id="字符串方法">6.2.2 字符串方法：</h3>
-<h4 id="a.-大小写转换">a. 大小写转换</h4>
+<h3 id="字符串方法">6.2.2 字符串方法</h3>
+<p><strong>a. 大小写转换</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(string1.lower())  <span class="hljs-comment"># 输出：hello, world!</span><br><span class="hljs-built_in">print</span>(string2.upper())  <span class="hljs-comment"># 输出：PYTHON PROGRAMMING</span><br></code></pre></td></tr></table></figure>
-<h4 id="b.-查找和替换">b. 查找和替换</h4>
+<p><strong>b. 查找和替换</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(string1.find(<span class="hljs-string">&#x27;o&#x27;</span>))  <span class="hljs-comment"># 输出：4</span><br><span class="hljs-built_in">print</span>(string2.replace(<span class="hljs-string">&#x27;Python&#x27;</span>, <span class="hljs-string">&#x27;Java&#x27;</span>))  <span class="hljs-comment"># 输出：Java Programming</span><br></code></pre></td></tr></table></figure>
-<h4 id="c.-检查字符串内容">c. 检查字符串内容</h4>
+<p><strong>c. 检查字符串内容</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(string1.startswith(<span class="hljs-string">&#x27;Hello&#x27;</span>))  <span class="hljs-comment"># 输出：True</span><br><span class="hljs-built_in">print</span>(string2.endswith(<span class="hljs-string">&#x27;ing&#x27;</span>))  <span class="hljs-comment"># 输出：True</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;World&#x27;</span> <span class="hljs-keyword">in</span> string1)  <span class="hljs-comment"># 输出：True</span><br></code></pre></td></tr></table></figure>
-<h4 id="d.-分割和连接">d. 分割和连接</h4>
+<p><strong>d. 分割和连接</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">words = string2.split()  <span class="hljs-comment"># 输出：[&#x27;Python&#x27;, &#x27;Programming&#x27;]</span><br><span class="hljs-built_in">print</span>(words)<br>joined_string = <span class="hljs-string">&#x27;-&#x27;</span>.join(words)  <span class="hljs-comment"># 输出：Python-Programming</span><br><span class="hljs-built_in">print</span>(joined_string)<br></code></pre></td></tr></table></figure>
 <h3 id="格式化字符串">6.2.3 格式化字符串：</h3>
-<h4 id="a.-使用格式化符号">a. 使用格式化符号 %</h4>
+<p><strong>a. 使用格式化符号 %</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">name = <span class="hljs-string">&#x27;Alice&#x27;</span><br>age = <span class="hljs-number">30</span><br>formatted_string = <span class="hljs-string">&quot;Name: %s, Age: %d&quot;</span> % (name, age)<br><span class="hljs-built_in">print</span>(formatted_string)  <span class="hljs-comment"># 输出：Name: Alice, Age: 30</span><br></code></pre></td></tr></table></figure>
-<h4 id="b.-使用-f-stringpython-3.6">b. 使用 f-string（Python 3.6+）</h4>
+<p><strong>b. 使用 f-string（Python 3.6+）</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">name = <span class="hljs-string">&#x27;Bob&#x27;</span><br>age = <span class="hljs-number">25</span><br>formatted_string = <span class="hljs-string">f&quot;Name: <span class="hljs-subst">&#123;name&#125;</span>, Age: <span class="hljs-subst">&#123;age&#125;</span>&quot;</span><br><span class="hljs-built_in">print</span>(formatted_string)  <span class="hljs-comment"># 输出：Name: Bob, Age: 25</span><br></code></pre></td></tr></table></figure>
 <h3 id="其他常用函数">6.2.4 其他常用函数：</h3>
-<h4 id="a.-获取字符串长度">a. 获取字符串长度</h4>
+<p><strong>a. 获取字符串长度</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(<span class="hljs-built_in">len</span>(string1))  <span class="hljs-comment"># 输出：13</span><br></code></pre></td></tr></table></figure>
-<h4 id="b.-去除字符串两侧的空格或特定字符">b.
-去除字符串两侧的空格或特定字符</h4>
+<p><strong>b. 去除字符串两侧的空格或特定字符</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">string_with_whitespace = <span class="hljs-string">&#x27;  Hello, World!  &#x27;</span><br>stripped_string = string_with_whitespace.strip()  <span class="hljs-comment"># 输出：Hello, World!</span><br><span class="hljs-built_in">print</span>(stripped_string)<br><br>custom_stripped_string = string_with_whitespace.strip(<span class="hljs-string">&#x27; !&#x27;</span>)  <span class="hljs-comment"># 输出：Hello, World</span><br><span class="hljs-built_in">print</span>(custom_stripped_string)<br></code></pre></td></tr></table></figure>
-<h4 id="c.-格式化空白字符">c. 格式化空白字符</h4>
+<p><strong>c. 格式化空白字符</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">tabbed_string = <span class="hljs-string">&#x27;Hello\tWorld&#x27;</span><br><span class="hljs-built_in">print</span>(tabbed_string.expandtabs(<span class="hljs-number">4</span>))  <span class="hljs-comment"># 输出：Hello   World</span><br></code></pre></td></tr></table></figure>
 
                 
