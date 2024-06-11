@@ -16,21 +16,21 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1. 简介 unittest 单元测试框架最初受到 JUnit 的启发，与其他语言的主要单元测试框架有相似之处。它支持测试自动化、共享测试的设置和关闭代码、将测试聚合成集合，以及测试与报告框架的独立性。 2. 重要概念  测试装置：测试装置表示执行一个或多个测试所需的准备工作，以及任何相关的清理操作。例如，这可能涉及创建临时或代理数据库、目录或启动服务器进程。 测试用例：测试用例是测试">
+    <meta name="description" content="1. 简介 消息队列（Message Queue，MQ）是一个存放消息的容器，当我们需要使用消息的时候，直接从容器中取出消息供自己使用即可。本质上就是一个队列结构的中间件，由于队列是一种先进先出的数据结构，所以消费消息时也是按照顺序来消费的。参与消息传递的双方称为生产者和消费者，生产者负责发送消息，消费者负责处理消息。 消息中间件是分布式系统中重要的组件，主要解决异步处理，应用解耦，流量削峰">
 <meta property="og:type" content="article">
-<meta property="og:title" content="单元测试">
-<meta property="og:url" content="http://example.com/2024/06/07/Python/%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/index.html">
+<meta property="og:title" content="消息队列">
+<meta property="og:url" content="http://example.com/2024/06/11/Python/%E8%BF%9B%E9%98%B6%E7%AF%87/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="1. 简介 unittest 单元测试框架最初受到 JUnit 的启发，与其他语言的主要单元测试框架有相似之处。它支持测试自动化、共享测试的设置和关闭代码、将测试聚合成集合，以及测试与报告框架的独立性。 2. 重要概念  测试装置：测试装置表示执行一个或多个测试所需的准备工作，以及任何相关的清理操作。例如，这可能涉及创建临时或代理数据库、目录或启动服务器进程。 测试用例：测试用例是测试">
+<meta property="og:description" content="1. 简介 消息队列（Message Queue，MQ）是一个存放消息的容器，当我们需要使用消息的时候，直接从容器中取出消息供自己使用即可。本质上就是一个队列结构的中间件，由于队列是一种先进先出的数据结构，所以消费消息时也是按照顺序来消费的。参与消息传递的双方称为生产者和消费者，生产者负责发送消息，消费者负责处理消息。 消息中间件是分布式系统中重要的组件，主要解决异步处理，应用解耦，流量削峰">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-06-07T02:51:21.000Z">
-<meta property="article:modified_time" content="2024-06-07T02:58:55.694Z">
+<meta property="article:published_time" content="2024-06-11T02:18:36.000Z">
+<meta property="article:modified_time" content="2024-06-11T05:59:16.545Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>单元测试 - kaikaikai&#39;s blog</title>
+  <title>消息队列 - kaikaikai&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -184,7 +184,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="单元测试"></span>
+            <span id="subtitle" data-typed-text="消息队列"></span>
           
         </div>
 
@@ -195,8 +195,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-06-07 10:51" pubdate>
-          2024年6月7日 上午
+        <time datetime="2024-06-11 10:18" pubdate>
+          2024年6月11日 上午
         </time>
       </span>
     
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.1k 字
+          2.6k 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          9 分钟
+          22 分钟
         
       </span>
     
@@ -255,28 +255,74 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">单元测试</h1>
+            <h1 id="seo-header">消息队列</h1>
             
             
               <div class="markdown-body">
                 
                 <h1 id="简介">1. 简介</h1>
-<p>unittest 单元测试框架最初受到 JUnit
-的启发，与其他语言的主要单元测试框架有相似之处。它支持测试自动化、共享测试的设置和关闭代码、将测试聚合成集合，以及测试与报告框架的独立性。</p>
-<h1 id="重要概念">2. 重要概念</h1>
-<ul>
-<li><strong>测试装置</strong>：测试装置表示执行一个或多个测试所需的准备工作，以及任何相关的清理操作。例如，这可能涉及创建临时或代理数据库、目录或启动服务器进程。</li>
-<li><strong>测试用例</strong>：测试用例是测试的单个单元。unittest
-提供了一个基类 TestCase，可用于创建新的测试用例。</li>
-<li><strong>测试套件</strong>：测试套件是测试用例、测试套件或两者的集合。它用于汇集应一起执行的测试。</li>
-<li><strong>测试运行器</strong>：测试运行器是一个组件，负责协调测试的执行，并将结果提供给用户。运行程序可以使用图形界面、文本界面，或返回一个特殊值来表示执行测试的结果。</li>
-</ul>
-<h1 id="基本示例">3. 基本示例</h1>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> unittest<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">TestStringMethods</span>(unittest.TestCase):<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">test_upper</span>(<span class="hljs-params">self</span>):<br>        self.assertEqual(<span class="hljs-string">&#x27;foo&#x27;</span>.upper(), <span class="hljs-string">&#x27;FOO&#x27;</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">test_isupper</span>(<span class="hljs-params">self</span>):<br>        self.assertTrue(<span class="hljs-string">&#x27;FOO&#x27;</span>.isupper())<br>        self.assertFalse(<span class="hljs-string">&#x27;Foo&#x27;</span>.isupper())<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">test_split</span>(<span class="hljs-params">self</span>):<br>        s = <span class="hljs-string">&#x27;hello world&#x27;</span><br>        self.assertEqual(s.split(), [<span class="hljs-string">&#x27;hello&#x27;</span>, <span class="hljs-string">&#x27;world&#x27;</span>])<br>        <span class="hljs-comment"># check that s.split fails when the separator is not a string</span><br>        <span class="hljs-keyword">with</span> self.assertRaises(TypeError):<br>            s.split(<span class="hljs-number">2</span>)<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    unittest.main()<br></code></pre></td></tr></table></figure>
-<p>测试用例通过子类化创建<code>unittest.TestCase</code>。三个单独的测试是用名称以
-<code>test</code>
-开头的方法定义的。这种命名约定可告知测试运行程序哪些方法代表测试。</p>
-<p>每个测试的关键是调用<code>assertEqual()</code>检查预期结果；<code>assertTrue()</code>或<code>assertFalse()</code>验证条件；或<code>assertRaises()</code>验证是否引发特定异常。使用这些方法代替<code>assert</code>语句，测试运行程序就能累计所有测试结果并生成报告。</p>
+<p>消息队列（Message
+Queue，MQ）是一个存放消息的容器，当我们需要使用消息的时候，直接从容器中取出消息供自己使用即可。本质上就是一个<strong>队列结构的中间件</strong>，由于队列是一种先进先出的数据结构，所以消费消息时也是按照顺序来消费的。参与消息传递的双方称为<strong>生产者</strong>和<strong>消费者</strong>，生产者负责发送消息，消费者负责处理消息。</p>
+<p>消息中间件是分布式系统中重要的组件，主要解决异步处理，应用解耦，流量削峰等问题，实现高性能，高可用，可伸缩和最终一致性的系统架构。目前使用较多的消息队列有ActiveMQ，RabbitMQ，ZeroMQ，Kafka，MetaMQ，RocketMQ等。</p>
+<h1 id="应用场景">2. 应用场景</h1>
+<h2 id="异步处理">2.1 异步处理</h2>
+<p>异步处理就是将一些非核心的业务流程以异步并行的方式执行，从而减少请求响应时间，提高系统吞吐量。以下单为例，用户下单后需要生成订单、发送活动积分、发送红包券、发送下单通知等一系列业务处理。假设三个业务节点每个使用100毫秒钟，不考虑网络等其他开销，则串行方式的时间是400毫秒，并行的时间只需要200毫秒。这样就大大提高了系统的吞吐量。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202406111134209.png" srcset="/img/loading.gif" lazyload
+alt="image-20240611103648338" />
+<figcaption aria-hidden="true">image-20240611103648338</figcaption>
+</figure>
+<h2 id="应用解耦">2.2 应用解耦</h2>
+<p>应用解耦就是解除应用系统之间的耦合依赖。以电商系统为例，用户下单后，订单系统需要通知积分系统。一般的做法是：订单系统直接调用积分系统的接口。这就使得应用系统间的耦合特别紧密。如果积分系统无法访问，则积分处理失败，从而导致订单失败。加入消息队列之后，用户下单后，订单系统完成下单业务后，将消息写入消息队列，返回用户订单下单成功。积分系统通过订阅下单消息的方式获取下单通知消息，从而进行积分操作。实现订单系统与积分系统的应用解耦。如果在下单时积分系统系统异常，也不影响用户正常下单，因为下单后，订单系统写入消息队列就不再关心其他的后续操作。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202406111134211.png" srcset="/img/loading.gif" lazyload
+alt="image-20240611104033853" />
+<figcaption aria-hidden="true">image-20240611104033853</figcaption>
+</figure>
+<h2 id="流量削峰">2.3 流量削峰</h2>
+<p>先将短时间高并发产生的事务消息存储在消息队列中，然后后端服务再慢慢根据自己的能力去消费这些消息，这样就避免直接把后端服务打垮掉。在电子商务一些秒杀、促销活动中，合理使用消息队列可以有效抵御促销活动刚开始大量订单涌入对系统的冲击。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202406111134212.png" srcset="/img/loading.gif" lazyload
+alt="image-20240611104320556" />
+<figcaption aria-hidden="true">image-20240611104320556</figcaption>
+</figure>
+<h1 id="消息模型">3. 消息模型</h1>
+<h2 id="点对点模型">3.1 点对点模型</h2>
+<p>使用队列（Queue）作为消息通信载体；一条消息只能被一个消费者使用，未被消费的消息在队列中保留直到被消费或超时。比如：生产者发送
+100
+条消息，两个消费者来消费，一般情况下两个消费者会按照消息发送的顺序各自消费一半。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202406111134213.png" srcset="/img/loading.gif" lazyload
+alt="image-20240611104922844" />
+<figcaption aria-hidden="true">image-20240611104922844</figcaption>
+</figure>
+<h2 id="发布订阅模型">3.2 发布订阅模型</h2>
+<p>使用主题（Topic）作为消息通信载体，类似于广播模式；发布者发布一条消息，该消息通过主题传递给所有的订阅者。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202406111134214.png" srcset="/img/loading.gif" lazyload
+alt="image-20240611105045445" />
+<figcaption aria-hidden="true">image-20240611105045445</figcaption>
+</figure>
+<h1 id="简单示例">4. 简单示例</h1>
+<h2 id="生产者">4.1 生产者</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pika<br><br><span class="hljs-comment"># 连接到本地RabbitMQ服务器</span><br>connection = pika.BlockingConnection(pika.ConnectionParameters(<span class="hljs-string">&#x27;localhost&#x27;</span>))<br>channel = connection.channel()<br><br><span class="hljs-comment"># 声明队列</span><br>channel.queue_declare(queue=<span class="hljs-string">&#x27;hello&#x27;</span>)<br><br><span class="hljs-comment"># 发送消息</span><br>message = <span class="hljs-string">&quot;Hello RabbitMQ!&quot;</span><br>channel.basic_publish(exchange=<span class="hljs-string">&#x27;&#x27;</span>,<br>                      routing_key=<span class="hljs-string">&#x27;hello&#x27;</span>,<br>                      body=message)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot; [x] Sent &#x27;<span class="hljs-subst">&#123;message&#125;</span>&#x27;&quot;</span>)<br><br><span class="hljs-comment"># 关闭连接</span><br>connection.close()<br></code></pre></td></tr></table></figure>
+<h2 id="消费者">4.2 消费者</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pika<br><br><span class="hljs-comment"># 连接到本地RabbitMQ服务器</span><br>connection = pika.BlockingConnection(pika.ConnectionParameters(<span class="hljs-string">&#x27;localhost&#x27;</span>))<br>channel = connection.channel()<br><br><span class="hljs-comment"># 声明队列</span><br>channel.queue_declare(queue=<span class="hljs-string">&#x27;hello&#x27;</span>)<br><br><span class="hljs-comment"># 定义回调函数</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">callback</span>(<span class="hljs-params">ch, method, properties, body</span>):<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot; [x] Received <span class="hljs-subst">&#123;body&#125;</span>&quot;</span>)<br><br><span class="hljs-comment"># 告诉RabbitMQ使用callback函数来接收消息</span><br>channel.basic_consume(queue=<span class="hljs-string">&#x27;hello&#x27;</span>,<br>                      on_message_callback=callback,<br>                      auto_ack=<span class="hljs-literal">True</span>)<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27; [*] Waiting for messages. To exit press CTRL+C&#x27;</span>)<br>channel.start_consuming()<br></code></pre></td></tr></table></figure>
+<p><strong>参考资料：</strong></p>
+<ol type="1">
+<li>消息队列基础知识总结：https://javaguide.cn/high-performance/message-queue/message-queue.html</li>
+<li>秒懂消息队列MQ，万字总结带你全面了解消息队列MQ：https://developer.aliyun.com/article/953777</li>
+<li>消息队列及常见消息队列介绍：https://cloud.tencent.com/developer/article/1006035</li>
+<li>消息队列的介绍和常用开源消息队列的对比：https://www.cnblogs.com/qingbaizhinian/p/14476728.html</li>
+<li>手把手教你，本地RabbitMQ服务搭建（windows）_搭建mq服务器-CSDN博客：https://blog.csdn.net/u011709538/article/details/131396367</li>
+<li>python
+操作RabbitMq详解：https://www.cnblogs.com/shenh/p/10497244.html</li>
+</ol>
 
                 
               </div>
@@ -300,7 +346,7 @@
   
     <span>></span>
     
-  <a href="/categories/Python/%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" class="category-chain-item">基础语法</a>
+  <a href="/categories/Python/%E8%BF%9B%E9%98%B6%E7%AF%87/" class="category-chain-item">进阶篇</a>
   
   
 
@@ -322,8 +368,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>单元测试</div>
-      <div>http://example.com/2024/06/07/Python/基本语法/单元测试/</div>
+      <div>消息队列</div>
+      <div>http://example.com/2024/06/11/Python/进阶篇/消息队列/</div>
     </div>
     <div class="license-meta">
       
@@ -335,7 +381,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年6月7日</div>
+          <div>2024年6月11日</div>
         </div>
       
       
@@ -371,8 +417,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/06/06/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/Git%E5%92%8CGitflow/" title="Git和Gitflow">
-                        <span class="hidden-mobile">Git和Gitflow</span>
+                      <a href="/2024/06/07/Python/%E5%9F%BA%E7%A1%80%E7%AF%87/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/" title="单元测试">
+                        <span class="hidden-mobile">单元测试</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
