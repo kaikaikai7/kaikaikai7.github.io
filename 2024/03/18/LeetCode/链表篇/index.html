@@ -24,7 +24,7 @@
 <meta property="og:description" content="1. 移除与插入链表元素 设计链表  单向链表：实现单向链表，即每个节点仅存储本身的值和后继节点。除此之外，还需要一个哨兵（sentinel）节点作为头节点，和一个 size 参数保存有效节点数。ListNode在&#x2F;leetcode&#x2F;precompiled&#x2F;ListNode.h中定义。  123456789101112131415161718192021222324252627282">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-18T00:00:46.000Z">
-<meta property="article:modified_time" content="2024-07-17T02:08:16.678Z">
+<meta property="article:modified_time" content="2024-08-08T23:48:51.558Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -398,7 +398,7 @@ n，注意到当向右移动的次数 k≥n 时，我们仅需要向右移动 k 
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">ListNode* <span class="hljs-title">mergeTwoLists</span><span class="hljs-params">(ListNode* list1, ListNode* list2)</span> </span>&#123;<br>        ListNode* dummyHead = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ListNode</span>();<br>        ListNode* tail = dummyHead;<br>        <span class="hljs-keyword">while</span> (list1 &amp;&amp; list2) &#123;<br>            <span class="hljs-keyword">if</span> (list1-&gt;val &lt; list2-&gt;val) &#123;<br>                tail-&gt;next = list1;<br>                list1 = list1-&gt;next;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                tail-&gt;next = list2;<br>                list2 = list2-&gt;next;<br>            &#125;<br>            tail = tail-&gt;next;<br>        &#125;<br>        tail-&gt;next = list1 ? list1 : list2;<br>        <span class="hljs-keyword">return</span> dummyHead-&gt;next;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
 <h2 id="合并k个排序链表">合并K个排序链表</h2>
 <blockquote>
-<p>用一个变量 <em>ans</em> 来维护以及合并的链表，第 <em>i</em>
+<p>用一个变量 <em>ans</em> 来维护已经合并的链表，第 <em>i</em>
 次循环把第 <em>i</em> 个链表和 <em>ans</em> 合并，答案保存到
 <em>ans</em> 中。</p>
 </blockquote>
