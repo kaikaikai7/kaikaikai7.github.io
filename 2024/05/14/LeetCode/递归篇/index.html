@@ -24,7 +24,7 @@
 <meta property="og:description" content="1. 二叉树相关问题 相同的树  法一：深度优先搜索。如果两个二叉树都为空，则两个二叉树相同。如果两个二叉树中有且只有一个为空，则两个二叉树一定不相同。如果两个二叉树都不为空，那么首先判断它们的根节点的值是否相同，若不相同则两个二叉树一定不同，若相同，再分别判断两个二叉树的左子树是否相同以及右子树是否相同。这是一个递归的过程，因此可以使用深度优先搜索，递归地判断两个二叉树是否相同。  1">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-05-14T05:17:46.000Z">
-<meta property="article:modified_time" content="2024-09-16T08:32:00.919Z">
+<meta property="article:modified_time" content="2024-09-16T08:33:36.653Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -303,9 +303,9 @@ ans 来维护拓展的次数，该二叉树的最大深度即为 ans。</p>
 L （即以左儿子为根的子树的深度） 和其右儿子向下遍历经过最多的节点数 R
 （即以右儿子为根的子树的深度），那么以该节点为起点的路径经过节点数的最大值即为
 L+R+1 。我们记节点 node 为起点的路径经过节点数的最大值为 <span
-class="math display">\[d_{\textit{node}}\]</span>
+class="math inline">\(d_{\textit{node}}\)</span>
 ，那么二叉树的直径就是所有节点 <span
-class="math display">\[d_{\textit{node}}\]</span>的最大值减一。</p>
+class="math inline">\(d_{\textit{node}}\)</span>的最大值减一。</p>
 </blockquote>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-type">int</span> ans = <span class="hljs-number">1</span>;<br><br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">diameterOfBinaryTree</span><span class="hljs-params">(TreeNode* root)</span> </span>&#123;<br>        <span class="hljs-built_in">depth</span>(root);<br>        <span class="hljs-keyword">return</span> ans - <span class="hljs-number">1</span>;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">depth</span><span class="hljs-params">(TreeNode* root)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (root == <span class="hljs-literal">nullptr</span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        &#125;<br>        <span class="hljs-type">int</span> left = <span class="hljs-built_in">depth</span>(root-&gt;left);<br>        <span class="hljs-type">int</span> right = <span class="hljs-built_in">depth</span>(root-&gt;right);<br>        ans = <span class="hljs-built_in">max</span>(ans, left + right + <span class="hljs-number">1</span>);<br><br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">max</span>(left, right) + <span class="hljs-number">1</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
 <h2 id="合并二叉树">合并二叉树</h2>
