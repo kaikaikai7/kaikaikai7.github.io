@@ -16,15 +16,15 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1. Dataset PyTorch的Dataset类是一个抽象类，用于表示数据集的一个非常灵活和强大的方式。在PyTorch中，torch.utils.data.Dataset是表示数据集的基类，需要用户继承并重写两个主要的方法来自定义数据加载方式：__len__ 和 __getitem__。 __len__ 方法 这个方法需要返回数据集中的样本数。当你调用len(dataset)时，实">
+    <meta name="description" content="1. Dataset 在 PyTorch 中，Dataset 是一个抽象类，主要用于定义如何加载和预处理数据。它是构建自定义数据集的核心模块，负责将原始数据转换成可以输入到模型中的格式。PyTorch 的 torch.utils.data.Dataset 类提供了一种结构化的方式来管理数据集。你可以通过继承 Dataset 类来创建自定义的数据集。 Dataset 类必须实现两个方法：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据加载">
 <meta property="og:url" content="https://kaikaikai7.github.io/2024/03/01/Python/PyTorch/%E6%95%B0%E6%8D%AE%E5%8A%A0%E8%BD%BD/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="1. Dataset PyTorch的Dataset类是一个抽象类，用于表示数据集的一个非常灵活和强大的方式。在PyTorch中，torch.utils.data.Dataset是表示数据集的基类，需要用户继承并重写两个主要的方法来自定义数据加载方式：__len__ 和 __getitem__。 __len__ 方法 这个方法需要返回数据集中的样本数。当你调用len(dataset)时，实">
+<meta property="og:description" content="1. Dataset 在 PyTorch 中，Dataset 是一个抽象类，主要用于定义如何加载和预处理数据。它是构建自定义数据集的核心模块，负责将原始数据转换成可以输入到模型中的格式。PyTorch 的 torch.utils.data.Dataset 类提供了一种结构化的方式来管理数据集。你可以通过继承 Dataset 类来创建自定义的数据集。 Dataset 类必须实现两个方法：">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-01T07:56:21.000Z">
-<meta property="article:modified_time" content="2024-03-05T03:32:15.163Z">
+<meta property="article:modified_time" content="2024-09-23T08:00:19.597Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -218,7 +218,7 @@
         
         
         
-          10 分钟
+          9 分钟
         
       </span>
     
@@ -261,21 +261,20 @@
               <div class="markdown-body">
                 
                 <h1 id="dataset">1. Dataset</h1>
-<p>PyTorch的<code>Dataset</code>类是一个抽象类，用于表示数据集的一个非常灵活和强大的方式。在PyTorch中，<code>torch.utils.data.Dataset</code>是表示数据集的基类，需要用户继承并重写两个主要的方法来自定义数据加载方式：<code>__len__</code>
-和 <code>__getitem__</code>。</p>
-<h2 id="len__-方法"><code>__len__</code> 方法</h2>
-<p>这个方法需要返回数据集中的样本数。当你调用<code>len(dataset)</code>时，实际上是在调用这个方法。</p>
-<h2 id="getitem__-方法"><code>__getitem__</code> 方法</h2>
-<p>这个方法需要接收一个索引（<code>index</code>），然后返回数据集中对应索引的样本。这是数据加载的核心，允许数据集以任意的方式存储样本，只要你可以通过索引获取到样本。</p>
-<h2 id="自定义数据集示例">自定义数据集示例</h2>
-<p>下面是一个自定义数据集的简单示例，它简单地存储了一些数据和标签，然后通过索引返回它们。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> torch.utils.data <span class="hljs-keyword">import</span> Dataset<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">CustomDataset</span>(<span class="hljs-title class_ inherited__">Dataset</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, data, labels</span>):<br>        self.data = data<br>        self.labels = labels<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__len__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(self.data)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__getitem__</span>(<span class="hljs-params">self, index</span>):<br>        sample = self.data[index]<br>        label = self.labels[index]<br>        <span class="hljs-keyword">return</span> sample, label<br></code></pre></td></tr></table></figure>
-<p>在这个例子中，<code>data</code> 和 <code>labels</code>
-应该是Python列表（或其他适合你的数据的容器），其中包含你的数据和标签。</p>
+<p>在 PyTorch 中，<code>Dataset</code>
+是一个抽象类，主要用于定义如何加载和预处理数据。它是构建自定义数据集的核心模块，负责将原始数据转换成可以输入到模型中的格式。PyTorch
+的 <code>torch.utils.data.Dataset</code>
+类提供了一种结构化的方式来管理数据集。你可以通过继承
+<code>Dataset</code> 类来创建自定义的数据集。</p>
+<p><code>Dataset</code> 类必须实现两个方法：</p>
+<ol type="1">
+<li><code>__len__</code>: 返回数据集中样本的数量。</li>
+<li><code>__getitem__</code>: 根据索引返回数据集中的一个样本。</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">from</span> torch.utils.data <span class="hljs-keyword">import</span> Dataset<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">CustomDataset</span>(<span class="hljs-title class_ inherited__">Dataset</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, data, labels, transform=<span class="hljs-literal">None</span></span>):<br>        <span class="hljs-comment"># 初始化数据，通常会传入数据和标签</span><br>        self.data = data<br>        self.labels = labels<br>        self.transform = transform  <span class="hljs-comment"># 可以传入数据转换方法</span><br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__len__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-comment"># 返回数据集的大小</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(self.data)<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__getitem__</span>(<span class="hljs-params">self, idx</span>):<br>        <span class="hljs-comment"># 根据索引获取单个数据和标签</span><br>        sample = self.data[idx]<br>        label = self.labels[idx]<br>        <br>        <span class="hljs-comment"># 如果有定义的 transform ，就应用于 sample</span><br>        <span class="hljs-keyword">if</span> self.transform:<br>            sample = self.transform(sample)<br>        <br>        <span class="hljs-keyword">return</span> sample, label<br></code></pre></td></tr></table></figure>
 <h1 id="dataloader">2. Dataloader</h1>
 <p>一旦你定义了自己的数据集，你可以使用<code>torch.utils.data.DataLoader</code>来实现对数据的批处理、打乱和多线程加载等操作。<code>DataLoader</code>接收一个<code>Dataset</code>实例作为输入，使数据加载变得非常高效和灵活。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> torch.utils.data <span class="hljs-keyword">import</span> DataLoader<br><br><span class="hljs-comment"># 假设我们已经创建了一个数据集实例</span><br>dataset = CustomDataset(data, labels)<br><br><span class="hljs-comment"># 使用DataLoader来加载数据</span><br>dataloader = DataLoader(dataset, batch_size=<span class="hljs-number">4</span>, shuffle=<span class="hljs-literal">True</span>)<br><br><span class="hljs-comment"># 然后你可以在训练循环中遍历dataloader来使用数据</span><br><span class="hljs-keyword">for</span> data, labels <span class="hljs-keyword">in</span> dataloader:<br>    <span class="hljs-comment"># 进行训练相关的操作</span><br>    <span class="hljs-keyword">pass</span><br></code></pre></td></tr></table></figure>
-<p>通过使用<code>Dataset</code>和<code>DataLoader</code>，PyTorch提供了一种非常灵活和强大的方式来处理不同来源和格式的数据，同时优化了数据加载的效率。</p>
 
                 
               </div>

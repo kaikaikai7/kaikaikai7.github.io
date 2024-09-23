@@ -16,15 +16,15 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1. transforms基本操作 在PyTorch中，torchvision.transforms模块提供了一系列用于图像预处理和数据增强的工具，可以在数据加载过程中对图像进行各种转换操作。这些转换操作可以帮助模型更好地泛化，并提高模型的性能。以下是一些常用的图像转换操作：  常见转换操作：  ToTensor()：将PIL图像或numpy数组转换为张量。 ToPILImage()：">
+    <meta name="description" content="PyTorch 的 transforms 是 torchvision 模块中的一部分，主要用于对图像数据进行预处理和增强，尤其在图像分类和目标检测等任务中非常常用。transforms 提供了丰富的图像变换功能，比如缩放、裁剪、旋转、归一化等。 1. 基本导入方式 1from torchvision import transforms 2. 常见操作 2.1 transforms.To">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Transforms">
 <meta property="og:url" content="https://kaikaikai7.github.io/2024/03/03/Python/PyTorch/Transforms/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="1. transforms基本操作 在PyTorch中，torchvision.transforms模块提供了一系列用于图像预处理和数据增强的工具，可以在数据加载过程中对图像进行各种转换操作。这些转换操作可以帮助模型更好地泛化，并提高模型的性能。以下是一些常用的图像转换操作：  常见转换操作：  ToTensor()：将PIL图像或numpy数组转换为张量。 ToPILImage()：">
+<meta property="og:description" content="PyTorch 的 transforms 是 torchvision 模块中的一部分，主要用于对图像数据进行预处理和增强，尤其在图像分类和目标检测等任务中非常常用。transforms 提供了丰富的图像变换功能，比如缩放、裁剪、旋转、归一化等。 1. 基本导入方式 1from torchvision import transforms 2. 常见操作 2.1 transforms.To">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-03T02:54:21.000Z">
-<meta property="article:modified_time" content="2024-03-03T06:27:56.633Z">
+<meta property="article:modified_time" content="2024-09-23T08:52:59.125Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2k 字
+          1.3k 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          17 分钟
+          12 分钟
         
       </span>
     
@@ -260,47 +260,38 @@
             
               <div class="markdown-body">
                 
-                <h1 id="transforms基本操作">1. transforms基本操作</h1>
-<p>在PyTorch中，<code>torchvision.transforms</code>模块提供了一系列用于图像预处理和数据增强的工具，可以在数据加载过程中对图像进行各种转换操作。这些转换操作可以帮助模型更好地泛化，并提高模型的性能。以下是一些常用的图像转换操作：</p>
-<ol type="1">
-<li><strong>常见转换操作</strong>：
-<ul>
-<li><code>ToTensor()</code>：将PIL图像或numpy数组转换为张量。</li>
-<li><code>ToPILImage()</code>：将张量转换为PIL图像。</li>
-<li><code>Normalize(mean, std)</code>：对图像进行标准化处理，减去均值并除以标准差。
-<ul>
-<li><code>input[channel] = (input[channel] - mean[channel]) / std[channel]</code></li>
-</ul></li>
-<li><code>Resize(size)</code>：调整图像尺寸。</li>
-<li><code>CenterCrop(size)</code>：对图像进行中心裁剪。</li>
-<li><code>RandomCrop(size)</code>：对图像进行随机裁剪。</li>
-<li><code>RandomHorizontalFlip()</code>：以给定的概率随机水平翻转图像。</li>
-<li><code>RandomVerticalFlip()</code>：以给定的概率随机垂直翻转图像。</li>
-</ul></li>
-<li><strong>高级转换操作</strong>：
-<ul>
-<li><code>ColorJitter(brightness=0, contrast=0, saturation=0, hue=0)</code>：随机调整图像的亮度、对比度、饱和度和色调。</li>
-<li><code>RandomRotation(degrees, resample=False, expand=False, center=None)</code>：随机旋转图像。</li>
-<li><code>RandomAffine(degrees, translate=None, scale=None, shear=None, resample=False, fillcolor=0)</code>：随机仿射变换。</li>
-<li><code>RandomPerspective(distortion_scale=0.5, p=0.5, interpolation=3)</code>：随机透视变换。</li>
-<li><code>RandomErasing(p=0.5, scale=(0.02, 0.33), ratio=(0.3, 3.3), value=0, inplace=False)</code>：随机擦除图像的一部分。</li>
-</ul></li>
-<li><strong>自定义转换</strong>：
-你也可以使用<code>transforms.Lambda</code>自定义转换操作，将一个自定义的函数应用到图像上。</li>
-</ol>
-<p>这些转换操作可以通过<code>transforms.Compose</code>组合在一起，以形成一个转换管道，然后在数据加载时应用于图像。以下是一个简单的示例：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torchvision.transforms <span class="hljs-keyword">as</span> transforms<br><br><span class="hljs-comment"># 定义转换操作</span><br>transform = transforms.Compose([<br>    transforms.Resize(<span class="hljs-number">256</span>),<br>    transforms.CenterCrop(<span class="hljs-number">224</span>),<br>    transforms.RandomHorizontalFlip(),<br>    transforms.ToTensor(),<br>    transforms.Normalize(mean=[<span class="hljs-number">0.485</span>, <span class="hljs-number">0.456</span>, <span class="hljs-number">0.406</span>],<br>                         std=[<span class="hljs-number">0.229</span>, <span class="hljs-number">0.224</span>, <span class="hljs-number">0.225</span>])<br>])<br><br><span class="hljs-comment"># 应用转换操作到数据集</span><br>transformed_dataset = YourDataset(transform=transform)<br></code></pre></td></tr></table></figure>
-<p>在这个示例中，图像将首先被调整大小为256x256像素，然后进行中心裁剪为224x224像素，接着以0.5的概率进行水平翻转，最后被转换为张量并进行标准化处理。</p>
-<h1 id="tensor数据类型">2. Tensor数据类型</h1>
-<p>Tensor数据类型在深度学习中非常重要，因为它们提供了一种高效的数据表示形式，可以在GPU上进行并行计算，加速模型训练和推理过程。以下是一些使用Tensor数据类型的主要原因：</p>
-<ol type="1">
-<li><p><strong>高效的数值计算</strong>：Tensor数据类型是针对数值计算优化的，可以利用底层的高性能数值计算库（如CUDA或BLAS）来加速数值操作。这使得在GPU上进行并行计算成为可能，大大加快了模型训练和推理速度。</p></li>
-<li><p><strong>自动求导</strong>：PyTorch的Tensor支持自动求导功能，可以自动计算张量上的梯度。这对于训练神经网络和其他需要梯度信息的优化算法非常重要，如梯度下降法、反向传播等。</p></li>
-<li><p><strong>灵活的形状和维度</strong>：Tensor数据类型支持灵活的形状和维度，可以轻松处理不同大小和形状的数据，适用于各种类型的神经网络架构和数据集。</p></li>
-<li><p><strong>与深度学习框架集成</strong>：Tensor数据类型是PyTorch和其他深度学习框架的核心数据类型，因此在使用这些框架时，使用Tensor数据类型能够与框架的其他功能（如模型定义、优化器、损失函数等）无缝集成。</p></li>
-<li><p><strong>GPU加速</strong>：Tensor数据类型可以在GPU上进行计算，利用GPU的并行计算能力来加速模型训练和推理。这对于处理大规模数据集和复杂模型非常重要。</p></li>
-</ol>
-<p>总之，Tensor数据类型是深度学习中不可或缺的一部分，它们提供了一个高效的数值计算和自动求导框架，使得深度学习模型的开发和训练变得更加简单、灵活和高效。</p>
+                <p>PyTorch 的 <code>transforms</code> 是 <code>torchvision</code>
+模块中的一部分，主要用于对图像数据进行预处理和增强，尤其在图像分类和目标检测等任务中非常常用。<code>transforms</code>
+提供了丰富的图像变换功能，比如缩放、裁剪、旋转、归一化等。</p>
+<h1 id="基本导入方式">1. 基本导入方式</h1>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> torchvision <span class="hljs-keyword">import</span> transforms<br></code></pre></td></tr></table></figure>
+<h1 id="常见操作">2. 常见操作</h1>
+<h2 id="transforms.totensor">2.1 <code>transforms.ToTensor()</code></h2>
+<p>将图像从 PIL 格式或 numpy 数组转换为 PyTorch 张量，并将像素值从
+<code>[0, 255]</code> 归一化为 <code>[0, 1]</code>。 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">transform = transforms.ToTensor()<br></code></pre></td></tr></table></figure></p>
+<h2 id="transforms.resize">2.2 <code>transforms.Resize()</code></h2>
+<p>调整图像大小，接受单个整数（最小边的大小）或 tuple（宽度，高度）。
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">transform = transforms.Resize((<span class="hljs-number">128</span>, <span class="hljs-number">128</span>))<br></code></pre></td></tr></table></figure></p>
+<h2 id="transforms.centercrop">2.3.
+<code>transforms.CenterCrop()</code></h2>
+<p>从图像中心裁剪指定大小的区域。 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">transform = transforms.CenterCrop(<span class="hljs-number">100</span>)<br></code></pre></td></tr></table></figure></p>
+<h2 id="transforms.randomhorizontalflip">2.4.
+<code>transforms.RandomHorizontalFlip()</code></h2>
+<p>以一定概率（默认 0.5）水平翻转图像，用于数据增强。 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">transform = transforms.RandomHorizontalFlip(p=<span class="hljs-number">0.5</span>)<br></code></pre></td></tr></table></figure></p>
+<h2 id="transforms.randomrotation">2.5.
+<code>transforms.RandomRotation()</code></h2>
+<p>随机旋转图像一定的角度范围，用于数据增强。 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">transform = transforms.RandomRotation(degrees=<span class="hljs-number">30</span>)<br></code></pre></td></tr></table></figure></p>
+<h2 id="transforms.normalize">2.6.
+<code>transforms.Normalize()</code></h2>
+<p>对图像进行标准化操作，一般用于将像素值转换为零均值单位方差。它接受均值和标准差列表。如果使用了
+<code>transforms.ToTensor()</code>，要特别注意输入的均值和标准差应匹配
+<code>[C, H, W]</code> 格式。 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">transform = transforms.Normalize(mean=[<span class="hljs-number">0.5</span>, <span class="hljs-number">0.5</span>, <span class="hljs-number">0.5</span>], std=[<span class="hljs-number">0.5</span>, <span class="hljs-number">0.5</span>, <span class="hljs-number">0.5</span>])<br></code></pre></td></tr></table></figure> # 3. 组合 transforms
+<code>transforms.Compose()</code>
+用于将多个变换操作串联起来。例如，先调整大小、再转为张量、最后标准化图像。
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">transform = transforms.Compose([<br>    transforms.Resize((<span class="hljs-number">128</span>, <span class="hljs-number">128</span>)),<br>    transforms.ToTensor(),<br>    transforms.Normalize(mean=[<span class="hljs-number">0.5</span>, <span class="hljs-number">0.5</span>, <span class="hljs-number">0.5</span>], std=[<span class="hljs-number">0.5</span>, <span class="hljs-number">0.5</span>, <span class="hljs-number">0.5</span>])<br>])<br></code></pre></td></tr></table></figure></p>
+<h1 id="应用-transforms">4. <strong>应用 transforms</strong></h1>
+<p>通常，<code>transforms</code> 会在数据集加载时应用。例如，加载
+<code>CIFAR-10</code> 数据集并应用自定义变换： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> torchvision.datasets <span class="hljs-keyword">import</span> CIFAR10<br><br>transform = transforms.Compose([<br>    transforms.Resize((<span class="hljs-number">128</span>, <span class="hljs-number">128</span>)),<br>    transforms.ToTensor()<br>])<br><br>dataset = CIFAR10(root=<span class="hljs-string">&#x27;./data&#x27;</span>, train=<span class="hljs-literal">True</span>, download=<span class="hljs-literal">True</span>, transform=transform)<br></code></pre></td></tr></table></figure></p>
 
                 
               </div>
