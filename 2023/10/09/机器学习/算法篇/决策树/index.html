@@ -16,15 +16,15 @@
   <meta name="author" content="kaikaikai">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1 直观理解   img  2 信息熵  信息熵是度量样本集合纯度最常用的一种指标。 假定当前样本集合D中第k类样本所占的比例为\(\mathrm{p}_{\mathrm{k}}(\mathrm{k}&#x3D;1,2, \ldots,|\mathrm{y}|)\)，则D的信息熵定义为： \[ \operatorname{Ent}(D)&#x3D;-\sum_{k&#x3D;1}^{|y|} p_k \lo">
+    <meta name="description" content="1. 直观理解   img  2. 信息熵  决策树学习的关键是如何选择最优划分属性。划分过程中，决策树的分支结点所包含的样本尽可能属于同一类别，结点的纯度（purity）越来越高。信息熵（Information Entropy）是度量样本集合纯度最常用的一种指标。 假定当前样本集合D中第k类样本所占的比例为\(\mathrm{p}_{\mathrm{k}}(\mathrm{k}">
 <meta property="og:type" content="article">
 <meta property="og:title" content="决策树">
 <meta property="og:url" content="https://kaikaikai7.github.io/2023/10/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%AE%97%E6%B3%95%E7%AF%87/%E5%86%B3%E7%AD%96%E6%A0%91/index.html">
 <meta property="og:site_name" content="kaikaikai&#39;s blog">
-<meta property="og:description" content="1 直观理解   img  2 信息熵  信息熵是度量样本集合纯度最常用的一种指标。 假定当前样本集合D中第k类样本所占的比例为\(\mathrm{p}_{\mathrm{k}}(\mathrm{k}&#x3D;1,2, \ldots,|\mathrm{y}|)\)，则D的信息熵定义为： \[ \operatorname{Ent}(D)&#x3D;-\sum_{k&#x3D;1}^{|y|} p_k \lo">
+<meta property="og:description" content="1. 直观理解   img  2. 信息熵  决策树学习的关键是如何选择最优划分属性。划分过程中，决策树的分支结点所包含的样本尽可能属于同一类别，结点的纯度（purity）越来越高。信息熵（Information Entropy）是度量样本集合纯度最常用的一种指标。 假定当前样本集合D中第k类样本所占的比例为\(\mathrm{p}_{\mathrm{k}}(\mathrm{k}">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-10-09T06:34:02.000Z">
-<meta property="article:modified_time" content="2023-10-09T08:05:41.942Z">
+<meta property="article:modified_time" content="2024-10-04T02:05:29.135Z">
 <meta property="article:author" content="kaikaikai">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.7k 字
+          2.8k 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          23 分钟
+          24 分钟
         
       </span>
     
@@ -260,25 +260,26 @@
             
               <div class="markdown-body">
                 
-                <h1 id="直观理解">1 直观理解</h1>
+                <h1 id="直观理解">1. 直观理解</h1>
 <figure>
 <img
 src="https://raw.githubusercontent.com/kaikaikai7/BlogImage/main/img/202310091550549.jpg" srcset="/img/loading.gif" lazyload
 alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
-<h1 id="信息熵">2 信息熵</h1>
+<h1 id="信息熵">2. 信息熵</h1>
 <ul>
-<li><p>信息熵是度量样本集合纯度最常用的一种指标。</p></li>
+<li><p>决策树学习的关键是如何选择最优划分属性。划分过程中，决策树的分支结点所包含的样本尽可能属于同一类别，结点的纯度（purity）越来越高。信息熵（Information
+Entropy）是度量样本集合纯度最常用的一种指标。</p></li>
 <li><p>假定当前样本集合D中第k类样本所占的比例为<span
 class="math inline">\(\mathrm{p}_{\mathrm{k}}(\mathrm{k}=1,2,
 \ldots,|\mathrm{y}|)\)</span>，则D的信息熵定义为： <span
 class="math display">\[
 \operatorname{Ent}(D)=-\sum_{k=1}^{|y|} p_k \log _2 p_k
 \]</span></p></li>
-<li><p>Ent(D)的值越小，则D的纯度越高</p></li>
+<li><p>Ent(D)的值越小，则D的纯度越高。</p></li>
 </ul>
-<h1 id="信息增益information-gain--id3决策树">3 信息增益（Information
+<h1 id="信息增益information-gain--id3决策树">3. 信息增益（Information
 gain）- ID3决策树</h1>
 <ul>
 <li><p>ID3（Iterative
@@ -297,9 +298,10 @@ $，样本数越多的分支结点的影响越大，信息增益越大，使用�
 \]</span></p></li>
 <li><p>信息增益准则对可取值数目较多的属性有所偏好，因为属性取值多则划分的更干净。但这可能导致出现一些荒谬错误，于是引入增益率。</p></li>
 </ul>
-<h1 id="增益率gain-ratio--c4.5决策树">4 增益率（Gain Ratio）-
+<h1 id="增益率gain-ratio--c4.5决策树">4. 增益率（Gain Ratio）-
 C4.5决策树</h1>
-<p><span class="math display">\[
+<p>C4.5决策树算法不直接使用信息增益，而是使用增益率来选择最优划分属性。
+<span class="math display">\[
 \text { Gain\_ratio(D, a })=\frac{\operatorname{Gain}(\mathrm{D},
 \mathrm{a})}{\mathrm{IV}(\mathrm{a})}
 \]</span></p>
@@ -308,14 +310,8 @@ C4.5决策树</h1>
 \frac{\left|\mathrm{D}^{\mathrm{v}}\right|}{|\mathrm{D}|} \log _2
 \frac{\left|\mathrm{D}^{\mathrm{v}}\right|}{|\mathrm{D}|}
 \]</span></p>
-<ul>
-<li>除以IV可以看做是一个归一化（标准化）过程，这里，属性a的可能取值数目越多，IV（a）值越大，信息增益除以IV后值越小，抵消了分支多的好处。但是这样一来，增益率会偏好分支少的属性，C4.5采用两步对此进行了折中改进：
-<ul>
-<li>先对所有属性的信息增益进行从高到低排序，从候选划分属性中选出信息增益高于平均水平的</li>
-<li>然后从中选出增益率高的</li>
-</ul></li>
-</ul>
-<h1 id="基尼指数gini-index--cart决策树">5 基尼指数（Gini Index）-
+<p>除以IV可以看做是一个归一化（标准化）过程，这里，属性a的可能取值数目越多，IV（a）值越大，信息增益除以IV后值越小，抵消了分支多的好处。但是这样一来，增益率会偏好分支少的属性，C4.5采用两步对此进行了折中改进：先对所有属性的信息增益进行从高到低排序，从候选划分属性中选出信息增益高于平均水平的；然后从中选出增益率高的。</p>
+<h1 id="基尼指数gini-index--cart决策树">5. 基尼指数（Gini Index）-
 CART决策树</h1>
 <ul>
 <li><p>CART（Classification and Regression
@@ -334,7 +330,7 @@ class="math display">\[
 \operatorname{Gini}(\mathrm{D})
 \]</span></p></li>
 </ul>
-<h1 id="剪枝pruning">6 剪枝（pruning）</h1>
+<h1 id="剪枝pruning">6. 剪枝（pruning）</h1>
 <p>在上面我们提到了信息增益、增益率、基尼系数三个不同的划分属性，有人会疑惑，不同的划分原则是否会对结果产生影响，研究表明划分选择的各种准则虽然对决策树的尺寸有较大的影响，但对泛化性能的影响有限。相比而言，剪枝方法和程度对决策树泛化性能的影响更为显著。决策树从上到下划分实际上完成的是从全部到局部的划分，分到局部时可能会受到噪音的影响，容易产生不必要的分枝而过拟合，剪枝是决策树对付“过拟合”的主要手段。</p>
 <h2 id="预剪枝prepruning">6.1 预剪枝（prepruning）</h2>
 <p>指在决策树生成过程中，对每个结点在划分前先进行估计，若当前结点的划分不能带来决策树泛化性能提升，则停止划分并将当前结点标记为叶结点。示例：划分后精度变低了，则不划分进行剪枝，划分后精度没变化，遵循奥卡姆剃刀原则，不划分。</p>
@@ -377,22 +373,24 @@ alt="image-20231009154800431" />
 <figcaption aria-hidden="true">image-20231009154800431</figcaption>
 </figure>
 <h2 id="预剪枝vs后剪枝">6.3 预剪枝VS后剪枝</h2>
-<p>（1）时间开销</p>
 <ul>
-<li>预剪枝：测试时间开销降低，训练时间开销降低</li>
-<li>后剪枝：测试时间开销降低，训练时间开销增加</li>
-</ul>
-<p>（2）过/欠拟合风险：</p>
+<li><p>时间开销</p>
 <ul>
-<li>预剪枝：过拟合风险降低，欠拟合风险增加</li>
-<li>后剪枝：过拟合风险降低，欠拟合风险基本不变</li>
+<li><p>预剪枝：测试时间开销降低，训练时间开销降低</p></li>
+<li><p>后剪枝：测试时间开销降低，训练时间开销增加</p></li>
+</ul></li>
+<li><p>过/欠拟合风险：</p>
+<ul>
+<li><p>预剪枝：过拟合风险降低，欠拟合风险增加</p></li>
+<li><p>后剪枝：过拟合风险降低，欠拟合风险基本不变</p></li>
+</ul></li>
+<li><p>泛化性能：后剪枝通常优于预剪枝</p></li>
 </ul>
-<p>（3）泛化性能：后剪枝通常优于预剪枝</p>
-<p>参考教程：</p>
+<h1 id="参考资料">参考资料</h1>
 <ol type="1">
 <li><a
 target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Xp4y1U7vW/?spm_id_from=333.788.recommend_more_video.-1&amp;vd_source=5a5397ea8e931fbb28195dfdfa5e1b03">【五分钟机器学习】可视化的决策过程：决策树
-Decision Tree_哔哩哔哩_bilibili</a></li>
+Decision Tree_哔哩哔哩</a></li>
 <li><a
 target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43182102/article/details/122106265">【机器学习sklearn】决策树（Decision
 Tree）算法-CSDN博客</a></li>
