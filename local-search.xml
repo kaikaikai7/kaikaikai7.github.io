@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>LLM攻击类型总结</title>
+    <link href="/2025/04/10/LLM/LLM%E6%94%BB%E5%87%BB%E7%B1%BB%E5%9E%8B%E6%80%BB%E7%BB%93/"/>
+    <url>/2025/04/10/LLM/LLM%E6%94%BB%E5%87%BB%E7%B1%BB%E5%9E%8B%E6%80%BB%E7%BB%93/</url>
+    
+    <content type="html"><![CDATA[<h1 id="安全">1. 安全</h1><h2 id="对抗攻击">1.1 对抗攻击</h2><p>定义：目标是让模型产生<strong>错误</strong>的输出。</p><table><thead><tr class="header"><th>论文标题</th><th>论文来源</th></tr></thead><tbody><tr class="odd"><td>Are aligned neural networks adversarially aligned?</td><td>NeurIPS</td></tr><tr class="even"><td>An LLM can fool itself: A prompt-based adversarial attack</td><td>ICLR</td></tr></tbody></table><h2 id="越狱攻击">1.2 越狱攻击</h2><p>定义：目标是让模型产生<strong>不安全</strong>的输出。</p><table><thead><tr class="header"><th>论文标题</th><th>论文来源</th></tr></thead><tbody><tr class="odd"><td>LLM-fuzzer: Scaling assessment of large language modeljailbreaks</td><td>USENIX</td></tr><tr class="even"><td>AutoDAN: Generating stealthy jailbreak prompts on aligned largelanguage models</td><td>ICLR</td></tr></tbody></table><h2 id="后门攻击">1.3 后门攻击</h2><p>定义：通过污染训练样本或篡改模型权重，在模型中引入特定的漏洞，使攻击者能够利用恶意触发器操控模型的输出。</p><table><thead><tr class="header"><th>论文标题</th><th>论文来源</th></tr></thead><tbody><tr class="odd"><td>PPT: Backdoor attacks on pre-trained models via poisoned prompttuning</td><td>IJCAI</td></tr><tr class="even"><td>BadAgent: Inserting and activating backdoor attacks in LLMagents</td><td>ACL</td></tr></tbody></table><h2 id="提示注入攻击">1.4 提示注入攻击</h2><p>定义：目标是将恶意数据注入LLM集成应用的输入中。</p><table><thead><tr class="header"><th>论文标题</th><th>论文来源</th></tr></thead><tbody><tr class="odd"><td>Formalizing and benchmarking prompt injection attacks anddefenses</td><td>USENIX</td></tr><tr class="even"><td>Tensor trust: Interpretable prompt injection attacks from an onlinegame</td><td>ICLR</td></tr></tbody></table><h2 id="能量延迟攻击">1.5 能量延迟攻击</h2><p>定义：通过增加计算需求来降低大语言模型推理的效率，从而导致更高的推理延迟和能耗。</p><table><thead><tr class="header"><th>论文标题</th><th>论文来源</th></tr></thead><tbody><tr class="odd"><td>Dynamic Transformers Provide a False Sense of Efficiency</td><td>ACL</td></tr><tr class="even"><td>LLMEffiChecker: Understanding and Testing Efficiency Degradation ofLarge Language Models</td><td>TOSEM</td></tr></tbody></table><h2 id="幻觉">1.6 幻觉</h2><p>定义：模型生成的文本不遵循原文或者不符合事实</p><table><thead><tr class="header"><th>论文标题</th><th>论文来源</th></tr></thead><tbody><tr class="odd"><td>ANAH: Analytical annotation of hallucinations in large languagemodels</td><td>ACL</td></tr><tr class="even"><td>InterrogateLLM: Zero-resource hallucination detection inLLM-generated answers</td><td>ACL</td></tr></tbody></table><h1 id="隐私">2. 隐私</h1><h2 id="模型窃取攻击">2.1 模型窃取攻击</h2><p>定义：目的是创建一个替代模型，该模型通过策略性查询并分析其响应来复制目标模型的功能。</p><table><thead><tr class="header"><th>论文标题</th><th>论文来源</th></tr></thead><tbody><tr class="odd"><td>Stealing part of a production language model</td><td>ICML</td></tr><tr class="even"><td>Stealing the decoding algorithms of language models</td><td>CCS</td></tr></tbody></table><h2 id="数据窃取攻击">2.2 数据窃取攻击</h2><p>定义：目的是恢复训练样本，可能会暴露敏感信息，例如个人可识别信息（PII）、受版权保护的内容或机密数据。</p><table><thead><tr class="header"><th>论文标题</th><th>论文来源</th></tr></thead><tbody><tr class="odd"><td>Extracting training data from large language models</td><td>USENIX</td></tr><tr class="even"><td>ProPILE: Probing privacy leakage in large language models</td><td>NeurIPS</td></tr></tbody></table><h2 id="梯度泄露攻击">2.3 梯度泄露攻击</h2><p>定义：通过分析训练或微调阶段的梯度来提取敏感信息。</p><table><thead><tr class="header"><th>论文标题</th><th>论文来源</th></tr></thead><tbody><tr class="odd"><td>LAMP: Extracting text from gradients with language model priors</td><td>NeurIPS</td></tr><tr class="even"><td>TAG: Gradient attack on transformer-based language models</td><td>EMNLP</td></tr></tbody></table><h2 id="成员推理攻击">2.4 成员推理攻击</h2><p>定义：确定某个数据样本是否被包含在模型的训练数据中。</p><table><thead><tr class="header"><th>论文标题</th><th>论文来源</th></tr></thead><tbody><tr class="odd"><td>Deduplicating training data mitigates privacy risks in languagemodels</td><td>ICML</td></tr><tr class="even"><td>Detecting pretraining data from large language models</td><td>ICLR</td></tr></tbody></table><h2 id="属性推理攻击">2.5 属性推理攻击</h2><p>定义：旨在推断训练集中是否包含具有给定属性的任何样本。例如，推断是否有任何特定品牌汽车（即属性）的图像（即样本）用于训练目标模型。</p><table><thead><tr class="header"><th>论文标题</th><th>论文来源</th></tr></thead><tbody><tr class="odd"><td>Property Existence Inference against Generative Models</td><td>USENIX</td></tr></tbody></table><h2 id="侧信道攻击">2.6 侧信道攻击</h2><p>定义：指攻击者通过观察和分析系统的非直接输出信息（如时间、功耗、电磁辐射等），来推断出敏感数据的一种攻击方式。</p><table><thead><tr class="header"><th>论文标题</th><th>论文来源</th></tr></thead><tbody><tr class="odd"><td>I Know What You Asked: Prompt Leakage via KV-Cache Sharing inMulti-Tenant LLM Serving</td><td>NDSS</td></tr></tbody></table>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>排序算法篇</title>
     <link href="/2024/08/22/LeetCode/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E7%AF%87/"/>
     <url>/2024/08/22/LeetCode/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E7%AF%87/</url>
